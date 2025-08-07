@@ -17,6 +17,7 @@
   margin-bottom: 32px;
   text-align: left;
   letter-spacing: -1px;
+  color: rgb(255, 136, 0);
 }
 .awards-list {
   padding-left: 18px;
@@ -275,7 +276,7 @@
 /* Timeline Section */
 .timeline-section {
   padding: 80px 0;
-  background: white;
+  background: #FDF9F4;
 }
 
 .timeline-section h2 {
@@ -466,7 +467,7 @@
 /* Awards Section */
 .awards-section {
   padding: 80px 0;
-  background: #f8f9fa;
+  background: #fdf9f4;
 }
 
 .awards-section h2 {
@@ -518,6 +519,10 @@
   align-items: flex-start;
   gap: 48px;
   margin-top: 40px;
+  background: #fdf9f4;
+}
+.csr-section{
+  background-color: #fdf9f4;
 }
 .csr-img-left {
   flex: 1 1 320px;
@@ -561,13 +566,14 @@
   line-height: 1.6;
 }
 .csr-stats {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background:rgb(255, 140, 0);
   color: white;
   padding: 10px 20px;
   border-radius: 25px;
   font-weight: bold;
   display: inline-block;
   font-size: 1rem;
+  text-align: center;
 }
 @media (max-width: 900px) {
   .csr-flex {

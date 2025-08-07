@@ -411,7 +411,7 @@ const Home1 = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up" data-aos-delay="200">Ready to Transform Your Finances?</h2>
           <p className="text-lg text-blue-100 mb-8" data-aos="fade-up" data-aos-delay="300">Partner with us for expert financial guidance, innovative solutions, and a team that cares about your success. Take the next step toward financial clarity and growth today.</p>
           <a 
-            href="#contact" 
+            href="/contactus" 
             className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg shadow-lg transition-all duration-200 transform hover:scale-105"
             data-aos="fade-up" 
             data-aos-delay="600"

@@ -13,6 +13,7 @@ import Blog from './pages/blog';
 import BlogDetail from './pages/BlogDetail';
 import Service from './pages/service';
 import FinancialPlanningAnalysis from './pages/Financial Planning & Analysis';
+import AdminDashboard from './pages/admindashboard';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Welcome />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route
           path="/*"
           element={

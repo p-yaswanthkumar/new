@@ -1,5 +1,7 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './aboutus.css';
 import aboutushero from '../assets/aboutshero.mp4';
 import exp1 from '../assets/exp1.jpg';
@@ -14,10 +16,13 @@ import aboutlast from '../assets/aboutlast.jpg';
 
 
 const AboutUs = () => {
+  useEffect(() => {
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: false, mirror: true, offset: 100 });
+  }, []);
   return (
     <div className="about-us-container">
       {/* Hero Section */}
-      <section className="hero-section h-screen" style={{position: 'relative', overflow: 'hidden'}}>
+      <section className="hero-section h-screen" style={{position: 'relative', overflow: 'hidden'}} data-aos="fade-in" data-aos-duration="1500">
         {/* Background Video */}
         <video
           autoPlay
@@ -69,53 +74,53 @@ const AboutUs = () => {
       
 
       {/* Timeline */}
-      <section className="timeline-section">
-        <div className="container">
+      <section className="timeline-section w-full bg-[#FDF9F4] py-16" data-aos="fade-up" data-aos-duration="1200">
+        <div className="container mx-auto px-4">
           <h2>Our Journey Through the Years</h2>
           <div className="timeline">
-            <div className="timeline-item">
+            <div className="timeline-item" data-aos="fade-up" data-aos-delay="100">
               <div className="timeline-year">2018</div>
               <div className="timeline-content">
                 <h3>Company Founded</h3>
                 <p>Started with a team of 5 passionate individuals and a vision to revolutionize financial services.</p>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" data-aos="fade-up" data-aos-delay="200">
               <div className="timeline-year">2019</div>
               <div className="timeline-content">
                 <h3>First 100 Clients</h3>
                 <p>Reached our first milestone of serving 100 satisfied clients with personalized financial solutions.</p>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" data-aos="fade-up" data-aos-delay="300">
               <div className="timeline-year">2020</div>
               <div className="timeline-content">
                 <h3>Digital Transformation</h3>
                 <p>Launched our comprehensive digital platform, making financial services more accessible than ever.</p>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" data-aos="fade-up" data-aos-delay="400">
               <div className="timeline-year">2021</div>
               <div className="timeline-content">
                 <h3>Series A Funding</h3>
                 <p>Secured $10M in Series A funding to expand our services and reach more clients globally.</p>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" data-aos="fade-up" data-aos-delay="500">
               <div className="timeline-year">2022</div>
               <div className="timeline-content">
                 <h3>International Expansion</h3>
                 <p>Expanded operations to 5 countries, serving over 10,000 clients worldwide.</p>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" data-aos="fade-up" data-aos-delay="600">
               <div className="timeline-year">2023</div>
               <div className="timeline-content">
                 <h3>AI Integration</h3>
                 <p>Integrated advanced AI technology to provide smarter, more personalized financial insights.</p>
               </div>
             </div>
-            <div className="timeline-item">
+            <div className="timeline-item" data-aos="fade-up" data-aos-delay="700">
               <div className="timeline-year">2024</div>
               <div className="timeline-content">
                 <h3>50,000+ Clients</h3>
@@ -127,9 +132,9 @@ const AboutUs = () => {
       </section>
 
       {/* Mission & Values */}
-      <section className="mission-vision-section">
+      <section className="mission-vision-section" data-aos="fade-up" data-aos-duration="1200">
         <div className="container mission-vision-flex">
-          <div className="mv-card mv-vision">
+          <div className="mv-card mv-vision" data-aos="fade-right" data-aos-delay="200">
             <div className="mv-icon-bg">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="24" cy="24" r="24" fill="#ff8800"/>
@@ -141,10 +146,10 @@ const AboutUs = () => {
               To become the leading financial solutions provider by emphasizing innovation and trust, establishing ourselves as a globally recognized company through the highest standard of services and solutions.
             </p>
           </div>
-          <div className="mv-image-center">
+          <div className="mv-image-center" data-aos="zoom-in" data-aos-delay="400">
             <img src={mission} alt="Team" className="mv-center-img" />
           </div>
-          <div className="mv-card mv-mission">
+          <div className="mv-card mv-mission" data-aos="fade-left" data-aos-delay="600">
             <div className="mv-icon-bg">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="24" cy="24" r="24" fill="#ff8800"/>
@@ -158,76 +163,11 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-
-      {/* Team Profiles */}
-      <section className="team-section">
-        <div className="container">
-          <h2>Meet Our Leadership Team</h2>
-          <div className="team-grid">
-            <div className="team-member team-hover-animate">
-              <div className="team-hover-bg" />
-              <img src={exp1} alt="CEO" className="team-photo orange-ring" />
-              <h3>Priya Sharma</h3>
-              <p className="team-title">Chief Executive Officer</p>
-              <p className="team-bio">
-                Priya brings 18 years of leadership in digital finance, driving our mission to empower clients with innovative solutions. She is passionate about financial inclusion and has led multiple award-winning fintech initiatives.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate">
-              <div className="team-hover-bg" />
-              <img src={exp2} alt="CTO" className="team-photo orange-ring" />
-              <h3>Arjun Patel</h3>
-              <p className="team-title">Chief Technology Officer</p>
-              <p className="team-bio">
-                Arjun is a technology strategist with expertise in AI and cloud platforms. He leads our product innovation, ensuring secure and scalable solutions for all clients.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate">
-              <div className="team-hover-bg" />
-              <img src={exp3} alt="CFO" className="team-photo orange-ring" />
-              <h3>Meera Desai</h3>
-              <p className="team-title">Chief Financial Officer</p>
-              <p className="team-bio">
-                Meera oversees our financial strategy and growth, with a focus on transparency and value creation. She has a track record of guiding startups to sustainable success.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate">
-              <div className="team-hover-bg" />
-              <img src={exp4} alt="COO" className="team-photo orange-ring" />
-              <h3>Rohan Gupta</h3>
-              <p className="team-title">Chief Operating Officer</p>
-              <p className="team-bio">
-                Rohan ensures operational excellence and client satisfaction. With 14 years in financial operations, he is dedicated to delivering seamless experiences.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate">
-              <div className="team-hover-bg" />
-              <img src={exp5} alt="CMO" className="team-photo orange-ring" />
-              <h3>Ananya Rao</h3>
-              <p className="team-title">Chief Marketing Officer</p>
-              <p className="team-bio">
-                Ananya leads our brand and outreach, building trust and engagement with clients. She specializes in digital marketing and financial education campaigns.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate">
-              <div className="team-hover-bg" />
-              <img src={exp6} alt="Head of Client Success" className="team-photo orange-ring" />
-              <h3>Vikram Singh</h3>
-              <p className="team-title">Head of Client Success</p>
-              <p className="team-bio">
-                Vikram champions our client-first approach, ensuring every client receives personalized support and guidance throughout their financial journey.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Awards & Certifications */}
-      <section className="awards-section">
+      <section className="awards-section" data-aos="fade-up" data-aos-duration="1200">
         <div className="container">
           <div className="awards-flex">
-            <div className="awards-left">
-              <h2 className="awards-heading">Awards & Certifications</h2>
+            <div className="awards-left" data-aos="fade-right" data-aos-delay="200">
+              <h2 className="awards-heading ">Awards & Certifications</h2>
               <ul className="awards-list">
                 <li>
                   <strong>Fintech Innovation Award 2023:</strong> Recognized for outstanding innovation in financial technology solutions
@@ -249,19 +189,85 @@ const AboutUs = () => {
                 </li>
               </ul>
             </div>
-            <div className="awards-right">
+            <div className="awards-right" data-aos="fade-left" data-aos-delay="400">
               <img src={aboutlast} alt="Awards" className="awards-img" />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Team Profiles */}
+      <section className="team-section w-full bg-[#FDF9F4] py-16" data-aos="fade-up" data-aos-duration="1200">
+        <div className="container mx-auto px-4">
+          <h2>Meet Our Leadership Team</h2>
+          <div className="team-grid">
+            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="100">
+              <div className="team-hover-bg" />
+              <img src={exp1} alt="CEO" className="team-photo orange-ring" />
+              <h3>Priya Sharma</h3>
+              <p className="team-title">Chief Executive Officer</p>
+              <p className="team-bio">
+                Priya brings 18 years of leadership in digital finance, driving our mission to empower clients with innovative solutions. She is passionate about financial inclusion and has led multiple award-winning fintech initiatives.
+              </p>
+            </div>
+            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="200">
+              <div className="team-hover-bg" />
+              <img src={exp2} alt="CTO" className="team-photo orange-ring" />
+              <h3>Arjun Patel</h3>
+              <p className="team-title">Chief Technology Officer</p>
+              <p className="team-bio">
+                Arjun is a technology strategist with expertise in AI and cloud platforms. He leads our product innovation, ensuring secure and scalable solutions for all clients.
+              </p>
+            </div>
+            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="300">
+              <div className="team-hover-bg" />
+              <img src={exp3} alt="CFO" className="team-photo orange-ring" />
+              <h3>Meera Desai</h3>
+              <p className="team-title">Chief Financial Officer</p>
+              <p className="team-bio">
+                Meera oversees our financial strategy and growth, with a focus on transparency and value creation. She has a track record of guiding startups to sustainable success.
+              </p>
+            </div>
+            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="400">
+              <div className="team-hover-bg" />
+              <img src={exp4} alt="COO" className="team-photo orange-ring" />
+              <h3>Rohan Gupta</h3>
+              <p className="team-title">Chief Operating Officer</p>
+              <p className="team-bio">
+                Rohan ensures operational excellence and client satisfaction. With 14 years in financial operations, he is dedicated to delivering seamless experiences.
+              </p>
+            </div>
+            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="500">
+              <div className="team-hover-bg" />
+              <img src={exp5} alt="CMO" className="team-photo orange-ring" />
+              <h3>Ananya Rao</h3>
+              <p className="team-title">Chief Marketing Officer</p>
+              <p className="team-bio">
+                Ananya leads our brand and outreach, building trust and engagement with clients. She specializes in digital marketing and financial education campaigns.
+              </p>
+            </div>
+            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="600">
+              <div className="team-hover-bg" />
+              <img src={exp6} alt="Head of Client Success" className="team-photo orange-ring" />
+              <h3>Vikram Singh</h3>
+              <p className="team-title">Head of Client Success</p>
+              <p className="team-bio">
+                Vikram champions our client-first approach, ensuring every client receives personalized support and guidance throughout their financial journey.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Awards & Certifications */}
+      
+
       {/* CSR / Community Impact */}
-      <section className="csr-section">
+      <section className="csr-section" data-aos="fade-up" data-aos-duration="1200">
         <div className="container">
-          <h2 className="csr-heading">Community Impact & Social Responsibility</h2>
+          <h2 className="csr-heading pt-10">Community Impact & Social Responsibility</h2>
           <div className="csr-cards-grid">
-            <div className="csr-item">
+            <div className="csr-item" data-aos="fade-up" data-aos-delay="100">
               <h3>Financial Literacy Program</h3>
               <p>
                 We've educated over 25,000 individuals through our free financial literacy workshops 
@@ -271,8 +277,8 @@ const AboutUs = () => {
                 <span>25,000+ People Educated</span>
               </div>
             </div>
-            <div className="csr-item">
-              <h3>Environmental Sustainability</h3>
+            <div className="csr-item" data-aos="fade-up" data-aos-delay="200">
+              <h3>Environmental Suability</h3>
               <p>
                 Committed to carbon neutrality by 2025. We've reduced our carbon footprint by 40% 
                 through digital-first operations and renewable energy initiatives.
@@ -281,7 +287,7 @@ const AboutUs = () => {
                 <span>40% Carbon Reduction</span>
               </div>
             </div>
-            <div className="csr-item">
+            <div className="csr-item" data-aos="fade-up" data-aos-delay="300">
               <h3>Community Investment</h3>
               <p>
                 We donate 1% of our annual profits to local charities and have provided $500K+ 
@@ -291,7 +297,7 @@ const AboutUs = () => {
                 <span>$500K+ in Microloans</span>
               </div>
             </div>
-            <div className="csr-item">
+            <div className="csr-item" data-aos="fade-up" data-aos-delay="400">
               <h3>Diversity & Inclusion</h3>
               <p>
                 Our workforce is 45% women and 60% from diverse backgrounds. We're committed to 
@@ -301,7 +307,7 @@ const AboutUs = () => {
                 <span>60% Diverse Workforce</span>
               </div>
             </div>
-            <div className="csr-item">
+            <div className="csr-item" data-aos="fade-up" data-aos-delay="500">
               <h3>Employee Volunteerism</h3>
               <p>
                 Our employees have volunteered over 10,000 hours in community service, supporting education, health, and local development projects.
@@ -310,7 +316,7 @@ const AboutUs = () => {
                 <span>10,000+ Volunteer Hours</span>
               </div>
             </div>
-            <div className="csr-item">
+            <div className="csr-item" data-aos="fade-up" data-aos-delay="600">
               <h3>Tech for Good</h3>
               <p>
                 Leveraging technology to bridge financial gaps, we've launched digital tools for underserved populations to access essential financial services.

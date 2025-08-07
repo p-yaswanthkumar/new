@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import home2hero from '../assets/home2hero.mp4';
 import logo11 from '../assets/11.png';
 import logo12 from '../assets/12.png';
@@ -75,9 +77,23 @@ const Home2 = () => {
     setRetireResult(null);
   };
 
+  // Initialize AOS on mount
+  useEffect(() => {
+    AOS.init({ once: true, duration: 1000, offset: 80 });
+  }, []);
+
+  // Smooth scroll to next section
+  const handleScrollToNext = () => {
+    const nextSection = document.getElementById('tools-section');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900" data-aos="fade-up">
         {/* Background Video */}
         <video
           autoPlay
@@ -98,7 +114,10 @@ const Home2 = () => {
           <p className="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
             Unlock the full potential of your business with expert accounting, tax planning, and financial consulting. We deliver clarity, compliance, and growth for individuals and organizations alike.
           </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg transition-colors duration-200 shadow-lg">
+          <button
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg transition-colors duration-200 shadow-lg"
+            onClick={handleScrollToNext}
+          >
             Get Started
           </button>
         </div>
@@ -110,7 +129,7 @@ const Home2 = () => {
       
 
       {/* Tool/Calculator Preview Section */}
-      <section className="bg-gradient-to-r from-blue-50 to-purple-100 py-16">
+      <section id="tools-section" className="bg-gradient-to-r from-blue-50 to-purple-100 py-16" data-aos="fade-up" data-aos-delay="100">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10">
             Explore Our Financial Tools & Calculators
@@ -146,7 +165,7 @@ const Home2 = () => {
           </div>
         </div>
       </section>
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover h-[750px] bg-center bg-no-repeat"
@@ -177,7 +196,7 @@ const Home2 = () => {
       </section>
 
       {/* Partner Logos Slider */}
-      <section className="bg-white py-10">
+      <section className="bg-white py-10" data-aos="fade-up" data-aos-delay="300">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
             Trusted by Leading Businesses & Financial Partners
@@ -211,69 +230,69 @@ const Home2 = () => {
 
 
       {/* Industries We Serve Section */}
-      <section className="bg-white py-16">
+      <section className="bg-[#FDF9F4] py-16" data-aos="fade-up" data-aos-delay="400">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">Industries We Serve</h2>
           <p className="text-center text-gray-400 mb-10 max-w-2xl mx-auto">We are proud to be driving a digital revolution across various industry verticals.</p>
           <div className="grid grid-rows-2 grid-cols-5 sm:grid-cols-3 md:grid-cols-5 gap-8 justify-items-center">
             {/* Logistics */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M7 17v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/><circle cx="12" cy="7" r="4"/><path d="M5 21h14"/></svg>
               </span>
               <div className="font-semibold text-center">Logistics</div>
             </div>
             {/* Social Networking */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg>
               </span>
               <div className="font-semibold text-center">Social Networking</div>
             </div>
             {/* Healthcare */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
               </span>
               <div className="font-semibold text-center">Healthcare</div>
             </div>
             {/* Restaurant */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M8 7v10M16 7v10M5 7h14M7 21h10"/></svg>
               </span>
               <div className="font-semibold text-center">Restaurant</div>
             </div>
             {/* Wellness & Fitness */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
               </span>
               <div className="font-semibold text-center">Wellness & Fitness</div>
             </div>
             {/* Sports */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M16 17l-4-4-4 4"/><path d="M12 3v10"/></svg>
               </span>
               <div className="font-semibold text-center">Sports</div>
             </div>
             {/* Ecommerce */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="2"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/></svg>
               </span>
               <div className="font-semibold text-center">Ecommerce</div>
             </div>
             {/* Real Estate */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="7" y="10" width="10" height="8" rx="2"/><path d="M12 4v6"/><path d="M9 10V4h6v6"/></svg>
               </span>
               <div className="font-semibold text-center">Real Estate</div>
             </div>
             {/* Education */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="8" rx="2"/><path d="M12 8v8"/></svg>
               </span>
@@ -336,7 +355,7 @@ const Home2 = () => {
           </div>
         </div>
       )}
-      <section className="bg-white py-16">
+      <section className="bg-white py-16" data-aos="fade-up" data-aos-delay="500">
   <div className="max-w-6xl mx-auto px-4 flex flex-row items-start gap-12">
     {/* Left Content */}
     <div className="w-1/2">
@@ -351,7 +370,7 @@ const Home2 = () => {
   our articles, case studies, and professional perspectives will keep you one step ahead in achieving your goals.
       </p>
       <a
-        href="#"
+        href="/blog"
         className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200 shadow"
       >
         Read More Insights
@@ -388,8 +407,8 @@ const Home2 = () => {
   </div>
 </section>
 
+      {/* AOS handles animation styles */}
     </>
-    
   );
 };
 
