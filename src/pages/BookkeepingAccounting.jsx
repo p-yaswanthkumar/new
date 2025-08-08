@@ -1,3 +1,4 @@
+// This file was renamed to BookkeepingAccounting.jsx for URL-safe routing. Please use that file instead.
 import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -58,10 +59,12 @@ const BookkeepingAccounting = () => {
     const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
     window.addEventListener('theme-changed', handleThemeChange);
     window.addEventListener('storage', handleThemeChange);
+    window.addEventListener('focus', handleThemeChange);
     AOS.init({ once: true, duration: 1000, offset: 80 });
     return () => {
       window.removeEventListener('theme-changed', handleThemeChange);
       window.removeEventListener('storage', handleThemeChange);
+      window.removeEventListener('focus', handleThemeChange);
     };
   }, []);
 

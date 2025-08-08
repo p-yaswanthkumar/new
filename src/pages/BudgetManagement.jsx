@@ -1,3 +1,4 @@
+// This file was renamed to BudgetManagement.jsx for URL-safe routing. Please use that file instead.
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -62,15 +63,13 @@ const BudgetManagement = () => {
       offset: 100,
     });
     const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
-    window.addEventListener('storage', syncTheme);
-    window.addEventListener('focus', syncTheme);
     window.addEventListener('theme-changed', handleThemeChange);
     window.addEventListener('storage', handleThemeChange);
+    window.addEventListener('focus', handleThemeChange);
     return () => {
-      window.removeEventListener('storage', syncTheme);
-      window.removeEventListener('focus', syncTheme);
       window.removeEventListener('theme-changed', handleThemeChange);
       window.removeEventListener('storage', handleThemeChange);
+      window.removeEventListener('focus', handleThemeChange);
     };
   }, []);
 

@@ -133,12 +133,12 @@ const Header = () => {
               {isServicesDropdownOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-2" onMouseLeave={toggleServicesDropdown}>
                   <Link to="/service" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
-                  <Link to="/Financial%20Planning%20&%20Analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Financial Planning & Analysis</Link>
-                  <Link to="/Tax%20Preparation%20&%20Filing" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Tax Preparation & Filing</Link>
-                  <Link to="/Budget%20Management" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Budget Management</Link>
-                  <Link to="/Investment%20Advisory" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Investment Advisory</Link>
-                  <Link to="/Audit%20&%20Compliance" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Audit & Compliance</Link>
-                  <Link to="/Bookkeeping%20&%20Accounting" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Bookkeeping & Accounting</Link>                </div>
+                  <Link to="/financial-planning-analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Financial Planning & Analysis</Link>
+                  <Link to="/tax-preparation-filing" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Tax Preparation & Filing</Link>
+                  <Link to="/budget-management" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Budget Management</Link>
+                  <Link to="/investment-advisory" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Investment Advisory</Link>
+                  <Link to="/audit-compliance" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Audit & Compliance</Link>
+                  <Link to="/bookkeeping-accounting" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Bookkeeping & Accounting</Link>                </div>
               )}
             </div>
             
@@ -318,12 +318,12 @@ const Header = () => {
                 {isServicesDropdownOpen && (
                   <div className="pl-4 space-y-1">
                     <Link to="/service" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>All Services</Link>
-                    <Link to="/Financial%20Planning%20&%20Analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Financial Planning & Analysis</Link>
-                    <Link to="/Tax%20Preparation%20&%20Filing" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Tax Preparation & Filing</Link>
-                    <Link to="/Budget%20Management" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Budget Management</Link>
-                    <Link to="/Investment%20Advisory" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Investment Advisory</Link>
-                    <Link to="/Audit%20&%20Compliance" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Audit & Compliance</Link>
-                    <Link to="/Bookkeeping%20&%20Accounting" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Bookkeeping & Accounting</Link>
+                    <Link to="/financial-planning-analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Financial Planning & Analysis</Link>
+                    <Link to="/tax-preparation-filing" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Tax Preparation & Filing</Link>
+                    <Link to="/budget-management" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Budget Management</Link>
+                    <Link to="/investment-advisory" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Investment Advisory</Link>
+                    <Link to="/audit-compliance" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Audit & Compliance</Link>
+                    <Link to="/bookkeeping-accounting" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Bookkeeping & Accounting</Link>
                   </div>
                 )}
               </div>

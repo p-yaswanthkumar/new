@@ -136,7 +136,7 @@ const Service = () => {
         <p className="text-white dark:text-orange text-lg mb-2">Strategic budgeting, forecasting, and scenario analysis to help you make informed decisions and drive business growth. Our FP&A experts provide actionable insights, monitor KPIs, and ensure your financial plans align with your long-term goals.</p>
         <p className="text-white dark:text-orange text text-lg mb-2">We work closely with your leadership team to develop robust financial models, identify growth opportunities, and mitigate risks before they impact your bottom line. Our approach combines advanced analytics with real-world business experience, giving you a clear roadmap for sustainable success.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a href="/Financial Planning & Analysis" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
+          <a href="/financial-planning-analysis" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
           </a>
         </motion.button>

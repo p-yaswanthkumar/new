@@ -12,13 +12,14 @@ import ContactUs from './pages/contactus';
 import Blog from './pages/blog';
 import BlogDetail from './pages/BlogDetail';
 import Service from './pages/service';
-import FinancialPlanningAnalysis from './pages/Financial Planning & Analysis';
-import TaxPreparationFiling from './pages/Tax Preparation & Filing';
-import BudgetManagement from './pages/Budget Management';
-import InvestmentAdvisory from './pages/Investment Advisory';
-import AuditCompliance from './pages/Audit & Compliance';
-import BookkeepingAccounting from './pages/Bookkeeping & Accounting';
+import FinancialPlanningAnalysis from './pages/FinancialPlanningAnalysis';
+import TaxPreparationFiling from './pages/TaxPreparationFiling';
+import BudgetManagement from './pages/BudgetManagement';
+import InvestmentAdvisory from './pages/InvestmentAdvisory';
+import AuditCompliance from './pages/AuditCompliance';
+import BookkeepingAccounting from './pages/BookkeepingAccounting';
 import AdminDashboard from './pages/admindashboard';
+import NotFound from './pages/NotFound';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -71,14 +72,15 @@ function App() {
                 <Route path="aboutus" element={<AboutUs />} />
                 <Route path="contactus" element={<ContactUs />} />
                 <Route path="service" element={<Service />} />
-                <Route path="Financial Planning & Analysis" element={<FinancialPlanningAnalysis />} />
-                <Route path="Tax Preparation & Filing" element={<TaxPreparationFiling />} />
-                <Route path="Budget Management" element={<BudgetManagement />} />
-                <Route path="Investment Advisory" element={<InvestmentAdvisory />} />
-                <Route path="Audit & Compliance" element={<AuditCompliance />} />
-                <Route path="Bookkeeping & Accounting" element={<BookkeepingAccounting />} />
+                <Route path="financial-planning-analysis" element={<FinancialPlanningAnalysis />} />
+                <Route path="tax-preparation-filing" element={<TaxPreparationFiling />} />
+                <Route path="budget-management" element={<BudgetManagement />} />
+                <Route path="investment-advisory" element={<InvestmentAdvisory />} />
+                <Route path="audit-compliance" element={<AuditCompliance />} />
+                <Route path="bookkeeping-accounting" element={<BookkeepingAccounting />} />
                 <Route path="blog" element={<Blog />} />
                 <Route path="blog/:id" element={<BlogDetail />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Layout>
           }

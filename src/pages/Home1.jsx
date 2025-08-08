@@ -310,17 +310,22 @@ const Home1 = () => {
             handle your finances while you focus on what matters most.
           </motion.p>
           <motion.button 
+          onClick={() => window.location.href = '#get-started'}
             className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg transition-colors duration-200 shadow-lg"
             data-aos="fade-up" data-aos-delay="700"
             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
           >
             Get Started
           </motion.button>
+
         </div>
       </section>
 
+      {/* Anchor for Get Started scroll */}
+      <div id="get-started"></div>
+
       {/* Why Choose Us Section */}
-      <section className={sectionWhite + " py-16"} data-aos="fade-up" data-aos-duration="1200">
+      <section className={sectionWhite + " py-16"} data-aos="fade-up" data-aos-duration="1200" id="why-choose-us">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Image */}
