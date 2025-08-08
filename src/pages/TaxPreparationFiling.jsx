@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 import taxHeroVideo from '../assets/Tax Preparation & Filing hero.mp4';
 import t1 from '../assets/t1.webp';
 import t2 from '../assets/t2.jpg';
@@ -337,13 +338,15 @@ const TaxPreparationFiling = () => {
             >
               Book a free consultation and see how our tax experts can help you save money and ensure compliance.
             </motion.p>
-            <motion.button 
-              className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get Free Consultation
-            </motion.button>
+            <Link to="/contactus">
+              <motion.button 
+                className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Free Consultation
+              </motion.button>
+            </Link>
           </motion.div>
           {/* Right: Image */}
           <motion.div 

@@ -81,26 +81,60 @@ const ContactUs = () => {
             Meet Our Support Team
           </motion.h2>
           <div className="grid lg:grid-cols-3  gap-8 w-full">
-            {[contact1, contact2, contact3].map((img, idx) => (
-              <motion.div
-                key={idx}
-                className={`${bgCard} rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-4 transition-colors duration-300`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                transition={{ duration: 0.6, delay: idx * 0.2 }}
-                viewport={{ once: true }}>
-                <motion.img
-                  src={img}
-                  alt={`Contact ${idx + 1}`}
-                  className="w-full h-56 object-cover rounded-lg mb-4"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <div className={`font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'} text-lg`}>Support Specialist {idx + 1}</div>
-                <div className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-sm mt-1`}>support{idx + 1}@finance.com</div>
-              </motion.div>
-            ))}
+            {/* Card 1: Location */}
+            <motion.div
+              className={`${bgCard} rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-4 transition-colors duration-300`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.6, delay: 0 }}
+              viewport={{ once: true }}>
+              <motion.img
+                src={contact1}
+                alt="Contact Location"
+                className="w-full h-56 object-cover rounded-lg mb-4"
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <div className={`font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'} text-lg`}>Our Location</div>
+              <div className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-sm mt-1`}>Hyderabad, Telangana, India</div>
+            </motion.div>
+            {/* Card 2: Mail */}
+            <motion.div
+              className={`${bgCard} rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-4 transition-colors duration-300`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}>
+              <motion.img
+                src={contact2}
+                alt="Contact Mail"
+                className="w-full h-56 object-cover rounded-lg mb-4"
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <div className={`font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'} text-lg`}>Mail Us</div>
+              <div className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-sm mt-1`}>stackly.in</div>
+            </motion.div>
+            {/* Card 3: Phone */}
+            <motion.div
+              className={`${bgCard} rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-4 transition-colors duration-300`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}>
+              <motion.img
+                src={contact3}
+                alt="Contact Phone"
+                className="w-full h-56 object-cover rounded-lg mb-4"
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <div className={`font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'} text-lg`}>Call Us</div>
+              <div className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-sm mt-1`}>+91 93905 94407</div>
+            </motion.div>
           </div>
         </div>
       </section>

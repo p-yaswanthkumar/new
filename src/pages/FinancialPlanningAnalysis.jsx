@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 import fpVideo from '../assets/Financial Planning & Analysis.mp4';
 import f1 from '../assets/f1.jpg';
 import f2 from '../assets/f2.jpg';
@@ -338,13 +339,15 @@ const FinancialPlanningAnalysis = () => {
             >
               Book a free consultation and see how our FP&A experts can help you plan, analyze, and grow.
             </motion.p>
-            <motion.button 
-              className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get Free Consultation
-            </motion.button>
+            <Link to="/contactus">
+              <motion.button 
+                className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Free Consultation
+              </motion.button>
+            </Link>
           </motion.div>
           {/* Right: Image */}
           <motion.div 

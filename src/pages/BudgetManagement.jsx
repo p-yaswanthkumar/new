@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 import budgetHeroVideo from '../assets/Budget Management.mp4';
 import b1 from '../assets/b1.jpeg';
 import b2 from '../assets/b2.webp';
@@ -338,6 +339,7 @@ const BudgetManagement = () => {
             >
               Book a free consultation and see how our budget management experts can help you achieve your financial goals.
             </motion.p>
+            <Link to="/contactus">
             <motion.button 
               className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition"
               whileHover={{ scale: 1.05 }}
@@ -345,6 +347,7 @@ const BudgetManagement = () => {
             >
               Get Free Consultation
             </motion.button>
+            </Link>
           </motion.div>
           {/* Right: Image */}
           <motion.div 

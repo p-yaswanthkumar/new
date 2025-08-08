@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 import servicevideo from '../assets/servicehero.mp4';
 import fpImg from '../assets/Financial Planning & Analysis.jpg';
 import bookImg from '../assets/Bookkeeping & Accounting.jpg';
@@ -132,13 +133,15 @@ const Service = () => {
         transition={{ duration: 0.6, delay: 0.6 }}
         viewport={{ once: true }}
       >
-        <h3 className="text-2xl font-bold text-orange-600 mb-4">Financial Planning & Analysis</h3>
-        <p className="text-white dark:text-orange text-lg mb-2">Strategic budgeting, forecasting, and scenario analysis to help you make informed decisions and drive business growth. Our FP&A experts provide actionable insights, monitor KPIs, and ensure your financial plans align with your long-term goals.</p>
-        <p className="text-white dark:text-orange text text-lg mb-2">We work closely with your leadership team to develop robust financial models, identify growth opportunities, and mitigate risks before they impact your bottom line. Our approach combines advanced analytics with real-world business experience, giving you a clear roadmap for sustainable success.</p>
+        <h3 className="text-2xl font-bold text-orange-600 mb-4">
+          <Link to="/financial-planning-analysis" className="hover:underline">Financial Planning & Analysis</Link>
+        </h3>
+        <p className="text-black dark:text-orange text-lg mb-2">Strategic budgeting, forecasting, and scenario analysis to help you make informed decisions and drive business growth. Our FP&A experts provide actionable insights, monitor KPIs, and ensure your financial plans align with your long-term goals.</p>
+        <p className="text-black dark:text-orange text text-lg mb-2">We work closely with your leadership team to develop robust financial models, identify growth opportunities, and mitigate risks before they impact your bottom line. Our approach combines advanced analytics with real-world business experience, giving you a clear roadmap for sustainable success.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a href="/financial-planning-analysis" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
+          <Link to="/financial-planning-analysis" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
-          </a>
+          </Link>
         </motion.button>
       </motion.div>
     </motion.div>
@@ -159,13 +162,15 @@ const Service = () => {
         transition={{ duration: 0.6, delay: 0.4 }}
         viewport={{ once: true }}
       >
-        <h3 className="text-2xl font-bold text-orange-600 mb-4">Bookkeeping & Accounting</h3>
-        <p className="text-white dark:text-orange text-lg mb-2">Accurate, timely bookkeeping and accounting services to keep your records organized and compliant. We handle everything from daily transactions to monthly reconciliations, so you can focus on running your business with confidence.</p>
-        <p className="text-white dark:text-orange text-lg mb-2">Our team leverages the latest accounting software and best practices to ensure your financial data is always up-to-date and audit-ready. We provide detailed financial statements, manage accounts payable/receivable, and offer ongoing support for all your accounting needs.</p>
+        <h3 className="text-2xl font-bold text-orange-600 mb-4">
+          <Link to="/bookkeeping-accounting" className="hover:underline">Bookkeeping & Accounting</Link>
+        </h3>
+        <p className="text-black dark:text-orange text-lg mb-2">Accurate, timely bookkeeping and accounting services to keep your records organized and compliant. We handle everything from daily transactions to monthly reconciliations, so you can focus on running your business with confidence.</p>
+        <p className="text-black dark:text-orange text-lg mb-2">Our team leverages the latest accounting software and best practices to ensure your financial data is always up-to-date and audit-ready. We provide detailed financial statements, manage accounts payable/receivable, and offer ongoing support for all your accounting needs.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a href="/Bookkeeping & Accounting" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
+          <Link to="/bookkeeping-accounting" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
-          </a>
+          </Link>
         </motion.button>
       </motion.div>
       <motion.img
@@ -204,13 +209,15 @@ const Service = () => {
         transition={{ duration: 0.6, delay: 0.6 }}
         viewport={{ once: true }}
       >
-        <h3 className="text-2xl font-bold text-orange-600 mb-4">Tax Preparation & Filing</h3>
-        <p className="text-white dark:text-orange text-lg mb-2">Comprehensive tax planning, preparation, and filing for businesses and individuals. We maximize deductions, ensure compliance, and minimize your tax liability, keeping you up-to-date with the latest regulations.</p>
-        <p className="text-white dark:text-orange text-lg mb-2">Our tax experts stay current with changing tax laws and leverage technology to streamline the filing process. We handle federal, state, and local taxes, and provide proactive advice to help you plan for future obligations and avoid costly penalties.</p>
+        <h3 className="text-2xl font-bold text-orange-600 mb-4">
+          <Link to="/tax-preparation-filing" className="hover:underline">Tax Preparation & Filing</Link>
+        </h3>
+        <p className="text-black dark:text-orange text-lg mb-2">Comprehensive tax planning, preparation, and filing for businesses and individuals. We maximize deductions, ensure compliance, and minimize your tax liability, keeping you up-to-date with the latest regulations.</p>
+        <p className="text-black dark:text-orange text-lg mb-2">Our tax experts stay current with changing tax laws and leverage technology to streamline the filing process. We handle federal, state, and local taxes, and provide proactive advice to help you plan for future obligations and avoid costly penalties.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a href="/Tax Preparation & Filing" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
+          <Link to="/tax-preparation-filing" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
-          </a>
+          </Link>
         </motion.button>
       </motion.div>
     </motion.div>
@@ -230,13 +237,15 @@ const Service = () => {
         transition={{ duration: 0.6, delay: 0.4 }}
         viewport={{ once: true }}
       >
-        <h3 className="text-2xl font-bold text-orange-600 mb-4">Budget Management</h3>
-        <p className="text-white dark:text-orange text-lg mb-2">Effective budget creation, monitoring, and adjustment to help you control costs and achieve your financial targets. Our team works with you to set realistic budgets and track performance throughout the year.</p>
-        <p className="text-white dark:text-orange text-lg mb-2">We analyze historical data, forecast future trends, and provide actionable recommendations to optimize your spending. Our approach ensures you have the financial discipline and flexibility to adapt to changing business conditions.</p>
+        <h3 className="text-2xl font-bold text-orange-600 mb-4">
+          <Link to="/budget-management" className="hover:underline">Budget Management</Link>
+        </h3>
+        <p className="text-black dark:text-orange text-lg mb-2">Effective budget creation, monitoring, and adjustment to help you control costs and achieve your financial targets. Our team works with you to set realistic budgets and track performance throughout the year.</p>
+        <p className="text-black dark:text-orange text-lg mb-2">We analyze historical data, forecast future trends, and provide actionable recommendations to optimize your spending. Our approach ensures you have the financial discipline and flexibility to adapt to changing business conditions.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a href="/Budget Management" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
+          <Link to="/budget-management" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
-          </a>
+          </Link>
         </motion.button>
       </motion.div>
       <motion.img 
@@ -275,13 +284,15 @@ const Service = () => {
         transition={{ duration: 0.6, delay: 0.6 }}
         viewport={{ once: true }}
       >
-        <h3 className="text-2xl font-bold text-orange-600 mb-4">Investment Advisory</h3>
-        <p className="text-white dark:text-orange text-lg mb-2">Personalized investment strategies and portfolio management to grow and protect your wealth. We help you navigate market opportunities, assess risk, and make informed investment decisions for the future.</p>
-        <p className="text-white dark:text-orange text-lg mb-2">Our advisors work with you to define your financial goals, risk tolerance, and time horizon, building a diversified portfolio that aligns with your objectives. We monitor market trends, rebalance portfolios, and provide regular performance updates.</p>
+        <h3 className="text-2xl font-bold text-orange-600 mb-4">
+          <Link to="/investment-advisory" className="hover:underline">Investment Advisory</Link>
+        </h3>
+        <p className="text-black dark:text-orange text-lg mb-2">Personalized investment strategies and portfolio management to grow and protect your wealth. We help you navigate market opportunities, assess risk, and make informed investment decisions for the future.</p>
+        <p className="text-black dark:text-orange text-lg mb-2">Our advisors work with you to define your financial goals, risk tolerance, and time horizon, building a diversified portfolio that aligns with your objectives. We monitor market trends, rebalance portfolios, and provide regular performance updates.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a href="/Investment Advisory" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
+          <Link to="/investment-advisory" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
-          </a>
+          </Link>
         </motion.button>
       </motion.div>
     </motion.div>
@@ -301,13 +312,15 @@ const Service = () => {
         transition={{ duration: 0.6, delay: 0.4 }}
         viewport={{ once: true }}
       >
-        <h3 className="text-2xl font-bold text-orange-600 mb-4">Audit & Compliance</h3>
-        <p className="text-white dark:text-orange text-lg mb-2">Thorough audit and compliance services to ensure your business meets regulatory standards and industry best practices. We identify risks, recommend improvements, and help you maintain transparency and trust.</p>
-        <p className="text-white dark:text-orange text-lg mb-2">Our experienced auditors conduct detailed reviews of your financial records, internal controls, and operational processes. We help you prepare for external audits, address compliance gaps, and implement best practices for ongoing risk management.</p>
+        <h3 className="text-2xl font-bold text-orange-600 mb-4">
+          <Link to="/audit-compliance" className="hover:underline">Audit & Compliance</Link>
+        </h3>
+        <p className="text-black dark:text-orange text-lg mb-2">Thorough audit and compliance services to ensure your business meets regulatory standards and industry best practices. We identify risks, recommend improvements, and help you maintain transparency and trust.</p>
+        <p className="text-black dark:text-orange text-lg mb-2">Our experienced auditors conduct detailed reviews of your financial records, internal controls, and operational processes. We help you prepare for external audits, address compliance gaps, and implement best practices for ongoing risk management.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a href="/Audit & Compliance" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
+          <Link to="/audit-compliance" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
-          </a>
+          </Link>
         </motion.button>
       </motion.div>
       <motion.img 

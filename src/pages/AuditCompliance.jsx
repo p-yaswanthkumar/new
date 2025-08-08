@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 import auditHeroVideo from '../assets/Audit & Compliance.mp4';
 import a1 from '../assets/a1.jpeg';
 import a2 from '../assets/a2.webp';
@@ -339,6 +340,7 @@ return (
             >
               Book a free consultation and see how our audit and compliance experts can help you maintain regulatory standards and build stakeholder confidence.
             </motion.p>
+            <Link to="/contactus">
             <motion.button 
               className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition"
               whileHover={{ scale: 1.05 }}
@@ -346,6 +348,7 @@ return (
             >
               Get Free Consultation
             </motion.button>
+            </Link>
           </motion.div>
           {/* Right: Image */}
           <motion.div 

@@ -79,8 +79,8 @@ const AboutUs = () => {
           height: '100%',
           textAlign: 'center',
         }}>
-          <h1 className="aboutus-hero-title">Empowering Your Financial Future</h1>
-          <p className="aboutus-hero-subtitle" style={{maxWidth: 900, margin: '0 auto', fontSize: '1.25rem'}}>
+          <h1 className="aboutus-hero-title text-white">Empowering Your Financial Future</h1>
+          <p className="aboutus-hero-subtitle text-white" style={{maxWidth: 900, margin: '0 auto', fontSize: '1.25rem'}}>
             Unlock your path to prosperity with our innovative financial solutions, expert guidance, and personalized support. Whether you're an individual, entrepreneur, or enterprise, we help you achieve your goals with clarity, confidence, and trust. Join thousands who have transformed their financial journey with us.
           </p>
         </div>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 import bookkeepingHeroVideo from '../assets/Bookkeeping & Accounting.mp4';
 import book1 from '../assets/book.jpg';
 import book2 from '../assets/book2.jpg';
@@ -332,6 +333,7 @@ const BookkeepingAccounting = () => {
                   >
                     Book a free consultation and see how our FP&A experts can help you plan, analyze, and grow.
                   </motion.p>
+                <Link to="/contactus">
                   <motion.button 
                     className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition"
                     whileHover={{ scale: 1.05 }}
@@ -339,6 +341,7 @@ const BookkeepingAccounting = () => {
                   >
                     Get Free Consultation
                   </motion.button>
+                </Link>
                 </motion.div>
                 {/* Right: Image */}
                 <motion.div 

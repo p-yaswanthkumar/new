@@ -72,30 +72,29 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="/home1" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/home1" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/aboutus" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/aboutus" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/service" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/service" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Services
-                </a>
+                </Link>
               </li>
-             
               <li>
-                <a href="/blog" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/blog" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contactus" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/contactus" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Contact us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

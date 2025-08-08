@@ -4,6 +4,7 @@ import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import home1hero from '../assets/home1hero.mp4';
 import heroAboutUs from '../assets/hero about us.jpg';
 import service1 from '../assets/1.png';
@@ -455,12 +456,12 @@ const Home1 = () => {
           <p className="text-lg mb-8" style={{color: theme === 'dark' ? '#BBF7D0' : '#4B5563'}}>
             Partner with us for expert financial guidance, innovative solutions, and a team that cares about your success. Take the next step toward financial clarity and growth today.
           </p>
-          <a 
-            href="/contactus" 
+          <Link 
+            to="/contactus" 
             className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg shadow-lg transition-all duration-200 transform hover:scale-105"
           >
             Get Your Free Consultation
-          </a>
+          </Link>
         </div>
       </section>
     </div>
