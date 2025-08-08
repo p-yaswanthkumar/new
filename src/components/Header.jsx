@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
@@ -9,6 +9,44 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState('light');
+  // Ensure theme is set only after mount (SSR-safe)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') || 'light';
+      setTheme(storedTheme);
+    }
+  }, []);
+
+  // Sync theme with localStorage and document root
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      // Notify other tabs/pages
+      window.dispatchEvent(new Event('theme-changed'));
+    }
+  }, [theme]);
+
+  // Listen for theme changes from other tabs/pages
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleThemeChange = () => {
+        const newTheme = localStorage.getItem('theme') || 'light';
+        setTheme(newTheme);
+      };
+      window.addEventListener('theme-changed', handleThemeChange);
+      window.addEventListener('storage', handleThemeChange);
+      return () => {
+        window.removeEventListener('theme-changed', handleThemeChange);
+        window.removeEventListener('storage', handleThemeChange);
+      };
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -23,7 +61,10 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 w-full !fixed !top-0 !left-0 !right-0 !z-50">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 w-full !fixed !top-0 !left-0 !right-0 !z-50 transition-colors duration-300
+        ${theme === 'dark' ? 'bg-[#1E2A38] border-b border-[#141B25]' : 'bg-white border-b border-gray-200'}`}
+    >
       <div className="w-full px-4  sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
@@ -46,7 +87,7 @@ const Header = () => {
                 }}
                 onMouseEnter={toggleHomeDropdown}
                 onFocus={toggleHomeDropdown}
-                className="flex items-center text-black hover:text-orange-400 transition-colors duration-200"
+                className={`flex items-center ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-orange-400 transition-colors duration-200`}
                 aria-haspopup="true"
                 aria-expanded={isHomeDropdownOpen}
               >
@@ -63,7 +104,10 @@ const Header = () => {
               )}
             </div>
 
-            <Link to="/aboutus" className="text-black hover:text-orange-400 transition-colors duration-200">
+            <Link
+              to="/aboutus"
+              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-orange-400 transition-colors duration-200`}
+            >
               About Us
             </Link>
 
@@ -77,7 +121,7 @@ const Header = () => {
                 }}
                 onMouseEnter={toggleServicesDropdown}
                 onFocus={toggleServicesDropdown}
-                className="flex items-center text-black hover:text-orange-400 transition-colors duration-200"
+                className={`flex items-center ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-orange-400 transition-colors duration-200`}
                 aria-haspopup="true"
                 aria-expanded={isServicesDropdownOpen}
               >
@@ -98,19 +142,35 @@ const Header = () => {
               )}
             </div>
             
-            <Link to="/blog" className="text-black hover:text-orange-400 transition-colors duration-200">
+            <Link
+              to="/blog"
+              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-orange-400 transition-colors duration-200`}
+            >
               Blog
             </Link>
 
-            <Link to="/contactus" className="text-black hover:text-orange-400 transition-colors duration-200">
+            <Link
+              to="/contactus"
+              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-orange-400 transition-colors duration-200`}
+            >
               Contact Us
             </Link>
 
             {/* Dark Mode Toggle */}
-            <button className="w-10 h-10 rounded-full bg-orange-100 border border-orange-300 flex items-center justify-center hover:bg-orange-200 transition-colors duration-200">
-              <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
+            <button
+              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-orange-100 border-orange-300 hover:bg-orange-200'}`}
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? (
+                <svg className="w-5 h-5 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8.66-8.66h-1M4.34 12H3m15.07 4.93l-.71-.71M6.34 6.34l-.71-.71m12.02 12.02l-.71-.71M6.34 17.66l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
             </button>
 
             {/* Avatar with Logout Dropdown */}
@@ -152,11 +212,21 @@ const Header = () => {
 
           {/* Mobile icons - Only visible on very small screens */}
           <div className="flex items-center space-x-4 min-[480px]:hidden">
-            {/* Dark Mode Toggle */}
-            <button className="w-10 h-10 rounded-full bg-orange-100 border border-orange-300 flex items-center justify-center hover:bg-orange-200 transition-colors duration-200">
-              <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
+            {/* Dark Mode Toggle (Mobile) */}
+            <button
+              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-orange-100 border-orange-300 hover:bg-orange-200'}`}
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? (
+                <svg className="w-5 h-5 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8.66-8.66h-1M4.34 12H3m15.07 4.93l-.71-.71M6.34 6.34l-.71-.71m12.02 12.02l-.71-.71M6.34 17.66l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
             </button>
 
             {/* Avatar with Logout Dropdown (Mobile) */}
@@ -275,85 +345,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// Industries We Serve Section (10 finance/accounting-related SVGs)
-// Place this in your Home2 or main page, not in Header.jsx. Example:
-//
-// <section className="bg-white py-16">
-//   <div className="max-w-6xl mx-auto px-4">
-//     <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">Industries We Serve</h2>
-//     <p className="text-center text-gray-400 mb-10 max-w-2xl mx-auto">We empower a wide range of industries with expert finance and accounting solutions.</p>
-//     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 justify-items-center">
-//       {/* Banking & Finance */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"/><path d="M16 11h.01"/><path d="M12 11h.01"/><path d="M8 11h.01"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Banking & Finance</div>
-//       </div>
-//       {/* Insurance */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Insurance</div>
-//       </div>
-//       {/* Taxation */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Taxation</div>
-//       </div>
-//       {/* Auditing */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Auditing</div>
-//       </div>
-//       {/* Wealth Management */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/><path d="M12 7v4l3 3"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Wealth Management</div>
-//       </div>
-//       {/* Real Estate */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="7" y="10" width="10" height="8" rx="2"/><path d="M12 4v6"/><path d="M9 10V4h6v6"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Real Estate</div>
-//       </div>
-//       {/* Healthcare */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Healthcare</div>
-//       </div>
-//       {/* Education */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="8" rx="2"/><path d="M12 8v8"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Education</div>
-//       </div>
-//       {/* Retail & Ecommerce */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="2"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Retail & Ecommerce</div>
-//       </div>
-//       {/* Manufacturing */}
-//       <div className="flex flex-col items-center">
-//         <span className="bg-lime-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-//           <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="2"/><path d="M8 8v8M16 8v8"/></svg>
-//         </span>
-//         <div className="font-semibold text-center">Manufacturing</div>
-//       </div>
-//     </div>
-//   </div>
-// </section>

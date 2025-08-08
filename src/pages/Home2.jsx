@@ -19,6 +19,23 @@ import img6 from '../assets/6.png';
 const partnerLogos = [logo11, logo12, logo13, logo14, logo15, logo16, logo17, logo18];
 
 const Home2 = () => {
+  // Theme sync (like Home1)
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+  useEffect(() => {
+    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
+    window.addEventListener('theme-changed', handleThemeChange);
+    window.addEventListener('storage', handleThemeChange);
+    AOS.init({ once: true, duration: 1000, offset: 80 });
+    return () => {
+      window.removeEventListener('theme-changed', handleThemeChange);
+      window.removeEventListener('storage', handleThemeChange);
+    };
+  }, []);
+
+  // Section bg alternation
+  const bgColors = theme === 'dark' ? ['#1E2A38', '#141B25'] : ['#ffffff', '#FDF9F4'];
+  let sectionIndex = 0;
+
   const [openModal, setOpenModal] = useState(null); // 'emi' | 'tax' | 'retirement' | null
 
   // Simple EMI Calculator
@@ -78,11 +95,6 @@ const Home2 = () => {
     setRetireResult(null);
   };
 
-  // Initialize AOS on mount
-  useEffect(() => {
-    AOS.init({ once: true, duration: 1000, offset: 80 });
-  }, []);
-
   // Smooth scroll to next section
   const handleScrollToNext = () => {
     const nextSection = document.getElementById('tools-section');
@@ -94,7 +106,11 @@ const Home2 = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900" data-aos="fade-up">
+      <section 
+        className={`relative h-screen flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-gray-900 text-white'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up"
+      >
         {/* Background Video */}
         <video
           autoPlay
@@ -142,17 +158,22 @@ const Home2 = () => {
       
 
       {/* Tool/Calculator Preview Section */}
-      <section id="tools-section" className="bg-gradient-to-r from-blue-50 to-purple-100 py-16" data-aos="fade-up" data-aos-delay="100">
+      <section 
+        id="tools-section"
+        className={`py-16 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-gradient-to-r from-blue-50 to-purple-100 text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-delay="100"
+      >
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10"
+            className={`text-3xl md:text-4xl font-bold text-center mb-10 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Explore Our Financial Tools & Calculators
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-full">
+          <div className="grid  lg:grid-cols-3 gap-8 w-full max-w-full">
             {/* Tool Card 1 */}
             <motion.div 
               className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]"
@@ -222,7 +243,11 @@ const Home2 = () => {
           </div>
         </div>
       </section>
-      <section className="relative py-20 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+      <section 
+        className={`relative py-20 overflow-hidden ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : ''}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-delay="200"
+      >
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover h-[750px] bg-center bg-no-repeat"
@@ -273,10 +298,14 @@ const Home2 = () => {
       </section>
 
       {/* Partner Logos Slider */}
-      <section className="bg-white py-10" data-aos="fade-up" data-aos-delay="300">
+      <section 
+        className={`py-10 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-delay="300"
+      >
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2 
-            className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8"
+            className={`text-2xl md:text-3xl font-bold text-center mb-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -316,10 +345,14 @@ const Home2 = () => {
 
 
       {/* Industries We Serve Section */}
-      <section className="bg-[#FDF9F4] py-16" data-aos="fade-up" data-aos-delay="400">
+      <section 
+        className={`py-16 ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#FDF9F4] text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-delay="400"
+      >
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2"
+className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-2"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -558,13 +591,17 @@ const Home2 = () => {
           </div>
         </div>
       )}
-      <section className="bg-white py-16" data-aos="fade-up" data-aos-delay="500">
+      <section 
+        className={`py-16 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-delay="500"
+      >
   <div className="max-w-6xl mx-auto px-4 flex flex-row items-start gap-12">
     {/* Left Content */}
     <div className="w-1/2">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Insights</h2>
-      <p className="text-gray-600 mb-6">
-      In today’s rapidly changing financial landscape, staying informed is the key to long-term success. 
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Insights</h2>
+      <p className="text-gray-600 text-justify dark:text-white mb-6">
+      In today’s there rapidly changing financial landscape, staying informed is the key to long-term success. 
   Our insights go beyond surface-level tips — we provide in-depth guidance on tax strategies, 
   compliance updates, and smart money management tailored to businesses of all sizes. 
   From navigating complex regulations to identifying new growth opportunities, 

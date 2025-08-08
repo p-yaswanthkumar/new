@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import blog1 from '../assets/blog1.jpg';
 import blog2 from '../assets/blog2.webp';
@@ -49,13 +49,25 @@ const articleDetails = [
   },
 ];
 
+
 const BlogDetail = () => {
   const { id } = useParams();
   const article = articleDetails.find(a => a.id === Number(id));
 
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+  useEffect(() => {
+    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
+    window.addEventListener('theme-changed', handleThemeChange);
+    window.addEventListener('storage', handleThemeChange);
+    return () => {
+      window.removeEventListener('theme-changed', handleThemeChange);
+      window.removeEventListener('storage', handleThemeChange);
+    };
+  }, []);
+
   if (!article) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
+      <div className="container mx-auto px-4 py-16 text-center dark:bg-gray-900 dark:text-gray-100 min-h-screen">
         <h2 className="text-2xl font-bold mb-4">Article Not Found</h2>
         <Link to="/blog" className="text-orange-500 hover:underline">Back to Blog</Link>
       </div>
@@ -63,26 +75,26 @@ const BlogDetail = () => {
   }
 
   return (
-    <section className="container mx-auto px-0 md:px-0 py-0 max-w-full">
-      <Link to="/blog" className="text-orange-500 font-semibold hover:underline block mt-12">← Back to Blog</Link> 
+    <section className={`w-full min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-white text-black'}`}>
+      <Link to="/blog" className="text-orange-500 font-semibold hover:underline block m-0 p-4">← Back to Blog</Link>
       <div className="w-full">
         <img src={article.image} alt={article.title} className="w-full max-h-[540px] md:max-h-[700px] object-cover object-center rounded-none shadow mb-0" />
       </div>
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <div className="w-full px-0 py-12">
         <h1 className="text-3xl font-bold pt-16 text-orange-500 mb-10 text-center">{article.title}</h1>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-10 w-full px-4 md:px-24">
           {article.sections.map((section, idx) => (
-            <div key={idx} className="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
+            <div key={idx} className="flex flex-col md:flex-row gap-6 md:gap-12 items-start w-full">
               <div className="md:w-1/3 w-full font-extrabold text-2xl md:text-3xl text-orange-500 mb-2 md:mb-0 md:text-right text-left pr-2 md:pr-6 flex-shrink-0">
                 {section.heading}
               </div>
-              <div className="md:w-2/3 w-full text-gray-800 text-base leading-relaxed whitespace-pre-line">
+              <div className={`md:w-2/3 w-full text-base leading-relaxed whitespace-pre-line ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}> 
                 {section.content}
               </div>
             </div>
           ))}
         </div>
-        <Link to="/blog" className="text-orange-500 font-semibold hover:underline block mt-12">← Back to Blog</Link>
+        <Link to="/blog" className="text-orange-500 font-semibold hover:underline block mt-12 ml-4">← Back to Blog</Link>
       </div>
     </section>
   );

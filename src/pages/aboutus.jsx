@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './aboutus.css';
@@ -16,13 +16,29 @@ import aboutlast from '../assets/aboutlast.jpg';
 
 
 const AboutUs = () => {
+  // Theme sync (like Home1)
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   useEffect(() => {
+    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
+    window.addEventListener('theme-changed', handleThemeChange);
+    window.addEventListener('storage', handleThemeChange);
     AOS.init({ duration: 1000, easing: 'ease-in-out', once: false, mirror: true, offset: 100 });
+    return () => {
+      window.removeEventListener('theme-changed', handleThemeChange);
+      window.removeEventListener('storage', handleThemeChange);
+    };
   }, []);
+  // Section bg alternation
+  const bgColors = theme === 'dark' ? ['#1E2A38', '#141B25'] : ['#ffffff', '#FDF9F4'];
+  let sectionIndex = 0;
   return (
-    <div className="about-us-container">
+    <div className={`about-us-container ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#FDF9F4] text-black'}`}> 
       {/* Hero Section */}
-      <section className="hero-section h-screen" style={{position: 'relative', overflow: 'hidden'}} data-aos="fade-in" data-aos-duration="1500">
+      <section 
+        className={`hero-section h-screen ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+        style={{position: 'relative', overflow: 'hidden', backgroundColor: bgColors[sectionIndex++ % 2]}}
+        data-aos="fade-in" data-aos-duration="1500"
+      >
         {/* Background Video */}
         <video
           autoPlay
@@ -74,9 +90,13 @@ const AboutUs = () => {
       
 
       {/* Timeline */}
-      <section className="timeline-section w-full bg-[#FDF9F4] py-16" data-aos="fade-up" data-aos-duration="1200">
+      <section 
+        className={`timeline-section w-full py-16 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-duration="1200"
+      >
         <div className="container mx-auto px-4">
-          <h2>Our Journey Through the Years</h2>
+          <h2 className={`${theme === 'dark' ? 'text-white drop-shadow-lg' : 'text-black'}`}>Our Journey Through the Years</h2>
           <div className="timeline">
             <div className="timeline-item" data-aos="fade-up" data-aos-delay="100">
               <div className="timeline-year">2018</div>
@@ -132,7 +152,11 @@ const AboutUs = () => {
       </section>
 
       {/* Mission & Values */}
-      <section className="mission-vision-section" data-aos="fade-up" data-aos-duration="1200">
+      <section 
+        className={`mission-vision-section ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-duration="1200"
+      >
         <div className="container mission-vision-flex">
           <div className="mv-card mv-vision" data-aos="fade-right" data-aos-delay="200">
             <div className="mv-icon-bg">
@@ -163,11 +187,15 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-      <section className="awards-section" data-aos="fade-up" data-aos-duration="1200">
+      <section 
+        className={`awards-section ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-duration="1200"
+      >
         <div className="container">
           <div className="awards-flex">
             <div className="awards-left" data-aos="fade-right" data-aos-delay="200">
-              <h2 className="awards-heading ">Awards & Certifications</h2>
+              <h2 className={`awards-heading ${theme === 'dark' ? 'text-white drop-shadow-lg' : 'text-black'}`}>Awards & Certifications</h2>
               <ul className="awards-list">
                 <li>
                   <strong>Fintech Innovation Award 2023:</strong> Recognized for outstanding innovation in financial technology solutions
@@ -197,9 +225,13 @@ const AboutUs = () => {
       </section>
 
       {/* Team Profiles */}
-      <section className="team-section w-full bg-[#FDF9F4] py-16" data-aos="fade-up" data-aos-duration="1200">
+      <section 
+        className={`team-section w-full py-16 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-duration="1200"
+      >
         <div className="container mx-auto px-4">
-          <h2>Meet Our Leadership Team</h2>
+          <h2 className={`${theme === 'dark' ? 'text-white drop-shadow-lg' : 'text-black'}`}>Meet Our Leadership Team</h2>
           <div className="team-grid">
             <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="100">
               <div className="team-hover-bg" />
@@ -263,7 +295,11 @@ const AboutUs = () => {
       
 
       {/* CSR / Community Impact */}
-      <section className="csr-section" data-aos="fade-up" data-aos-duration="1200">
+      <section 
+        className={`csr-section ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
+        data-aos="fade-up" data-aos-duration="1200"
+      >
         <div className="container">
           <h2 className="csr-heading pt-10">Community Impact & Social Responsibility</h2>
           <div className="csr-cards-grid">

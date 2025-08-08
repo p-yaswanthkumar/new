@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 
 
@@ -52,18 +52,45 @@ const statusColors = {
 };
 
 const AdminDashboard = () => {
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    const handleThemeChange = () => {
+      setTheme(localStorage.getItem('theme') || 'light');
+    };
+    window.addEventListener('theme-changed', handleThemeChange);
+    window.addEventListener('storage', handleThemeChange);
+    return () => {
+      window.removeEventListener('theme-changed', handleThemeChange);
+      window.removeEventListener('storage', handleThemeChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  const bg = theme === 'dark' ? 'bg-[#1E2A38] dark:bg-[#1E2A38]' : 'bg-gray-50 dark:bg-[#1E2A38]';
+  const textMain = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-white';
+  const cardBg = theme === 'dark' ? 'bg-[#141B25] border-[#223366] dark:bg-[#141B25] dark:border-[#223366]' : 'bg-white border-gray-200 dark:bg-[#141B25] dark:border-[#223366]';
+  const cardText = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-white';
   return (
-  <div className="bg-gray-50 min-h-screen">
-  <Header />
-  <h1 className="text-3xl font-bold mb-8 text-orange-600 max-w-7xl mx-auto pt-24 px-4">Admin Dashboard</h1>
-  <div className="max-w-7xl mx-auto pb-10 px-4">
+    <div className={`${bg} min-h-screen transition-colors duration-300`}>
+      {/* Remove local toggle, use Header's toggle */}
+      <Header />
+      <h1 className={`text-3xl font-bold mb-8 text-orange-400 max-w-7xl mx-auto pt-24 px-4 ${textMain}`}>Admin Dashboard</h1>
+      <div className="max-w-7xl mx-auto pb-10 px-4">
 
         {/* 1. Financial Summary Widget - Modern Blue/White Cards */}
         <div className="grid lg:grid-cols-4 gap-6 mb-8">
           {/* Card 1 */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between border border-orange-100">
-            <div className="font-bold text-base text-black mb-2">Total Balance</div>
-            <div className="text-3xl font-bold text-black mb-2">$ 432568</div>
+          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
+            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Balance</div>
+            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 432568</div>
             <div className="border-t border-orange-200 my-2"></div>
             <div className="flex items-center text-xs mt-2">
               <span className="text-orange-600 font-bold mr-1">↑ 2.47%</span>
@@ -71,9 +98,9 @@ const AdminDashboard = () => {
             </div>
           </div>
           {/* Card 2 */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between border border-orange-100">
-            <div className="font-bold text-base text-black mb-2">Total Period Change</div>
-            <div className="text-3xl font-bold text-black mb-2">$ 245860</div>
+          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
+            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Period Change</div>
+            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 245860</div>
             <div className="border-t border-orange-200 my-2"></div>
             <div className="flex items-center text-xs mt-2">
               <span className="text-orange-600 font-bold mr-1">↑ 2.47%</span>
@@ -81,9 +108,9 @@ const AdminDashboard = () => {
             </div>
           </div>
           {/* Card 3 */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between border border-orange-100">
-            <div className="font-bold text-base text-black mb-2">Total Period Expenses</div>
-            <div className="text-3xl font-bold text-black mb-2">$ 25.35</div>
+          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
+            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Period Expenses</div>
+            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 25.35</div>
             <div className="border-t border-orange-200 my-2"></div>
             <div className="flex items-center text-xs mt-2">
               <span className="text-orange-600 font-bold mr-1">↓ 2.47%</span>
@@ -91,9 +118,9 @@ const AdminDashboard = () => {
             </div>
           </div>
           {/* Card 4 */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between border border-orange-100">
-            <div className="font-bold text-base text-black mb-2">Total Period Income</div>
-            <div className="text-3xl font-bold text-black mb-2">$ 22.56</div>
+          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
+            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Period Income</div>
+            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 22.56</div>
             <div className="border-t border-orange-200 my-2"></div>
             <div className="flex items-center text-xs mt-2">
               <span className="text-orange-600 font-bold mr-1">↑ 2.47%</span>
@@ -105,12 +132,12 @@ const AdminDashboard = () => {
         {/* 2. Balance Trends & Monthly Expenses Breakdown */}
         <div className="grid lg:grid-cols-2 gap-6 mb-10">
           {/* Balance Trends Card */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col border border-orange-100">
+          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col border`}>
             <div className="flex justify-between items-center mb-2">
-              <div className="font-bold text-lg text-black">Balance Trends</div>
+              <div className={`font-bold text-lg ${cardText}`}>Balance Trends</div>
               <div className="text-xs text-orange-400">Last Month <span className="text-orange-600 font-bold ml-1">↑ 12.25%</span></div>
             </div>
-            <div className="text-3xl font-bold text-black mb-2">$221,478</div>
+            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$221,478</div>
             {/* Fake area chart - orange theme */}
             <div className="w-full h-32 bg-gradient-to-t from-orange-200 to-orange-400 rounded-b-xl relative overflow-hidden flex items-end">
               <div className="absolute left-0 bottom-0 w-full h-full flex items-end">
@@ -128,8 +155,8 @@ const AdminDashboard = () => {
             </div>
           </div>
           {/* Monthly Expenses Breakdown Card - Donut Chart Style */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col border border-orange-100">
-            <div className="font-bold text-lg text-black mb-4">Monthly Expenses Breakdown</div>
+          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col border`}>
+            <div className={`font-bold text-lg mb-4 ${cardText}`}>Monthly Expenses Breakdown</div>
             <div className="flex flex-row items-center justify-between">
               {/* Donut Chart */}
               <div className="flex flex-col items-center justify-center w-1/2">
@@ -145,11 +172,11 @@ const AdminDashboard = () => {
               </div>
               {/* Legend */}
               <div className="flex flex-col gap-3 w-1/2 pl-4">
-                <div className="flex items-center text-base font-semibold text-black"><span className="w-4 h-4 rounded-full bg-orange-400 mr-3"></span>Salaries</div>
-                <div className="flex items-center text-base font-semibold text-black"><span className="w-4 h-4 rounded-full bg-orange-300 mr-3"></span>Software</div>
-                <div className="flex items-center text-base font-semibold text-black"><span className="w-4 h-4 rounded-full bg-yellow-400 mr-3"></span>Rent</div>
-                <div className="flex items-center text-base font-semibold text-black"><span className="w-4 h-4 rounded-full bg-orange-500 mr-3"></span>Service</div>
-                <div className="flex items-center text-base font-semibold text-black"><span className="w-4 h-4 rounded-full bg-orange-200 mr-3"></span>Tools</div>
+                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-400 mr-3"></span>Salaries</div>
+                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-300 mr-3"></span>Software</div>
+                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-yellow-400 mr-3"></span>Rent</div>
+                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-500 mr-3"></span>Service</div>
+                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-200 mr-3"></span>Tools</div>
               </div>
             </div>
           </div>
@@ -158,14 +185,14 @@ const AdminDashboard = () => {
 
         
         {/* 3. Transactions Activity (Invoices & Payments) Modern Table */}
-        <div className="bg-white rounded-xl shadow p-6 mb-10">
+        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-orange-500">Transactions activity</h2>
+            <h2 className="text-xl font-semibold text-orange-400">Transactions activity</h2>
           </div>
           <div className="-mx-4 sm:mx-0 overflow-x-auto">
-            <table className="min-w-[700px] w-full text-xs sm:text-sm">
+            <table className={`min-w-[700px] w-full text-xs sm:text-sm ${textMain}`}>
               <thead>
-                <tr className="bg-gray-50 text-gray-500">
+                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}> 
                   <th className="p-2 text-left font-medium whitespace-nowrap">Account</th>
                   <th className="p-2 text-left font-medium whitespace-nowrap">Date</th>
                   <th className="p-2 text-left font-medium whitespace-nowrap">Status</th>
@@ -175,7 +202,7 @@ const AdminDashboard = () => {
                   <th className="p-2"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}>
                 {/* Example static rows for demo, replace with real data as needed */}
                 <tr>
                   <td className="p-2 flex items-center gap-2 whitespace-nowrap"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
@@ -255,15 +282,15 @@ const AdminDashboard = () => {
 
 
         {/* 4. Expense Management - Modern Table */}
-        <div className="bg-white rounded-xl shadow p-6 mb-10">
+        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-orange-500">Expense Management</h2>
+            <h2 className="text-xl font-semibold text-orange-400">Expense Management</h2>
             <button className="bg-orange-500 text-white px-4 py-2 rounded font-semibold">Export</button>
           </div>
           <div className="-mx-4 sm:mx-0 overflow-x-auto">
-            <table className="min-w-[600px] w-full text-xs sm:text-sm">
+            <table className={`min-w-[600px] w-full text-xs sm:text-sm ${textMain}`}>
               <thead>
-                <tr className="bg-gray-50 text-gray-500">
+                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}> 
                   <th className="p-2 text-left font-medium whitespace-nowrap">Date</th>
                   <th className="p-2 text-left font-medium whitespace-nowrap">Type</th>
                   <th className="p-2 text-left font-medium whitespace-nowrap">Vendor</th>
@@ -272,7 +299,7 @@ const AdminDashboard = () => {
                   <th className="p-2"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}>
                 {/* Example static rows for demo, replace with real data as needed */}
                 <tr>
                   <td className="p-2 whitespace-nowrap">2025-08-01</td>
@@ -304,15 +331,15 @@ const AdminDashboard = () => {
 
 
         {/* 5. Client Accounts Overview - Modern Table */}
-        <div className="bg-white rounded-xl shadow p-6 mb-10">
+        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-orange-500">Client Accounts Overview</h2>
+            <h2 className="text-xl font-semibold text-orange-400">Client Accounts Overview</h2>
             <button className="bg-orange-500 text-white px-4 py-2 rounded font-semibold">Add Client</button>
           </div>
           <div className="-mx-4 sm:mx-0 overflow-x-auto">
-            <table className="min-w-[700px] w-full text-xs sm:text-sm">
+            <table className={`min-w-[700px] w-full text-xs sm:text-sm ${textMain}`}>
               <thead>
-                <tr className="bg-gray-50 text-gray-500">
+                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}> 
                   <th className="p-2 text-left font-medium whitespace-nowrap">Client</th>
                   <th className="p-2 text-left font-medium whitespace-nowrap">Contact</th>
                   <th className="p-2 text-left font-medium whitespace-nowrap">Plan</th>
@@ -322,7 +349,7 @@ const AdminDashboard = () => {
                   <th className="p-2"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}>
                 {/* Example static rows for demo, replace with real data as needed */}
                 <tr>
                   <td className="p-2 flex items-center gap-2 whitespace-nowrap"><img src="https://randomuser.me/api/portraits/men/38.jpg" alt="Acme Corp" className="w-6 h-6 rounded-full"/> Acme Corp</td>

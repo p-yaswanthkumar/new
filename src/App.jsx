@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
-import Welcome from './pages/Welcome';
+import Welcome from './pages/welcome';
 import Home1 from './pages/Home1';
 import Home2 from './pages/Home2';
 import Header from './components/Header';
@@ -34,7 +35,26 @@ function Layout({ children }) {
 }
 
 
+import { useState, useEffect } from 'react';
+
 function App() {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  };
+
   return (
     <Router>
       <ScrollToTop />
@@ -49,7 +69,6 @@ function App() {
                 <Route path="home1" element={<Home1 />} />
                 <Route path="home2" element={<Home2 />} />
                 <Route path="aboutus" element={<AboutUs />} />
-                
                 <Route path="contactus" element={<ContactUs />} />
                 <Route path="service" element={<Service />} />
                 <Route path="Financial Planning & Analysis" element={<FinancialPlanningAnalysis />} />

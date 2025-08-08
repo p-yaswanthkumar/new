@@ -51,6 +51,8 @@ const faqs = [
 ];
 
 const BudgetManagement = () => {
+  const getTheme = () => localStorage.getItem('theme') || 'light';
+  const [theme, setTheme] = React.useState(() => localStorage.getItem('theme') || 'light');
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -59,10 +61,21 @@ const BudgetManagement = () => {
       mirror: true,
       offset: 100,
     });
+    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
+    window.addEventListener('storage', syncTheme);
+    window.addEventListener('focus', syncTheme);
+    window.addEventListener('theme-changed', handleThemeChange);
+    window.addEventListener('storage', handleThemeChange);
+    return () => {
+      window.removeEventListener('storage', syncTheme);
+      window.removeEventListener('focus', syncTheme);
+      window.removeEventListener('theme-changed', handleThemeChange);
+      window.removeEventListener('storage', handleThemeChange);
+    };
   }, []);
 
   return (
-    <section className="w-full p-0 m-0">
+    <section className={theme === 'dark' ? 'w-full p-0 m-0 bg-[#1E2A38] text-white' : 'w-full p-0 m-0 bg-white text-black'}>
       {/* 1. Hero + Brief Intro */}
       <div className="relative w-full h-screen mb-0">
         <video
@@ -94,7 +107,7 @@ const BudgetManagement = () => {
       </div>
 
       {/* 2. What This Service Includes */}
-      <section className="py-16 bg-[#fdf9f4]">
+      <section className={theme === 'dark' ? 'py-16 bg-[#141B25]' : 'py-16 bg-[#fdf9f4]'}>
   <div className="max-w-6xl mx-auto px-4">
     <motion.h2
       initial={{ opacity: 0, y: 30 }}
@@ -144,70 +157,67 @@ const BudgetManagement = () => {
 
 
       {/* 3. Who It's For */}
-      <div className="container mx-auto px-4 py-10 max-w-5xl">
-  <motion.h2
-    className="text-2xl font-bold text-orange-500 text-center mt-12 mb-8"
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-    viewport={{ once: true }}
-  >
-    Who It's For
-  </motion.h2>
-  <div className="flex flex-col md:flex-row gap-8 items-start">
-    {/* Left: Content Paragraph */}
-    <motion.div
-      className="flex-1 flex flex-col gap-4 justify-center"
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
+ <section className={theme === 'dark' ? 'py-16 bg-[#1E2A38]' : 'py-16 bg-white'}>
+  <div className="max-w-6xl mx-auto px-4">
+    <motion.h2
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
+      className={`text-3xl md:text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-blue-100' : 'text-orange-500'}`}
     >
-      <motion.p
-        className="text-lg text-orange-900 leading-relaxed"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+      Who It's For
+    </motion.h2>
+    
+    <div className="grid md:grid-cols-2 gap-12 items-start">
+      {/* Left: Content Paragraph */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
+        className="space-y-6"
       >
-        Our Budget Management service is designed for individuals and businesses who want to take control of their finances and achieve their financial goals. Whether you're a small business owner, startup founder, family, or individual, our solutions help you create sustainable budgets that work for your unique situation.
-      </motion.p>
-      <motion.p
-        className="text-lg text-orange-900 leading-relaxed"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        <p className={theme === 'dark' ? 'text-lg text-blue-100 leading-relaxed' : 'text-lg text-orange-900 leading-relaxed'}>
+          Our Budget Management service is designed for individuals and businesses who want to take control of their finances and achieve their financial goals. Whether you're a small business owner, startup founder, family, or individual, our solutions help you create sustainable budgets that work for your unique situation.
+        </p>
+        <p className={theme === 'dark' ? 'text-lg text-blue-100 leading-relaxed' : 'text-lg text-orange-900 leading-relaxed'}>
+          We work closely with you to understand your financial objectives, develop realistic budgets, and provide ongoing support to ensure you stay on track and achieve your goals.
+        </p>
+      </motion.div>
+      
+      {/* Right: Cards Grid */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
         viewport={{ once: true }}
+        className="grid lg:grid-cols-3 gap-4 h-full"
       >
-        We work closely with you to understand your financial objectives, develop realistic budgets, and provide ongoing support to ensure you stay on track and achieve your goals.
-      </motion.p>
-    </motion.div>
-    {/* Right: Cards */}
-    <motion.div
-      className="flex-1 flex flex-col mb-12 justify-center"
-      initial={{ opacity: 0, x: 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 h-full">
         {clients.map((c, i) => (
           <motion.div
             key={i}
-            className="bg-orange-100 border border-orange-300 rounded-xl px-6 py-6 shadow flex flex-col items-center justify-center text-center h-full min-h-[80px]"
+            className={`rounded-xl px-6 py-6 shadow flex flex-col items-center justify-center text-center h-full min-h-[80px] transition-colors duration-300 ${
+              theme === 'dark' 
+                ? 'bg-[#23344a] border border-blue-900' 
+                : 'bg-orange-100 border border-orange-300'
+            }`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.05, y: -5 }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
             viewport={{ once: true }}
           >
-            <span className="text-orange-900 font-semibold text-base">{c}</span>
+            <span className={theme === 'dark' ? 'text-blue-100 font-semibold text-base' : 'text-orange-900 font-semibold text-base'}>
+              {c}
+            </span>
           </motion.div>
         ))}
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   </div>
-</div>
+</section>
+
 
       {/* 4. Benefits & Outcomes */}
       <div className="relative w-full h-[500px] md:h-screen mb-0 flex items-center justify-center">

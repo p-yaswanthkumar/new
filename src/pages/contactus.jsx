@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import contact1 from '../assets/contact1.jpg';
 import contact2 from '../assets/contact2.jpg';
@@ -19,23 +19,47 @@ const ContactUs = () => {
   //   }
   // }, [contactSuccess]);
 
+  // Theme state and sync with global/localStorage
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+  useEffect(() => {
+    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
+    window.addEventListener('theme-changed', handleThemeChange);
+    window.addEventListener('storage', handleThemeChange);
+    return () => {
+      window.removeEventListener('theme-changed', handleThemeChange);
+      window.removeEventListener('storage', handleThemeChange);
+    };
+  }, []);
+
+  // Remove this effect, as it's now handled in the themeChange handler above
+
+  // Color helpers for Home1 dark theme
+  const bgMain = theme === 'dark' ? 'bg-[#1E2A38]' : 'bg-gray-50';
+  const bgSection = theme === 'dark' ? 'bg-[#1E2A38]' : 'bg-[#f9f9f4]';
+  const bgSectionAlt = theme === 'dark' ? 'bg-[#141B25]' : 'bg-[#fdf9f4]';
+  const bgCard = theme === 'dark' ? 'bg-[#1E2A38]' : 'bg-white';
+  const textMain = theme === 'dark' ? 'text-white' : 'text-gray-900';
+  const textSub = theme === 'dark' ? 'text-gray-200' : 'text-gray-700';
+  const textAccent = 'text-orange-500';
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${bgMain} transition-colors duration-300`}>
       {/* Hero Section */}
-      <section className="relative mb-0 text-white h-screen md:h-screen  md:py-20 flex flex-col items-center justify-center min-h-[60vh] overflow-hidden">
-        <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover z-0">
+      <section className={`relative mb-0 h-screen md:h-screen md:py-20 flex flex-col items-center justify-center min-h-[60vh] overflow-hidden`}>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
           <source src={contactusHeroVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-        <div className="relative z-20 text-center px-2 sm:px-4">
-          <motion.h1 className="text-4xl md:text-6xl font-extrabold  text-white drop-shadow-lg"
+        {/* Overlay for clarity in both themes, very transparent to always show video */}
+        <div className="absolute inset-0 z-10 bg-black bg-opacity-30"></div>
+        <div className="relative z-20 text-center px-2 sm:px-4 flex flex-col items-center justify-center w-full h-full">
+          <motion.h1 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg text-white"
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}>
             Expert Financial Guidance
           </motion.h1>
-          <motion.p className="text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-gray-100 drop-shadow-md"
+          <motion.p className="text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed drop-shadow-md text-white"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}>
@@ -46,10 +70,10 @@ const ContactUs = () => {
       </section>
 
       {/* Meet Our Support Team */}
-      <section className="w-full bg-[#f9f9f4] py-8">
+      <section className={`w-full ${bgSection} py-8 transition-colors duration-300`}>
         <div className="max-w-7xl mx-auto px-4">
           <motion.h2
-            className="text-2xl md:text-3xl font-bold text-orange-500 mb-8 text-center"
+            className={`text-2xl md:text-3xl font-bold ${textAccent} mb-8 text-center`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -60,7 +84,7 @@ const ContactUs = () => {
             {[contact1, contact2, contact3].map((img, idx) => (
               <motion.div
                 key={idx}
-                className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-4"
+                className={`${bgCard} rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-4 transition-colors duration-300`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.05, y: -5 }}
@@ -73,8 +97,8 @@ const ContactUs = () => {
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.3 }}
                 />
-                <div className="font-semibold text-blue-900 text-lg">Support Specialist {idx + 1}</div>
-                <div className="text-gray-600 text-sm mt-1">support{idx + 1}@finance.com</div>
+                <div className={`font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'} text-lg`}>Support Specialist {idx + 1}</div>
+                <div className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-sm mt-1`}>support{idx + 1}@finance.com</div>
               </motion.div>
             ))}
           </div>
@@ -82,7 +106,7 @@ const ContactUs = () => {
       </section>
 
       {/* Inquiry Form Section */}
-      <section className="bg-gray-50 py-10 md:py-20">
+      <section className={`py-10 md:py-20 ${bgMain} transition-colors duration-300`}>
         <div className="container mx-auto px-2 sm:px-4 max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
             {/* Left Side */}
@@ -101,7 +125,7 @@ const ContactUs = () => {
                 GET IN TOUCH
               </motion.div>
               <motion.h2
-                className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
+                className={`text-4xl lg:text-5xl font-bold leading-tight ${textMain}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -111,7 +135,7 @@ const ContactUs = () => {
             </motion.div>
             {/* Right Side - Form */}
             <motion.div
-              className="bg-white rounded-2xl shadow-xl p-8"
+              className={`${bgCard} rounded-2xl shadow-xl p-8 transition-colors duration-300`}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -132,7 +156,7 @@ const ContactUs = () => {
                     <input
                       type="text"
                       placeholder="First Name"
-                      className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-gray-700 placeholder-gray-400"
+                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
                     />
                   </motion.div>
                   <motion.div
@@ -143,7 +167,7 @@ const ContactUs = () => {
                     <input
                       type="text"
                       placeholder="Last Name"
-                      className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-gray-700 placeholder-gray-400"
+                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
                     />
                   </motion.div>
                 </div>
@@ -157,7 +181,7 @@ const ContactUs = () => {
                     <input
                       type="email"
                       placeholder="Email"
-                      className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-gray-700 placeholder-gray-400"
+                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
                     />
                   </motion.div>
                   <motion.div
@@ -168,7 +192,7 @@ const ContactUs = () => {
                     <input
                       type="tel"
                       placeholder="Phone"
-                      className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-gray-700 placeholder-gray-400"
+                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
                     />
                   </motion.div>
                 </div>
@@ -181,7 +205,7 @@ const ContactUs = () => {
                   <textarea
                     placeholder="Write A Message"
                     rows="6"
-                    className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-gray-700 placeholder-gray-400 resize-none"
+                    className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 resize-none`}
                   ></textarea>
                 </motion.div>
                 {/* Submit Button */}
@@ -211,7 +235,7 @@ const ContactUs = () => {
       </section>
 
       {/* Location Maps */}
-      <section className="w-full bg-[#fdf9f4] mb-12 md:mb-24 px-0 py-6 md:py-8">
+      <section className={`w-full ${bgSectionAlt} mb-12 md:mb-24 px-0 py-6 md:py-8 transition-colors duration-300`}>
         <div className="container mx-auto w-full px-2 sm:px-4 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <motion.div
             className="text-orange-500 font-semibold text-sm tracking-wider uppercase"
@@ -222,7 +246,7 @@ const ContactUs = () => {
             LOCATION
           </motion.div>
           <motion.h2
-            className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
+            className={`text-4xl lg:text-5xl font-bold leading-tight ${textMain}`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -230,7 +254,7 @@ const ContactUs = () => {
             How To Reach Our Location
           </motion.h2>
           <motion.div
-            className="bg-white rounded-2xl h-full w-full shadow-lg p-4 flex flex-col items-center"
+            className={`${bgCard} rounded-2xl h-full w-full shadow-lg p-4 flex flex-col items-center transition-colors duration-300`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.02 }}
@@ -242,18 +266,18 @@ const ContactUs = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-white py-20">
+      <section className={`${bgCard} py-20 transition-colors duration-300`}>
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex lg:flex-col-2 gap-16 items-start">
             <motion.div
-              className="w-full lg:w-1/2 space-y-6"
+              className={`w-full lg:w-1/2 space-y-6`}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}>
               <div>
                 <motion.div
-                  className="text-orange-500 font-semibold text-sm tracking-wider uppercase"
+                  className={`${textAccent} font-semibold text-sm tracking-wider uppercase`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
@@ -261,7 +285,7 @@ const ContactUs = () => {
                   FREQUENTLY ASKED QUESTIONS
                 </motion.div>
                 <motion.h2
-                  className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mt-2"
+                  className={`text-4xl lg:text-5xl font-bold leading-tight mt-2 ${textMain}`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
@@ -310,17 +334,17 @@ const ContactUs = () => {
               ].map((faq, idx) => (
                 <motion.details
                   key={idx}
-                  className="group bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors duration-200"
+                  className={`group rounded-lg p-6 transition-colors duration-200 ${theme === 'dark' ? 'bg-[#1E2A38] hover:bg-[#223366]' : 'bg-gray-50 hover:bg-gray-100'}`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: true }}>
-                  <summary className="font-semibold text-gray-900 cursor-pointer flex justify-between items-center text-lg">
+                  <summary className={`font-semibold cursor-pointer flex justify-between items-center text-lg ${textMain}`}>
                     {faq.question}
                     <span className="text-orange-500 group-open:rotate-45 transition-transform duration-200">+</span>
                   </summary>
-                  <p className="mt-4 text-gray-600 leading-relaxed">
+                  <p className={`mt-4 leading-relaxed ${textSub}`}>
                     {faq.answer}
                   </p>
                 </motion.details>
@@ -330,10 +354,10 @@ const ContactUs = () => {
         </div>
       </section>
       {/* Newsletter Section */}
-      <section className="bg-[#fdf9f4] py-8 md:py-12">
+      <section className={`py-8 md:py-12 ${bgSectionAlt} transition-colors duration-300`}>
         <div className="container mx-auto px-2 sm:px-4 max-w-3xl text-center">
           <motion.h2
-            className="text-3xl font-semibold text-gray-900 mb-4"
+            className={`text-3xl font-semibold mb-4 ${textMain}`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -341,7 +365,7 @@ const ContactUs = () => {
             Subscribe to Our Newsletter
           </motion.h2>
           <motion.p
-            className="text-gray-700 mb-6"
+            className={`mb-6 ${textSub}`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -361,7 +385,7 @@ const ContactUs = () => {
             <motion.input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 min-w-0 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-700 placeholder-gray-400"
+              className={`flex-1 min-w-0 px-4 py-3 rounded-lg border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-300 text-gray-700 placeholder-gray-400'} focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent`}
               whileFocus={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             />

@@ -1,3 +1,18 @@
+/* Dark theme: keep team-section h2 white */
+body.dark .team-section h2 {
+  color: #fff !important;
+}
+/* Dark theme: keep awards-section h2 white */
+body.dark .awards-section h2 {
+  color: #fff !important;
+}
+/* Dark theme: keep timeline-section h2 white */
+body.dark .timeline-section h2 {
+  color: #fff !important;
+}
+body.dark .team-section h2 {
+  color: #fff !important;
+}
 /* Awards Flex Layout */
 .awards-flex {
   display: flex;
@@ -368,6 +383,7 @@
 .mission-values-section {
   padding: 80px 0;
   background: #f8f9fa;
+  text-align: justify;
 }
 
 .mission-values-grid {

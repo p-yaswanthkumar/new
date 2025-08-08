@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from "framer-motion";
@@ -51,18 +51,29 @@ const faqs = [
 ];
 
 const BookkeepingAccounting = () => {
+
+  // Theme sync (like Home1)
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-    });
+    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
+    window.addEventListener('theme-changed', handleThemeChange);
+    window.addEventListener('storage', handleThemeChange);
+    AOS.init({ once: true, duration: 1000, offset: 80 });
+    return () => {
+      window.removeEventListener('theme-changed', handleThemeChange);
+      window.removeEventListener('storage', handleThemeChange);
+    };
   }, []);
 
+  // Section bg alternation
+  const bgColors = theme === 'dark' ? ['#1E2A38', '#141B25'] : ['#ffffff', '#FDF9F4'];
+  let sectionIndex = 0;
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1E2A38]' : 'bg-white'}`}> 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className={`relative h-screen flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'bg-[#1E2A38]' : ''}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}>
         <video
           autoPlay
           loop
@@ -71,13 +82,17 @@ const BookkeepingAccounting = () => {
         >
           <source src={bookkeepingHeroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+        {/* Overlay for light mode only */}
+        {theme !== 'dark' && (
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        )}
+        {/* Key content always visible, styled per theme */}
+        <div className={`relative z-10 text-center px-4 max-w-4xl mx-auto ${theme === 'dark' ? 'text-white' : 'text-white'}`}>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-bold mb-6"
+            className={`text-4xl md:text-6xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-white'}`}
           >
             Bookkeeping & Accounting
           </motion.h1>
@@ -85,7 +100,7 @@ const BookkeepingAccounting = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-orange-300 max-w-3xl mx-auto"
+            className={`text-xl md:text-2xl max-w-3xl mx-auto ${theme === 'dark' ? 'text-orange-200' : 'text-orange-300'}`}
           >
             Stay organized and compliant with our expert bookkeeping and accounting services. We handle your daily transactions, reconciliations, and reporting so you can focus on growing your business with confidence.
           </motion.p>
@@ -93,14 +108,15 @@ const BookkeepingAccounting = () => {
       </section>
 
       {/* What This Service Includes */}
-      <section className="py-16 bg-[#fdf9f4]">
+      <section className={`py-16 transition-colors duration-300 ${theme === 'dark' ? 'bg-[#141B25]' : 'bg-[#fdf9f4]'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}>
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12"
+            className={`text-3xl md:text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
           >
             What This Service Includes
           </motion.h2>
@@ -132,7 +148,7 @@ const BookkeepingAccounting = () => {
                   className="flex items-center space-x-3 text-lg"
                 >
                   <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
-                  <span className="text-gray-700">{feature}</span>
+                  <span className={`${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>{feature}</span>
                 </motion.li>
               ))}
             </motion.ul>
@@ -141,14 +157,15 @@ const BookkeepingAccounting = () => {
       </section>
 
       {/* Who It's For */}
-      <section className="py-16 bg-white">
+      <section className={`py-16 transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1E2A38]' : 'bg-white'}`}
+        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}>
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12"
+            className={`text-3xl md:text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
           >
             Who It's For
           </motion.h2>
@@ -160,10 +177,10 @@ const BookkeepingAccounting = () => {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}> 
                 Our Bookkeeping & Accounting service is designed for businesses and professionals who want to ensure their finances are always accurate and up-to-date. Whether you're a small business owner, freelancer, or nonprofit, our solutions are tailored to your needs.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}> 
                 We work closely with you to understand your unique requirements, providing reliable support and clear financial records that empower you to make informed decisions.
               </p>
             </motion.div>
@@ -182,9 +199,9 @@ const BookkeepingAccounting = () => {
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-orange-50 border border-orange-200 rounded-lg p-6 text-center"
+                  className={`${theme === 'dark' ? 'bg-[#223366] border-[#334477]' : 'bg-orange-50 border-orange-200'} rounded-lg p-6 text-center transition-colors duration-300`}
                 >
-                  <span className="text-orange-800 font-semibold">{client}</span>
+                  <span className={`font-semibold ${theme === 'dark' ? 'text-orange-200' : 'text-orange-800'}`}>{client}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -193,7 +210,7 @@ const BookkeepingAccounting = () => {
       </section>
 
       {/* Benefits & Outcomes */}
-      <div className="relative w-full h-[500px] md:h-screen mb-0 flex items-center justify-center">
+      <div className={`relative w-full h-[500px] md:h-screen mb-0 flex items-center justify-center ${theme === 'dark' ? 'bg-[#141B25]' : ''} transition-colors duration-300`}>
               {/* Background Image */}
               <motion.img 
                 src={book2} 
@@ -210,7 +227,7 @@ const BookkeepingAccounting = () => {
               {/* Content */}
               <div className="relative z-20 w-full h-full flex flex-col items-center justify-center text-center p-8">
                 <motion.h2 
-                  className="text-4xl md:text-5xl font-extrabold text-white drop-shadow mb-10"
+                  className={`text-4xl md:text-5xl font-extrabold drop-shadow mb-10 ${theme === 'dark' ? 'text-white' : 'text-white'}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
@@ -222,14 +239,14 @@ const BookkeepingAccounting = () => {
                   {benefits.slice(0,3).map((b, i) => (
                     <motion.div 
                       key={i} 
-                      className="bg-orange-100 backdrop-blur-md border border-orange-300 rounded-xl p-6 shadow-lg flex flex-col items-center text-center"
+                      className={`${theme === 'dark' ? 'bg-[#223366] border-[#334477]' : 'bg-orange-100 border-orange-300'} backdrop-blur-md rounded-xl p-6 shadow-lg flex flex-col items-center text-center transition-colors duration-300`}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       whileHover={{ scale: 1.05, y: -5 }}
                       transition={{ duration: 0.6, delay: i * 0.2 }}
                       viewport={{ once: true }}
                     >
-                      <span className="text-orange-500 font-semibold text-lg drop-shadow">{b}</span>
+                      <span className={`font-semibold text-lg drop-shadow ${theme === 'dark' ? 'text-orange-200' : 'text-orange-500'}`}>{b}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -237,14 +254,14 @@ const BookkeepingAccounting = () => {
                   {benefits.slice(3,6).map((b, i) => (
                     <motion.div 
                       key={i+3} 
-                      className="bg-orange-100 backdrop-blur-md border border-orange-300 rounded-xl p-6 shadow-lg flex flex-col items-center text-center"
+                      className={`${theme === 'dark' ? 'bg-[#223366] border-[#334477]' : 'bg-orange-100 border-orange-300'} backdrop-blur-md rounded-xl p-6 shadow-lg flex flex-col items-center text-center transition-colors duration-300`}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       whileHover={{ scale: 1.05, y: -5 }}
                       transition={{ duration: 0.6, delay: (i+3) * 0.2 }}
                       viewport={{ once: true }}
                     >
-                      <span className="text-orange-500 font-semibold text-lg drop-shadow">{b}</span>
+                      <span className={`font-semibold text-lg drop-shadow ${theme === 'dark' ? 'text-orange-200' : 'text-orange-500'}`}>{b}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -252,7 +269,7 @@ const BookkeepingAccounting = () => {
             </div>
       
             {/* 5. FAQs About This Service */}
-            <div className="container mx-auto px-4 py-10 max-w-4xl">
+            <div className={`container mx-auto px-4 py-10 max-w-4xl ${theme === 'dark' ? 'bg-[#1E2A38]' : ''} transition-colors duration-300`}>
               <motion.h2 
                 className="text-2xl font-bold text-center mt-12 text-orange-500 mb-6"
                 initial={{ opacity: 0, y: 30 }}
@@ -266,25 +283,25 @@ const BookkeepingAccounting = () => {
                 {faqs.map((faq, i) => (
                   <motion.div 
                     key={i} 
-                    className="bg-orange-50 border border-orange-200 rounded-xl p-6 shadow-md hover:shadow-lg transition flex flex-col"
+                    className={`${theme === 'dark' ? 'bg-[#223366] border-[#334477]' : 'bg-orange-50 border-orange-200'} rounded-xl p-6 shadow-md hover:shadow-lg transition flex flex-col transition-colors duration-300`}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     whileHover={{ scale: 1.02, y: -5 }}
                     transition={{ duration: 0.6, delay: i * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <div className="font-semibold text-orange-700 mb-2 text-lg flex items-center gap-2">
+                    <div className={`font-semibold mb-2 text-lg flex items-center gap-2 ${theme === 'dark' ? 'text-orange-200' : 'text-orange-700'}`}>
                       <span className="inline-block w-3 h-3 bg-orange-500 rounded-full"></span>
                       {faq.q}
                     </div>
-                    <div className="text-orange-900 text-base">{faq.a}</div>
+                    <div className={`${theme === 'dark' ? 'text-orange-100' : 'text-orange-900'} text-base`}>{faq.a}</div>
                   </motion.div>
                 ))}
               </div>
             </div>
       
             {/* 6. Get Started / Free Consultation CTA */}
-            <div className="w-full bg-[#fdf9f4] py-10">
+            <div className={`w-full transition-colors duration-300 ${theme === 'dark' ? 'bg-[#141B25]' : 'bg-[#fdf9f4]'}`}> 
               <div className="container mx-auto px-4 flex flex-row md:flex-row items-center gap-10 max-w-6xl">
                 {/* Left: Content */}
                 <motion.div 
@@ -304,7 +321,7 @@ const BookkeepingAccounting = () => {
                     Ready to Transform Your Finances?
                   </motion.h2>
                   <motion.p 
-                    className="mb-6 text-orange-900"
+                    className={`mb-6 ${theme === 'dark' ? 'text-orange-200' : 'text-orange-900'}`}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
