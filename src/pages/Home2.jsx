@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { motion } from "framer-motion";
 import home2hero from '../assets/home2hero.mp4';
 import logo11 from '../assets/11.png';
 import logo12 from '../assets/12.png';
@@ -108,18 +109,30 @@ const Home2 = () => {
         <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
         {/* Content */}
         <div className="relative z-20 flex flex-col items-center justify-center w-full h-full text-center text-white max-w-3xl mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 whitespace-nowrap">
+          <motion.h1 
+            className="text-4xl md:text-6xl font-bold mb-6 whitespace-nowrap"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
             Finance & Accounting Solutions for Growth
-          </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
+          </motion.h1>
+          <motion.p 
+            className="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
             Unlock the full potential of your business with expert accounting, tax planning, and financial consulting. We deliver clarity, compliance, and growth for individuals and organizations alike.
-          </p>
-          <button
+          </motion.p>
+          <motion.button
             className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg transition-colors duration-200 shadow-lg"
             onClick={handleScrollToNext}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Get Started
-          </button>
+          </motion.button>
         </div>
       </section>
       {/* Insights Section */}
@@ -131,37 +144,81 @@ const Home2 = () => {
       {/* Tool/Calculator Preview Section */}
       <section id="tools-section" className="bg-gradient-to-r from-blue-50 to-purple-100 py-16" data-aos="fade-up" data-aos-delay="100">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             Explore Our Financial Tools & Calculators
-          </h2>
-          <div className="grid grid-cols-3 gap-8 overflow-x-auto scrollbar-thin scrollbar-thumb-blue-200" style={{minWidth: '900px'}}>
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-full">
             {/* Tool Card 1 */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]">
+            <motion.div 
+              className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
               <div className="bg-orange-100 rounded-full p-4 mb-4 flex items-center justify-center">
                 <img src={img4} alt="EMI Calculator" className="w-16 h-16 object-contain" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800">EMI Calculator</h3>
               <p className="text-gray-600 mb-4 text-center">Quickly estimate your monthly loan payments and plan your finances with ease.</p>
-              <button onClick={() => { resetCalculators(); setOpenModal('emi'); }} className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition">Try Now</button>
-            </div>
+              <motion.button 
+                onClick={() => { resetCalculators(); setOpenModal('emi'); }} 
+                className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Try Now
+              </motion.button>
+            </motion.div>
             {/* Tool Card 2 */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]">
+            <motion.div 
+              className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
               <div className="bg-orange-100 rounded-full p-4 mb-4 flex items-center justify-center">
                 <img src={img5} alt="Tax Calculator" className="w-16 h-16 object-contain" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800">Tax Calculator</h3>
               <p className="text-gray-600 mb-4 text-center">Calculate your tax liability and optimize your tax planning for the year.</p>
-              <button onClick={() => { resetCalculators(); setOpenModal('tax'); }} className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition">Try Now</button>
-            </div>
+              <motion.button 
+                onClick={() => { resetCalculators(); setOpenModal('tax'); }} 
+                className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Try Now
+              </motion.button>
+            </motion.div>
             {/* Tool Card 3 */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]">
+            <motion.div 
+              className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
               <div className="bg-orange-100 rounded-full p-4 mb-4 flex items-center justify-center">
                 <img src={img6} alt="Retirement Planner" className="w-16 h-16 object-contain" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800">Retirement Planner</h3>
               <p className="text-gray-600 mb-4 text-center">Plan your retirement savings and visualize your future financial security.</p>
-              <button onClick={() => { resetCalculators(); setOpenModal('retirement'); }} className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition">Try Now</button>
-            </div>
+              <motion.button 
+                onClick={() => { resetCalculators(); setOpenModal('retirement'); }} 
+                className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Try Now
+              </motion.button>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -180,36 +237,65 @@ const Home2 = () => {
         
         {/* Content */}
         <div className="relative z-10 max-w-6xl mx-auto px-4">
-          <div className="max-w-2xl bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black-400 mb-6">
+          <motion.div 
+            className="max-w-2xl bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 md:p-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold text-black-400 mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               A Message from Our CEO
-            </h2>
-            <blockquote className="text-lg md:text-xl text-black-400  leading-relaxed mb-6 italic">
+            </motion.h2>
+            <motion.blockquote 
+              className="text-lg md:text-xl text-black-400  leading-relaxed mb-6 italic"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+            >
               "At our core, we believe that financial success should be accessible to everyone. Our mission is to empower individuals and businesses with the tools, insights, and expertise they need to achieve their financial goals. With over a decade of experience in the industry, we're committed to delivering personalized solutions that drive real results."
-            </blockquote>
-            <div className="text-black-400">
+            </motion.blockquote>
+            <motion.div 
+              className="text-black-400"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+            >
               <p className="text-lg font-semibold">John Smith</p>
               <p className="text-black-400">Chief Executive Officer</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Partner Logos Slider */}
       <section className="bg-white py-10" data-aos="fade-up" data-aos-delay="300">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
+          <motion.h2 
+            className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             Trusted by Leading Businesses & Financial Partners
-          </h2>
+          </motion.h2>
           <div className="overflow-hidden">
             <div className="flex items-center animate-scroll-x space-x-12">
               {partnerLogos.map((logo, idx) => (
-                <img
+                <motion.img
                   key={idx}
                   src={logo}
                   alt={`Partner ${idx + 11}`}
                   className="h-40 w-auto object-contain  hover:scale-110 transition duration-200"
                   style={{ minWidth: '200px' }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 + (idx * 0.1) }}
+                  whileHover={{ scale: 1.1 }}
                 />
               ))}
             </div>
@@ -232,111 +318,228 @@ const Home2 = () => {
       {/* Industries We Serve Section */}
       <section className="bg-[#FDF9F4] py-16" data-aos="fade-up" data-aos-delay="400">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">Industries We Serve</h2>
-          <p className="text-center text-gray-400 mb-10 max-w-2xl mx-auto">We are proud to be driving a digital revolution across various industry verticals.</p>
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Industries We Serve
+          </motion.h2>
+          <motion.p 
+            className="text-center text-gray-400 mb-10 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            We are proud to be driving a digital revolution across various industry verticals.
+          </motion.p>
           <div className="grid grid-rows-2 grid-cols-5 sm:grid-cols-3 md:grid-cols-5 gap-8 justify-items-center">
             {/* Logistics */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M7 17v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/><circle cx="12" cy="7" r="4"/><path d="M5 21h14"/></svg>
               </span>
               <div className="font-semibold text-center">Logistics</div>
-            </div>
+            </motion.div>
             {/* Social Networking */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg>
               </span>
               <div className="font-semibold text-center">Social Networking</div>
-            </div>
+            </motion.div>
             {/* Healthcare */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
               </span>
               <div className="font-semibold text-center">Healthcare</div>
-            </div>
+            </motion.div>
             {/* Restaurant */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M8 7v10M16 7v10M5 7h14M7 21h10"/></svg>
               </span>
               <div className="font-semibold text-center">Restaurant</div>
-            </div>
+            </motion.div>
             {/* Wellness & Fitness */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
               </span>
               <div className="font-semibold text-center">Wellness & Fitness</div>
-            </div>
+            </motion.div>
             {/* Sports */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.1 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M16 17l-4-4-4 4"/><path d="M12 3v10"/></svg>
               </span>
               <div className="font-semibold text-center">Sports</div>
-            </div>
+            </motion.div>
             {/* Ecommerce */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="2"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/></svg>
               </span>
               <div className="font-semibold text-center">Ecommerce</div>
-            </div>
+            </motion.div>
             {/* Real Estate */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.3 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="7" y="10" width="10" height="8" rx="2"/><path d="M12 4v6"/><path d="M9 10V4h6v6"/></svg>
               </span>
               <div className="font-semibold text-center">Real Estate</div>
-            </div>
+            </motion.div>
             {/* Education */}
-            <div className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer">
+            <motion.div 
+              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.4 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="8" rx="2"/><path d="M12 8v8"/></svg>
               </span>
               <div className="font-semibold text-center">Education</div>
-            </div>
+            </motion.div>
             {/* Travel */}
-            <div className="flex flex-col items-center">
+            <motion.div 
+              className="flex flex-col items-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.5 }}
+              whileHover={{ scale: 1.1 }}
+            >
               <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
                 <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10.5a8.38 8.38 0 0 1-1.9.5A8.5 8.5 0 1 1 12 3.5c.17 0 .34.01.5.02"/><path d="M12 8v4l3 3"/></svg>
               </span>
               <div className="font-semibold text-center">Travel</div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Calculator Modals */}
       {openModal === 'emi' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="bg-orange-50 rounded-2xl shadow-2xl p-8 w-full max-w-md relative">
-            <button onClick={() => setOpenModal(null)} className="absolute top-3 right-3 text-orange-400 hover:text-red-500 text-2xl">&times;</button>
+        <motion.div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div 
+            className="bg-orange-50 rounded-2xl shadow-2xl p-8 w-full max-w-md relative"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          >
+            <motion.button 
+              onClick={() => setOpenModal(null)} 
+              className="absolute top-3 right-3 text-orange-400 hover:text-red-500 text-2xl"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              &times;
+            </motion.button>
             <h3 className="text-2xl font-bold mb-4 text-orange-600">EMI Calculator</h3>
             <div className="space-y-3">
               <input type="number" placeholder="Principal (₹)" value={emiPrincipal} onChange={e => setEmiPrincipal(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
               <input type="number" placeholder="Annual Interest Rate (%)" value={emiRate} onChange={e => setEmiRate(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
               <input type="number" placeholder="Tenure (years)" value={emiTenure} onChange={e => setEmiTenure(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <button onClick={calculateEMI} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">Calculate</button>
+              <motion.button 
+                onClick={calculateEMI} 
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Calculate
+              </motion.button>
               {emiResult && <div className="text-center text-lg font-semibold text-orange-700 mt-2">{emiResult}</div>}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
       {openModal === 'tax' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="bg-orange-50 rounded-2xl shadow-2xl p-8 w-full max-w-md relative">
-            <button onClick={() => setOpenModal(null)} className="absolute top-3 right-3 text-orange-400 hover:text-red-500 text-2xl">&times;</button>
+        <motion.div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div 
+            className="bg-orange-50 rounded-2xl shadow-2xl p-8 w-full max-w-md relative"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          >
+            <motion.button 
+              onClick={() => setOpenModal(null)} 
+              className="absolute top-3 right-3 text-orange-400 hover:text-red-500 text-2xl"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              &times;
+            </motion.button>
             <h3 className="text-2xl font-bold mb-4 text-orange-600">Tax Calculator</h3>
             <div className="space-y-3">
               <input type="number" placeholder="Annual Income (₹)" value={taxIncome} onChange={e => setTaxIncome(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
               <button onClick={calculateTax} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">Calculate</button>
               {taxResult && <div className="text-center text-lg font-semibold text-orange-700 mt-2">{taxResult}</div>}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
       {openModal === 'retirement' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
@@ -378,7 +581,7 @@ const Home2 = () => {
     </div>
 
     {/* Right 2x2 Cards */}
-    <div className="w-1/2 grid grid-cols-2 gap-6">
+    <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center justify-between min-h-[140px]">
         <div>
           <h3 className="text-lg font-semibold text-gray-800 mb-1">Tax Planning Tips</h3>

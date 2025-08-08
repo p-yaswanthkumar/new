@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -28,7 +27,7 @@ const HeroSection = () => (
       {/* Gradient overlay removed */}
     </div>
     {/* Content */}
-    <div className="relative z-10 text-center w-full px-4 md:px-8 lg:px-16 flex flex-col items-center justify-center">
+    <div className="relative z-10  text-center w-full px-2 sm:px-4 md:px-8 lg:px-16 flex flex-col items-center justify-center">
       <motion.h1
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -103,18 +102,45 @@ const Categories = () => (
   <section className="container mx-auto mt-20 px-4 py-16">
     <div className="grid grid-row-1 md:grid-cols-2 md:gap-x-20 gap-y-12 items-center">
       {/* Left: Heading and Description */}
-      <div>
-        <h2 className="text-3xl font-bold text-blue-900 mb-6 md:mb-8 text-left">Categories</h2>
-        <p className="text-lg text-gray-700 max-w-md mb-4 md:mb-0 text-left">
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <motion.h2 
+          className="text-3xl font-bold text-blue-900 mb-6 md:mb-8 text-left"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          Categories
+        </motion.h2>
+        <motion.p 
+          className="text-lg text-gray-700 max-w-md mb-4 md:mb-0 text-left"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
           Explore a wide range of financial topics. Whether you're looking to invest, plan for retirement, or manage your business finances, our categories help you find the right advice and insights for your journey.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
       {/* Right: Category Cards */}
       <div className="grid grid-cols-2 mt-20 gap-4 md:gap-6">
         {categories.map((cat, i) => (
-          <div key={i} className="bg-orange-100 text-orange-700 px-6 py-6 rounded-xl font-semibold text-lg shadow-sm hover:bg-orange-200 cursor-pointer transition text-center">
+          <motion.div 
+            key={i} 
+            className="bg-orange-100 text-orange-700 px-6 py-6 rounded-xl font-semibold text-lg shadow-sm hover:bg-orange-200 cursor-pointer transition text-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+            viewport={{ once: true }}
+          >
             {cat}
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -158,11 +184,27 @@ const MythsAndFacts = () => {
         ...Array(6 - mythsAndFacts.length).fill({ myth: '', fact: '' })
       ];
   return (
-    <section className="container mx-auto px-4 mt-20 py-16">
-      <h2 className="text-3xl font-bold text-blue-900 mb-8 mt-20 text-center">Myths & Facts</h2>
+    <section className="container bg-[#fdf9f4] mx-auto px-4 mt-20 py-16">
+      <motion.h2 
+        className="text-3xl font-bold text-blue-900 mb-8 mt-20 text-center"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        Myths & Facts
+      </motion.h2>
       <div className="grid grid-cols-2 md:grid-cols-2 gap-x-9 gap-y-10 max-w-7xl mx-auto">
         {mythsFactsGrid.map((item, i) => (
-          <div key={i} className="flex flex-col   md:last:border-r-0 pb-6 md:pb-0 md:pr-8 h-full min-h-[120px]">
+          <motion.div 
+            key={i} 
+            className="flex flex-col   md:last:border-r-0 pb-6 md:pb-0 md:pr-8 h-full min-h-[120px]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.02, x: 5 }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            viewport={{ once: true }}
+          >
             <div className="flex items-start gap-2">
               <span className="font-bold text-orange-500 min-w-[50px]">Myth:</span>
               <span className="text-gray-800">{item.myth}</span>
@@ -171,7 +213,7 @@ const MythsAndFacts = () => {
               <span className="font-bold text-blue-900 min-w-[50px]">Fact:</span>
               <span className="text-gray-700">{item.fact}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
@@ -190,9 +232,23 @@ const comparisonData = [
 
 const Comparison = () => (
   <section className="container mx-auto mt-20 px-4 py-16">
-    <h2 className="text-3xl font-bold text-blue-900 mt-20 mb-8 text-center">Comparison</h2>
+    <motion.h2 
+      className="text-3xl font-bold text-blue-900 mt-20 mb-8 text-center"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      Comparison
+    </motion.h2>
     <div className="overflow-x-auto">
-      <table className="w-full max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+      <motion.table 
+        className="w-full max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
         <thead className="bg-blue-900">
           <tr>
             <th className="text-white px-6 py-4 text-left font-semibold text-lg">Type</th>
@@ -205,17 +261,25 @@ const Comparison = () => (
         </thead>
         <tbody>
           {comparisonData.map((item, i) => (
-            <tr key={i} className="border-b last:border-b-0">
+            <motion.tr 
+              key={i} 
+              className="border-b last:border-b-0"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ backgroundColor: '#fef3c7' }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              viewport={{ once: true }}
+            >
               <td className="px-6 py-4 font-semibold text-blue-900">{item.label}</td>
               <td className="px-6 py-4 text-gray-700">{item.risk}</td>
               <td className="px-6 py-4 text-gray-700">{item.liquidity}</td>
               <td className="px-6 py-4 text-gray-700">{item.return}</td>
               <td className="px-6 py-4 text-gray-700">{item.minInvestment}</td>
               <td className="px-6 py-4 text-gray-700">{item.taxBenefit}</td>
-            </tr>
+            </motion.tr>
           ))}
         </tbody>
-      </table>
+      </motion.table>
     </div>
   </section>
 );
@@ -303,50 +367,105 @@ const Quiz = () => {
 
   return (
     <section className="container mx-auto px-4 py-16">
-      <h2 className="text-3xl font-bold text-blue-900 mb-8 mt-20 text-center">Finance Quiz</h2>
+      <motion.h2 
+        className="text-3xl font-bold text-blue-900 mb-8 mt-20 text-center"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        Finance Quiz
+      </motion.h2>
       <div className="flex flex-row md:flex-row items-center gap-12 max-w-full mx-auto min-h-[420px] md:min-h-[500px] lg:min-h-[600px]">
         {/* Left: Image */}
-        <div className="w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0">
-          <img src={quizblog} alt="Quiz Visual" className="w-full max-w-md h-[320px] md:h-[400px] object-cover rounded-xl shadow-lg" />
-        </div>
+        <motion.div 
+          className="w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.img 
+            src={quizblog} 
+            alt="Quiz Visual" 
+            className="w-full max-w-md h-[320px] md:h-[400px] object-cover rounded-xl shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
         {/* Right: Quiz */}
-        <div className="w-full md:w-1/2 flex flex-col items-center">
+        <motion.div 
+          className="w-full md:w-1/2 flex flex-col items-center"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           <div className="flex items-center justify-between w-full mb-4">
-            <button
+            <motion.button
               onClick={handlePrev}
               className="p-2 rounded-full bg-gray-200 hover:bg-orange-200 text-2xl font-bold mr-2"
               aria-label="Previous Question"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               &#8592;
-            </button>
-            <span className="font-semibold text-lg flex-1 text-center">{currentQ.question}</span>
-            <button
+            </motion.button>
+            <motion.span 
+              className="font-semibold text-lg flex-1 text-center"
+              key={quizIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {currentQ.question}
+            </motion.span>
+            <motion.button
               onClick={handleNext}
               className="p-2 rounded-full bg-gray-200 hover:bg-orange-200 text-2xl font-bold ml-2"
               aria-label="Next Question"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               &#8594;
-            </button>
+            </motion.button>
           </div>
           <div className="flex flex-col gap-4 w-full">
             {currentQ.options.map((opt, idx) => (
-              <button
+              <motion.button
                 key={idx}
                 onClick={() => handleQuiz(idx)}
                 disabled={showResult}
                 className={`px-6 py-3 rounded-lg border text-left font-medium transition-all duration-200 w-full ${selected === idx ? (idx === currentQ.answer ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700') : 'bg-gray-50 border-gray-200 hover:bg-orange-100'}`}
+                whileHover={{ scale: 1.02, x: 5 }}
+                whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
                 {opt}
-              </button>
+              </motion.button>
             ))}
           </div>
           {showResult && (
-            <div className={`mt-4 font-bold ${selected === currentQ.answer ? 'text-green-600' : 'text-red-600'}`}>
+            <motion.div 
+              className={`mt-4 font-bold ${selected === currentQ.answer ? 'text-green-600' : 'text-red-600'}`}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+            >
               {selected === currentQ.answer ? 'Correct!' : 'Incorrect'}
-            </div>
+            </motion.div>
           )}
-          <div className="mt-6 text-gray-500 text-sm">Question {quizIndex + 1} of {quizQuestions.length}</div>
-        </div>
+          <motion.div 
+            className="mt-6 text-gray-500 text-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            Question {quizIndex + 1} of {quizQuestions.length}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

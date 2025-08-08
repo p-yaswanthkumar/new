@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { motion } from "framer-motion";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import home1hero from '../assets/home1hero.mp4';
@@ -27,16 +28,38 @@ const ImpactMetrics = () => {
     <section className="bg-[#FDF9F4] py-20" data-aos="fade-up" data-aos-duration="1200">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4" data-aos="fade-up" data-aos-delay="200">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-black mb-4" 
+            data-aos="fade-up" 
+            data-aos-delay="200"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             Our Impact in Numbers
-          </h2>
-          <p className="text-black text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+          </motion.h2>
+          <motion.p 
+            className="text-black text-lg max-w-2xl mx-auto" 
+            data-aos="fade-up" 
+            data-aos-delay="400"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Delivering measurable results that drive business growth and financial success
-          </p>
+          </motion.p>
         </div>
 
-        <div ref={ref} className="grid grid-cols-4 md:grid-cols-4 gap-8 text-center">
-          <div className="" data-aos="fade-up" data-aos-delay="600">
+        <div ref={ref} className="grid  lg:grid-cols-4 gap-8 text-center">
+          <motion.div 
+            className="" 
+            data-aos="fade-up" 
+            data-aos-delay="600"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div className="text-5xl md:text-6xl font-bold text-black mb-3">
               $<CountUp
                 start={0}
@@ -49,9 +72,17 @@ const ImpactMetrics = () => {
             </div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Assets Under</div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Management</div>
-          </div>
+          </motion.div>
 
-          <div className="" data-aos="fade-up" data-aos-delay="700">
+          <motion.div 
+            className="" 
+            data-aos="fade-up" 
+            data-aos-delay="700"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div className="text-5xl md:text-6xl font-bold text-black mb-3">
               <CountUp
                 start={0}
@@ -64,9 +95,17 @@ const ImpactMetrics = () => {
             </div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Accuracy</div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Rate</div>
-          </div>
+          </motion.div>
 
-          <div className="" data-aos="fade-up" data-aos-delay="800">
+          <motion.div 
+            className="" 
+            data-aos="fade-up" 
+            data-aos-delay="800"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div className="text-5xl md:text-6xl font-bold text-black mb-3">
               <CountUp
                 start={0}
@@ -77,9 +116,17 @@ const ImpactMetrics = () => {
             </div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Average Cost</div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Savings</div>
-          </div>
+          </motion.div>
 
-          <div className="" data-aos="fade-up" data-aos-delay="900">
+          <motion.div 
+            className="" 
+            data-aos="fade-up" 
+            data-aos-delay="900"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div className="text-5xl md:text-6xl font-bold text-black mb-3">
               <CountUp
                 start={0}
@@ -91,7 +138,7 @@ const ImpactMetrics = () => {
             </div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Satisfied</div>
             <div className="text-gradient-to-br from-orange-400 to-orange-500 font-medium text-lg">Clients</div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -113,7 +160,7 @@ const ClientReviews = () => {
         </div>
 
         {/* First Row - 3 Columns */}
-        <div className="grid grid-cols-3 gap-8 mb-12 items-start">
+        <div className="grid lg:grid-cols-3 gap-8 mb-12 items-start">
           {/* Left - Single Line */}
           <div className="text-center flex flex-col justify-between h-full" data-aos="fade-right" data-aos-delay="600" data-aos-once="true">
             <div className="flex-1 flex flex-col justify-center">
@@ -181,7 +228,7 @@ const ClientReviews = () => {
         </div>
 
         {/* Second Row - 3 Columns */}
-        <div className="grid grid-cols-3 gap-8 items-start">
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
           {/* Left - Single Line */}
           <div className="text-center flex flex-col justify-between h-full" data-aos="fade-right" data-aos-delay="900" data-aos-once="true">
             <div className="flex-1 flex flex-col justify-center">
@@ -283,18 +330,38 @@ const Home1 = () => {
 
         {/* Content */}
         <div className="relative z-20 text-center text-white max-w-5xl mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 whitespace-nowrap" data-aos="fade-up" data-aos-delay="300">
+          <motion.h1 
+            className="text-4xl md:text-6xl font-bold mb-6 whitespace-nowrap" 
+            data-aos="fade-up" 
+            data-aos-delay="300"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
             Finance & Accounting Made Simple
-          </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="500">
+          </motion.h1>
+          <motion.p 
+            className="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed" 
+            data-aos="fade-up" 
+            data-aos-delay="500"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
             Empowering your business with modern financial tools and expert support.
             From bookkeeping to strategic planning, we provide comprehensive solutions
             that drive growth and ensure compliance. Trust our experienced team to
             handle your finances while you focus on what matters most.
-          </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg transition-colors duration-200 shadow-lg" data-aos="fade-up" data-aos-delay="700">
+          </motion.p>
+          <motion.button 
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg transition-colors duration-200 shadow-lg" 
+            data-aos="fade-up" 
+            data-aos-delay="700"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             Get Started
-          </button>
+          </motion.button>
         </div>
       </section>
 
@@ -305,41 +372,93 @@ const Home1 = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Side Image */}
-            <div className="order-2 lg:order-1" data-aos="slide-left" data-aos-delay="200">
+            <motion.div 
+              className="order-2 lg:order-1" 
+              data-aos="scroll-down" 
+              data-aos-delay="200"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
               <img
                 src={heroAboutUs}
                 alt="Why Choose Us - Financial Services"
                 className="w-full h-auto rounded-lg shadow-lg object-cover"
               />
-            </div>
+            </motion.div>
 
             {/* Right Side Content */}
             <div className="order-1 lg:order-2" data-aos="slide-right" data-aos-delay="400">
-              <h2 className="text-3xl font-bold mb-6 text-gray-900" data-aos="fade-up" data-aos-delay="600">
+              <motion.h2 
+                className="text-3xl font-bold mb-6 text-gray-900" 
+                data-aos="fade-up" 
+                data-aos-delay="600"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
                 Why Choose Us for Your Financial Needs?
-              </h2>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed" data-aos="fade-up" data-aos-delay="700">
+              </motion.h2>
+              <motion.p 
+                className="text-lg text-gray-600 mb-8 leading-relaxed" 
+                data-aos="fade-up" 
+                data-aos-delay="700"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
                 With over 15 years of experience in finance and accounting, we provide comprehensive solutions
                 that drive growth and ensure compliance. Our team of certified professionals uses cutting-edge
                 technology to deliver accurate, timely, and strategic financial services tailored to your business needs.
-              </p>
+              </motion.p>
               <div className="space-y-4">
-                <div className="flex items-start" data-aos="fade-right" data-aos-delay="800">
+                <motion.div 
+                  className="flex items-start" 
+                  data-aos="fade-right" 
+                  data-aos-delay="800"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  whileHover={{ x: 5 }}
+                >
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <p className="text-gray-700">Certified accountants and financial advisors</p>
-                </div>
-                <div className="flex items-start" data-aos="fade-right" data-aos-delay="900">
+                </motion.div>
+                <motion.div 
+                  className="flex items-start" 
+                  data-aos="fade-right" 
+                  data-aos-delay="900"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                  whileHover={{ x: 5 }}
+                >
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <p className="text-gray-700">Modern cloud-based financial solutions</p>
-                </div>
-                <div className="flex items-start" data-aos="fade-right" data-aos-delay="1000">
+                </motion.div>
+                <motion.div 
+                  className="flex items-start" 
+                  data-aos="fade-right" 
+                  data-aos-delay="1000"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 1.0 }}
+                  whileHover={{ x: 5 }}
+                >
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <p className="text-gray-700">Proven track record with 2,500+ satisfied clients</p>
-                </div>
-                <div className="flex items-start" data-aos="fade-right" data-aos-delay="1100">
+                </motion.div>
+                <motion.div 
+                  className="flex items-start" 
+                  data-aos="fade-right" 
+                  data-aos-delay="1100"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 1.1 }}
+                  whileHover={{ x: 5 }}
+                >
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <p className="text-gray-700">24/7 customer support and consultation</p>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -356,7 +475,7 @@ const Home1 = () => {
               We offer a comprehensive suite of financial services designed to help you and your business thrive. Explore our core offerings below:
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8">
             {/* Service 1 */}
             <div className="relative bg-white rounded-xl shadow-lg p-8 flex flex-col items-center text-center overflow-hidden transition-shadow duration-300 hover:shadow-2xl group" data-aos="fade-up" data-aos-delay="200">
               <div className="absolute left-0 bottom-0 w-full h-0 group-hover:h-full bg-[#1E2A38] to-transparent transition-all duration-500 z-0"></div>

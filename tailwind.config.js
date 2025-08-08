@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -49,8 +49,13 @@ export default {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         }
-      }
+      },
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+      },
     },
   },
   plugins: [],
-} 
+}

@@ -23,13 +23,13 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 w-full">
+    <header className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 w-full !fixed !top-0 !left-0 !right-0 !z-50">
       <div className="w-full px-4  sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="flex pl-14 items-center">
+          <div className="flex pl-4 sm:pl-6 lg:pl-14 items-center">
             <button onClick={() => navigate('/home1')} className="focus:outline-none">
-              <img src={logo} alt="STACKLY" className="h-8 w-auto" />
+              <img src={logo} alt="STACKLY" className="h-6 sm:h-8 w-auto" />
             </button>
           </div>
 
@@ -90,10 +90,11 @@ const Header = () => {
                 <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-2" onMouseLeave={toggleServicesDropdown}>
                   <Link to="/service" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
                   <Link to="/Financial%20Planning%20&%20Analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Financial Planning & Analysis</Link>
-                  <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Web Development</a>
-                  <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Mobile Apps</a>
-                  <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Consulting</a>
-                </div>
+                  <Link to="/Tax%20Preparation%20&%20Filing" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Tax Preparation & Filing</Link>
+                  <Link to="/Budget%20Management" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Budget Management</Link>
+                  <Link to="/Investment%20Advisory" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Investment Advisory</Link>
+                  <Link to="/Audit%20&%20Compliance" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Audit & Compliance</Link>
+                  <Link to="/Bookkeeping%20&%20Accounting" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Bookkeeping & Accounting</Link>                </div>
               )}
             </div>
             
@@ -114,22 +115,38 @@ const Header = () => {
 
             {/* Avatar with Logout Dropdown */}
             <div className="relative">
-              <button
-                className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-semibold focus:outline-none"
-                onClick={() => setIsAvatarDropdownOpen((v) => !v)}
-              >
-                YK
-              </button>
-              {isAvatarDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
-                  <button
-                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
-                    onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+              {(() => {
+                // Use first letter of firstname and lastname from localStorage, no fallback
+                const firstname = (localStorage.getItem('firstname') || '').trim();
+                const lastname = (localStorage.getItem('lastname') || '').trim();
+                let initials = '';
+                if (firstname.length > 0) {
+                  initials += firstname[0].toUpperCase();
+                }
+                if (lastname.length > 0) {
+                  initials += lastname[0].toUpperCase();
+                }
+                return (
+                  <>
+                    <button
+                      className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-semibold focus:outline-none"
+                      onClick={() => setIsAvatarDropdownOpen((v) => !v)}
+                    >
+                      {initials}
+                    </button>
+                    {isAvatarDropdownOpen && (
+                      <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
+                        <button
+                          className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
+                          onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
             </div>
           </div>
 
@@ -144,22 +161,38 @@ const Header = () => {
 
             {/* Avatar with Logout Dropdown (Mobile) */}
             <div className="relative">
-              <button
-                className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-semibold focus:outline-none"
-                onClick={() => setIsAvatarDropdownOpen((v) => !v)}
-              >
-                YK
-              </button>
-              {isAvatarDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
-                  <button
-                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
-                    onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+              {(() => {
+                // Use first letter of firstname and lastname from localStorage, no fallback
+                const firstname = (localStorage.getItem('firstname') || '').trim();
+                const lastname = (localStorage.getItem('lastname') || '').trim();
+                let initials = '';
+                if (firstname.length > 0) {
+                  initials += firstname[0].toUpperCase();
+                }
+                if (lastname.length > 0) {
+                  initials += lastname[0].toUpperCase();
+                }
+                return (
+                  <>
+                    <button
+                      className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-semibold focus:outline-none"
+                      onClick={() => setIsAvatarDropdownOpen((v) => !v)}
+                    >
+                      {initials}
+                    </button>
+                    {isAvatarDropdownOpen && (
+                      <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
+                        <button
+                          className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
+                          onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
             </div>
 
             {/* Mobile menu button */}
@@ -191,13 +224,13 @@ const Header = () => {
                 </button>
                 {isHomeDropdownOpen && (
                   <div className="pl-4 space-y-1">
-                    <a href="/home1" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => setIsHomeDropdownOpen(false)}>Home 1</a>
-                    <a href="/home2" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => setIsHomeDropdownOpen(false)}>Home 2</a>
+                    <a href="/home1" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsHomeDropdownOpen(false); setIsMobileMenuOpen(false); }}>Home 1</a>
+                    <a href="/home2" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsHomeDropdownOpen(false); setIsMobileMenuOpen(false); }}>Home 2</a>
                   </div>
                 )}
               </div>
 
-              <Link to="/aboutus" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md">
+              <Link to="/aboutus" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
                 About Us
               </Link>
 
@@ -214,20 +247,23 @@ const Header = () => {
                 </button>
                 {isServicesDropdownOpen && (
                   <div className="pl-4 space-y-1">
-                    <Link to="/service" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
-                    <a href="#" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => setIsServicesDropdownOpen(false)}>Web Development</a>
-                    <a href="#" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => setIsServicesDropdownOpen(false)}>Mobile Apps</a>
-                    <a href="#" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => setIsServicesDropdownOpen(false)}>Consulting</a>
+                    <Link to="/service" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>All Services</Link>
+                    <Link to="/Financial%20Planning%20&%20Analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Financial Planning & Analysis</Link>
+                    <Link to="/Tax%20Preparation%20&%20Filing" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Tax Preparation & Filing</Link>
+                    <Link to="/Budget%20Management" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Budget Management</Link>
+                    <Link to="/Investment%20Advisory" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Investment Advisory</Link>
+                    <Link to="/Audit%20&%20Compliance" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Audit & Compliance</Link>
+                    <Link to="/Bookkeeping%20&%20Accounting" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Bookkeeping & Accounting</Link>
                   </div>
                 )}
               </div>
 
 
-              <Link to="/blog" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md">
+              <Link to="/blog" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
                 Blog
               </Link>
 
-              <Link to="/contactus" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md">
+              <Link to="/contactus" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
                 Contact Us
               </Link>
             </div>

@@ -53,13 +53,13 @@ const statusColors = {
 
 const AdminDashboard = () => {
   return (
-    <div className="bg-gray-50 min-h-screen">
+  <div className="bg-gray-50 min-h-screen">
   <Header />
   <h1 className="text-3xl font-bold mb-8 text-orange-600 max-w-7xl mx-auto pt-24 px-4">Admin Dashboard</h1>
   <div className="max-w-7xl mx-auto pb-10 px-4">
 
         {/* 1. Financial Summary Widget - Modern Blue/White Cards */}
-        <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid lg:grid-cols-4 gap-6 mb-8">
           {/* Card 1 */}
           <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between border border-orange-100">
             <div className="font-bold text-base text-black mb-2">Total Balance</div>
@@ -103,7 +103,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* 2. Balance Trends & Monthly Expenses Breakdown */}
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-6 mb-10">
+        <div className="grid lg:grid-cols-2 gap-6 mb-10">
           {/* Balance Trends Card */}
           <div className="bg-white rounded-xl shadow p-6 flex flex-col border border-orange-100">
             <div className="flex justify-between items-center mb-2">
@@ -161,24 +161,24 @@ const AdminDashboard = () => {
         <div className="bg-white rounded-xl shadow p-6 mb-10">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold text-orange-500">Transactions activity</h2>
-            
           </div>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 text-gray-500">
-                <th className="p-2 text-left font-medium">Account</th>
-                <th className="p-2 text-left font-medium">Date</th>
-                <th className="p-2 text-left font-medium">Status</th>
-                <th className="p-2 text-left font-medium">Recipient</th>
-                <th className="p-2 text-left font-medium">Category</th>
-                <th className="p-2 text-left font-medium">Amount</th>
-                <th className="p-2"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {/* Example static rows for demo, replace with real data as needed */}
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
+          <div className="-mx-4 sm:mx-0 overflow-x-auto">
+            <table className="min-w-[700px] w-full text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-gray-50 text-gray-500">
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Account</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Date</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Status</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Recipient</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Category</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Amount</th>
+                  <th className="p-2"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {/* Example static rows for demo, replace with real data as needed */}
+                <tr>
+                  <td className="p-2 flex items-center gap-2 whitespace-nowrap"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
                 <td className="p-2">Feb 17, 2025</td>
                 <td className="p-2"><span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">Pending</span></td>
                 <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Adam Barbara" className="w-6 h-6 rounded-full"/> Adam Barbara</td>
@@ -260,27 +260,28 @@ const AdminDashboard = () => {
             <h2 className="text-xl font-semibold text-orange-500">Expense Management</h2>
             <button className="bg-orange-500 text-white px-4 py-2 rounded font-semibold">Export</button>
           </div>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 text-gray-500">
-                <th className="p-2 text-left font-medium">Date</th>
-                <th className="p-2 text-left font-medium">Type</th>
-                <th className="p-2 text-left font-medium">Vendor</th>
-                <th className="p-2 text-left font-medium">Amount</th>
-                <th className="p-2 text-left font-medium">Status</th>
-                <th className="p-2"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {/* Example static rows for demo, replace with real data as needed */}
-              <tr>
-                <td className="p-2">2025-08-01</td>
-                <td className="p-2">Salaries</td>
-                <td className="p-2">Payroll</td>
-                <td className="p-2">₹3,00,000</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Paid</span></td>
-                <td className="p-2 text-right">...</td>
-              </tr>
+          <div className="-mx-4 sm:mx-0 overflow-x-auto">
+            <table className="min-w-[600px] w-full text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-gray-50 text-gray-500">
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Date</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Type</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Vendor</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Amount</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Status</th>
+                  <th className="p-2"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {/* Example static rows for demo, replace with real data as needed */}
+                <tr>
+                  <td className="p-2 whitespace-nowrap">2025-08-01</td>
+                  <td className="p-2 whitespace-nowrap">Salaries</td>
+                  <td className="p-2 whitespace-nowrap">Payroll</td>
+                  <td className="p-2 whitespace-nowrap">₹3,00,000</td>
+                  <td className="p-2 whitespace-nowrap"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Paid</span></td>
+                  <td className="p-2 text-right whitespace-nowrap">...</td>
+                </tr>
               <tr>
                 <td className="p-2">2025-08-03</td>
                 <td className="p-2">Software</td>
@@ -308,29 +309,30 @@ const AdminDashboard = () => {
             <h2 className="text-xl font-semibold text-orange-500">Client Accounts Overview</h2>
             <button className="bg-orange-500 text-white px-4 py-2 rounded font-semibold">Add Client</button>
           </div>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 text-gray-500">
-                <th className="p-2 text-left font-medium">Client</th>
-                <th className="p-2 text-left font-medium">Contact</th>
-                <th className="p-2 text-left font-medium">Plan</th>
-                <th className="p-2 text-left font-medium">Status</th>
-                <th className="p-2 text-left font-medium">Services</th>
-                <th className="p-2 text-left font-medium">Payment</th>
-                <th className="p-2"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {/* Example static rows for demo, replace with real data as needed */}
-              <tr>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/38.jpg" alt="Acme Corp" className="w-6 h-6 rounded-full"/> Acme Corp</td>
-                <td className="p-2">acme@email.com</td>
-                <td className="p-2">Gold</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Active</span></td>
-                <td className="p-2">Accounting, Tax</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Paid</span></td>
-                <td className="p-2 text-right">...</td>
-              </tr>
+          <div className="-mx-4 sm:mx-0 overflow-x-auto">
+            <table className="min-w-[700px] w-full text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-gray-50 text-gray-500">
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Client</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Contact</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Plan</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Status</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Services</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Payment</th>
+                  <th className="p-2"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {/* Example static rows for demo, replace with real data as needed */}
+                <tr>
+                  <td className="p-2 flex items-center gap-2 whitespace-nowrap"><img src="https://randomuser.me/api/portraits/men/38.jpg" alt="Acme Corp" className="w-6 h-6 rounded-full"/> Acme Corp</td>
+                  <td className="p-2 whitespace-nowrap">acme@email.com</td>
+                  <td className="p-2 whitespace-nowrap">Gold</td>
+                  <td className="p-2 whitespace-nowrap"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Active</span></td>
+                  <td className="p-2 whitespace-nowrap">Accounting, Tax</td>
+                  <td className="p-2 whitespace-nowrap"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Paid</span></td>
+                  <td className="p-2 text-right whitespace-nowrap">...</td>
+                </tr>
               <tr>
                 <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/39.jpg" alt="Beta Ltd" className="w-6 h-6 rounded-full"/> Beta Ltd</td>
                 <td className="p-2">beta@email.com</td>
@@ -352,7 +354,10 @@ const AdminDashboard = () => {
 
       </div>
     </div>
+  </div>
+  </div>
+  </div>
   );
-};
+}
 
 export default AdminDashboard;

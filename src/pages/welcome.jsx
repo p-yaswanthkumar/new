@@ -59,17 +59,14 @@ const Welcome = () => {
     e.preventDefault();
     if (showRegister) {
       console.log('Registration attempt:', regData);
-      
       // Check if user already exists
       const userExists = registeredUsers.some(user => user.email === regData.businessEmail);
-      
       if (userExists) {
         setLoginError('User with this email already exists. Please login instead.');
         setShowRegister(false);
         setEmail(regData.businessEmail); // Pre-fill email in login form
         return;
       }
-
       // Add new user to registered users
       const newUser = {
         email: regData.businessEmail,
@@ -77,13 +74,13 @@ const Welcome = () => {
         firstName: regData.firstName,
         lastName: regData.lastName
       };
-      
       setRegisteredUsers(prev => [...prev, newUser]);
-      
+      // Store firstName and lastName in localStorage for avatar
+      localStorage.setItem('firstname', regData.firstName);
+      localStorage.setItem('lastname', regData.lastName);
       // After successful registration, show login form
       setShowRegister(false); // Switch to login form
       setEmail(regData.businessEmail); // Pre-fill email in login form
-      
       // Clear registration form
       setRegData({
         firstName: '',
@@ -138,8 +135,8 @@ const Welcome = () => {
   };
 
   return (
-    <div 
-      className="min-h-screen flex"
+    <div
+      className="min-h-screen grid  lg:grid-cols-2 relative"
       style={{
         backgroundImage: `url(${welcomeImage})`,
         backgroundSize: 'cover',
@@ -148,24 +145,24 @@ const Welcome = () => {
       }}
     >
       {/* Overlay with #1E2A38 color and transparency */}
-      <div 
+      <div
         className="absolute inset-0"
         style={{
           backgroundColor: '#1E2A38',
           opacity: 0.8
         }}
       ></div>
-      
+
       {/* Left Section - Welcome Information */}
-      <div className="relative z-10 flex-1 flex items-center justify-center px-8">
-        <div className="text-white max-w-md">
+      <div className="relative z-10 flex items-center justify-center px-4 py-8 md:px-8 md:py-0">
+        <div className="text-white w-full max-w-md">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Welcome to user
           </h1>
           <p className="text-lg text-gray-300 leading-relaxed mb-8">
             Your trusted partner for comprehensive financial services. From personal tax preparation to business accounting, we help you achieve your financial goals with expert guidance and professional solutions.
           </p>
-          
+
           {/* Social Media Icons */}
           <div className="flex space-x-4">
             <div className="w-10 h-10 border border-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white-800 transition-colors cursor-pointer">
@@ -193,8 +190,8 @@ const Welcome = () => {
       </div>
 
       {/* Right Section - Login/Register Form */}
-      <div className="relative z-10 flex-1 flex items-center justify-center px-8">
-        <div className="w-full max-w-md">
+      <div className="relative z-10 flex items-center justify-center px-4 py-8 md:px-8 md:py-0">
+        <div className="w-full max-w-md bg-white/10 md:bg-transparent rounded-xl md:rounded-none p-4 md:p-0 shadow-none md:shadow-none">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
             {showRegister ? 'Create Account' : 'Access Your Account'}
           </h2>
@@ -247,7 +244,6 @@ const Welcome = () => {
                   Login
                 </button>
                 
-                {/* Demo Credentials Info removed as requested */}
                 <div className="text-center">
                   <button
                     type="button"
@@ -326,8 +322,6 @@ const Welcome = () => {
                   />
                 </div>
                 
-                
-                
                 <div>
                   <label htmlFor="regPassword" className="block text-white text-sm font-medium mb-2">
                     Password
@@ -382,7 +376,6 @@ const Welcome = () => {
                   Create Account
                 </button>
                 
-               
                 <div className="text-center">
                   <button
                     type="button"
@@ -395,7 +388,6 @@ const Welcome = () => {
               </>
             )}
           </form>
-          
         </div>
       </div>
     </div>

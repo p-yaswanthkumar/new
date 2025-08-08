@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
@@ -13,6 +12,11 @@ import Blog from './pages/blog';
 import BlogDetail from './pages/BlogDetail';
 import Service from './pages/service';
 import FinancialPlanningAnalysis from './pages/Financial Planning & Analysis';
+import TaxPreparationFiling from './pages/Tax Preparation & Filing';
+import BudgetManagement from './pages/Budget Management';
+import InvestmentAdvisory from './pages/Investment Advisory';
+import AuditCompliance from './pages/Audit & Compliance';
+import BookkeepingAccounting from './pages/Bookkeeping & Accounting';
 import AdminDashboard from './pages/admindashboard';
 
 function Layout({ children }) {
@@ -45,10 +49,15 @@ function App() {
                 <Route path="home1" element={<Home1 />} />
                 <Route path="home2" element={<Home2 />} />
                 <Route path="aboutus" element={<AboutUs />} />
-                <Route path="service" element={<Service />} />
+                
                 <Route path="contactus" element={<ContactUs />} />
                 <Route path="service" element={<Service />} />
                 <Route path="Financial Planning & Analysis" element={<FinancialPlanningAnalysis />} />
+                <Route path="Tax Preparation & Filing" element={<TaxPreparationFiling />} />
+                <Route path="Budget Management" element={<BudgetManagement />} />
+                <Route path="Investment Advisory" element={<InvestmentAdvisory />} />
+                <Route path="Audit & Compliance" element={<AuditCompliance />} />
+                <Route path="Bookkeeping & Accounting" element={<BookkeepingAccounting />} />
                 <Route path="blog" element={<Blog />} />
                 <Route path="blog/:id" element={<BlogDetail />} />
               </Routes>

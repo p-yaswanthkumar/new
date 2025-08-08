@@ -97,27 +97,27 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-black hover:text-orange-400 transition-colors duration-200">
+                <a href="/Bookkeeping%20&%20Accounting" className="text-black hover:text-orange-400 transition-colors duration-200">
                   Bookkeeping & Accounting
                 </a>
               </li>
               <li>
-                <a href="#" className="text-black hover:text-orange-400 transition-colors duration-200">
+                <a href="/Tax%20Preparation%20&%20Filing" className="text-black hover:text-orange-400 transition-colors duration-200">
                   Tax Preparation & Filing
                 </a>
               </li>
               <li>
-                <a href="#" className="text-black hover:text-orange-400 transition-colors duration-200">
+                <a href="/Budget%20Management" className="text-black hover:text-orange-400 transition-colors duration-200">
                   Budget Management
                 </a>
               </li>
               <li>
-                <a href="#" className="text-black hover:text-orange-400 transition-colors duration-200">
+                <a href=" /Investment%20Advisory" className="text-black hover:text-orange-400 transition-colors duration-200">
                   Investment Advisory
                 </a>
               </li>
               <li>
-                <a href="#" className="text-black hover:text-orange-400 transition-colors duration-200">
+                <a href="/Audit%20&%20Compliance" className="text-black hover:text-orange-400 transition-colors duration-200">
                   Audit & Compliance
                 </a>
               </li>
@@ -158,7 +158,8 @@ const Footer = () => {
             </div>
             
             {/* Call to Action Button */}
-            <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 mt-4 whitespace-nowrap">
+            <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 mt-4 whitespace-nowrap"
+              onClick={() => window.location.href = '/contactus'}>
               Start Your Financial Journey
             </button>
           </div>
