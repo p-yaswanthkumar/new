@@ -599,8 +599,8 @@ className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-wh
   <div className="max-w-6xl mx-auto px-4 flex flex-row items-start gap-12">
     {/* Left Content */}
     <div className="w-1/2">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Insights</h2>
-      <p className="text-gray-600 text-justify dark:text-white mb-6">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-900  mb-4">Insights</h2>
+      <p className="text-gray-600 text-justify dark:text-orange-400 mb-6">
       In today’s there rapidly changing financial landscape, staying informed is the key to long-term success. 
   Our insights go beyond surface-level tips — we provide in-depth guidance on tax strategies, 
   compliance updates, and smart money management tailored to businesses of all sizes. 

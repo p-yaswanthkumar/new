@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 const Footer = () => {
@@ -106,34 +107,34 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="/financial-planning-analysis" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/financial-planning-analysis" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Financial Planning & Analysis
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/bookkeeping-accounting" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/bookkeeping-accounting" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Bookkeeping & Accounting
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/tax-preparation-filing" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/tax-preparation-filing" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Tax Preparation & Filing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/budget-management" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/budget-management" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Budget Management
-                </a>
+                </Link>
               </li>
               <li>
-                <a href=" /investment-advisory" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/investment-advisory" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Investment Advisory
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/audit-compliance" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
+                <Link to="/audit-compliance" className={`${textSub} hover:text-orange-400 transition-colors duration-200`}>
                   Audit & Compliance
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
