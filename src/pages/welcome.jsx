@@ -105,6 +105,8 @@ const Welcome = () => {
       // Admin login check
       if (email === 'admin@enkonix.in' && password === 'admin123') {
         setLoginError('');
+        localStorage.setItem('firstname', 'Admin');
+        localStorage.setItem('lastname', 'User');
         navigate('/admindashboard');
         return;
       }

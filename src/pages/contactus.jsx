@@ -141,254 +141,336 @@ const ContactUs = () => {
       </section>
 
       {/* Inquiry Form Section */}
-      <section className={`py-10 md:py-20 ${bgMain} transition-colors duration-300`}
-      style={{ backgroundColor: theme === 'dark' ? '#1E2A38' : '#fff' }}>
-        <div className="container mx-auto px-2 sm:px-4 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
-            {/* Left Side */}
-            <motion.div
-              className="space-y-6"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}>
-              <motion.div
-                className="text-orange-500 font-semibold text-sm tracking-wider uppercase"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}>
-                GET IN TOUCH
-              </motion.div>
-              <motion.h2
-                className={`text-4xl lg:text-5xl font-bold leading-tight ${textMain}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}>
-                Needs help? let's get in touch
-              </motion.h2>
-            </motion.div>
-            {/* Right Side - Form */}
-            <motion.div
-              className={`${bgCard} rounded-2xl shadow-xl p-8 transition-colors duration-300`}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}>
-              <form
-                className="space-y-6"
-                onSubmit={e => {
-                  e.preventDefault();
-                  setContactSuccess(true);
-                }}>
-                {/* First Row - Name Fields */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    viewport={{ once: true }}>
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-                    />
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    viewport={{ once: true }}>
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-                    />
-                  </motion.div>
-                </div>
-                {/* Second Row - Email and Phone */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    viewport={{ once: true }}>
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-                    />
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                    viewport={{ once: true }}>
-                    <input
-                      type="tel"
-                      placeholder="Phone"
-                      className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-                    />
-                  </motion.div>
-                </div>
-                {/* Message Field */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                  viewport={{ once: true }}>
-                  <textarea
-                    placeholder="Write A Message"
-                    rows="6"
-                    className={`w-full px-4 py-4 border ${theme === 'dark' ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300' : 'border-gray-200 text-gray-700 placeholder-gray-400'} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 resize-none`}
-                  ></textarea>
-                </motion.div>
-                {/* Submit Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  viewport={{ once: true }}>
-                  <motion.button
-                    type="submit"
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}>
-                    Send Message
-                  </motion.button>
-                </motion.div>
-                {/* Success message below form */}
-                {contactSuccess && (
-                  <div className="mt-6 text-green-600 font-semibold text-center animate-fade-in">
-                    form submitted successfully. Thank you !
-                  </div>
-                )}
-              </form>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <section
+  className={`py-10 md:py-20 ${bgMain} transition-colors duration-300`}
+  style={{ backgroundColor: theme === 'dark' ? '#1E2A38' : '#fff' }}
+>
+  <div className="container mx-auto px-2 sm:px-4 max-w-6xl">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
+      {/* Left Side */}
+      <motion.div
+        className="space-y-6"
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <motion.div
+          className="text-orange-500 font-semibold text-sm tracking-wider uppercase"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          GET IN TOUCH
+        </motion.div>
+        <motion.h2
+          className={`text-4xl lg:text-5xl font-bold leading-tight ${textMain}`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          Needs help? let's get in touch
+        </motion.h2>
+      </motion.div>
 
-      {/* Location Maps */}
-      <section className={`w-full ${bgSectionAlt} mb-12 md:mb-24 px-0 py-6 md:py-8 transition-colors duration-300`}>
-        <div className="container mx-auto w-full px-2 sm:px-4 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          <motion.div
-            className="text-orange-500 font-semibold text-sm tracking-wider uppercase"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}>
-            LOCATION
-          </motion.div>
-          <motion.h2
-            className={`text-4xl lg:text-5xl font-bold leading-tight ${textMain}`}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}>
-            How To Reach Our Location
-          </motion.h2>
-          <motion.div
-            className={`${bgCard} rounded-2xl h-full w-full shadow-lg p-4 flex flex-col items-center transition-colors duration-300`}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}>
-            <iframe title="SF Map" src="https://www.google.com/maps?q=456+Market+St,+San+Francisco,+CA+94111&output=embed" className="w-full h-56 rounded-lg border-none"></iframe>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className={`w-full bg-white pb-20 mt-12`}>
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="flex lg:flex-col-2 gap-16 items-start">
+      {/* Right Side - Form */}
+      <motion.div
+        className={`${bgCard} rounded-2xl shadow-xl p-8 transition-colors duration-300`}
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        <form
+          className="space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setContactSuccess(true);
+          }}
+        >
+          {/* First Row - Name Fields */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <motion.div
-              className={`w-full lg:w-1/2 space-y-6`}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}>
-              <div>
-                <motion.div
-                  className={`${textAccent} font-semibold text-sm tracking-wider uppercase`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}>
-                  FREQUENTLY ASKED QUESTIONS
-                </motion.div>
-                <motion.h2
-                  className={`text-4xl lg:text-5xl font-bold leading-tight mt-2 ${textMain}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  viewport={{ once: true }}>
-                  Got Questions? We've Got Answers
-                </motion.h2>
-              </div>
-              <motion.img
-                src={faqImage}
-                alt="FAQ Support"
-                className="w-full h-auto rounded-2xl shadow-lg"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                viewport={{ once: true }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <input
+                type="text"
+                placeholder="First Name"
+                className={`w-full px-4 py-4 border ${
+                  theme === 'dark'
+                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
               />
             </motion.div>
             <motion.div
-              className="w-full lg:w-1/2 space-y-4"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}>
-              {[
-                {
-                  question: "How do I get started with your accounting services?",
-                  answer: "Getting started is simple! Contact us for a free consultation where we'll assess your financial needs and recommend the best service package for your business or personal requirements."
-                },
-                {
-                  question: "What types of businesses do you work with?",
-                  answer: "We serve businesses of all sizes, from startups and small businesses to large corporations. Our expertise spans various industries including retail, manufacturing, technology, healthcare, and professional services."
-                },
-                {
-                  question: "Do you provide tax planning and preparation services?",
-                  answer: "Yes! We offer comprehensive tax services including strategic tax planning, preparation of business and personal tax returns, tax compliance, and representation during audits."
-                },
-                {
-                  question: "How quickly can you respond to urgent financial matters?",
-                  answer: "We understand that financial matters can be time-sensitive. Our team typically responds to urgent inquiries within 2-4 hours during business hours, and we offer priority support for critical issues."
-                },
-                {
-                  question: "What makes your accounting firm different?",
-                  answer: "Our personalized approach, cutting-edge technology, and deep industry expertise set us apart. We don't just manage your books – we provide strategic insights to help your business grow and succeed."
-                }
-              ].map((faq, idx) => (
-                <motion.details
-                  key={idx}
-                  className={`group rounded-lg p-6 transition-colors duration-200 ${theme === 'dark' ? 'bg-[#1E2A38] hover:bg-[#223366]' : 'bg-gray-50 hover:bg-gray-100'}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  viewport={{ once: true }}>
-                  <summary className={`font-semibold cursor-pointer flex justify-between items-center text-lg ${textMain}`}>
-                    {faq.question}
-                    <span className="text-orange-500 group-open:rotate-45 transition-transform duration-200">+</span>
-                  </summary>
-                  <p className={`mt-4 leading-relaxed ${textSub}`}>
-                    {faq.answer}
-                  </p>
-                </motion.details>
-              ))}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <input
+                type="text"
+                placeholder="Last Name"
+                className={`w-full px-4 py-4 border ${
+                  theme === 'dark'
+                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+              />
             </motion.div>
           </div>
+
+          {/* Second Row - Email and Phone */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <input
+                type="email"
+                placeholder="Email"
+                className={`w-full px-4 py-4 border ${
+                  theme === 'dark'
+                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <input
+                type="tel"
+                placeholder="Phone"
+                className={`w-full px-4 py-4 border ${
+                  theme === 'dark'
+                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+              />
+            </motion.div>
+          </div>
+
+          {/* Message Field */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <textarea
+              placeholder="Write A Message"
+              rows="6"
+              className={`w-full px-4 py-4 border ${
+                theme === 'dark'
+                  ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                  : 'border-gray-200 text-gray-700 placeholder-gray-400'
+              } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 resize-none`}
+            ></textarea>
+          </motion.div>
+
+          {/* Submit Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <motion.button
+              type="submit"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Send Message
+            </motion.button>
+          </motion.div>
+
+          {/* Success Message */}
+          {contactSuccess && (
+            <div className="mt-6 text-green-600 font-semibold text-center animate-fade-in">
+              form submitted successfully. Thank you !
+            </div>
+          )}
+        </form>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
+
+      {/* Location Maps */}
+      <section
+  className={`w-full ${bgSectionAlt} mb-12 md:mb-0 px-0 py-6 md:py-8 transition-colors duration-300`}
+>
+  <div className="container mx-auto w-full px-2 sm:px-4 flex flex-col gap-6 md:gap-8">
+    <motion.div
+      className="text-orange-500 font-semibold text-sm tracking-wider uppercase text-left"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+    >
+      LOCATION
+    </motion.div>
+
+    <motion.h2
+      className={`text-4xl lg:text-5xl font-bold leading-tight text-left ${textMain}`}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      viewport={{ once: true }}
+    >
+      How To Reach Our Location
+    </motion.h2>
+
+    <motion.div
+      className={`${bgCard} rounded-2xl shadow-lg p-4 flex flex-col items-center transition-colors duration-300`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.8, delay: 0.4 }}
+      viewport={{ once: true }}
+    >
+      <iframe
+        title="SF Map"
+        src="https://www.google.com/maps?q=456+Market+St,+San+Francisco,+CA+94111&output=embed"
+        className="w-full h-56 rounded-lg border-none"
+      ></iframe>
+    </motion.div>
+  </div>
+</section>
+
+      {/* FAQ Section */}
+    <section
+  className={`w-full pb-20 pt-20 mt-0 ${
+    theme === "dark"
+      ? "bg-[#1E2A38] text-white"
+      : "bg-white text-black"
+  }`}
+>
+  <div className="container mx-auto px-4 max-w-6xl">
+    <div className="grid  lg:grid-cols-2 gap-16 items-start">
+      
+      {/* Left section */}
+      <motion.div
+        className="space-y-6"
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <div>
+          <motion.div
+            className={`${textAccent} font-semibold text-sm tracking-wider uppercase`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            FREQUENTLY ASKED QUESTIONS
+          </motion.div>
+          <motion.h2
+            className={`text-4xl lg:text-5xl font-bold leading-tight mt-2 ${textMain}`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            Got Questions? We've Got Answers
+          </motion.h2>
         </div>
-      </section>
+        <motion.img
+          src={faqImage}
+          alt="FAQ Support"
+          className="w-full h-auto rounded-2xl shadow-lg"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+        />
+      </motion.div>
+
+      {/* Right section */}
+      <motion.div
+        className="space-y-4"
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        {[
+          {
+            question: "How do I get started with your accounting services?",
+            answer:
+              "Getting started is simple! Contact us for a free consultation where we'll assess your financial needs and recommend the best service package for your business or personal requirements.",
+          },
+          {
+            question: "What types of businesses do you work with?",
+            answer:
+              "We serve businesses of all sizes, from startups and small businesses to large corporations. Our expertise spans various industries including retail, manufacturing, technology, healthcare, and professional services.",
+          },
+          {
+            question: "Do you provide tax planning and preparation services?",
+            answer:
+              "Yes! We offer comprehensive tax services including strategic tax planning, preparation of business and personal tax returns, tax compliance, and representation during audits.",
+          },
+          {
+            question: "How quickly can you respond to urgent financial matters?",
+            answer:
+              "We understand that financial matters can be time-sensitive. Our team typically responds to urgent inquiries within 2-4 hours during business hours, and we offer priority support for critical issues.",
+          },
+          {
+            question: "What makes your accounting firm different?",
+            answer:
+              "Our personalized approach, cutting-edge technology, and deep industry expertise set us apart. We don't just manage your books – we provide strategic insights to help your business grow and succeed.",
+          },
+        ].map((faq, idx) => (
+          <motion.details
+            key={idx}
+            className={`group rounded-lg p-6 transition-colors duration-200 ${
+              theme === "dark"
+                ? "bg-[#1E2A38] hover:bg-[#223366]"
+                : "bg-gray-50 hover:bg-gray-100"
+            }`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <summary
+              className={`font-semibold cursor-pointer flex justify-between items-center text-lg ${textMain}`}
+            >
+              {faq.question}
+              <span className="text-orange-500 group-open:rotate-45 transition-transform duration-200">
+                +
+              </span>
+            </summary>
+            <p className={`mt-4 leading-relaxed ${textSub}`}>
+              {faq.answer}
+            </p>
+          </motion.details>
+        ))}
+      </motion.div>
+      
+    </div>
+  </div>
+</section>
+
+
       {/* Newsletter Section */}
       <section className={`py-8 md:py-12 ${bgSectionAlt} transition-colors duration-300`}>
         <div className="container mx-auto px-2 sm:px-4 max-w-3xl text-center">

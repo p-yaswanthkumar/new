@@ -235,7 +235,7 @@ const AboutUs = () => {
         <div className="container mx-auto px-4">
           <h2 style={{ color: theme === 'dark' ? '#fff' : '#000' }}
 >Meet Our Leadership Team</h2>
-          <div className="team-grid">
+          <div className="team-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="100">
               <div className="team-hover-bg" />
               <img src={exp1} alt="CEO" className="team-photo orange-ring" />
