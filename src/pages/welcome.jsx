@@ -87,6 +87,18 @@ const Welcome = () => {
       // Store firstName and lastName in localStorage for avatar
       localStorage.setItem('firstname', regData.firstName);
       localStorage.setItem('lastname', regData.lastName);
+
+      // Add signup details to signupUsers in localStorage for admin dashboard
+      const signupUser = {
+        firstname: regData.firstName,
+        lastname: regData.lastName,
+        email: regData.businessEmail,
+        phone: regData.phone,
+        loginDateTime: new Date().toLocaleString()
+      };
+      const prevSignups = JSON.parse(localStorage.getItem('signupUsers') || '[]');
+      localStorage.setItem('signupUsers', JSON.stringify([...prevSignups, signupUser]));
+
       // After successful registration, show login form
       setShowRegister(false); // Switch to login form
       setEmail(regData.businessEmail); // Pre-fill email in login form
@@ -107,15 +119,22 @@ const Welcome = () => {
         setLoginError('');
         localStorage.setItem('firstname', 'Admin');
         localStorage.setItem('lastname', 'User');
+        localStorage.setItem('avatar', 'AU');
         navigate('/admindashboard');
         return;
       }
       // Check if credentials match any registered user
-      const isValidCredential = registeredUsers.some(
+      const matchedUser = registeredUsers.find(
         user => user.email === email && user.password === password
       );
 
-      if (isValidCredential) {
+      if (matchedUser) {
+        // Set avatar as initials (first letter of first and last name, uppercase)
+        const first = matchedUser.firstName ? matchedUser.firstName.charAt(0).toUpperCase() : '';
+        const last = matchedUser.lastName ? matchedUser.lastName.charAt(0).toUpperCase() : '';
+        localStorage.setItem('avatar', `${first}${last}`);
+        localStorage.setItem('firstname', matchedUser.firstName || '');
+        localStorage.setItem('lastname', matchedUser.lastName || '');
         console.log('Login successful:', { email, password, rememberMe });
         setLoginError('');
         navigate('/home1');

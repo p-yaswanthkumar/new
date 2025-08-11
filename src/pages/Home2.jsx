@@ -598,55 +598,70 @@ style={{ color: theme === 'dark' ? '#fff' : '#000' }}
         style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
         data-aos="fade-up" data-aos-delay="500"
       >
-  <div className="max-w-6xl mx-auto px-4 flex flex-row items-start gap-12">
-    {/* Left Content */}
-    <div className="w-1/2">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900  mb-4"
-      style={{ color: theme === 'dark' ? '#fff' : '#000' }}>Insights</h2>
-      <p className=" text-justify mb-6"
-      style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
-      In today’s there rapidly changing financial landscape, staying informed is the key to long-term success. 
-  Our insights go beyond surface-level tips we provide in-depth guidance on tax strategies, 
-  compliance updates, and smart money management tailored to businesses of all sizes. 
-  our expert team delivers practical.
-      </p>
-      <Link
-        to="/blog"
-        className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200 shadow"
-      >
-        Read More Insights
-      </Link>
-    </div>
+  <div className="max-w-6xl mx-auto px-4 grid  lg:grid-cols-2 gap-12">
+  {/* Left Content */}
+  <div>
+    <h2
+      className="text-3xl md:text-4xl font-bold mb-4"
+      style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+    >
+      Insights
+    </h2>
+    <p
+      className="text-justify mb-6"
+      style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+    >
+      In today’s rapidly changing financial landscape, staying informed is the key
+      to long-term success. Our insights go beyond surface-level tips — we provide
+      in-depth guidance on tax strategies, compliance updates, and smart money
+      management tailored to businesses of all sizes. Our expert team delivers
+      practical advice.
+    </p>
+    <Link
+      to="/blog"
+      className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200 shadow"
+    >
+      Read More Insights
+    </Link>
+  </div>
 
-    {/* Right 2x2 Cards */}
-    <div   className="grid lg:grid-cols-2 gap-4 h-full"
->
-      <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center justify-between min-h-[140px]">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">Tax Planning Tips</h3>
-          <p className="text-sm text-gray-500">Discover effective strategies to minimize your tax liability and maximize savings.</p>
-        </div>
+  {/* Right 2x2 Cards */}
+  <div className="grid  lg:grid-cols-2 gap-4 h-full">
+    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-1">Tax Planning Tips</h3>
+        <p className="text-sm text-gray-500">
+          Discover effective strategies to minimize your tax liability and maximize savings.
+        </p>
       </div>
-      <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center justify-between min-h-[140px]">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">SME Growth Hacks</h3>
-          <p className="text-sm text-gray-500">Unlock growth opportunities for small and medium enterprises with proven tactics.</p>
-        </div>
+    </div>
+    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-1">SME Growth Hacks</h3>
+        <p className="text-sm text-gray-500">
+          Unlock growth opportunities for small and medium enterprises with proven tactics.
+        </p>
       </div>
-      <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center justify-between min-h-[140px]">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">Compliance Essentials</h3>
-          <p className="text-sm text-gray-500">Stay compliant with the latest regulations and avoid costly penalties for your business.</p>
-        </div>
+    </div>
+    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-1">Compliance Essentials</h3>
+        <p className="text-sm text-gray-500">
+          Stay compliant with the latest regulations and avoid costly penalties for your business.
+        </p>
       </div>
-      <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center justify-between min-h-[140px]">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">Personal Finance 101</h3>
-          <p className="text-sm text-gray-500">Master the basics of budgeting, saving, and investing for a secure financial future.</p>
-        </div>
+    </div>
+    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-1">Personal Finance 101</h3>
+        <p className="text-sm text-gray-500">
+          Master the basics of budgeting, saving, and investing for a secure financial future.
+        </p>
       </div>
     </div>
   </div>
+</div>
+
 </section>
 
       {/* AOS handles animation styles */}

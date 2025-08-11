@@ -78,13 +78,69 @@ const AdminDashboard = () => {
   const textMain = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-white';
   const cardBg = theme === 'dark' ? 'bg-[#141B25] border-[#223366] dark:bg-[#141B25] dark:border-[#223366]' : 'bg-white border-gray-200 dark:bg-[#fdf9f4] dark:border-[#223366] text-black';
   const cardText = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-black';
+  // Fetch signup details from localStorage and update on every render
+  const [signupUsers, setSignupUsers] = React.useState([]);
+  useEffect(() => {
+    const fetchSignups = () => {
+      const users = JSON.parse(localStorage.getItem('signupUsers') || '[]');
+      setSignupUsers(users);
+    };
+    fetchSignups();
+    // Listen for storage changes (e.g., new signup in another tab)
+    const handleStorage = () => {
+      fetchSignups();
+    };
+    window.addEventListener('storage', handleStorage);
+    // Also poll every 1s in case signup is in same tab
+    const interval = setInterval(fetchSignups, 1000);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      clearInterval(interval);
+    };
+  }, []);
+
+  // ...existing code...
   return (
     <div className={`${bg} min-h-screen transition-colors duration-300`}>
       {/* Remove local toggle, use Header's toggle */}
       <Header />
       <h1 className={`text-3xl font-bold mb-8 text-orange-400 max-w-7xl mx-auto pt-24 px-4 ${textMain}`}
       style={{color:theme === 'dark' ? 'white' : 'black'}}>Admin Dashboard</h1>
+
       <div className="max-w-7xl mx-auto pb-10 px-4">
+        {/* Signup Users Section */}
+        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-orange-400">Recent Signups</h2>
+          </div>
+          <div className="overflow-x-auto">
+            <table className={`min-w-[600px] w-full text-xs sm:text-sm ${textMain}`}>
+              <thead>
+                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Name</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Email</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Phone</th>
+                  <th className="p-2 text-left font-medium whitespace-nowrap">Login Date/Time</th>
+                </tr>
+              </thead>
+              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
+                style={{ color: theme === 'dark' ? 'white' : 'black' }}>
+                {signupUsers.length === 0 ? (
+                  <tr><td colSpan={4} className="p-4 text-center text-gray-400">No signups yet.</td></tr>
+                ) : (
+                  signupUsers.map((user, idx) => (
+                    <tr key={idx}>
+                      <td className="p-2 whitespace-nowrap">{user.firstname} {user.lastname}</td>
+                      <td className="p-2 whitespace-nowrap">{user.email}</td>
+                      <td className="p-2 whitespace-nowrap">{user.phone}</td>
+                      <td className="p-2 whitespace-nowrap">{user.loginDateTime}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
         {/* 1. Financial Summary Widget - Modern Blue/White Cards */}
         <div className="grid lg:grid-cols-4 gap-6 mb-8">
@@ -334,56 +390,7 @@ const AdminDashboard = () => {
 
 
         {/* 5. Client Accounts Overview - Modern Table */}
-        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-orange-400">Client Accounts Overview</h2>
-            <button className="bg-orange-500 text-white px-4 py-2 rounded font-semibold">Add Client</button>
-          </div>
-          <div className="-mx-4 sm:mx-0 overflow-x-auto">
-            <table className={`min-w-[700px] w-full text-xs sm:text-sm ${textMain}`}>
-              <thead>
-                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}> 
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Client</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Contact</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Plan</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Status</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Services</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Payment</th>
-                  <th className="p-2"></th>
-                </tr>
-              </thead>
-              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
-              style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                {/* Example static rows for demo, replace with real data as needed */}
-                <tr>
-                  <td className="p-2 flex items-center gap-2 whitespace-nowrap"><img src="https://randomuser.me/api/portraits/men/38.jpg" alt="Acme Corp" className="w-6 h-6 rounded-full"/> Acme Corp</td>
-                  <td className="p-2 whitespace-nowrap">acme@email.com</td>
-                  <td className="p-2 whitespace-nowrap">Gold</td>
-                  <td className="p-2 whitespace-nowrap"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Active</span></td>
-                  <td className="p-2 whitespace-nowrap">Accounting, Tax</td>
-                  <td className="p-2 whitespace-nowrap"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Paid</span></td>
-                  <td className="p-2 text-right whitespace-nowrap">...</td>
-                </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/39.jpg" alt="Beta Ltd" className="w-6 h-6 rounded-full"/> Beta Ltd</td>
-                <td className="p-2">beta@email.com</td>
-                <td className="p-2">Silver</td>
-                <td className="p-2"><span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-semibold">Inactive</span></td>
-                <td className="p-2">Payroll</td>
-                <td className="p-2"><span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">Unpaid</span></td>
-                <td className="p-2 text-right">...</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* 5. Tax & Compliance Alerts */}
-       
-
-        {/* 6. Reports & Insights */}
         
-
-      </div>
     </div>
   </div>
   </div>

@@ -146,7 +146,7 @@ const ContactUs = () => {
   style={{ backgroundColor: theme === 'dark' ? '#1E2A38' : '#fff' }}
 >
   <div className="container mx-auto px-2 sm:px-4 max-w-6xl">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
+    <div className="flex flex-col gap-8 md:gap-16 items-start">
       {/* Left Side */}
       <motion.div
         className="space-y-6"
@@ -177,7 +177,7 @@ const ContactUs = () => {
 
       {/* Right Side - Form */}
       <motion.div
-        className={`${bgCard} rounded-2xl shadow-xl p-8 transition-colors duration-300`}
+        className={`${bgCard} rounded-2xl shadow-xl p-8 transition-colors duration-300 w-full`}
         initial={{ opacity: 0, x: 30 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -190,77 +190,71 @@ const ContactUs = () => {
             setContactSuccess(true);
           }}
         >
-          {/* First Row - Name Fields */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <input
-                type="text"
-                placeholder="First Name"
-                className={`w-full px-4 py-4 border ${
-                  theme === 'dark'
-                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
-                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <input
-                type="text"
-                placeholder="Last Name"
-                className={`w-full px-4 py-4 border ${
-                  theme === 'dark'
-                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
-                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-              />
-            </motion.div>
-          </div>
-
-          {/* Second Row - Email and Phone */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <input
-                type="email"
-                placeholder="Email"
-                className={`w-full px-4 py-4 border ${
-                  theme === 'dark'
-                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
-                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <input
-                type="tel"
-                placeholder="Phone"
-                className={`w-full px-4 py-4 border ${
-                  theme === 'dark'
-                    ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
-                    : 'border-gray-200 text-gray-700 placeholder-gray-400'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-              />
-            </motion.div>
-          </div>
+          {/* All fields stacked vertically */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <input
+              type="text"
+              placeholder="First Name"
+              className={`w-full px-4 py-4 border ${
+                theme === 'dark'
+                  ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                  : 'border-gray-200 text-gray-700 placeholder-gray-400'
+              } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <input
+              type="text"
+              placeholder="Last Name"
+              className={`w-full px-4 py-4 border ${
+                theme === 'dark'
+                  ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                  : 'border-gray-200 text-gray-700 placeholder-gray-400'
+              } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <input
+              type="email"
+              placeholder="Email"
+              className={`w-full px-4 py-4 border ${
+                theme === 'dark'
+                  ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                  : 'border-gray-200 text-gray-700 placeholder-gray-400'
+              } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <input
+              type="tel"
+              placeholder="Phone"
+              className={`w-full px-4 py-4 border ${
+                theme === 'dark'
+                  ? 'border-[#223366] bg-[#1E2A38] text-white placeholder-gray-300'
+                  : 'border-gray-200 text-gray-700 placeholder-gray-400'
+              } rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+            />
+          </motion.div>
 
           {/* Message Field */}
           <motion.div

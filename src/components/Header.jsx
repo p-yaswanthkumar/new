@@ -97,9 +97,9 @@ const Header = () => {
                 </svg>
               </button>
               {isHomeDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-2" onMouseLeave={toggleHomeDropdown}>
-                  <Link to="/home1" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsHomeDropdownOpen(false)}>Home 1</Link>
-                  <Link to="/home2" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsHomeDropdownOpen(false)}>Home 2</Link>
+                <div className={`absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg border py-2 ${theme === 'dark' ? 'bg-[#1E2A38] border-[#141B25]' : 'bg-white border-gray-200'}`} onMouseLeave={toggleHomeDropdown}>
+                  <Link to="/home1" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsHomeDropdownOpen(false)}>Home 1</Link>
+                  <Link to="/home2" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsHomeDropdownOpen(false)}>Home 2</Link>
                 </div>
               )}
             </div>
@@ -131,14 +131,15 @@ const Header = () => {
                 </svg>
               </button>
               {isServicesDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-2" onMouseLeave={toggleServicesDropdown}>
-                  <Link to="/service" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
-                  <Link to="/financial-planning-analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Financial Planning & Analysis</Link>
-                  <Link to="/tax-preparation-filing" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Tax Preparation & Filing</Link>
-                  <Link to="/budget-management" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Budget Management</Link>
-                  <Link to="/investment-advisory" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Investment Advisory</Link>
-                  <Link to="/audit-compliance" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Audit & Compliance</Link>
-                  <Link to="/bookkeeping-accounting" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => setIsServicesDropdownOpen(false)}>Bookkeeping & Accounting</Link>                </div>
+                <div className={`absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg border py-2 ${theme === 'dark' ? 'bg-[#1E2A38] border-[#141B25]' : 'bg-white border-gray-200'}`} onMouseLeave={toggleServicesDropdown}>
+                  <Link to="/service" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
+                  <Link to="/financial-planning-analysis" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Financial Planning & Analysis</Link>
+                  <Link to="/tax-preparation-filing" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Tax Preparation & Filing</Link>
+                  <Link to="/budget-management" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Budget Management</Link>
+                  <Link to="/investment-advisory" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Investment Advisory</Link>
+                  <Link to="/audit-compliance" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Audit & Compliance</Link>
+                  <Link to="/bookkeeping-accounting" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Bookkeeping & Accounting</Link>
+                </div>
               )}
             </div>
             
@@ -195,9 +196,9 @@ const Header = () => {
                       {initials}
                     </button>
                     {isAvatarDropdownOpen && (
-                      <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
+                      <div className={`absolute right-0 mt-2 w-32 rounded-md shadow-lg border py-2 z-50 ${theme === 'dark' ? 'bg-[#1E2A38] border-[#141B25]' : 'bg-white border-gray-200'}`}>
                         <button
-                          className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
+                          className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-orange-100'}`}
                           onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
                         >
                           Logout

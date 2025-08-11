@@ -464,13 +464,13 @@ const Service = () => {
         <div 
           className="relative z-10 max-w-3xl mx-auto text-center px-6"
           data-aos="zoom-in-up"
-          data-aos-duration="1200"
+          data-aos-duration="500"
           data-aos-once="false"
         >
           <h2 className={`text-3xl md:text-4xl font-bold mb-4`} style={{color: theme === 'dark' ? 'white' : '#1F2937'}}>
             Ready to Transform Your Finances?
           </h2>
-          <p className="text-lg mb-8" style={{color: theme === 'dark' ? '#BBF7D0' : '#4B5563'}}>
+          <p className="text-lg mb-8" style={{color: theme === 'dark' ? '#fff' : '#000'}}>
             Partner with us for expert financial guidance, innovative solutions, and a team that cares about your success. Take the next step toward financial clarity and growth today.
           </p>
           <Link 
