@@ -70,7 +70,8 @@ const ContactUs = () => {
       </section>
 
       {/* Meet Our Support Team */}
-      <section className={`w-full ${bgSection} py-8 transition-colors duration-300`}>
+      <section className={`w-full ${bgSection} py-8 transition-colors duration-300`}
+      style={{ backgroundColor: theme === 'dark' ? '#141B25' : '#fdf9f4' }}>
         <div className="max-w-7xl mx-auto px-4">
           <motion.h2
             className={`text-2xl md:text-3xl font-bold ${textAccent} mb-8 text-center`}
@@ -140,7 +141,8 @@ const ContactUs = () => {
       </section>
 
       {/* Inquiry Form Section */}
-      <section className={`py-10 md:py-20 ${bgMain} transition-colors duration-300`}>
+      <section className={`py-10 md:py-20 ${bgMain} transition-colors duration-300`}
+      style={{ backgroundColor: theme === 'dark' ? '#1E2A38' : '#fff' }}>
         <div className="container mx-auto px-2 sm:px-4 max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
             {/* Left Side */}
@@ -300,7 +302,7 @@ const ContactUs = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className={`${bgCard} py-20 transition-colors duration-300`}>
+      <section className={`w-full bg-white pb-20 mt-12`}>
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex lg:flex-col-2 gap-16 items-start">
             <motion.div

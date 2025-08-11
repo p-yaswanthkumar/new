@@ -289,7 +289,7 @@ const FinancialPlanningAnalysis = () => {
         >
           FAQs About This Service
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 mb-12 gap-6">
           {faqs.map((faq, i) => (
             <motion.div 
               key={i} 
@@ -311,7 +311,9 @@ const FinancialPlanningAnalysis = () => {
       </div>
 
       {/* 6. Get Started / Free Consultation CTA */}
-      <div className="w-full bg-[#fdf9f4] py-10">
+      <div className="w-full  py-10"
+      style={{ backgroundColor: theme === 'dark' ? '#141B25' : '#FDF9F4' }}
+      >
         <div className="container mx-auto px-4 flex flex-row md:flex-row items-center gap-10 max-w-6xl">
           {/* Left: Content */}
           <motion.div 
@@ -331,7 +333,8 @@ const FinancialPlanningAnalysis = () => {
               Ready to Transform Your Finances?
             </motion.h2>
             <motion.p 
-              className="mb-6 text-orange-900"
+              className="mb-6 "
+              style={{ color: theme === 'dark' ? '#fff' : '#000' }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}

@@ -136,8 +136,10 @@ const Service = () => {
         <h3 className="text-2xl font-bold text-orange-600 mb-4">
           <Link to="/financial-planning-analysis" className="hover:underline">Financial Planning & Analysis</Link>
         </h3>
-        <p className="text-black dark:text-orange text-lg mb-2">Strategic budgeting, forecasting, and scenario analysis to help you make informed decisions and drive business growth. Our FP&A experts provide actionable insights, monitor KPIs, and ensure your financial plans align with your long-term goals.</p>
-        <p className="text-black dark:text-orange text text-lg mb-2">We work closely with your leadership team to develop robust financial models, identify growth opportunities, and mitigate risks before they impact your bottom line. Our approach combines advanced analytics with real-world business experience, giving you a clear roadmap for sustainable success.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Strategic budgeting, forecasting, and scenario analysis to help you make informed decisions and drive business growth. Our FP&A experts provide actionable insights, monitor KPIs, and ensure your financial plans align with your long-term goals.</p>
+        <p className=" text text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>We work closely with your leadership team to develop robust financial models, identify growth opportunities, and mitigate risks before they impact your bottom line. Our approach combines advanced analytics with real-world business experience, giving you a clear roadmap for sustainable success.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link to="/financial-planning-analysis" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
@@ -165,8 +167,10 @@ const Service = () => {
         <h3 className="text-2xl font-bold text-orange-600 mb-4">
           <Link to="/bookkeeping-accounting" className="hover:underline">Bookkeeping & Accounting</Link>
         </h3>
-        <p className="text-black dark:text-orange text-lg mb-2">Accurate, timely bookkeeping and accounting services to keep your records organized and compliant. We handle everything from daily transactions to monthly reconciliations, so you can focus on running your business with confidence.</p>
-        <p className="text-black dark:text-orange text-lg mb-2">Our team leverages the latest accounting software and best practices to ensure your financial data is always up-to-date and audit-ready. We provide detailed financial statements, manage accounts payable/receivable, and offer ongoing support for all your accounting needs.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Accurate, timely bookkeeping and accounting services to keep your records organized and compliant. We handle everything from daily transactions to monthly reconciliations, so you can focus on running your business with confidence.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Our team leverages the latest accounting software and best practices to ensure your financial data is always up-to-date and audit-ready. We provide detailed financial statements, manage accounts payable/receivable, and offer ongoing support for all your accounting needs.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link to="/bookkeeping-accounting" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
@@ -212,8 +216,10 @@ const Service = () => {
         <h3 className="text-2xl font-bold text-orange-600 mb-4">
           <Link to="/tax-preparation-filing" className="hover:underline">Tax Preparation & Filing</Link>
         </h3>
-        <p className="text-black dark:text-orange text-lg mb-2">Comprehensive tax planning, preparation, and filing for businesses and individuals. We maximize deductions, ensure compliance, and minimize your tax liability, keeping you up-to-date with the latest regulations.</p>
-        <p className="text-black dark:text-orange text-lg mb-2">Our tax experts stay current with changing tax laws and leverage technology to streamline the filing process. We handle federal, state, and local taxes, and provide proactive advice to help you plan for future obligations and avoid costly penalties.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Comprehensive tax planning, preparation, and filing for businesses and individuals. We maximize deductions, ensure compliance, and minimize your tax liability, keeping you up-to-date with the latest regulations.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Our tax experts stay current with changing tax laws and leverage technology to streamline the filing process. We handle federal, state, and local taxes, and provide proactive advice to help you plan for future obligations and avoid costly penalties.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link to="/tax-preparation-filing" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
@@ -240,8 +246,10 @@ const Service = () => {
         <h3 className="text-2xl font-bold text-orange-600 mb-4">
           <Link to="/budget-management" className="hover:underline">Budget Management</Link>
         </h3>
-        <p className="text-black dark:text-orange text-lg mb-2">Effective budget creation, monitoring, and adjustment to help you control costs and achieve your financial targets. Our team works with you to set realistic budgets and track performance throughout the year.</p>
-        <p className="text-black dark:text-orange text-lg mb-2">We analyze historical data, forecast future trends, and provide actionable recommendations to optimize your spending. Our approach ensures you have the financial discipline and flexibility to adapt to changing business conditions.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Effective budget creation, monitoring, and adjustment to help you control costs and achieve your financial targets. Our team works with you to set realistic budgets and track performance throughout the year.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>We analyze historical data, forecast future trends, and provide actionable recommendations to optimize your spending. Our approach ensures you have the financial discipline and flexibility to adapt to changing business conditions.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link to="/budget-management" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
@@ -287,8 +295,10 @@ const Service = () => {
         <h3 className="text-2xl font-bold text-orange-600 mb-4">
           <Link to="/investment-advisory" className="hover:underline">Investment Advisory</Link>
         </h3>
-        <p className="text-black dark:text-orange text-lg mb-2">Personalized investment strategies and portfolio management to grow and protect your wealth. We help you navigate market opportunities, assess risk, and make informed investment decisions for the future.</p>
-        <p className="text-black dark:text-orange text-lg mb-2">Our advisors work with you to define your financial goals, risk tolerance, and time horizon, building a diversified portfolio that aligns with your objectives. We monitor market trends, rebalance portfolios, and provide regular performance updates.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Personalized investment strategies and portfolio management to grow and protect your wealth. We help you navigate market opportunities, assess risk, and make informed investment decisions for the future.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Our advisors work with you to define your financial goals, risk tolerance, and time horizon, building a diversified portfolio that aligns with your objectives. We monitor market trends, rebalance portfolios, and provide regular performance updates.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link to="/investment-advisory" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
@@ -315,8 +325,10 @@ const Service = () => {
         <h3 className="text-2xl font-bold text-orange-600 mb-4">
           <Link to="/audit-compliance" className="hover:underline">Audit & Compliance</Link>
         </h3>
-        <p className="text-black dark:text-orange text-lg mb-2">Thorough audit and compliance services to ensure your business meets regulatory standards and industry best practices. We identify risks, recommend improvements, and help you maintain transparency and trust.</p>
-        <p className="text-black dark:text-orange text-lg mb-2">Our experienced auditors conduct detailed reviews of your financial records, internal controls, and operational processes. We help you prepare for external audits, address compliance gaps, and implement best practices for ongoing risk management.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Thorough audit and compliance services to ensure your business meets regulatory standards and industry best practices. We identify risks, recommend improvements, and help you maintain transparency and trust.</p>
+        <p className=" text-lg mb-2"style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Our experienced auditors conduct detailed reviews of your financial records, internal controls, and operational processes. We help you prepare for external audits, address compliance gaps, and implement best practices for ongoing risk management.</p>
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link to="/audit-compliance" className="mt-2 px-4 py-1 text-sm bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition inline-block">
             Read More
@@ -340,11 +352,11 @@ const Service = () => {
 
       {/* 3. Comparison Grid (Features Only) */}
       <div 
-        className={`w-full mt-20 py-10 ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#FDF9F4] text-black'}`}
+        className={`w-full mt-10  ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#FDF9F4] text-black'}`}
         style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
         data-aos="fade-up" data-aos-duration="1200"
       >
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container py-8 mx-auto px-4 max-w-4xl">
           <h2 className="text-2xl font-bold text-orange-500 mt-10 mb-6" data-aos="fade-up" data-aos-delay="200">Feature Comparison</h2>
           <div className="overflow-x-auto">
             <motion.table 
@@ -388,11 +400,11 @@ const Service = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
             {/* Left Side: Heading and Description */}
             <div className="mb-6 md:mb-0" data-aos="slide-right" data-aos-delay="300">
-              <h2 className="text-2xl font-bold mt-20 text-orange-500 mb-4">Top Challenges We Solve</h2>
+              <h2 className="text-2xl font-bold  text-orange-500 mb-4">Top Challenges We Solve</h2>
               <p className={`text-lg ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>We help you overcome the most common and complex financial obstacles faced by businesses and individuals. Our team brings deep industry knowledge and a proactive approach to every engagement, ensuring you receive practical solutions that deliver measurable results. Whether you are struggling with regulatory compliance, seeking to optimize your financial planning, or need guidance on investment strategies, we tailor our services to your unique needs. By partnering with us, you gain access to expert advice, innovative tools, and ongoing support that empower you to make confident decisions, streamline operations, and achieve your long-term goals. Let us help you turn financial challenges into opportunities for growth and success.</p>
             </div>
             {/* Right Side: Cards */}
-            <div className="mt-20 mb-20 grid grid-cols-1 gap-4" data-aos="slide-left" data-aos-delay="400">
+            <div className=" grid grid-cols-1 gap-4" data-aos="slide-left" data-aos-delay="400">
               {challenges.map((c, i) => (
                 <motion.div 
                   key={i} 
@@ -414,13 +426,13 @@ const Service = () => {
 
       {/* 4. Workflow Process (Step-by-step as Cards) */}
       <div 
-        className={`w-full py-10 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-[#FDF9F4] text-black'}`}
+        className={`w-full  ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-[#FDF9F4] text-black'}`}
         style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
         data-aos="fade-up" data-aos-duration="1200"
       >
-        <div className="container mx-auto px-4 w-full">
+        <div className="container mb-10 py-10 mx-auto px-4 w-full">
           <h2 className="text-2xl font-bold text-center text-orange-500 mt-20 mb-8" data-aos="fade-up" data-aos-delay="200">How It Works</h2>
-          <div className="grid lg:grid-2 gap-8">
+          <div className="grid lg:grid-2 mb-12 gap-8">
             {workflowSteps.map((step, i) => (
               <motion.div 
                 key={i} 
@@ -461,12 +473,12 @@ const Service = () => {
           <p className="text-lg mb-8" style={{color: theme === 'dark' ? '#BBF7D0' : '#4B5563'}}>
             Partner with us for expert financial guidance, innovative solutions, and a team that cares about your success. Take the next step toward financial clarity and growth today.
           </p>
-          <a 
-            href="/contactus" 
-            className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg shadow-lg transition-all duration-200 transform hover:scale-105"
-          >
-            Get Your Free Consultation
-          </a>
+          <Link 
+  to="/contactus" 
+  className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg shadow-lg transition-all duration-200 transform hover:scale-105"
+>
+  Get Your Free Consultation
+</Link>
         </div>
       </section>
     </section>

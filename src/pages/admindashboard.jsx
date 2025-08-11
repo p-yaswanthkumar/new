@@ -74,15 +74,16 @@ const AdminDashboard = () => {
     }
   }, [theme]);
 
-  const bg = theme === 'dark' ? 'bg-[#1E2A38] dark:bg-[#1E2A38]' : 'bg-gray-50 dark:bg-[#1E2A38]';
+  const bg = theme === 'dark' ? 'bg-[#1E2A38] dark:bg-[#1E2A38]' : 'bg-gray-50 dark:bg-[#fff]';
   const textMain = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-white';
-  const cardBg = theme === 'dark' ? 'bg-[#141B25] border-[#223366] dark:bg-[#141B25] dark:border-[#223366]' : 'bg-white border-gray-200 dark:bg-[#141B25] dark:border-[#223366]';
-  const cardText = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-white';
+  const cardBg = theme === 'dark' ? 'bg-[#141B25] border-[#223366] dark:bg-[#141B25] dark:border-[#223366]' : 'bg-white border-gray-200 dark:bg-[#fdf9f4] dark:border-[#223366] text-black';
+  const cardText = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-black';
   return (
     <div className={`${bg} min-h-screen transition-colors duration-300`}>
       {/* Remove local toggle, use Header's toggle */}
       <Header />
-      <h1 className={`text-3xl font-bold mb-8 text-orange-400 max-w-7xl mx-auto pt-24 px-4 ${textMain}`}>Admin Dashboard</h1>
+      <h1 className={`text-3xl font-bold mb-8 text-orange-400 max-w-7xl mx-auto pt-24 px-4 ${textMain}`}
+      style={{color:theme === 'dark' ? 'white' : 'black'}}>Admin Dashboard</h1>
       <div className="max-w-7xl mx-auto pb-10 px-4">
 
         {/* 1. Financial Summary Widget - Modern Blue/White Cards */}
@@ -202,7 +203,8 @@ const AdminDashboard = () => {
                   <th className="p-2"></th>
                 </tr>
               </thead>
-              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}>
+              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
+              style={{ color: theme === 'dark' ? 'white' : 'black' }}>
                 {/* Example static rows for demo, replace with real data as needed */}
                 <tr>
                   <td className="p-2 flex items-center gap-2 whitespace-nowrap"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
@@ -299,7 +301,8 @@ const AdminDashboard = () => {
                   <th className="p-2"></th>
                 </tr>
               </thead>
-              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}>
+              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
+              style={{ color: theme === 'dark' ? 'white' : 'black' }}>
                 {/* Example static rows for demo, replace with real data as needed */}
                 <tr>
                   <td className="p-2 whitespace-nowrap">2025-08-01</td>
@@ -349,7 +352,8 @@ const AdminDashboard = () => {
                   <th className="p-2"></th>
                 </tr>
               </thead>
-              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}>
+              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
+              style={{ color: theme === 'dark' ? 'white' : 'black' }}>
                 {/* Example static rows for demo, replace with real data as needed */}
                 <tr>
                   <td className="p-2 flex items-center gap-2 whitespace-nowrap"><img src="https://randomuser.me/api/portraits/men/38.jpg" alt="Acme Corp" className="w-6 h-6 rounded-full"/> Acme Corp</td>

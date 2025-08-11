@@ -96,7 +96,8 @@ const AboutUs = () => {
         data-aos="fade-up" data-aos-duration="1200"
       >
         <div className="container mx-auto px-4">
-          <h2 className={`${theme === 'dark' ? 'text-white drop-shadow-lg' : 'text-black'}`}>Our Journey Through the Years</h2>
+          <h2 style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Our Journey Through the Years</h2>
           <div className="timeline">
             <div className="timeline-item" data-aos="fade-up" data-aos-delay="100">
               <div className="timeline-year">2018</div>
@@ -195,7 +196,8 @@ const AboutUs = () => {
         <div className="container">
           <div className="awards-flex">
             <div className="awards-left" data-aos="fade-right" data-aos-delay="200">
-              <h2 className={`awards-heading ${theme === 'dark' ? 'text-white drop-shadow-lg' : 'text-black'}`}>Awards & Certifications</h2>
+              <h2 style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Awards & Certifications</h2>
               <ul className="awards-list">
                 <li>
                   <strong>Fintech Innovation Award 2023:</strong> Recognized for outstanding innovation in financial technology solutions
@@ -231,7 +233,8 @@ const AboutUs = () => {
         data-aos="fade-up" data-aos-duration="1200"
       >
         <div className="container mx-auto px-4">
-          <h2 className={`${theme === 'dark' ? 'text-white drop-shadow-lg' : 'text-black'}`}>Meet Our Leadership Team</h2>
+          <h2 style={{ color: theme === 'dark' ? '#fff' : '#000' }}
+>Meet Our Leadership Team</h2>
           <div className="team-grid">
             <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="100">
               <div className="team-hover-bg" />

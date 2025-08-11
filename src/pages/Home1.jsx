@@ -115,7 +115,7 @@ const ClientReviews = ({ theme }) => {
         {/* First Row */}
         <div className="grid lg:grid-cols-3 gap-8 mb-12 items-start">
           {/* Left - Single Line */}
-          <div className="text-center flex flex-col justify-between h-full" data-aos="fade-right" data-aos-delay="600" data-aos-once="true">
+          <div className="text-center flex flex-col justify-between h-full" data-aos="fade-right" data-aos-delay="400" data-aos-once="true">
             <div className="flex-1 flex flex-col justify-center">
               <p className={`${textColor} text-lg italic mb-6`}>
                 "Professional service that saved us $50,000 in taxes!"
@@ -357,7 +357,7 @@ const Home1 = () => {
               <motion.p 
                 className="text-lg mb-8 text-justify leading-relaxed opacity-90"
                 style={{ color: theme === 'dark' ? '#ddd' : '#4B5563' }}
-                data-aos="fade-up" data-aos-delay="700"
+                data-aos="fade-up" data-aos-delay="500"
                 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
               >
@@ -426,7 +426,7 @@ const Home1 = () => {
                 <div className="relative z-10 flex flex-col items-center">
                   <img src={img} alt={alt} className="w-20 h-20 object-contain mb-4" />
                   <h3 className="text-xl font-semibold mb-2 group-hover:text-white transition-colors duration-300">{title}</h3>
-                  <p className="mb-4 group-hover:text-gray-300 transition-colors duration-300" style={{color: theme==='dark' ? '#ccc' : '#6B7280'}}>{desc}</p>
+                  <p className="mb-4 group-hover:text-white  text-black transition-colors duration-300" style={{color: theme==='dark' ? '#ccc' : '#ccc'}}>{desc}</p>
                 </div>
               </div>
             ))}
@@ -447,7 +447,7 @@ const Home1 = () => {
         <div 
           className="relative z-10 max-w-3xl mx-auto text-center px-6"
           data-aos="zoom-in-up"
-          data-aos-duration="1200"
+          data-aos-duration="1000"
           data-aos-once="false"
         >
           <h2 className={`text-3xl md:text-4xl font-bold mb-4`} style={{color: theme === 'dark' ? 'white' : '#1F2937'}}>

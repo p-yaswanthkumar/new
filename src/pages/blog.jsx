@@ -98,7 +98,7 @@ const categories = [
 ];
 
 const Categories = ({ theme }) => (
-  <section className={`w-full mt-20 py-16 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-[#fdf9f4] text-black'}`}>
+  <section className={`w-full mt-5 pb-5 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-[#fdf9f4] text-black'}`}>
     <div className="container mx-auto px-4 grid grid-row-1 md:grid-cols-2 md:gap-x-20 gap-y-12 items-center">
       {/* Left: Heading and Description */}
       <motion.div
@@ -183,37 +183,39 @@ const MythsAndFacts = ({ theme }) => {
         ...Array(6 - mythsAndFacts.length).fill({ myth: '', fact: '' })
       ];
   return (
-    <section className={`container mx-auto px-4 mt-20 py-16 ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#fdf9f4] text-black'}`}>
-      <motion.h2 
-        className={`text-3xl font-bold mb-8 mt-20 text-center ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        Myths & Facts
-      </motion.h2>
-      <div className="grid grid-cols-2 md:grid-cols-2 gap-x-9 gap-y-10 max-w-7xl mx-auto">
-        {mythsFactsGrid.map((item, i) => (
-          <motion.div 
-            key={i} 
-            className="flex flex-col   md:last:border-r-0 pb-6 md:pb-0 md:pr-8 h-full min-h-[120px]"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02, x: 5 }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-start gap-2">
-              <span className="font-bold text-orange-500 min-w-[50px]">Myth:</span>
-              <span className={theme === 'dark' ? 'text-white' : 'text-gray-800'}>{item.myth}</span>
-            </div>
-            <div className="flex items-start gap-2 mt-2">
-              <span className={`font-bold min-w-[50px] ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}>Fact:</span>
-              <span className={theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}>{item.fact}</span>
-            </div>
-          </motion.div>
-        ))}
+    <section className={`w-full px-0 py-1 ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#fff] text-black'}`}>
+      <div className="container mx-auto px-4">
+        <motion.h2 
+          className={`text-3xl mx-auto font-bold mb-8 mt-20 text-center ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          Myths & Facts
+        </motion.h2>
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-x-9 gap-y-10 max-w-7xl mx-auto">
+          {mythsFactsGrid.map((item, i) => (
+            <motion.div 
+              key={i} 
+              className="flex flex-col   md:last:border-r-0 pb-6 md:pb-0 md:pr-8 h-full min-h-[120px]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.02, x: 5 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-start gap-2">
+                <span className="font-bold text-orange-500 min-w-[50px]">Myth:</span>
+                <span className={theme === 'dark' ? 'text-white' : 'text-gray-800'}>{item.myth}</span>
+              </div>
+              <div className="flex items-start gap-2 mt-2">
+                <span className={`font-bold min-w-[50px] ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}>Fact:</span>
+                <span className={theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}>{item.fact}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -230,55 +232,57 @@ const comparisonData = [
 ];
 
 const Comparison = ({ theme }) => (
-  <section className="container  dark:bg-[#1E2A38] mx-auto mt-20 px-4 py-16">
-    <motion.h2 
-      className={`text-3xl font-bold mt-20 mb-8 text-center ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-    >
-      Comparison
-    </motion.h2>
-    <div className="overflow-x-auto">
-      <motion.table 
-        className={`w-full max-w-5xl mx-auto rounded-xl shadow-lg overflow-hidden ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'}`}
-        initial={{ opacity: 0, y: 20 }}
+  <section className={`w-full px-0  pt-5 pb-5 mt-0 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-[#fdf9f4] text-black'}`}>
+    <div className="container mx-auto px-4">
+      <motion.h2 
+        className={`text-3xl font-bold mt-20 mb-8 text-center ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <thead className={theme === 'dark' ? 'bg-[#23344a]' : 'bg-blue-900'}>
-          <tr>
-            <th className="text-white px-6 py-4 text-left font-semibold text-lg">Type</th>
-            <th className="text-white px-6 py-4 text-left font-semibold text-lg">Risk Level</th>
-            <th className="text-white px-6 py-4 text-left font-semibold text-lg">Liquidity</th>
-            <th className="text-white px-6 py-4 text-left font-semibold text-lg">Average Return</th>
-            <th className="text-white px-6 py-4 text-left font-semibold text-lg">Min. Investment</th>
-            <th className="text-white px-6 py-4 text-left font-semibold text-lg">Tax Benefit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {comparisonData.map((item, i) => (
-            <motion.tr 
-              key={i} 
-              className={`border-b last:border-b-0 ${theme === 'dark' ? 'border-[#23344a]' : ''}`}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ backgroundColor: theme === 'dark' ? '#1E2A38' : '#fef3c7' }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <td className={`px-6 py-4 font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}>{item.label}</td>
-              <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.risk}</td>
-              <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.liquidity}</td>
-              <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.return}</td>
-              <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.minInvestment}</td>
-              <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.taxBenefit}</td>
-            </motion.tr>
-          ))}
-        </tbody>
-      </motion.table>
+        Comparison
+      </motion.h2>
+      <div className="overflow-x-auto">
+        <motion.table 
+          className={`w-full max-w-5xl mx-auto rounded-xl shadow-lg overflow-hidden ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'}`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <thead className={theme === 'dark' ? 'bg-[#23344a]' : 'bg-blue-900'}>
+            <tr>
+              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Type</th>
+              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Risk Level</th>
+              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Liquidity</th>
+              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Average Return</th>
+              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Min. Investment</th>
+              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Tax Benefit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonData.map((item, i) => (
+              <motion.tr 
+                key={i} 
+                className={`border-b last:border-b-0 ${theme === 'dark' ? 'border-[#23344a]' : ''}`}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ backgroundColor: theme === 'dark' ? '#1E2A38' : '#fef3c7' }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <td className={`px-6 py-4 font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}>{item.label}</td>
+                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.risk}</td>
+                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.liquidity}</td>
+                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.return}</td>
+                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.minInvestment}</td>
+                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.taxBenefit}</td>
+              </motion.tr>
+            ))}
+          </tbody>
+        </motion.table>
+      </div>
     </div>
   </section>
 );
@@ -479,14 +483,16 @@ const Quiz = ({ theme }) => {
 
 // MAIN BLOG PAGE
 const Blog = () => {
-  // Theme sync (like Home1)
+  // Theme sync (instant, like other app pages)
   const getTheme = () => localStorage.getItem('theme') || 'light';
   const [theme, setTheme] = useState(getTheme());
   useEffect(() => {
     const syncTheme = () => setTheme(getTheme());
+    window.addEventListener('theme-changed', syncTheme);
     window.addEventListener('storage', syncTheme);
     window.addEventListener('focus', syncTheme);
     return () => {
+      window.removeEventListener('theme-changed', syncTheme);
       window.removeEventListener('storage', syncTheme);
       window.removeEventListener('focus', syncTheme);
     };

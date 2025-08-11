@@ -110,52 +110,52 @@ return (
 
     {/* 2. What This Service Includes */}
     <section className={theme === 'dark' ? 'py-16 bg-[#141B25]' : 'py-16 bg-[#fdf9f4]'}>
-      <div className="max-w-6xl mx-auto px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-12"
-        >
-          What This Service Includes
-        </motion.h2>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <motion.img
-            initial={{ opacity: 0, x: -50 }}
+  <div className="max-w-6xl mx-auto px-4">
+    <motion.h2
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-12"
+    >
+      What This Service Includes
+    </motion.h2>
+    <div className="grid md:grid-cols-2 gap-12 items-center">
+      <motion.img
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+        src={a1}
+        alt="Audit & Compliance Services"
+        className="rounded-lg shadow-lg w-full max-h-80 object-cover"
+      />
+      <motion.ul
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        viewport={{ once: true }}
+        className="space-y-4 text-orange-500 text-lg"
+      >
+        {features.map((feature, index) => (
+          <motion.li
+            key={index}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{ x: 5 }}
+            transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
             viewport={{ once: true }}
-            src={a1}
-            alt="Audit & Compliance Services"
-            className="rounded-lg shadow-lg w-full max-h-80 object-cover"
-          />
-          <motion.ul
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="space-y-4 text-orange-500 text-lg"
+            className="flex items-center space-x-3"
           >
-            {features.map((feature, index) => (
-              <motion.li
-                key={index}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-center space-x-3"
-              >
-                <span className="w-3 h-3 bg-orange-500 rounded-full inline-block"></span>
-                <span>{feature}</span>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </div>
-      </div>
-    </section>
+            <span className="w-3 h-3 bg-orange-500 rounded-full inline-block"></span>
+            <span>{feature}</span>
+          </motion.li>
+        ))}
+      </motion.ul>
+    </div>
+  </div>
+</section>
 
     {/* 3. Who It's For */}
     <section className={theme === 'dark' ? 'py-16 bg-[#1E2A38]' : 'py-16 bg-white'}>
@@ -290,7 +290,7 @@ return (
         >
           FAQs About This Service
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 mb-12 sm:grid-cols-2 gap-6">
           {faqs.map((faq, i) => (
             <motion.div 
               key={i} 
@@ -312,7 +312,8 @@ return (
       </div>
 
       {/* 6. Get Started / Free Consultation CTA */}
-     <div className="w-full bg-[#fdf9f4] py-10">
+     <div className="w-full ] py-10"
+      style={{ backgroundColor: theme === 'dark' ? '#141B25' : '#FDF9F4' }}>
         <div className="container mx-auto px-4 flex flex-row md:flex-row items-center gap-10 max-w-6xl">
           {/* Left: Content */}
           <motion.div 
@@ -332,7 +333,8 @@ return (
               Ready to Ensure Your Compliance?
             </motion.h2>
             <motion.p 
-              className="mb-6 text-orange-900"
+              className="mb-6 "
+              style={{ color: theme === 'dark' ? '#fff' : '#000' }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}

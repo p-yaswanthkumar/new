@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import home2hero from '../assets/home2hero.mp4';
 import logo11 from '../assets/11.png';
@@ -353,6 +354,7 @@ const Home2 = () => {
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2 
 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-2"
+style={{ color: theme === 'dark' ? '#fff' : '#000' }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -599,26 +601,26 @@ className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-wh
   <div className="max-w-6xl mx-auto px-4 flex flex-row items-start gap-12">
     {/* Left Content */}
     <div className="w-1/2">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900  mb-4">Insights</h2>
-      <p className="text-gray-600 text-justify dark:text-orange-400 mb-6">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-900  mb-4"
+      style={{ color: theme === 'dark' ? '#fff' : '#000' }}>Insights</h2>
+      <p className=" text-justify mb-6"
+      style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
       In today’s there rapidly changing financial landscape, staying informed is the key to long-term success. 
-  Our insights go beyond surface-level tips — we provide in-depth guidance on tax strategies, 
+  Our insights go beyond surface-level tips we provide in-depth guidance on tax strategies, 
   compliance updates, and smart money management tailored to businesses of all sizes. 
-  From navigating complex regulations to identifying new growth opportunities, 
-  our expert team delivers practical, easy-to-apply advice that helps you make confident financial decisions. 
-  Whether you’re a startup looking to establish a strong foundation or an established business aiming to scale, 
-  our articles, case studies, and professional perspectives will keep you one step ahead in achieving your goals.
+  our expert team delivers practical.
       </p>
-      <a
-        href="/blog"
+      <Link
+        to="/blog"
         className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200 shadow"
       >
         Read More Insights
-      </a>
+      </Link>
     </div>
 
     {/* Right 2x2 Cards */}
-    <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div   className="grid lg:grid-cols-2 gap-4 h-full"
+>
       <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center justify-between min-h-[140px]">
         <div>
           <h3 className="text-lg font-semibold text-gray-800 mb-1">Tax Planning Tips</h3>
