@@ -1,401 +1,709 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
+import { useState, useEffect } from "react";
+import clsx from "clsx";
+import Header from "../components/Header";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
-
-// Dummy data for demonstration
-const summaryData = [
-  { label: 'Total Revenue (MTD)', value: '₹12,50,000', trend: [10, 12, 14, 13, 15, 18, 20], color: 'bg-green-100' },
-  { label: 'Total Expenses', value: '₹7,80,000', trend: [7, 8, 7.5, 8.2, 8, 7.8, 7.9], color: 'bg-red-100' },
-  { label: 'Net Profit/Loss', value: '₹4,70,000', trend: [3, 4, 5, 4.5, 5.5, 6, 6.2], color: 'bg-blue-100' },
-  { label: 'Cash Flow (In/Out)', value: '+₹2,00,000', trend: [1, 2, 1.5, 2.2, 2, 2.5, 2.7], color: 'bg-yellow-100' },
-  { label: 'Balance Overview', value: '₹9,00,000', trend: [8, 8.5, 9, 9.2, 9.1, 9.3, 9.4], color: 'bg-purple-100' },
-];
-
-const invoices = [
-  { client: 'Acme Corp', amount: '₹1,20,000', due: '2025-08-10', status: 'Paid', mode: 'Bank' },
-  { client: 'Beta Ltd', amount: '₹80,000', due: '2025-08-15', status: 'Unpaid', mode: 'UPI' },
-  { client: 'Gamma Inc', amount: '₹2,00,000', due: '2025-08-05', status: 'Overdue', mode: 'Card' },
-];
-
-const expenses = [
-  { date: '2025-08-01', type: 'Salaries', vendor: 'Payroll', amount: '₹3,00,000' },
-  { date: '2025-08-03', type: 'Software', vendor: 'SaaSify', amount: '₹25,000' },
-  { date: '2025-08-04', type: 'Rent', vendor: 'OfficeSpace', amount: '₹1,00,000' },
-];
-
-const clients = [
-  { name: 'Acme Corp', contact: 'acme@email.com', plan: 'Gold', status: 'Active', services: 'Accounting, Tax', payment: 'Paid' },
-  { name: 'Beta Ltd', contact: 'beta@email.com', plan: 'Silver', status: 'Inactive', services: 'Payroll', payment: 'Unpaid' },
-];
-
-const taxAlerts = [
-  { type: 'GST Filing', due: '2025-08-20', status: 'Pending' },
-  { type: 'TDS Payment', due: '2025-08-07', status: 'Filed' },
-  { type: 'ITR Submission', due: '2025-08-31', status: 'Urgent' },
-];
-
-const reports = [
-  { name: 'Profit & Loss', type: 'PDF' },
-  { name: 'Balance Sheet', type: 'Excel' },
-  { name: 'Cash Flow', type: 'PDF' },
-];
-
-const statusColors = {
-  Paid: 'bg-green-100 text-green-700',
-  Unpaid: 'bg-yellow-100 text-yellow-700',
-  Overdue: 'bg-red-100 text-red-700',
-  Active: 'bg-green-100 text-green-700',
-  Inactive: 'bg-gray-100 text-gray-700',
-  Pending: 'bg-yellow-100 text-yellow-700',
-  Filed: 'bg-green-100 text-green-700',
-  Urgent: 'bg-red-100 text-red-700',
-};
-
-const AdminDashboard = () => {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-
+export default function UserDetailsSection() {
+  // Theme state
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
   useEffect(() => {
-    const handleThemeChange = () => {
-      setTheme(localStorage.getItem('theme') || 'light');
-    };
-    window.addEventListener('theme-changed', handleThemeChange);
-    window.addEventListener('storage', handleThemeChange);
+    const syncTheme = () => setTheme(localStorage.getItem("theme") || "light");
+    window.addEventListener("storage", syncTheme);
+    window.addEventListener("theme-changed", syncTheme);
     return () => {
-      window.removeEventListener('theme-changed', handleThemeChange);
-      window.removeEventListener('storage', handleThemeChange);
+      window.removeEventListener("storage", syncTheme);
+      window.removeEventListener("theme-changed", syncTheme);
     };
   }, []);
 
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+  // NOTE: In your theme toggle logic (e.g., in Header), after updating localStorage, add:
+  // window.dispatchEvent(new Event("themeChanged"));
+  // Remove a blog (same logic as webinars)
+  const handleRemoveBlog = (idx) => {
+    const newBlogs = blogs.filter((_, i) => i !== idx);
+    localStorage.setItem("blogs", JSON.stringify(newBlogs));
+    setBlogs(newBlogs);
+    setEditIdx(null);
+  };
+
+  // Start editing a blog (same logic as webinars)
+  const handleEditBlog = (idx) => {
+    setEditIdx(idx);
+    const b = blogs[idx];
+    setEditForm({
+      title: b.title || '',
+      image: b.image || '',
+      author: b.author || '',
+      description: b.description || ''
+    });
+  };
+
+  // Save edited blog (same logic as webinars)
+  const handleBlogEditSave = (idx) => {
+    if (!editForm.title || !editForm.image || !editForm.author || !editForm.description) return;
+    const newBlogs = blogs.map((b, i) => i === idx ? { ...editForm, createdAt: b.createdAt } : b);
+    setBlogs(newBlogs);
+    localStorage.setItem("blogs", JSON.stringify(newBlogs));
+    setEditIdx(null);
+  };
+  const [editIdx, setEditIdx] = useState(null);
+  const [editForm, setEditForm] = useState({ title: '', date: '', time: '', description: '' });
+  const [webinarRegistrations, setWebinarRegistrations] = useState([]);
+  const [webinars, setWebinars] = useState([]);
+  const [webinarForm, setWebinarForm] = useState({ title: '', date: '', time: '', description: '' });
+
+  const [signupDetails, setSignupDetails] = useState([]);
+  const [instructorDetails, setInstructorDetails] = useState([]);
+  const [blogs, setBlogs] = useState([]);
+  const [blogForm, setBlogForm] = useState({ title: '', image: '', author: '', description: '' });
+
+  // Prepare data for signup graph (signups per day)
+  const signupDateCounts = signupDetails.reduce((acc, user) => {
+    if (user.signupDate) {
+      acc[user.signupDate] = (acc[user.signupDate] || 0) + 1;
     }
-  }, [theme]);
+    return acc;
+  }, {});
+  const signupGraphData = Object.entries(signupDateCounts).map(([date, count]) => ({ date, count }));
 
-  const bg = theme === 'dark' ? 'bg-[#1E2A38] dark:bg-[#1E2A38]' : 'bg-gray-50 dark:bg-[#fff]';
-  const textMain = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-white';
-  const cardBg = theme === 'dark' ? 'bg-[#141B25] border-[#223366] dark:bg-[#141B25] dark:border-[#223366]' : 'bg-white border-gray-200 dark:bg-[#fdf9f4] dark:border-[#223366] text-black';
-  const cardText = theme === 'dark' ? 'text-white dark:text-white' : 'text-black dark:text-black';
-  // Fetch signup details from localStorage and update on every render
-  const [signupUsers, setSignupUsers] = React.useState([]);
+  // Prepare data for instructor graph (instructors per expertise)
+  const expertiseCounts = instructorDetails.reduce((acc, inst) => {
+    if (inst.expertise) {
+      acc[inst.expertise] = (acc[inst.expertise] || 0) + 1;
+    }
+    return acc;
+  }, {});
+  const instructorGraphData = Object.entries(expertiseCounts).map(([expertise, count]) => ({ expertise, count }));
+
   useEffect(() => {
-    const fetchSignups = () => {
-      const users = JSON.parse(localStorage.getItem('signupUsers') || '[]');
-      setSignupUsers(users);
+    // Fetch all admin data from localStorage
+    const fetchDetails = () => {
+      const storedUsers = localStorage.getItem("users");
+      setSignupDetails(storedUsers ? JSON.parse(storedUsers) : []);
+      const storedInstructors = localStorage.getItem("instructors");
+      setInstructorDetails(storedInstructors ? JSON.parse(storedInstructors) : []);
+      const storedWebinars = localStorage.getItem("webinars");
+      setWebinars(storedWebinars ? JSON.parse(storedWebinars) : []);
+      const storedRegistrations = localStorage.getItem("webinarRegistrations");
+      setWebinarRegistrations(storedRegistrations ? JSON.parse(storedRegistrations) : []);
+      const storedBlogs = localStorage.getItem("blogs");
+      setBlogs(storedBlogs ? JSON.parse(storedBlogs) : []);
     };
-    fetchSignups();
-    // Listen for storage changes (e.g., new signup in another tab)
-    const handleStorage = () => {
-      fetchSignups();
-    };
-    window.addEventListener('storage', handleStorage);
-    // Also poll every 1s in case signup is in same tab
-    const interval = setInterval(fetchSignups, 1000);
-    return () => {
-      window.removeEventListener('storage', handleStorage);
-      clearInterval(interval);
-    };
+    fetchDetails();
+    window.addEventListener("storage", fetchDetails);
+    return () => window.removeEventListener("storage", fetchDetails);
   }, []);
 
-  // ...existing code...
-  return (
-    <div className={`${bg} min-h-screen transition-colors duration-300`}>
-      {/* Remove local toggle, use Header's toggle */}
-      <Header />
-      <h1 className={`text-3xl font-bold mb-8 text-orange-400 max-w-7xl mx-auto pt-24 px-4 ${textMain}`}
-      style={{color:theme === 'dark' ? 'white' : 'black'}}>Admin Dashboard</h1>
+  // After adding/removing a blog, always sync with localStorage
+  const syncBlogs = () => {
+    const storedBlogs = localStorage.getItem("blogs");
+    setBlogs(storedBlogs ? JSON.parse(storedBlogs) : []);
+  };
 
-      <div className="max-w-7xl mx-auto pb-10 px-4">
-        {/* Signup Users Section */}
-        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-orange-400">Recent Signups</h2>
-          </div>
+  // After adding/removing a webinar, always sync with localStorage
+  const syncWebinars = () => {
+    const storedWebinars = localStorage.getItem("webinars");
+    setWebinars(storedWebinars ? JSON.parse(storedWebinars) : []);
+  };
+
+  // Handle form input changes
+  const handleWebinarInput = (e) => {
+    const { name, value } = e.target;
+    setWebinarForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle form submit
+  const handleWebinarSubmit = (e) => {
+    e.preventDefault();
+    if (!webinarForm.title || !webinarForm.date || !webinarForm.time || !webinarForm.description) return;
+    const newWebinars = [...webinars, { ...webinarForm }];
+    localStorage.setItem("webinars", JSON.stringify(newWebinars));
+    syncWebinars();
+    setWebinarForm({ title: '', date: '', time: '', description: '' });
+  };
+
+  // Remove a webinar
+  const handleRemoveWebinar = (idx) => {
+    const newWebinars = webinars.filter((_, i) => i !== idx);
+    localStorage.setItem("webinars", JSON.stringify(newWebinars));
+    syncWebinars();
+  };
+
+  // Start editing a webinar
+  const handleEditWebinar = (idx) => {
+    setEditIdx(idx);
+  const [editForm, setEditForm] = useState({ title: '', image: '', author: '', description: '' });
+  };
+
+  // Handle edit form input
+  const handleEditInput = (e) => {
+    const { name, value } = e.target;
+    setEditForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+
+  // Save edited webinar
+  const handleEditSave = (idx) => {
+    if (!editForm.title || !editForm.date || !editForm.time || !editForm.description) return;
+    const b = blogs[idx];
+    setEditForm({
+      title: b.title || '',
+      image: b.image || '',
+      author: b.author || '',
+      description: b.description || ''
+    });
+    setWebinars(newWebinars);
+    localStorage.setItem("webinars", JSON.stringify(newWebinars));
+    setEditIdx(null);
+  };
+
+  // Handle blog form input
+  const handleBlogInput = (e) => {
+    const { name, value } = e.target;
+    setBlogForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle blog form submit
+  const handleBlogSubmit = (e) => {
+    e.preventDefault();
+    if (!blogForm.title || !blogForm.image || !blogForm.author || !blogForm.description) return;
+    const newBlogs = [{ ...blogForm, createdAt: new Date().toISOString() }, ...blogs];
+    localStorage.setItem("blogs", JSON.stringify(newBlogs));
+    syncBlogs();
+    setBlogForm({ title: '', image: '', author: '', description: '' });
+  };
+
+  // Cancel editing
+  const handleEditCancel = () => {
+    setEditIdx(null);
+  };
+
+  return (
+    <div className={clsx(
+      "min-h-screen w-full",
+      theme === "dark" ? "bg-[#10141c] text-white" : "bg-[#f6fafd] text-[#22223b]"
+    )}>
+      <Header />
+
+      {/* User Signup Table Section */}
+      <div className={clsx(
+        "rounded-xl shadow p-6 mt-16",
+        theme === "dark" ? "bg-[#181f2a]" : "bg-white"
+      )}>
+        <h2 className={clsx(
+          "text-2xl font-bold mb-4",
+          "text-[#00bfff]"
+        )}>User Signup Details</h2>
+        {signupDetails.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className={`min-w-[600px] w-full text-xs sm:text-sm ${textMain}`}>
-              <thead>
-                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Name</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Email</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Phone</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Login Date/Time</th>
+            <table className={clsx(
+              "min-w-full border rounded-lg",
+              theme === "dark" ? "border-gray-700" : "border-gray-200"
+            )}>
+              <thead className={clsx(
+                "text-white",
+                theme === "dark" ? "bg-[#005f8f]" : "bg-[#00bfff]"
+              )}>
+                <tr>
+                  <th className="px-4 py-2 text-center">S.No</th>
+                  <th className="px-4 py-2 text-center">First Name</th>
+                  <th className="px-4 py-2 text-center">Last Name</th>
+                  <th className="px-4 py-2 text-center">Email</th>
+                  <th className="px-4 py-2 text-center">Phone</th>
+                  <th className="px-4 py-2 text-center">Signup Time</th>
+                  <th className="px-4 py-2 text-center">Signup Date</th>
                 </tr>
               </thead>
-              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
-                style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                {signupUsers.length === 0 ? (
-                  <tr><td colSpan={4} className="p-4 text-center text-gray-400">No signups yet.</td></tr>
-                ) : (
-                  signupUsers.map((user, idx) => (
-                    <tr key={idx}>
-                      <td className="p-2 whitespace-nowrap">{user.firstname} {user.lastname}</td>
-                      <td className="p-2 whitespace-nowrap">{user.email}</td>
-                      <td className="p-2 whitespace-nowrap">{user.phone}</td>
-                      <td className="p-2 whitespace-nowrap">{user.loginDateTime}</td>
-                    </tr>
-                  ))
-                )}
+              <tbody>
+                {signupDetails.map((user, idx) => (
+                  <tr key={user.email || idx} className={clsx("border-b", theme === "dark" ? "border-[#005f8f]" : "border-[#00bfff]") }>
+                    <td className="px-4 py-2 text-center">{idx + 1}</td>
+                    <td className="px-4 py-2 text-center">{user.firstName}</td>
+                    <td className="px-4 py-2 text-center">{user.lastName}</td>
+                    <td className="px-4 py-2 text-center">{user.email}</td>
+                    <td className="px-4 py-2 text-center">{user.phone}</td>
+                    <td className="px-4 py-2 text-center">{user.signupTime}</td>
+                    <td className="px-4 py-2 text-center">{user.signupDate}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
-        </div>
+        ) : (
+          <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No user signup details found.</p>
+        )}
+      </div>
 
-        {/* 1. Financial Summary Widget - Modern Blue/White Cards */}
-        <div className="grid lg:grid-cols-4 gap-6 mb-8">
-          {/* Card 1 */}
-          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
-            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Balance</div>
-            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 432568</div>
-            <div className="border-t border-orange-200 my-2"></div>
-            <div className="flex items-center text-xs mt-2">
-              <span className="text-orange-600 font-bold mr-1">↑ 2.47%</span>
-              <span className="text-orange-400 ml-1">Last month <span className="font-semibold">$24,478</span></span>
-            </div>
-          </div>
-          {/* Card 2 */}
-          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
-            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Period Change</div>
-            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 245860</div>
-            <div className="border-t border-orange-200 my-2"></div>
-            <div className="flex items-center text-xs mt-2">
-              <span className="text-orange-600 font-bold mr-1">↑ 2.47%</span>
-              <span className="text-orange-400 ml-1">Last month <span className="font-semibold">$24,478</span></span>
-            </div>
-          </div>
-          {/* Card 3 */}
-          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
-            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Period Expenses</div>
-            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 25.35</div>
-            <div className="border-t border-orange-200 my-2"></div>
-            <div className="flex items-center text-xs mt-2">
-              <span className="text-orange-600 font-bold mr-1">↓ 2.47%</span>
-              <span className="text-orange-400 ml-1">Last month <span className="font-semibold">$24,478</span></span>
-            </div>
-          </div>
-          {/* Card 4 */}
-          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col justify-between border`}>
-            <div className={`font-bold text-base mb-2 ${cardText}`}>Total Period Income</div>
-            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$ 22.56</div>
-            <div className="border-t border-orange-200 my-2"></div>
-            <div className="flex items-center text-xs mt-2">
-              <span className="text-orange-600 font-bold mr-1">↑ 2.47%</span>
-              <span className="text-orange-400 ml-1">Last month <span className="font-semibold">$24,478</span></span>
-            </div>
-          </div>
-        </div>
-
-        {/* 2. Balance Trends & Monthly Expenses Breakdown */}
-        <div className="grid lg:grid-cols-2 gap-6 mb-10">
-          {/* Balance Trends Card */}
-          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col border`}>
-            <div className="flex justify-between items-center mb-2">
-              <div className={`font-bold text-lg ${cardText}`}>Balance Trends</div>
-              <div className="text-xs text-orange-400">Last Month <span className="text-orange-600 font-bold ml-1">↑ 12.25%</span></div>
-            </div>
-            <div className={`text-3xl font-bold mb-2 ${cardText}`}>$221,478</div>
-            {/* Fake area chart - orange theme */}
-            <div className="w-full h-32 bg-gradient-to-t from-orange-200 to-orange-400 rounded-b-xl relative overflow-hidden flex items-end">
-              <div className="absolute left-0 bottom-0 w-full h-full flex items-end">
-                <div className="bg-orange-300" style={{height:'30%',width:'10%'}}></div>
-                <div className="bg-orange-400" style={{height:'50%',width:'10%'}}></div>
-                <div className="bg-orange-300" style={{height:'40%',width:'10%'}}></div>
-                <div className="bg-orange-500" style={{height:'80%',width:'10%'}}></div>
-                <div className="bg-orange-300" style={{height:'60%',width:'10%'}}></div>
-                <div className="bg-orange-400" style={{height:'70%',width:'10%'}}></div>
-                <div className="bg-orange-200" style={{height:'35%',width:'10%'}}></div>
-                <div className="bg-orange-300" style={{height:'55%',width:'10%'}}></div>
-                <div className="bg-orange-400" style={{height:'45%',width:'10%'}}></div>
-                <div className="bg-orange-200" style={{height:'25%',width:'10%'}}></div>
-              </div>
-            </div>
-          </div>
-          {/* Monthly Expenses Breakdown Card - Donut Chart Style */}
-          <div className={`${cardBg} rounded-xl shadow p-6 flex flex-col border`}>
-            <div className={`font-bold text-lg mb-4 ${cardText}`}>Monthly Expenses Breakdown</div>
-            <div className="flex flex-row items-center justify-between">
-              {/* Donut Chart */}
-              <div className="flex flex-col items-center justify-center w-1/2">
-                <svg width="140" height="140" viewBox="0 0 42 42" className="mb-2">
-                  <circle r="15.9155" cx="21" cy="21" fill="transparent" stroke="#fb923c" strokeWidth="6" strokeDasharray="30 70" strokeDashoffset="0" />
-                  <circle r="15.9155" cx="21" cy="21" fill="transparent" stroke="#fdba74" strokeWidth="6" strokeDasharray="20 80" strokeDashoffset="-30" />
-                  <circle r="15.9155" cx="21" cy="21" fill="transparent" stroke="#fbbf24" strokeWidth="6" strokeDasharray="15 85" strokeDashoffset="-50" />
-                  <circle r="15.9155" cx="21" cy="21" fill="transparent" stroke="#f59e42" strokeWidth="6" strokeDasharray="20 80" strokeDashoffset="-65" />
-                  <circle r="15.9155" cx="21" cy="21" fill="transparent" stroke="#fca5a5" strokeWidth="6" strokeDasharray="15 85" strokeDashoffset="-85" />
-                  <text x="50%" y="50%" textAnchor="middle" dy=".3em" fontSize="8" fill="#ea580c" fontWeight="bold">₹1.2L</text>
-                </svg>
-                <div className="text-xs text-orange-400">Total</div>
-              </div>
-              {/* Legend */}
-              <div className="flex flex-col gap-3 w-1/2 pl-4">
-                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-400 mr-3"></span>Salaries</div>
-                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-300 mr-3"></span>Software</div>
-                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-yellow-400 mr-3"></span>Rent</div>
-                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-500 mr-3"></span>Service</div>
-                <div className={`flex items-center text-base font-semibold ${cardText}`}><span className="w-4 h-4 rounded-full bg-orange-200 mr-3"></span>Tools</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        
-        {/* 3. Transactions Activity (Invoices & Payments) Modern Table */}
-        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-orange-400">Transactions activity</h2>
-          </div>
-          <div className="-mx-4 sm:mx-0 overflow-x-auto">
-            <table className={`min-w-[700px] w-full text-xs sm:text-sm ${textMain}`}>
-              <thead>
-                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}> 
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Account</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Date</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Status</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Recipient</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Category</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Amount</th>
-                  <th className="p-2"></th>
+      {/* Instructor Details Table Section */}
+      <div className={clsx(
+        "rounded-xl shadow p-6 mt-6",
+        theme === "dark" ? "bg-[#181f2a]" : "bg-white"
+      )}>
+        <h2 className={clsx(
+          "text-2xl font-bold mb-4",
+          "text-[#00bfff]"
+        )}>Instructor Details</h2>
+        {instructorDetails.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className={clsx(
+              "min-w-full border rounded-lg",
+              theme === "dark" ? "border-gray-700" : "border-gray-200"
+            )}>
+              <thead className={clsx(
+                "text-white",
+                theme === "dark" ? "bg-[#005f8f]" : "bg-[#00bfff]"
+              )}>
+                <tr>
+                  <th className="px-4 py-2 text-center">S.No</th>
+                  <th className="px-4 py-2 text-center">Name</th>
+                  <th className="px-4 py-2 text-center">Email</th>
+                  <th className="px-4 py-2 text-center">Expertise</th>
                 </tr>
               </thead>
-              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
-              style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                {/* Example static rows for demo, replace with real data as needed */}
-                <tr>
-                  <td className="p-2 flex items-center gap-2 whitespace-nowrap"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
-                <td className="p-2">Feb 17, 2025</td>
-                <td className="p-2"><span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">Pending</span></td>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Adam Barbara" className="w-6 h-6 rounded-full"/> Adam Barbara</td>
-                <td className="p-2"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-semibold">Transfer</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-green-500 flex items-center justify-center text-white text-xs font-bold">MC</span>•••• 7586</td>
-                <td className="p-2">Feb 17, 2025</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Success</span></td>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Cameron Will" className="w-6 h-6 rounded-full"/> Cameron Will</td>
-                <td className="p-2"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-semibold">Transfer</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
-                <td className="p-2">Feb 16, 2025</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Success</span></td>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Floyd Miles" className="w-6 h-6 rounded-full"/> Floyd Miles</td>
-                <td className="p-2"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-semibold">Transfer</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
-                <td className="p-2">Feb 16, 2025</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Success</span></td>
-                <td className="p-2 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-blue-900 font-bold">A</span> AHS Rentals</td>
-                <td className="p-2"><span className="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-semibold">Rent</span></td>
-                <td className="p-2">USD 1,000</td>
-              </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-green-500 flex items-center justify-center text-white text-xs font-bold">MC</span>•••• 7586</td>
-                <td className="p-2">Feb 14, 2025</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Success</span></td>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/women/35.jpg" alt="Jane Cooper" className="w-6 h-6 rounded-full"/> Jane Cooper</td>
-                <td className="p-2"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-semibold">Transfer</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-blue-500 flex items-center justify-center text-white text-xs font-bold">VISA</span>•••• 6799</td>
-                <td className="p-2">Feb 13, 2025</td>
-                <td className="p-2"><span className="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-semibold">Failed</span></td>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/women/36.jpg" alt="Courtney Henry" className="w-6 h-6 rounded-full"/> Courtney Henry</td>
-                <td className="p-2"><span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-semibold">Receive</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-black flex items-center justify-center text-white text-xs font-bold">AMEX</span>•••• 5560</td>
-                <td className="p-2">Feb 10, 2025</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Success</span></td>
-                <td className="p-2 flex items-center gap-2"><img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Akmal Nasrul" className="w-6 h-6 rounded-full"/> Akmal Nasrul</td>
-                <td className="p-2"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-semibold">Shopping</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-              <tr>
-                                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-blue-700 flex items-center justify-center text-white text-xs font-bold">PP</span>•••• 3557</td>
-                <td className="p-2">Feb 9, 2025</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Success</span></td>
-                <td className="p-2 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-blue-900 font-bold">A</span> Amazon</td>
-                <td className="p-2"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-semibold">Shopping</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-              <tr>
-                <td className="p-2 flex items-center gap-2"><span className="w-8 h-6 rounded bg-blue-700 flex items-center justify-center text-white text-xs font-bold">PP</span>•••• 3557</td>
-                <td className="p-2">Feb 5, 2025</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Success</span></td>
-                <td className="p-2 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-blue-900 font-bold">S</span> Spotify</td>
-                <td className="p-2"><span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-semibold">Subscription</span></td>
-                <td className="p-2">USD 1,500</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-
-        {/* 4. Expense Management - Modern Table */}
-        <div className={`${cardBg} rounded-xl shadow p-6 mb-10`}>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-orange-400">Expense Management</h2>
-            <button className="bg-orange-500 text-white px-4 py-2 rounded font-semibold">Export</button>
+              <tbody>
+                {instructorDetails.map((inst, idx) => (
+                  <tr key={inst.email || idx} className={clsx("border-b", theme === "dark" ? "border-[#005f8f]" : "border-[#00bfff]") }>
+                    <td className="px-4 py-2 text-center">{idx + 1}</td>
+                    <td className="px-4 py-2 text-center">{inst.name}</td>
+                    <td className="px-4 py-2 text-center">{inst.email}</td>
+                    <td className="px-4 py-2 text-center">{inst.expertise}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="-mx-4 sm:mx-0 overflow-x-auto">
-            <table className={`min-w-[600px] w-full text-xs sm:text-sm ${textMain}`}>
-              <thead>
-                <tr className={`${theme === 'dark' ? 'bg-[#223366] text-white' : 'bg-gray-50 text-gray-500'}`}> 
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Date</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Type</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Vendor</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Amount</th>
-                  <th className="p-2 text-left font-medium whitespace-nowrap">Status</th>
-                  <th className="p-2"></th>
+        ) : (
+          <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No instructor details found.</p>
+        )}
+      </div>
+
+      {/* Dashboard Graphs */}
+      <div className={clsx(
+        "rounded-xl shadow p-6 mt-6",
+        theme === "dark" ? "bg-[#181f2a]" : "bg-white"
+      )}>
+        <h2 className={clsx(
+          "text-2xl font-bold mb-8 text-center",
+          "text-[#00bfff]"
+        )}>Dashboard Graphs</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 className={clsx(
+              "text-lg font-semibold mb-4 text-center",
+              "text-[#00bfff]"
+            )}>Signups Per Day</h3>
+            {signupGraphData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={signupGraphData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#374151" : "#e5e7eb"} />
+                  <XAxis dataKey="date" stroke={theme === "dark" ? "#fff" : "#22223b"} />
+                  <YAxis allowDecimals={false} stroke={theme === "dark" ? "#fff" : "#22223b"} />
+                  <Tooltip contentStyle={{ background: theme === "dark" ? "#181f2a" : "#fff", color: theme === "dark" ? "#fff" : "#22223b" }} />
+                  <Bar dataKey="count" fill="#00bfff" />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No signup data for graph.</p>
+            )}
+          </div>
+          <div>
+            <h3 className={clsx(
+              "text-lg font-semibold mb-4 text-center",
+              "text-[#00bfff]"
+            )}>Instructors Per Expertise</h3>
+            {instructorGraphData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={instructorGraphData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#374151" : "#e5e7eb"} />
+                  <XAxis dataKey="expertise" stroke={theme === "dark" ? "#fff" : "#22223b"} />
+                  <YAxis allowDecimals={false} stroke={theme === "dark" ? "#fff" : "#22223b"} />
+                  <Tooltip contentStyle={{ background: theme === "dark" ? "#181f2a" : "#fff", color: theme === "dark" ? "#fff" : "#22223b" }} />
+                  <Bar dataKey="count" fill="#00bfff" />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No instructor data for graph.</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Upcoming Webinar Section */}
+      <div className={clsx(
+        "rounded-xl shadow p-6 mt-8",
+        theme === "dark" ? "bg-[#181f2a]" : "bg-white"
+      )}>
+        <h2 className={clsx(
+          "text-2xl font-bold mb-4",
+          "text-[#00bfff]"
+        )}>Upcoming Webinar</h2>
+        <form className="mb-6 w-full" onSubmit={handleWebinarSubmit}>
+          <div className="flex flex-row gap-4 mb-4 w-full">
+            <input
+              type="text"
+              name="title"
+              value={webinarForm.title}
+              onChange={handleWebinarInput}
+              placeholder="Webinar Title"
+              className={clsx(
+                "border rounded px-4 py-3 text-lg w-2/4 min-w-0",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+            <input
+              type="date"
+              name="date"
+              value={webinarForm.date}
+              onChange={handleWebinarInput}
+              className={clsx(
+                "border rounded px-4 py-3 text-lg w-1/4 min-w-0",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+            <input
+              type="time"
+              name="time"
+              value={webinarForm.time}
+              onChange={handleWebinarInput}
+              className={clsx(
+                "border rounded px-4 py-3 text-lg w-1/4 min-w-0",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="description"
+              value={webinarForm.description}
+              onChange={handleWebinarInput}
+              placeholder="Description"
+              className={clsx(
+                "border rounded px-4 py-3 text-lg w-full",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+          </div>
+          <div className="flex justify-center">
+            <button type="submit" className={clsx(
+              "rounded px-5 py-2 text-base font-semibold transition",
+              "bg-[#00bfff] text-white hover:bg-[#0099cc]"
+            )}>Add Webinar</button>
+          </div>
+        </form>
+        <div>
+          {webinars.length > 0 ? (
+            <ul className="space-y-2">
+              {webinars.map((webinar, idx) => (
+                <li key={idx} className={clsx(
+                  "border rounded p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2",
+                  theme === "dark" ? "border-gray-700 bg-[#232b3b]" : "border-gray-200 bg-white"
+                )}>
+                  {editIdx === idx ? (
+                    <form className="flex flex-col md:flex-row md:items-center gap-2 w-full" onSubmit={e => { e.preventDefault(); handleEditSave(idx); }}>
+                      <input
+                        type="text"
+                        name="title"
+                        value={editForm.title}
+                        onChange={handleEditInput}
+                        className={clsx(
+                          "border rounded px-2 py-1 md:w-32 w-full",
+                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                        )}
+                        required
+                      />
+                      <input
+                        type="date"
+                        name="date"
+                        value={editForm.date}
+                        onChange={handleEditInput}
+                        className={clsx(
+                          "border rounded px-2 py-1 md:w-32 w-full",
+                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                        )}
+                        required
+                      />
+                      <input
+                        type="time"
+                        name="time"
+                        value={editForm.time}
+                        onChange={handleEditInput}
+                        className={clsx(
+                          "border rounded px-2 py-1 md:w-24 w-full",
+                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                        )}
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="description"
+                        value={editForm.description}
+                        onChange={handleEditInput}
+                        className={clsx(
+                          "border rounded px-2 py-1 md:flex-1 w-full",
+                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                        )}
+                        required
+                      />
+                      <button type="submit" className={clsx(
+                        "rounded px-3 py-1 font-semibold transition",
+                        "bg-[#00bfff] text-white hover:bg-[#0099cc]"
+                      )}>Save</button>
+                      <button type="button" className={clsx(
+                        "rounded px-3 py-1 font-semibold transition",
+                        theme === "dark" ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-300 text-black hover:bg-gray-400"
+                      )} onClick={handleEditCancel}>Cancel</button>
+                    </form>
+                  ) : (
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-2">
+                      <div>
+                        <span className="font-semibold">{webinar.title}</span> <span className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>({webinar.date} {webinar.time})</span>
+                        <div className={clsx(theme === "dark" ? "text-gray-300" : "text-gray-700", "text-sm mt-1")}>{webinar.description}</div>
+                      </div>
+                      <div className="flex gap-2 mt-2 md:mt-0">
+                        <button className={clsx(
+                          "rounded px-3 py-1 font-semibold transition",
+                          theme === "dark" ? "bg-yellow-500 text-white hover:bg-yellow-400" : "bg-yellow-400 text-white hover:bg-yellow-500"
+                        )} onClick={() => handleEditWebinar(idx)}>Edit</button>
+                        <button className={clsx(
+                          "rounded px-3 py-1 font-semibold transition",
+                          theme === "dark" ? "bg-red-600 text-white hover:bg-red-500" : "bg-red-500 text-white hover:bg-red-600"
+                        )} onClick={() => handleRemoveWebinar(idx)}>Remove</button>
+                      </div>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No upcoming webinars added.</p>
+          )}
+        </div>
+      </div>
+
+      {/* Webinar Registrations Section */}
+      <div className={clsx(
+        "rounded-xl shadow p-6 mt-8",
+        theme === "dark" ? "bg-[#181f2a]" : "bg-white"
+      )}>
+        <h2 className={clsx(
+          "text-2xl font-bold mb-4",
+          "text-[#00bfff]"
+        )}>Webinar Registrations</h2>
+        {webinarRegistrations.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className={clsx(
+              "min-w-full border rounded-lg",
+              theme === "dark" ? "border-gray-700" : "border-gray-200"
+            )}>
+              <thead className="bg-[#00bfff] text-white">
+                <tr>
+                  <th className="px-4 py-2 text-center">S.No</th>
+                  <th className="px-4 py-2 text-center">Webinar Title</th>
+                  <th className="px-4 py-2 text-center">Date</th>
+                  <th className="px-4 py-2 text-center">Name</th>
+                  <th className="px-4 py-2 text-center">Email</th>
+                  <th className="px-4 py-2 text-center">Registered At</th>
                 </tr>
               </thead>
-              <tbody className={`${theme === 'dark' ? 'divide-gray-700' : 'divide-gray-100'}`}
-              style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                {/* Example static rows for demo, replace with real data as needed */}
-                <tr>
-                  <td className="p-2 whitespace-nowrap">2025-08-01</td>
-                  <td className="p-2 whitespace-nowrap">Salaries</td>
-                  <td className="p-2 whitespace-nowrap">Payroll</td>
-                  <td className="p-2 whitespace-nowrap">₹3,00,000</td>
-                  <td className="p-2 whitespace-nowrap"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Paid</span></td>
-                  <td className="p-2 text-right whitespace-nowrap">...</td>
-                </tr>
-              <tr>
-                <td className="p-2">2025-08-03</td>
-                <td className="p-2">Software</td>
-                <td className="p-2">SaaSify</td>
-                <td className="p-2">₹25,000</td>
-                <td className="p-2"><span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">Pending</span></td>
-                <td className="p-2 text-right">...</td>
-              </tr>
-              <tr>
-                <td className="p-2">2025-08-04</td>
-                <td className="p-2">Rent</td>
-                <td className="p-2">OfficeSpace</td>
-                <td className="p-2">₹1,00,000</td>
-                <td className="p-2"><span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-semibold">Paid</span></td>
-                <td className="p-2 text-right">...</td>
-              </tr>
-            </tbody>
-          </table>
+              <tbody>
+                {webinarRegistrations.map((reg, idx) => (
+                  <tr key={idx} className={clsx("border-b", theme === "dark" ? "border-gray-700" : "border-gray-200") }>
+                    <td className="px-4 py-2 text-center">{idx + 1}</td>
+                    <td className="px-4 py-2 text-center">{reg.webinarTitle}</td>
+                    <td className="px-4 py-2 text-center">{reg.webinarDate}</td>
+                    <td className="px-4 py-2 text-center">{reg.name}</td>
+                    <td className="px-4 py-2 text-center">{reg.email}</td>
+                    <td className="px-4 py-2 text-center">{new Date(reg.registeredAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No webinar registrations found.</p>
+        )}
+      </div>
+
+      {/* Add New Blog Section */}
+      <div className={clsx(
+        "rounded-xl shadow p-6 mt-8",
+        theme === "dark" ? "bg-[#181f2a]" : "bg-white"
+      )}>
+        <h2 className={clsx(
+          "text-2xl font-bold mb-4",
+          "text-[#00bfff]"
+        )}>Add New Blog</h2>
+        <form className="mb-6 w-full" onSubmit={handleBlogSubmit}>
+          <div className="flex flex-col md:flex-row gap-4 mb-4">
+            <input
+              type="text"
+              name="title"
+              value={blogForm.title}
+              onChange={handleBlogInput}
+              placeholder="Blog Title"
+              className={clsx(
+                "border rounded px-4 py-3 text-lg flex-1 min-w-0",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+            <input
+              type="text"
+              name="image"
+              value={blogForm.image}
+              onChange={handleBlogInput}
+              placeholder="Image URL"
+              className={clsx(
+                "border rounded px-4 py-3 text-lg flex-1 min-w-0",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 mb-4">
+            <input
+              type="text"
+              name="author"
+              value={blogForm.author}
+              onChange={handleBlogInput}
+              placeholder="Author Name"
+              className={clsx(
+                "border rounded px-4 py-3 text-lg flex-1 min-w-0",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <textarea
+              name="description"
+              value={blogForm.description}
+              onChange={handleBlogInput}
+              placeholder="Description"
+              className={clsx(
+                "border rounded px-4 py-3 text-lg w-full min-h-[80px]",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
+          </div>
+          <div className="flex justify-center">
+            <button type="submit" className={clsx(
+              "rounded px-5 py-2 text-base font-semibold transition",
+              "bg-[#00bfff] text-white hover:bg-[#0099cc]"
+            )}>Add Blog</button>
+          </div>
+        </form>
+        <div>
+          {blogs.length > 0 ? (
+            <ul className="space-y-4">
+              {blogs.map((blog, idx) => (
+                <li key={idx} className={clsx(
+                  "border rounded p-4 flex flex-col md:flex-row md:items-center gap-4",
+                  theme === "dark" ? "border-gray-700 bg-[#232b3b]" : "border-gray-200 bg-white"
+                )}>
+                  <img src={blog.image} alt={blog.title} className="w-24 h-24 object-cover rounded" />
+                  <div className="flex-1">
+                    {editIdx === idx ? (
+                      <form className="flex flex-col gap-2" onSubmit={e => { e.preventDefault(); handleBlogEditSave(idx); }}>
+                        <input
+                          type="text"
+                          name="title"
+                          value={editForm.title}
+                          onChange={handleEditInput}
+                          className={clsx(
+                            "border rounded px-2 py-1",
+                            theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                          )}
+                          required
+                        />
+                        <input
+                          type="text"
+                          name="image"
+                          value={editForm.image}
+                          onChange={handleEditInput}
+                          className={clsx(
+                            "border rounded px-2 py-1",
+                            theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                          )}
+                          required
+                        />
+                        <input
+                          type="text"
+                          name="author"
+                          value={editForm.author}
+                          onChange={handleEditInput}
+                          className={clsx(
+                            "border rounded px-2 py-1",
+                            theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                          )}
+                          required
+                        />
+                        <textarea
+                          name="description"
+                          value={editForm.description}
+                          onChange={handleEditInput}
+                          className={clsx(
+                            "border rounded px-2 py-1",
+                            theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+                          )}
+                          required
+                        />
+                        <div className="flex gap-2 mt-2">
+                          <button type="submit" className={clsx(
+                            "rounded px-3 py-1 font-semibold transition",
+                            "bg-[#00bfff] text-white hover:bg-[#0099cc]"
+                          )}>Save</button>
+                          <button type="button" className={clsx(
+                            "rounded px-3 py-1 font-semibold transition",
+                            theme === "dark" ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-300 text-black hover:bg-gray-400"
+                          )} onClick={handleEditCancel}>Cancel</button>
+                        </div>
+                      </form>
+                    ) : (
+                      <>
+                        <div className={clsx(
+                          "font-bold text-lg",
+                          "text-[#00bfff]"
+                        )}>{blog.title}</div>
+                        <div className={clsx(
+                          "text-sm mb-1",
+                          theme === "dark" ? "text-gray-300" : "text-gray-600"
+                        )}>By {blog.author}</div>
+                        <div className={clsx(
+                          "text-sm mb-1",
+                          theme === "dark" ? "text-gray-200" : "text-gray-700"
+                        )}>{blog.description}</div>
+                        <div className={clsx(
+                          "text-xs",
+                          "text-gray-400"
+                        )}>{new Date(blog.createdAt).toLocaleString()}</div>
+                        <div className="flex gap-2 mt-2">
+                          <button className={clsx(
+                            "rounded px-3 py-1 font-semibold transition",
+                            theme === "dark" ? "bg-yellow-500 text-white hover:bg-yellow-400" : "bg-yellow-400 text-white hover:bg-yellow-500"
+                          )} onClick={() => handleEditBlog(idx)}>Edit</button>
+                          <button className={clsx(
+                            "rounded px-3 py-1 font-semibold transition",
+                            theme === "dark" ? "bg-red-600 text-white hover:bg-red-500" : "bg-red-500 text-white hover:bg-red-600"
+                          )} onClick={() => handleRemoveBlog(idx)}>Remove</button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={clsx("text-center", theme === "dark" ? "text-gray-400" : "text-gray-500")}>No blogs added yet.</p>
+          )}
         </div>
-
-
-        {/* 5. Client Accounts Overview - Modern Table */}
-        
+      </div>
     </div>
-  </div>
-  </div>
-  </div>
   );
 }
-
-export default AdminDashboard;

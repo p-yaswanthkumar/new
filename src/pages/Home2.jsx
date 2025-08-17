@@ -1,672 +1,359 @@
-import React, { useState, useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { Link } from 'react-router-dom';
-import { motion } from "framer-motion";
-import home2hero from '../assets/home2hero.mp4';
-import logo11 from '../assets/11.png';
-import logo12 from '../assets/12.png';
-import logo13 from '../assets/13.png';
-import logo14 from '../assets/14.png';
-import logo15 from '../assets/15.png';
-import logo16 from '../assets/16.png';
-import logo17 from '../assets/17.png';
-import logo18 from '../assets/18.png';
-import ceoImg from '../assets/ceo.jpg'; // Make sure this image exists in assets
-import img4 from '../assets/4.png';
-import img5 from '../assets/5.png';
-import img6 from '../assets/6.png';
 
-const partnerLogos = [logo11, logo12, logo13, logo14, logo15, logo16, logo17, logo18];
+import { Link } from "react-router-dom";
+import React from "react";
 
-const Home2 = () => {
-  // Theme sync (like Home1)
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-  useEffect(() => {
-    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
-    window.addEventListener('theme-changed', handleThemeChange);
-    window.addEventListener('storage', handleThemeChange);
-    AOS.init({ once: true, duration: 1000, offset: 80 });
-    return () => {
-      window.removeEventListener('theme-changed', handleThemeChange);
-      window.removeEventListener('storage', handleThemeChange);
-    };
-  }, []);
 
-  // Section bg alternation
-  const bgColors = theme === 'dark' ? ['#1E2A38', '#141B25'] : ['#ffffff', '#FDF9F4'];
-  let sectionIndex = 0;
+import home2Video from "../assets/home2hero.mp4";
+import logo1 from "../assets/1.png";
+import logo2 from "../assets/2.png";
+import logo3 from "../assets/3.png";
+import logo4 from "../assets/4.png";
+import logo5 from "../assets/5.webp";
+import logo6 from "../assets/6.png";
+import logo7 from "../assets/7.png";
+import logo8 from "../assets/8.png";
+import logo9 from "../assets/9.png";
+import logo10 from "../assets/10.png";
 
-  const [openModal, setOpenModal] = useState(null); // 'emi' | 'tax' | 'retirement' | null
-
-  // Simple EMI Calculator
-  const [emiPrincipal, setEmiPrincipal] = useState('');
-  const [emiRate, setEmiRate] = useState('');
-  const [emiTenure, setEmiTenure] = useState('');
-  const [emiResult, setEmiResult] = useState(null);
-  const calculateEMI = () => {
-    const P = parseFloat(emiPrincipal);
-    const r = parseFloat(emiRate) / 12 / 100;
-    const n = parseFloat(emiTenure) * 12;
-    if (!P || !r || !n) return setEmiResult('Please fill all fields');
-    const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    setEmiResult(`Monthly EMI: ₹${emi.toFixed(2)}`);
-  };
-
-  // Simple Tax Calculator
-  const [taxIncome, setTaxIncome] = useState('');
-  const [taxResult, setTaxResult] = useState(null);
-  const calculateTax = () => {
-    const income = parseFloat(taxIncome);
-    if (!income) return setTaxResult('Please enter income');
-    let tax = 0;
-    if (income <= 250000) tax = 0;
-    else if (income <= 500000) tax = (income - 250000) * 0.05;
-    else if (income <= 1000000) tax = 12500 + (income - 500000) * 0.2;
-    else tax = 112500 + (income - 1000000) * 0.3;
-    setTaxResult(`Estimated Tax: ₹${tax.toFixed(2)}`);
-  };
-
-  // Simple Retirement Planner
-  const [retireAge, setRetireAge] = useState('');
-  const [currentAge, setCurrentAge] = useState('');
-  const [monthlySave, setMonthlySave] = useState('');
-  const [retireResult, setRetireResult] = useState(null);
-  const calculateRetirement = () => {
-    const ca = parseInt(currentAge);
-    const ra = parseInt(retireAge);
-    const ms = parseFloat(monthlySave);
-    if (!ca || !ra || !ms || ra <= ca) return setRetireResult('Please fill all fields correctly');
-    const months = (ra - ca) * 12;
-    const total = ms * months;
-    setRetireResult(`Total Savings by Retirement: ₹${total.toLocaleString()}`);
-  };
-
-  // Helper to reset all calculator states
-  const resetCalculators = () => {
-    setEmiPrincipal('');
-    setEmiRate('');
-    setEmiTenure('');
-    setEmiResult(null);
-    setTaxIncome('');
-    setTaxResult(null);
-    setCurrentAge('');
-    setRetireAge('');
-    setMonthlySave('');
-    setRetireResult(null);
-  };
-
-  // Smooth scroll to next section
-  const handleScrollToNext = () => {
-    const nextSection = document.getElementById('tools-section');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
+export default function Home2() {
+  // Theme state synced with Header
+  const [theme, setTheme] = React.useState('light');
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') || 'light';
+      setTheme(storedTheme);
+      const handleThemeChange = () => {
+        const newTheme = localStorage.getItem('theme') || 'light';
+        setTheme(newTheme);
+      };
+      window.addEventListener('theme-changed', handleThemeChange);
+      window.addEventListener('storage', handleThemeChange);
+      return () => {
+        window.removeEventListener('theme-changed', handleThemeChange);
+        window.removeEventListener('storage', handleThemeChange);
+      };
     }
+  }, []);
+  const [showRegister, setShowRegister] = React.useState(null); // index of webinar or null
+  const [registerForm, setRegisterForm] = React.useState({ name: '', email: '' });
+
+  // Handle registration form input
+  const handleRegisterInput = (e) => {
+    const { name, value } = e.target;
+    setRegisterForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle registration submit
+  const handleRegisterSubmit = (e, webinar) => {
+    e.preventDefault();
+    if (!registerForm.name || !registerForm.email) return;
+    const stored = localStorage.getItem('webinarRegistrations');
+    const registrations = stored ? JSON.parse(stored) : [];
+    registrations.push({
+      ...registerForm,
+      webinarTitle: webinar.title,
+      webinarDate: webinar.date,
+      webinarDescription: webinar.description,
+      registeredAt: new Date().toISOString(),
+    });
+    localStorage.setItem('webinarRegistrations', JSON.stringify(registrations));
+    setRegisterForm({ name: '', email: '' });
+    setShowRegister(null);
+    alert('Registration successful!');
+  };
+  const [webinars, setWebinars] = React.useState([]);
+  React.useEffect(() => {
+    const storedWebinars = localStorage.getItem("webinars");
+    if (storedWebinars) {
+      setWebinars(JSON.parse(storedWebinars));
+    }
+    const handleStorage = () => {
+      const updated = localStorage.getItem("webinars");
+      setWebinars(updated ? JSON.parse(updated) : []);
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+  const offers = [
+    {
+      title: "50% Off Beginner Courses",
+      description: "Kickstart your learning journey with our top beginner courses at half the price.",
+      bg: "bg-[#00BFFF]",
+    },
+    {
+      title: "Free Trial for 7 Days",
+      description: "Experience our platform for free and explore all features before committing.",
+      bg: "bg-[#00BFFF]",
+    },
+    {
+      title: "Certificate Programs",
+      description: "Earn recognized certificates for your achievements and boost your resume.",
+      bg: "bg-[#00BFFF]",
+    },
+  ];
+  const insights = [
+  {
+    title: "10K+",
+    subtitle: "Students Enrolled",
+  },
+  {
+    title: "500+",
+    subtitle: "Expert Instructors",
+  },
+  {
+    title: "120+",
+    subtitle: "Courses Available",
+  },
+  {
+    title: "95%",
+    subtitle: "Student Satisfaction",
+  },
+];
+
+
+  const logos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10];
+  const scrollRef = React.useRef(null);
   return (
-    <>
+    <div className={
+      `${theme === 'dark' ? 'min-h-screen  text-white' : 'min-h-screen  text-white'}`
+    }>
+
       {/* Hero Section */}
-      <section 
-        className={`relative h-screen flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-gray-900 text-white'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up"
+      <section
+        className="relative w-full h-screen overflow-hidden"
       >
-        {/* Background Video */}
         <video
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          src={home2Video}
           autoPlay
           muted
           loop
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
-          <source src={home2hero} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-        {/* Content */}
-        <div className="relative z-20 flex flex-col items-center justify-center w-full h-full text-center text-white max-w-3xl mx-auto px-4">
-          <motion.h1 
-            className="text-4xl md:text-6xl font-bold mb-6 whitespace-nowrap"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            Finance & Accounting Solutions for Growth
-          </motion.h1>
-          <motion.p 
-            className="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            Unlock the full potential of your business with expert accounting, tax planning, and financial consulting. We deliver clarity, compliance, and growth for individuals and organizations alike.
-          </motion.p>
-          <motion.button
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-10 rounded-lg text-lg transition-colors duration-200 shadow-lg"
-            onClick={handleScrollToNext}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          playsInline
+        />
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
+            Transform Your Future with <span style={{ color: '#00BFFF' }}>Next-Level Learning</span>
+          </h1>
+          <p className={`mt-4 max-w-4xl text-lg md:text-xl ${theme === 'dark' ? 'text-fff' : 'text-fff'}`}>
+            Unlock your potential with our expertly designed courses and interactive learning experiences. 
+            Join thousands of learners who are advancing their careers, mastering new skills, and achieving their goals. 
+            Our platform combines expert instructors, hands-on projects, flexible schedules, and a supportive community to help you succeed faster. 
+            Whether you're looking to start a new career, upskill in your current role, or explore new passions, your learning journey begins here.
+          </p>
+          <button
+            className={
+              `mt-6 px-6 py-3 rounded-lg shadow transition font-semibold ` +
+              (theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-[#00BFFF]' : 'bg-[#00BFFF] text-white hover:bg-[#00BFFF]')
+            }
+            onClick={() => {
+              const el = document.getElementById('upcoming');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
             Get Started
-          </motion.button>
+          </button>
         </div>
       </section>
-      {/* Insights Section */}
-      
-
-      {/* CEO Message Section */}
-      
-
-      {/* Tool/Calculator Preview Section */}
-      <section 
-        id="tools-section"
-        className={`py-16 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-gradient-to-r from-blue-50 to-purple-100 text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-delay="100"
+      <section
+        className={
+          `w-full py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00BFFF]'}`
+        }
       >
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.h2 
-            className={`text-3xl md:text-4xl font-bold text-center mb-10 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Explore Our Financial Tools & Calculators
-          </motion.h2>
-          <div className="grid  lg:grid-cols-3 gap-8 w-full max-w-full">
-            {/* Tool Card 1 */}
-            <motion.div 
-              className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
-              <div className="bg-orange-100 rounded-full p-4 mb-4 flex items-center justify-center">
-                <img src={img4} alt="EMI Calculator" className="w-16 h-16 object-contain" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">EMI Calculator</h3>
-              <p className="text-gray-600 mb-4 text-center">Quickly estimate your monthly loan payments and plan your finances with ease.</p>
-              <motion.button 
-                onClick={() => { resetCalculators(); setOpenModal('emi'); }} 
-                className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Try Now
-              </motion.button>
-            </motion.div>
-            {/* Tool Card 2 */}
-            <motion.div 
-              className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
-              <div className="bg-orange-100 rounded-full p-4 mb-4 flex items-center justify-center">
-                <img src={img5} alt="Tax Calculator" className="w-16 h-16 object-contain" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Tax Calculator</h3>
-              <p className="text-gray-600 mb-4 text-center">Calculate your tax liability and optimize your tax planning for the year.</p>
-              <motion.button 
-                onClick={() => { resetCalculators(); setOpenModal('tax'); }} 
-                className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Try Now
-              </motion.button>
-            </motion.div>
-            {/* Tool Card 3 */}
-            <motion.div 
-              className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center hover:shadow-2xl transition min-w-[280px]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
-              <div className="bg-orange-100 rounded-full p-4 mb-4 flex items-center justify-center">
-                <img src={img6} alt="Retirement Planner" className="w-16 h-16 object-contain" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Retirement Planner</h3>
-              <p className="text-gray-600 mb-4 text-center">Plan your retirement savings and visualize your future financial security.</p>
-              <motion.button 
-                onClick={() => { resetCalculators(); setOpenModal('retirement'); }} 
-                className="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Try Now
-              </motion.button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      <section 
-        className={`relative py-20 overflow-hidden ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : ''}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-delay="200"
-      >
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover h-[750px] bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${ceoImg})`,
-            filter: 'brightness(1)'
-          }}
-        ></div>
-        
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-orange bg-opacity-30"></div>
-        
-        {/* Content */}
-        <div className="relative z-10 max-w-6xl mx-auto px-4">
-          <motion.div 
-            className="max-w-2xl bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 md:p-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold text-black-400 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              A Message from Our CEO
-            </motion.h2>
-            <motion.blockquote 
-              className="text-lg md:text-xl text-black-400  leading-relaxed mb-6 italic"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-            >
-              "At our core, we believe that financial success should be accessible to everyone. Our mission is to empower individuals and businesses with the tools, insights, and expertise they need to achieve their financial goals. With over a decade of experience in the industry, we're committed to delivering personalized solutions that drive real results."
-            </motion.blockquote>
-            <motion.div 
-              className="text-black-400"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-            >
-              <p className="text-lg font-semibold">John Smith</p>
-              <p className="text-black-400">Chief Executive Officer</p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Partner Logos Slider */}
-      <section 
-        className={`py-10 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-delay="300"
-      >
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.h2 
-            className={`text-2xl md:text-3xl font-bold text-center mb-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Trusted by Leading Businesses & Financial Partners
-          </motion.h2>
-          <div className="overflow-hidden">
-            <div className="flex items-center animate-scroll-x space-x-12">
-              {partnerLogos.map((logo, idx) => (
-                <motion.img
-                  key={idx}
-                  src={logo}
-                  alt={`Partner ${idx + 11}`}
-                  className="h-40 w-auto object-contain  hover:scale-110 transition duration-200"
-                  style={{ minWidth: '200px' }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 + (idx * 0.1) }}
-                  whileHover={{ scale: 1.1 }}
-                />
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-3xl font-bold mb-8 text-center" id="upcoming" style={{ color: '#FFF' }}>Upcoming Webinars</h2>
+          {webinars.length > 0 ? (
+            <div className="grid  lg:grid-cols-3 gap-8">
+              {webinars.map((webinar, idx) => (
+                <div key={idx} className={
+                  `rounded-xl shadow p-6 flex flex-col items-center ` +
+                  (theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]')
+                }>
+                  <h3 className="text-xl font-semibold mb-2" style={{ color: '#00BFFF' }}>{webinar.title}</h3>
+                  <div className={theme === 'dark' ? 'text-gray-400 mb-2' : 'text-gray-600 mb-2'}>{webinar.date}</div>
+                  <div className={theme === 'dark' ? 'text-gray-400 mb-2' : 'text-gray-600 mb-2'}>{webinar.time}</div>
+                  <div className={theme === 'dark' ? 'text-gray-200 mb-4' : 'text-gray-800 mb-4'}>{webinar.description}</div>
+                  <button
+                    className={
+                      `${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-500'} px-4 py-2 rounded mb-2 transition-colors`
+                    }
+                    onClick={() => setShowRegister(idx)}
+                  >
+                    Register
+                  </button>
+                  {showRegister === idx && (
+                    <form className="w-full mt-2 space-y-2" onSubmit={e => handleRegisterSubmit(e, webinar)}>
+                      <input
+                        type="text"
+                        name="name"
+                        value={registerForm.name}
+                        onChange={handleRegisterInput}
+                        placeholder="Your Name"
+                        className={
+                          `border rounded px-3 py-2 w-full ` +
+                          (theme === 'dark' ? 'bg-[#181818] text-white border-[#00BFFF]' : 'bg-white text-black border-gray-300')
+                        }
+                        required
+                      />
+                      <input
+                        type="email"
+                        name="email"
+                        value={registerForm.email}
+                        onChange={handleRegisterInput}
+                        placeholder="Your Email"
+                        className={
+                          `border rounded px-3 py-2 w-full ` +
+                          (theme === 'dark' ? 'bg-[#181818] text-white border-[#00BFFF]' : 'bg-white text-black border-gray-300')
+                        }
+                        required
+                      />
+                      <div className="flex gap-2">
+                        <button type="submit" className={
+                          `${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-500'} rounded px-4 py-2 transition-colors`
+                        }>Submit</button>
+                        <button type="button" className={
+                          `${theme === 'dark' ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-300 text-black hover:bg-gray-400'} rounded px-4 py-2 transition-colors`
+                        } onClick={() => setShowRegister(null)}>Cancel</button>
+                      </div>
+                    </form>
+                  )}
+                </div>
               ))}
             </div>
+          ) : (
+            <p className={theme === 'dark' ? 'text-gray-400 text-center' : 'text-gray-500 text-center'}>No upcoming webinars at the moment.</p>
+          )}
+        </div>
+      </section>
+
+      {/* Special Offers Section */}
+      <section
+        className={
+          `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
+        }
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#00BFFF' }}>Special Offers</h2>
+          <p className={theme === 'dark' ? 'text-gray-200 mb-12' : 'text-gray-700 mb-12'}>
+            Grab these limited-time offers to accelerate your learning and make the most of your education journey.
+          </p>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {offers.map((offer, index) => (
+              <div
+                key={index}
+                className={`rounded-2xl p-8 shadow-lg hover:scale-105 transform transition text-white ` +
+                  (theme === 'dark' ? 'bg-[#00BFFF]' : offer.bg)}
+              >
+                <h3 className="text-2xl font-semibold mb-4">{offer.title}</h3>
+                <p className="text-md">{offer.description}</p>
+              </div>
+            ))}
           </div>
         </div>
-        {/* Simple slider animation */}
+      </section>
+      <section
+        className={
+          `w-full py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`
+        }
+      >
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid text-justify lg:grid-cols-2 gap-12 items-center">
+        {/* Left Side Content */}
+        <div>
+          <h2
+            className="text-3xl font-bold mb-4"
+            style={{ color: theme === 'dark' ? '#00BFFF' : '#fff' }}
+          >
+            Our Impactful Insights
+          </h2>
+          <p className={theme === 'dark' ? 'text-gray-200 mb-6' : 'text-gray-700 mb-6'} >
+            We are proud of the results we deliver for learners worldwide. Our platform is designed to empower students and professionals to achieve their learning goals efficiently.
+          </p>
+          <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>
+            From expert instructors to a wide range of courses, interactive learning, and consistent student satisfaction, our metrics reflect our commitment to quality education.
+          </p>
+        </div>
+
+        {/* Right Side Cards */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          {insights.map((insight, index) => (
+            <div key={index} className={`p-6 rounded-2xl shadow hover:shadow-lg transition text-center ` + (theme === 'dark' ? 'bg-[#181818]' : 'bg-white')}>
+              <h3 className="text-4xl font-bold" style={{ color: '#00BFFF' }}>{insight.title}</h3>
+              <p className={theme === 'dark' ? 'text-gray-200 mt-2' : 'text-gray-700 mt-2'}>{insight.subtitle}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section
+      className={
+        `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
+      }
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+        <h2
+          className={`text-3xl font-bold text-center mb-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+        >
+          Partnered with <span style={{ color: '#00BFFF' }}>Top Institutions</span> to produce
+          <span style={{ color: '#00BFFF' }}> Best Quality Education</span> content for Free
+        </h2>
+        <p className={theme === 'dark' ? 'text-gray-200 mb-12' : 'text-gray-700 mb-12'}>
+          We collaborate with industry-leading organizations to deliver the best learning experience.
+        </p>
+
+        <div className="overflow-hidden relative">
+          <div
+            className="flex animate-logo-scroll"
+            style={{ width: `${logos.length * 2 * 120}px` }}
+          >
+            {/* Duplicate logos for seamless infinite scroll */}
+            {logos.concat(logos).map((logo, index) => (
+              <div key={index} className="flex-shrink-0 px-6" style={{ width: '120px' }}>
+                <img
+                  src={logo}
+                  alt={`Partner ${index + 1}`}
+                  className="h-20 object-contain transition-transform duration-300 hover:scale-110"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
         <style>{`
-          @keyframes scroll-x {
+          @keyframes logo-scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
           }
-          .animate-scroll-x {
-            animation: scroll-x 20s linear infinite;
-            width: max-content;
+          .animate-logo-scroll {
+            animation: logo-scroll 30s linear infinite;
           }
         `}</style>
-      </section>
+      </div>
+
+      {/* No animation */}
+    </section>
 
 
-      {/* Industries We Serve Section */}
-      <section 
-        className={`py-16 ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#FDF9F4] text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-delay="400"
+      {/* Upcoming Webinars Section */}
+      
+
+      <section
+        className={`w-full py-16 flex items-center justify-center ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00BFFF]'}`}
       >
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.h2 
-className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-2"
-style={{ color: theme === 'dark' ? '#fff' : '#000' }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+        <div className="max-w-2xl mx-auto text-center px-6">
+          <h2 className="text-4xl font-bold mb-4" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>Ready to Transform Your Career?</h2>
+          <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-white' : 'text-white'}`}>Join thousands of learners who have upskilled and advanced their careers with our expert-led online courses. Start your journey today!</p>
+          <Link
+            to="/contactus"
+            className={`inline-block font-semibold px-8 py-4 rounded-lg shadow transition-colors text-xl ${theme === 'dark' ? 'bg-white text-[#00BFFF] hover:bg-gray-200' : 'bg-white text-[#00BFFF] hover:bg-blue-100'}`}
           >
-            Industries We Serve
-          </motion.h2>
-          <motion.p 
-            className="text-center text-gray-400 mb-10 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            We are proud to be driving a digital revolution across various industry verticals.
-          </motion.p>
-          <div className="grid grid-rows-2 grid-cols-5 sm:grid-cols-3 md:grid-cols-5 gap-8 justify-items-center">
-            {/* Logistics */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M7 17v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/><circle cx="12" cy="7" r="4"/><path d="M5 21h14"/></svg>
-              </span>
-              <div className="font-semibold text-center">Logistics</div>
-            </motion.div>
-            {/* Social Networking */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg>
-              </span>
-              <div className="font-semibold text-center">Social Networking</div>
-            </motion.div>
-            {/* Healthcare */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-              </span>
-              <div className="font-semibold text-center">Healthcare</div>
-            </motion.div>
-            {/* Restaurant */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M8 7v10M16 7v10M5 7h14M7 21h10"/></svg>
-              </span>
-              <div className="font-semibold text-center">Restaurant</div>
-            </motion.div>
-            {/* Wellness & Fitness */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.0 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-              </span>
-              <div className="font-semibold text-center">Wellness & Fitness</div>
-            </motion.div>
-            {/* Sports */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.1 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M16 17l-4-4-4 4"/><path d="M12 3v10"/></svg>
-              </span>
-              <div className="font-semibold text-center">Sports</div>
-            </motion.div>
-            {/* Ecommerce */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="2"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/></svg>
-              </span>
-              <div className="font-semibold text-center">Ecommerce</div>
-            </motion.div>
-            {/* Real Estate */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.3 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="7" y="10" width="10" height="8" rx="2"/><path d="M12 4v6"/><path d="M9 10V4h6v6"/></svg>
-              </span>
-              <div className="font-semibold text-center">Real Estate</div>
-            </motion.div>
-            {/* Education */}
-            <motion.div 
-              className="flex flex-col items-center transition-transform duration-300 hover:scale-110 cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.4 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="8" rx="2"/><path d="M12 8v8"/></svg>
-              </span>
-              <div className="font-semibold text-center">Education</div>
-            </motion.div>
-            {/* Travel */}
-            <motion.div 
-              className="flex flex-col items-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.5 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="bg-orange-400 rounded-full w-20 h-20 flex items-center justify-center mb-3">
-                <svg className="w-10 h-10" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10.5a8.38 8.38 0 0 1-1.9.5A8.5 8.5 0 1 1 12 3.5c.17 0 .34.01.5.02"/><path d="M12 8v4l3 3"/></svg>
-              </span>
-              <div className="font-semibold text-center">Travel</div>
-            </motion.div>
-          </div>
+            Get Started
+          </Link>
         </div>
       </section>
-
-      {/* Calculator Modals */}
-      {openModal === 'emi' && (
-        <motion.div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div 
-            className="bg-orange-50 rounded-2xl shadow-2xl p-8 w-full max-w-md relative"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
-            <motion.button 
-              onClick={() => setOpenModal(null)} 
-              className="absolute top-3 right-3 text-orange-400 hover:text-red-500 text-2xl"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              &times;
-            </motion.button>
-            <h3 className="text-2xl font-bold mb-4 text-orange-600">EMI Calculator</h3>
-            <div className="space-y-3">
-              <input type="number" placeholder="Principal (₹)" value={emiPrincipal} onChange={e => setEmiPrincipal(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <input type="number" placeholder="Annual Interest Rate (%)" value={emiRate} onChange={e => setEmiRate(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <input type="number" placeholder="Tenure (years)" value={emiTenure} onChange={e => setEmiTenure(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <motion.button 
-                onClick={calculateEMI} 
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Calculate
-              </motion.button>
-              {emiResult && <div className="text-center text-lg font-semibold text-orange-700 mt-2">{emiResult}</div>}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-      {openModal === 'tax' && (
-        <motion.div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div 
-            className="bg-orange-50 rounded-2xl shadow-2xl p-8 w-full max-w-md relative"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
-            <motion.button 
-              onClick={() => setOpenModal(null)} 
-              className="absolute top-3 right-3 text-orange-400 hover:text-red-500 text-2xl"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              &times;
-            </motion.button>
-            <h3 className="text-2xl font-bold mb-4 text-orange-600">Tax Calculator</h3>
-            <div className="space-y-3">
-              <input type="number" placeholder="Annual Income (₹)" value={taxIncome} onChange={e => setTaxIncome(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <button onClick={calculateTax} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">Calculate</button>
-              {taxResult && <div className="text-center text-lg font-semibold text-orange-700 mt-2">{taxResult}</div>}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-      {openModal === 'retirement' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="bg-orange-50 rounded-2xl shadow-2xl p-8 w-full max-w-md relative">
-            <button onClick={() => setOpenModal(null)} className="absolute top-3 right-3 text-orange-400 hover:text-red-500 text-2xl">&times;</button>
-            <h3 className="text-2xl font-bold mb-4 text-orange-600">Retirement Planner</h3>
-            <div className="space-y-3">
-              <input type="number" placeholder="Current Age" value={currentAge} onChange={e => setCurrentAge(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <input type="number" placeholder="Retirement Age" value={retireAge} onChange={e => setRetireAge(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <input type="number" placeholder="Monthly Savings (₹)" value={monthlySave} onChange={e => setMonthlySave(e.target.value)} className="w-full border border-orange-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400" />
-              <button onClick={calculateRetirement} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">Calculate</button>
-              {retireResult && (
-                <div className="text-center text-lg font-semibold text-orange-700 mt-2">{retireResult}</div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-      <section 
-        className={`py-16 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-delay="500"
-      >
-  <div className="max-w-6xl mx-auto px-4 grid  lg:grid-cols-2 gap-12">
-  {/* Left Content */}
-  <div>
-    <h2
-      className="text-3xl md:text-4xl font-bold mb-4"
-      style={{ color: theme === 'dark' ? '#fff' : '#000' }}
-    >
-      Insights
-    </h2>
-    <p
-      className="text-justify mb-6"
-      style={{ color: theme === 'dark' ? '#fff' : '#000' }}
-    >
-      In today’s rapidly changing financial landscape, staying informed is the key
-      to long-term success. Our insights go beyond surface-level tips — we provide
-      in-depth guidance on tax strategies, compliance updates, and smart money
-      management tailored to businesses of all sizes. Our expert team delivers
-      practical advice.
-    </p>
-    <Link
-      to="/blog"
-      className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200 shadow"
-    >
-      Read More Insights
-    </Link>
-  </div>
-
-  {/* Right 2x2 Cards */}
-  <div className="grid  lg:grid-cols-2 gap-4 h-full">
-    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
-      <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-1">Tax Planning Tips</h3>
-        <p className="text-sm text-gray-500">
-          Discover effective strategies to minimize your tax liability and maximize savings.
-        </p>
-      </div>
     </div>
-    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
-      <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-1">SME Growth Hacks</h3>
-        <p className="text-sm text-gray-500">
-          Unlock growth opportunities for small and medium enterprises with proven tactics.
-        </p>
-      </div>
-    </div>
-    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
-      <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-1">Compliance Essentials</h3>
-        <p className="text-sm text-gray-500">
-          Stay compliant with the latest regulations and avoid costly penalties for your business.
-        </p>
-      </div>
-    </div>
-    <div className="bg-orange-50 rounded-2xl shadow p-6 flex items-center min-h-[140px]">
-      <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-1">Personal Finance 101</h3>
-        <p className="text-sm text-gray-500">
-          Master the basics of budgeting, saving, and investing for a secure financial future.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-</section>
-
-      {/* AOS handles animation styles */}
-    </>
   );
-};
-
-export default Home2;
+}

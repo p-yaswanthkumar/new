@@ -1,103 +1,213 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import blog1 from '../assets/blog1.jpg';
-import blog2 from '../assets/blog2.webp';
-import blog3 from '../assets/blog3.webp';
+import React from "react";
+import { useParams, Link } from "react-router-dom";
+import blog1 from "../assets/blog1.jpeg";
+import blog2 from "../assets/blog2.webp";
+import blog3 from "../assets/blog3.avif";
 
-const articleDetails = [
+export default function BlogDetail() {
+  // Theme state synced with Header
+  const [theme, setTheme] = React.useState('light');
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') || 'light';
+      setTheme(storedTheme);
+      const handleThemeChange = () => {
+        const newTheme = localStorage.getItem('theme') || 'light';
+        setTheme(newTheme);
+      };
+      window.addEventListener('theme-changed', handleThemeChange);
+      window.addEventListener('storage', handleThemeChange);
+      return () => {
+        window.removeEventListener('theme-changed', handleThemeChange);
+        window.removeEventListener('storage', handleThemeChange);
+      };
+    }
+  }, []);
+  const { id } = useParams();
+
+  // Example blog data (you can replace with Admin DB later)
+  const blogs = [
   {
-    id: 1,
-    title: '5 Smart Ways to Save for Retirement',
+    id: "1",
+    title: "AI & Machine Learning",
     image: blog1,
+    intro:
+      "AI and Machine Learning are revolutionizing industries with automation, predictive insights, and smarter systems. From automating repetitive tasks to enabling advanced innovations like self-driving cars and personalized medicine, AI is becoming the backbone of modern technology.",
     sections: [
-      { heading: 'Early Planning', content: 'Starting early is crucial for retirement planning. Compound interest allows even small, regular contributions to grow significantly over time. By beginning in your 20s or 30s, you can take advantage of decades of growth, making it easier to reach your goals. Early planning also helps you develop good saving habits and reduces the pressure to save large amounts later in life.\n\nAdditionally, early savers can weather market downturns more easily and have more flexibility to adjust their plans. The earlier you start, the less you need to save each month to reach your retirement goals, making the process less stressful and more manageable.' },
-      { heading: 'Employer-Sponsored Plans', content: 'Many employers offer retirement plans such as 401(k)s or pensions. Maximizing employer contributions and understanding vesting schedules can greatly enhance your retirement savings. These plans often provide tax advantages and may include investment options tailored for long-term growth.\n\nIt is important to review your plan options annually and increase your contributions as your salary grows. Missing out on employer matching is leaving free money on the table, so always contribute at least enough to get the full match.' },
-      { heading: 'Diversification', content: 'A diversified portfolio reduces risk and increases the likelihood of stable returns. This includes a mix of stocks, bonds, mutual funds, and other assets. Diversification helps protect your savings from market volatility and ensures you are not overly reliant on a single investment.\n\nRebalancing your portfolio regularly ensures you maintain your desired asset allocation. Diversification is a key principle in modern portfolio theory and is recommended by most financial advisors.' },
-      { heading: 'Tax-Advantaged Accounts', content: 'Utilizing IRAs, Roth IRAs, and other tax-advantaged accounts can help minimize tax liability and maximize growth. These accounts offer various benefits, such as tax-deferred or tax-free growth, and can be an essential part of your retirement strategy.\n\nUnderstanding the differences between account types and contribution limits is important. Take advantage of catch-up contributions if you are over 50, and consult a tax advisor for personalized advice.' },
-      { heading: 'Managing Expenses', content: 'Budgeting for retirement involves estimating future expenses, including healthcare, housing, and leisure. Adjusting your savings rate as your income changes is recommended. Keeping track of your spending and planning for inflation can help ensure your savings last throughout retirement.\n\nUnexpected expenses can arise, so it is wise to build a buffer into your budget. Consider long-term care insurance and other ways to protect your nest egg.' },
-      { heading: 'Professional Guidance', content: 'Consulting with a certified financial planner can help tailor a retirement plan to your specific needs and goals. Professionals can provide advice on investment choices, tax strategies, and risk management, helping you avoid common pitfalls.\n\nA good advisor will help you stay disciplined, avoid emotional decisions, and adjust your plan as your life circumstances change.' },
-      { heading: 'Common Pitfalls', content: 'Avoiding high fees, emotional investing, and underestimating longevity risk are crucial for a successful retirement. Regularly reviewing your plan and making adjustments as needed can help you stay on track and achieve your retirement goals.\n\nOther pitfalls include withdrawing too much too soon, failing to plan for healthcare costs, and not updating your plan after major life events.' },
+      {
+        heading: "Introduction to AI",
+        content:
+          "Artificial Intelligence is the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. It covers multiple branches such as computer vision, natural language processing, robotics, and expert systems. AI systems rely on algorithms and models trained on large datasets, allowing them to adapt and improve over time. Unlike traditional programming, AI learns and evolves, creating systems that can make predictions, reason, and even exhibit creativity.",
+      },
+      {
+        heading: "Benefits of Machine Learning",
+        content:
+          "Machine Learning enables systems to learn from data, improving accuracy and efficiency over time without human intervention. Businesses benefit from predictive analytics, fraud detection, personalized recommendations, and smarter automation. For example, e-commerce platforms use ML to suggest products, streaming services recommend content, and healthcare providers detect diseases earlier. Over time, ML reduces costs, minimizes errors, and adapts to changing environments, ensuring systems remain effective as new challenges arise.",
+      },
+      {
+        heading: "Real-World Applications",
+        content:
+          "AI is used in healthcare (diagnostics, drug discovery, personalized medicine), finance (risk assessment, fraud detection, algorithmic trading), and education (personalized learning paths, grading automation). Self-driving cars use sensors and ML models to interpret surroundings in real-time, while voice assistants like Alexa and Siri understand natural language to interact with users. AI also plays a critical role in agriculture, cybersecurity, supply chain optimization, and even creative industries such as art and music generation.",
+      },
+      {
+        heading: "Automation Advantages",
+        content:
+          "Automation reduces costs, minimizes errors, and speeds up processes across various business sectors. In manufacturing, robots handle repetitive and dangerous tasks, reducing human risk. In offices, AI chatbots automate customer support, while Robotic Process Automation (RPA) takes care of invoice processing, HR onboarding, and compliance. The advantages extend to scalability, where businesses can process millions of operations simultaneously with minimal resources. This leads to faster delivery, better efficiency, and increased profits.",
+      },
+      {
+        heading: "Data-Driven Insights",
+        content:
+          "ML models analyze large datasets to provide predictive and prescriptive analytics that support decision-making. For example, retailers forecast demand and optimize inventory, while governments use AI-driven insights for urban planning and disaster management. Predictive analytics identifies upcoming trends, while prescriptive analytics suggests the best possible actions to achieve goals. As organizations collect massive amounts of structured and unstructured data, AI tools help uncover hidden patterns, customer behavior, and business opportunities that would otherwise remain invisible.",
+      },
+      {
+        heading: "Challenges & Solutions",
+        content:
+          "Challenges include bias, data privacy, and model transparency. AI systems can unintentionally perpetuate discrimination if trained on biased data. Privacy concerns arise when personal information is used without consent. Additionally, the 'black box' nature of AI makes it difficult to understand why models make certain decisions. Solutions lie in ethical AI frameworks, transparent algorithms, explainable AI models (XAI), and strict data governance policies. Organizations must also ensure regular audits, diverse datasets, and compliance with international regulations like GDPR to build trust.",
+      },
+      {
+        heading: "Future Scope",
+        content:
+          "AI will continue evolving, driving innovation in robotics, IoT, and smart cities for decades to come. The future of AI lies in Artificial General Intelligence (AGI), where machines could understand and perform tasks across any domain just like humans. Emerging fields like neuromorphic computing, quantum AI, and bio-AI are set to push the boundaries of what machines can do. In healthcare, AI will power advanced genetic engineering and predictive healthcare, while in education, personalized AI tutors will transform learning experiences globally.",
+      },
     ],
   },
   {
-    id: 2,
-    title: 'Understanding Credit Scores',
+    id: "2",
+    title: "Web Development",
     image: blog2,
+    intro:
+      "Web Development powers the digital world with responsive websites, scalable applications, and seamless online experiences. From simple static websites to complex enterprise platforms, web development brings businesses, services, and users together on a global scale.",
     sections: [
-      { heading: 'Definition', content: 'A credit score is a three-digit number, typically ranging from 300 to 850, used by lenders to assess the risk of lending money to consumers. It is calculated based on your credit history and reflects your ability to repay debts.\n\nCredit scores are generated by credit bureaus using complex algorithms that analyze your borrowing and repayment behavior. They are a key factor in determining your eligibility for loans, credit cards, and even rental agreements.' },
-      { heading: 'Components', content: 'The main factors influencing credit scores are payment history, amounts owed, length of credit history, new credit, and types of credit used. Each factor has a different weight, with payment history being the most significant.\n\nPayment history accounts for about 35% of your score, making timely payments essential. Amounts owed, or credit utilization, should be kept below 30% of your available credit. The length of your credit history shows lenders your experience with credit, while new credit and types of credit used add further depth to your profile.' },
-      { heading: 'Importance', content: 'Credit scores affect loan approvals, interest rates, insurance premiums, and even employment opportunities. A higher score can save you money and open up more financial options.\n\nLenders use your score to assess risk, so a good score can help you qualify for larger loans and better terms. Some employers and landlords also check credit scores as part of their screening process.' },
-      { heading: 'Improving Credit Scores', content: 'Timely payments, low credit utilization, and responsible management of credit accounts are key to improving scores. Avoiding late payments and reducing outstanding debt can have a positive impact.\n\nIt is also helpful to keep old accounts open, avoid applying for too much new credit at once, and regularly review your credit report for errors. Small, consistent improvements can add up over time.' },
-      { heading: 'Monitoring and Errors', content: 'Regularly checking credit reports for errors and disputing inaccuracies is essential for maintaining a healthy score. Mistakes on your report can lower your score and affect your ability to get credit.\n\nYou are entitled to a free credit report from each major bureau every year. Review your reports for unfamiliar accounts, incorrect balances, or outdated information, and dispute any errors promptly.' },
-      { heading: 'Building Credit', content: 'New consumers can build credit by using secured credit cards, becoming authorized users, or taking out small installment loans. Establishing a positive credit history early can benefit you in the long run.\n\nMaking small purchases and paying them off in full each month is a simple way to build a strong credit profile. Responsible use of credit is the foundation for a healthy financial future.' },
-      { heading: 'Myths and Facts', content: 'Common myths include the belief that checking your own score lowers it, or that closing old accounts always helps. Understanding the facts can help you make better financial decisions.\n\nFor example, checking your own score is a soft inquiry and does not affect your score. Closing old accounts can actually lower your score by reducing your available credit and shortening your credit history.' },
+      {
+        heading: "Modern Web Frameworks",
+        content:
+          "React, Angular, and Vue have transformed frontend development with reusable components and fast rendering. These frameworks encourage modular code, making large applications more maintainable and scalable. Developers also benefit from powerful ecosystems with libraries, community support, and integrations. Progressive frameworks such as Svelte and Next.js are pushing the boundaries even further, enabling faster performance, server-side rendering, and SEO optimization out of the box.",
+      },
+      {
+        heading: "Responsive Design",
+        content:
+          "Responsive design ensures websites look great on all devices, from mobiles to desktops. With mobile-first development becoming a standard, responsive frameworks like Tailwind CSS and Bootstrap make it easier to adapt layouts for any screen size. Media queries, flexible grids, and adaptive typography ensure a seamless user experience. A well-executed responsive design not only enhances usability but also boosts SEO ranking, as Google prioritizes mobile-friendly websites.",
+      },
+      {
+        heading: "Frontend Technologies",
+        content:
+          "HTML, CSS, and JavaScript remain the backbone of frontend development. HTML structures content, CSS styles it, and JavaScript adds interactivity. With modern enhancements like CSS Grid, Flexbox, and ES6+ features, developers can now build cleaner, more efficient, and dynamic applications. Frameworks and preprocessors such as Sass, LESS, and TypeScript further enhance productivity, making frontend development faster, cleaner, and more error-resistant.",
+      },
+      {
+        heading: "Backend Systems",
+        content:
+          "Node.js, Django, and Laravel power backend operations, ensuring scalability and security. The backend is responsible for managing databases, authentication, APIs, and server-side logic. Node.js provides asynchronous processing, making it great for real-time apps like chat platforms, while Django offers security features out-of-the-box, and Laravel simplifies PHP development with elegant syntax. Cloud-native backends with serverless architecture (AWS Lambda, Firebase) are now emerging as the future, reducing server costs and scaling automatically.",
+      },
+      {
+        heading: "API Integrations",
+        content:
+          "APIs connect systems, enabling apps to share data seamlessly. RESTful APIs and GraphQL are widely used for smooth communication between frontend and backend. Businesses rely on APIs for payment processing, maps, social media integrations, and AI services. With microservices architecture, applications are broken into smaller services communicating via APIs, increasing flexibility and fault tolerance. APIs also open opportunities for third-party developers to build add-ons, boosting product reach and adoption.",
+      },
+      {
+        heading: "Security Practices",
+        content:
+          "Encryption, authentication, and secure coding keep applications safe from attacks. Developers must guard against threats like SQL injection, XSS, CSRF, and DDoS attacks. SSL certificates, strong password hashing, token-based authentication (JWT), and two-factor authentication are standard practices. Web Application Firewalls (WAF) and automated penetration testing are also becoming essential. As cybercrime increases, businesses must prioritize security at every stage of development instead of treating it as an afterthought.",
+      },
+      {
+        heading: "Scalability Solutions",
+        content:
+          "Cloud platforms like AWS, Azure, and GCP ensure that applications scale with user demand. Scalability involves both vertical (adding resources to a server) and horizontal (adding more servers) scaling. Load balancers, containerization with Docker, and orchestration with Kubernetes make it easier to handle millions of concurrent users. Serverless computing reduces infrastructure costs by scaling automatically. Companies like Netflix and Spotify rely on microservices and cloud scalability to serve millions of global users without interruptions.",
+      },
     ],
   },
   {
-    id: 3,
-    title: 'Top 10 Investment Myths Busted',
+    id: "3",
+    title: "Data Science",
     image: blog3,
+    intro:
+      "Data Science empowers organizations to extract insights, predict trends, and drive decision-making with data. It combines mathematics, statistics, computer science, and business knowledge to solve real-world problems and generate value from information.",
     sections: [
-      { heading: 'Investing is Only for the Wealthy', content: 'Modern platforms allow anyone to invest, regardless of income level. Fractional shares and low-cost funds have made investing accessible to all, breaking the myth that it is only for the rich.\n\nWith the rise of robo-advisors and commission-free trading, even small investors can build diversified portfolios. Many apps allow you to start investing with just a few dollars.' },
-      { heading: 'You Need to Be an Expert', content: 'Accessible resources and index funds make investing possible for beginners. With a little research and discipline, anyone can start building wealth through investing.\n\nThere are countless books, online courses, and financial blogs that can help you learn the basics. Index funds and ETFs offer simple, low-cost ways to invest without needing to pick individual stocks.' },
-      { heading: 'The Stock Market is Gambling', content: 'Investing is based on research and long-term growth, not chance. While there are risks, informed decisions and diversification can help manage them.\n\nUnlike gambling, investing is about owning a share of real businesses and benefiting from their growth. Over the long term, the stock market has historically provided positive returns.' },
-      { heading: 'You Can Get Rich Quick', content: 'Sustainable investing is about patience and discipline, not quick wins. Chasing fast profits often leads to losses, while steady growth builds wealth over time.\n\nGet-rich-quick schemes are often scams or highly speculative. True wealth is built by investing consistently and letting your money grow over years or decades.' },
-      { heading: 'All Debt is Bad', content: 'Some debt, like mortgages, can be leveraged for growth if managed wisely. Not all debt is harmful; it depends on how it is used and managed.\n\nGood debt can help you acquire appreciating assets, such as real estate or education, while bad debt, like high-interest credit cards, should be avoided.' },
-      { heading: 'Timing the Market is Easy', content: 'Even professionals rarely time the market perfectly; consistent investing is more effective. Trying to predict market movements can lead to missed opportunities and losses.\n\nDollar-cost averaging, or investing a fixed amount at regular intervals, is a proven strategy for building wealth over time.' },
-      { heading: 'You Should Always Avoid Risk', content: 'Risk is inherent in investing, but can be managed through diversification and research. Avoiding all risk can mean missing out on potential gains.\n\nUnderstanding your risk tolerance and investment goals is key. A well-diversified portfolio can help you achieve growth while managing downside risk.' },
+      {
+        heading: "Introduction to Data Science",
+        content:
+          "Data Science combines statistics, computer science, and domain expertise to analyze and interpret data. It covers the full pipeline from data collection, cleaning, and preprocessing to advanced modeling and visualization. Unlike traditional analytics, Data Science uses machine learning to uncover hidden patterns and correlations. Its multidisciplinary nature makes it applicable across diverse sectors like healthcare, retail, sports, finance, and government.",
+      },
+      {
+        heading: "Importance of Data",
+        content:
+          "Data is the new oil; it drives business decisions and strategies in every sector. Organizations rely on structured (databases, spreadsheets) and unstructured data (text, images, videos, social media). Proper use of data enables smarter marketing, better risk management, and improved customer experiences. For example, companies like Amazon use data to optimize logistics, while Google refines search results, and Netflix improves content recommendations. Data empowers organizations to stay competitive in an increasingly digital world.",
+      },
+      {
+        heading: "Visualization Techniques",
+        content:
+          "Tools like Power BI, Tableau, and D3.js help visualize data clearly for decision-makers. Good visualization transforms complex data into understandable graphs, heatmaps, dashboards, and infographics. This allows decision-makers to spot trends, correlations, and anomalies instantly. Advanced visualization techniques like interactive dashboards and real-time charts help businesses react faster. Choosing the right visualization is key—bar charts for comparison, line graphs for trends, scatterplots for correlations, and geographic maps for regional insights.",
+      },
+      {
+        heading: "Predictive Analytics",
+        content:
+          "Predictive models forecast outcomes, helping businesses prepare for future challenges. Retailers predict customer churn, finance companies assess credit risk, and hospitals forecast patient admissions. Predictive analytics uses regression models, decision trees, and neural networks trained on historical data to estimate future events. Combined with real-time analytics, it allows organizations to act proactively, reducing risks and capturing new opportunities. Industries like weather forecasting and stock trading heavily depend on predictive analytics for planning.",
+      },
+      {
+        heading: "Machine Learning Role",
+        content:
+          "ML algorithms enhance predictions, automate analysis, and improve model performance. Supervised learning handles classification and regression tasks, while unsupervised learning uncovers hidden patterns and clusters in data. Reinforcement learning powers robotics and game AI. In Data Science, ML helps detect fraud, recommend products, optimize supply chains, and even generate text or images. The combination of ML with Big Data technologies allows businesses to process petabytes of information in real-time, unlocking new levels of intelligence.",
+      },
+      {
+        heading: "Business Use Cases",
+        content:
+          "Data Science helps in fraud detection, customer insights, supply chain optimization, and marketing campaigns. In healthcare, predictive models detect early signs of diseases, while in finance, fraud detection systems save billions by catching anomalies. Retailers like Walmart optimize inventory and pricing using advanced analytics. Sports teams use Data Science to analyze player performance and game strategies. Governments rely on data analytics for traffic management, crime prediction, and public health monitoring.",
+      },
+      {
+        heading: "Future Trends",
+        content:
+          "The future lies in automated data science (AutoML), AI-driven analytics, and real-time data processing. Edge computing will allow faster analysis directly on devices without sending everything to the cloud. AI will make Data Science more accessible through natural language queries, enabling non-technical users to generate insights. Quantum computing promises a revolution in data processing, handling problems impossible for classical systems. As businesses become more data-driven, Data Science will be at the core of every innovation.",
+      },
     ],
   },
 ];
 
+  
 
-const BlogDetail = () => {
-  const { id } = useParams();
-  const article = articleDetails.find(a => a.id === Number(id));
+  const blog = blogs.find((b) => b.id === id);
 
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-  useEffect(() => {
-    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
-    window.addEventListener('theme-changed', handleThemeChange);
-    window.addEventListener('storage', handleThemeChange);
-    return () => {
-      window.removeEventListener('theme-changed', handleThemeChange);
-      window.removeEventListener('storage', handleThemeChange);
-    };
-  }, []);
-
-  if (!article) {
+  if (!blog) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center dark:bg-gray-900 dark:text-gray-100 min-h-screen">
-        <h2 className="text-2xl font-bold mb-4">Article Not Found</h2>
-        <Link to="/blog" className="text-orange-500 hover:underline">Back to Blog</Link>
+      <div className={
+        `text-center py-20 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`
+      }>
+        <h2 className="text-2xl font-bold">Blog Not Found</h2>
+        <Link to="/blog" className="text-[#00bfff] underline mt-4 block">
+          Back to Blogs
+        </Link>
       </div>
     );
   }
 
   return (
-    <section className={`w-full min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-white text-black'}`}>
-      <Link to="/blog" className="text-orange-500 font-semibold hover:underline block m-0 p-4">← Back to Blog</Link>
-      <div className="w-full">
-        <img src={article.image} alt={article.title} className="w-full max-h-[540px] md:max-h-[700px] object-cover object-center rounded-none shadow mb-0" />
-      </div>
-      <div className="w-full px-0 py-12">
-        <h1 className="text-3xl font-bold pt-16 text-orange-500 mb-10 text-center">{article.title}</h1>
-        <div className="flex flex-col gap-10 w-full px-4 md:px-24">
-          {article.sections.map((section, idx) => (
-            <div key={idx} className="flex flex-col md:flex-row gap-6 md:gap-12 items-start w-full">
-              <div className="md:w-1/3 w-full font-extrabold text-2xl md:text-3xl text-orange-500 mb-2 md:mb-0 md:text-right text-left pr-2 md:pr-6 flex-shrink-0">
-                {section.heading}
-              </div>
-              <div className={`md:w-2/3 w-full text-base leading-relaxed whitespace-pre-line ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}> 
-                {section.content}
-              </div>
-            </div>
-          ))}
-        </div>
-        <Link to="/blog" className="text-orange-500 font-semibold hover:underline block mt-12 ml-4">← Back to Blog</Link>
-      </div>
-    </section>
-  );
-};
+    <div className={theme === 'dark' ? 'pt-20 min-h-screen bg-black text-white' : 'pt-20 min-h-screen bg-white text-black'}>
+      {/* Back Link */}
+      <Link to="/blog" className="text-[#00bfff] underline mt-4 block">
+        Back to Blogs
+      </Link>
+      {/* Blog Hero */}
+      <section className="relative w-full h-[80vh] flex items-center justify-center">
+        <img
+          src={blog.image}
+          alt={blog.title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50"></div>
+      </section>
 
-export default BlogDetail;
+      {/* Blog Content */}
+      <section className="max-w-5xl mx-auto px-6 py-12">
+        <p className={`text-lg md:text-xl max-w-5xl text-center mx-auto ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
+          {blog.intro}
+        </p>
+        {blog.sections.map((sec, index) => (
+          <div key={index} className="mb-10">
+            <h2 className="text-2xl font-bold mb-4" style={{ color: '#00bfff' }}>
+              {sec.heading}
+            </h2>
+            <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>{sec.content}</p>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+}

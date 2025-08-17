@@ -1,376 +1,393 @@
+import React from "react";
+import aboutHero from "../assets/abouthero.mp4";
+import missionImg from "../assets/mission.avif";
+import e1 from "../assets/e1.avif";
+import e2 from "../assets/e2.jpeg";
+import e3 from "../assets/e3.jpg";
+import e4 from "../assets/e4.jpg";
+import e5 from "../assets/e5.jpg";
+import e6 from "../assets/e6.jpg";
+const communityPrograms = [
+  {
+    title: "Free Learning Access",
+    description:
+      "We've provided over 10,000 free course enrollments to students from underprivileged communities, helping bridge the digital education gap.",
+    stat: "10,000+ Students Empowered",
+  },
+  {
+    title: "Environmental Awareness",
+    description:
+      "Our platform promotes eco-friendly practices by using digital-first content delivery, reducing paper usage and carbon footprint by 35%.",
+    stat: "35% Carbon Reduction",
+  },
+  {
+    title: "Scholarship & Grants",
+    description:
+      "We offer scholarships and micro-grants to support talented learners, enabling them to access premium courses and skill-building programs.",
+    stat: "$200K+ in Scholarships",
+  },
+  {
+    title: "Diversity & Inclusion",
+    description:
+      "Our students come from over 40 countries and diverse backgrounds. We are committed to creating an inclusive learning environment for all.",
+    stat: "40+ Countries Represented",
+  },
+  {
+    title: "Volunteer Mentorship",
+    description:
+      "Our educators and alumni have volunteered over 5,000 hours mentoring students, guiding them through career and project challenges.",
+    stat: "5,000+ Volunteer Hours",
+  },
+  {
+    title: "Tech for Social Good",
+    description:
+      "We develop tools and projects that leverage technology to enhance learning accessibility and provide educational resources to underserved communities.",
+    stat: "5+ Digital Initiatives",
+  },
+];
 
-import React, { useEffect, useState } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import './aboutus.css';
-import aboutushero from '../assets/aboutshero.mp4';
-import exp1 from '../assets/exp1.jpg';
-import exp2 from '../assets/exp2.jpg';
-import exp3 from '../assets/exp3.jpg';
-import exp4 from '../assets/exp4.jpg';
-import exp5 from '../assets/exp5.jpg';
-import exp6 from '../assets/exp6.jpg';
-
-import mission from '../assets/mission.webp';
-import aboutlast from '../assets/aboutlast.jpg';
-
-
-const AboutUs = () => {
-  // Theme sync (like Home1)
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-  useEffect(() => {
-    const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
-    window.addEventListener('theme-changed', handleThemeChange);
-    window.addEventListener('storage', handleThemeChange);
-    AOS.init({ duration: 1000, easing: 'ease-in-out', once: false, mirror: true, offset: 100 });
-    return () => {
-      window.removeEventListener('theme-changed', handleThemeChange);
-      window.removeEventListener('storage', handleThemeChange);
-    };
+export default function AboutPage() {
+  // Theme state synced with Header
+  const [theme, setTheme] = React.useState('light');
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') || 'light';
+      setTheme(storedTheme);
+      const handleThemeChange = () => {
+        const newTheme = localStorage.getItem('theme') || 'light';
+        setTheme(newTheme);
+      };
+      window.addEventListener('theme-changed', handleThemeChange);
+      window.addEventListener('storage', handleThemeChange);
+      return () => {
+        window.removeEventListener('theme-changed', handleThemeChange);
+        window.removeEventListener('storage', handleThemeChange);
+      };
+    }
   }, []);
-  // Section bg alternation
-  const bgColors = theme === 'dark' ? ['#1E2A38', '#141B25'] : ['#ffffff', '#FDF9F4'];
-  let sectionIndex = 0;
   return (
-    <div className={`about-us-container ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#FDF9F4] text-black'}`}> 
+    <div className={
+      `${theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-black'}`
+    }>
+      
       {/* Hero Section */}
-      <section 
-        className={`hero-section h-screen ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-        style={{position: 'relative', overflow: 'hidden', backgroundColor: bgColors[sectionIndex++ % 2]}}
-        data-aos="fade-in" data-aos-duration="1500"
-      >
-        {/* Background Video */}
+      <section className="relative w-full h-screen overflow-hidden">
         <video
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          src={aboutHero}
           autoPlay
           muted
           loop
           playsInline
-          className="aboutus-hero-bg-video"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-          }}
-        >
-          <source src={aboutushero} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        {/* Overlay for readability */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'rgba(0,0,0,0.5)',
-          zIndex: 1,
-        }} />
-        <div className="hero-content" style={{
-          position: 'relative',
-          zIndex: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          textAlign: 'center',
-        }}>
-          <h1 className="aboutus-hero-title text-white">Empowering Your Financial Future</h1>
-          <p className="aboutus-hero-subtitle text-white" style={{maxWidth: 900, margin: '0 auto', fontSize: '1.25rem'}}>
-            Unlock your path to prosperity with our innovative financial solutions, expert guidance, and personalized support. Whether you're an individual, entrepreneur, or enterprise, we help you achieve your goals with clarity, confidence, and trust. Join thousands who have transformed their financial journey with us.
+        />
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
+            Empowering <span style={{ color: '#00BFFF' }}>Minds</span>, Transforming Futures
+          </h1>
+          <p className={`mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`}>
+            At our core, we are passionate about providing world-class education to learners everywhere.  
+            Our mission is to bridge the gap between knowledge and opportunity, creating a platform where curiosity meets achievement and innovation drives success.
           </p>
         </div>
       </section>
 
-      {/* Our Company Story */}
+    {/* Our Instructors Section */}
+    
+    {/* CTA Section */}
+    
+      {/* Vision, Mission, Values Cards Section */}
       
 
-      {/* Timeline */}
-      <section 
-        className={`timeline-section w-full py-16 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-duration="1200"
-      >
-        <div className="container mx-auto px-4">
-          <h2 style={{ color: theme === 'dark' ? '#fff' : '#000' }}
->Our Journey Through the Years</h2>
-          <div className="timeline">
-            <div className="timeline-item" data-aos="fade-up" data-aos-delay="100">
-              <div className="timeline-year">2018</div>
-              <div className="timeline-content">
-                <h3>Company Founded</h3>
-                <p>Started with a team of 5 passionate individuals and a vision to revolutionize financial services.</p>
+      {/* Vision & Mission Section */}
+     
+    {/* Our Growth Through Years Timeline Section */}
+    <section className={
+      `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
+    }>
+      <div className="max-w-4xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-14" style={{ color: '#00BFFF' }}>Our Journey Through the Years</h2>
+        <div className="relative">
+          <div className="absolute left-1/2 top-0 w-1 bg-[#00BFFF] h-full transform -translate-x-1/2"></div>
+          <div className="flex flex-col gap-16">
+            {/* 2018 */}
+            <div className="relative flex items-center min-h-[180px]">
+              <div className="w-1/2 flex justify-end pr-8">
+                <div className={
+                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
+                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                }>
+                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2018</div>
+                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Company Founded</h3>
+                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Started with a team of 5 passionate individuals and a vision to revolutionize financial services.</p>
+                </div>
+              </div>
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2018</span>
+              </div>
+              <div className="w-1/2"></div>
+            </div>
+            {/* 2019 */}
+            <div className="relative flex items-center min-h-[180px]">
+              <div className="w-1/2"></div>
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2019</span>
+              </div>
+              <div className="w-1/2 flex justify-start pl-8">
+                <div className={
+                  `rounded-lg shadow-lg p-8 w-full max-w-md mr-auto ` +
+                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                }>
+                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2019</div>
+                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>First 100 Clients</h3>
+                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Reached our first milestone of serving 100 satisfied clients with personalized financial solutions.</p>
+                </div>
               </div>
             </div>
-            <div className="timeline-item" data-aos="fade-up" data-aos-delay="200">
-              <div className="timeline-year">2019</div>
-              <div className="timeline-content">
-                <h3>First 100 Clients</h3>
-                <p>Reached our first milestone of serving 100 satisfied clients with personalized financial solutions.</p>
+            {/* 2020 */}
+            <div className="relative flex items-center min-h-[180px]">
+              <div className="w-1/2 flex justify-end pr-8">
+                <div className={
+                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
+                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                }>
+                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2020</div>
+                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Digital Transformation</h3>
+                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Launched our comprehensive digital platform, making financial services more accessible than ever.</p>
+                </div>
+              </div>
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2020</span>
+              </div>
+              <div className="w-1/2"></div>
+            </div>
+            {/* 2021 */}
+            <div className="relative flex items-center min-h-[180px]">
+              <div className="w-1/2"></div>
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2021</span>
+              </div>
+              <div className="w-1/2 flex justify-start pl-8">
+                <div className={
+                  `rounded-lg shadow-lg p-8 w-full max-w-md mr-auto ` +
+                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                }>
+                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2021</div>
+                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Series A Funding</h3>
+                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Secured $10M in Series A funding to expand our services and reach more clients globally.</p>
+                </div>
               </div>
             </div>
-            <div className="timeline-item" data-aos="fade-up" data-aos-delay="300">
-              <div className="timeline-year">2020</div>
-              <div className="timeline-content">
-                <h3>Digital Transformation</h3>
-                <p>Launched our comprehensive digital platform, making financial services more accessible than ever.</p>
+            {/* 2022 */}
+            <div className="relative flex items-center min-h-[180px]">
+              <div className="w-1/2 flex justify-end pr-8">
+                <div className={
+                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
+                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                }>
+                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2022</div>
+                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>International Expansion</h3>
+                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Expanded operations to 5 countries, serving over 10,000 clients worldwide.</p>
+                </div>
+              </div>
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2022</span>
+              </div>
+              <div className="w-1/2"></div>
+            </div>
+            {/* 2023 */}
+            <div className="relative flex items-center min-h-[180px]">
+              <div className="w-1/2"></div>
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2023</span>
+              </div>
+              <div className="w-1/2 flex justify-start pl-8">
+                <div className={
+                  `rounded-lg shadow-lg p-8 w-full max-w-md mr-auto ` +
+                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                }>
+                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2023</div>
+                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>AI Integration</h3>
+                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Integrated advanced AI technology to provide smarter, more personalized financial insights.</p>
+                </div>
               </div>
             </div>
-            <div className="timeline-item" data-aos="fade-up" data-aos-delay="400">
-              <div className="timeline-year">2021</div>
-              <div className="timeline-content">
-                <h3>Series A Funding</h3>
-                <p>Secured $10M in Series A funding to expand our services and reach more clients globally.</p>
+            {/* 2024 */}
+            <div className="relative flex items-center min-h-[180px]">
+              <div className="w-1/2 flex justify-end pr-8">
+                <div className={
+                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
+                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                }>
+                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2024</div>
+                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>50,000+ Clients</h3>
+                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Reached the milestone of serving over 50,000 clients with our innovative financial solutions.</p>
+                </div>
               </div>
-            </div>
-            <div className="timeline-item" data-aos="fade-up" data-aos-delay="500">
-              <div className="timeline-year">2022</div>
-              <div className="timeline-content">
-                <h3>International Expansion</h3>
-                <p>Expanded operations to 5 countries, serving over 10,000 clients worldwide.</p>
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2024</span>
               </div>
-            </div>
-            <div className="timeline-item" data-aos="fade-up" data-aos-delay="600">
-              <div className="timeline-year">2023</div>
-              <div className="timeline-content">
-                <h3>AI Integration</h3>
-                <p>Integrated advanced AI technology to provide smarter, more personalized financial insights.</p>
-              </div>
-            </div>
-            <div className="timeline-item" data-aos="fade-up" data-aos-delay="700">
-              <div className="timeline-year">2024</div>
-              <div className="timeline-content">
-                <h3>50,000+ Clients</h3>
-                <p>Reached the milestone of serving over 50,000 clients with our innovative financial solutions.</p>
-              </div>
+              <div className="w-1/2"></div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* Mission & Values */}
-      <section 
-        className={`mission-vision-section ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-duration="1200"
-      >
-        <div className="container mission-vision-flex">
-          <div className="mv-card mv-vision" data-aos="fade-right" data-aos-delay="200">
-            <div className="mv-icon-bg">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="24" fill="#ff8800"/>
-                <path d="M24 16C18 16 13.09 19.64 11 24C13.09 28.36 18 32 24 32C30 32 34.91 28.36 37 24C34.91 19.64 30 16 24 16ZM24 29C21.24 29 19 26.76 19 24C19 21.24 21.24 19 24 19C26.76 19 29 21.24 29 24C29 26.76 26.76 29 24 29ZM24 21C22.34 21 21 22.34 21 24C21 25.66 22.34 27 24 27C25.66 27 27 25.66 27 24C27 22.34 25.66 21 24 21Z" fill="#fff"/>
-              </svg>
-            </div>
-            <h2 className="mv-title">Vision</h2>
-            <p className="mv-desc">
-              To become the leading financial solutions provider by emphasizing innovation and trust, establishing ourselves as a globally recognized company through the highest standard of services and solutions.
-            </p>
-          </div>
-          <div className="mv-image-center" data-aos="zoom-in" data-aos-delay="400">
-            <img src={mission} alt="Team" className="mv-center-img" />
-          </div>
-          <div className="mv-card mv-mission" data-aos="fade-left" data-aos-delay="600">
-            <div className="mv-icon-bg">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="24" fill="#ff8800"/>
-                <path d="M32 18L22 28L16 22" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <h2 className="mv-title">Mission</h2>
-            <p className="mv-desc">
-              To provide customer-centric, innovative, and result-oriented financial solutions that empower our clients worldwide, focusing on excellence, transparency, and long-term value.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section 
-        className={`awards-section ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-duration="1200"
-      >
-        <div className="container">
-          <div className="awards-flex">
-            <div className="awards-left" data-aos="fade-right" data-aos-delay="200">
-              <h2 style={{ color: theme === 'dark' ? '#fff' : '#000' }}
->Awards & Certifications</h2>
-              <ul className="awards-list">
-                <li>
-                  <strong>Fintech Innovation Award 2023:</strong> Recognized for outstanding innovation in financial technology solutions
-                </li>
-                <li>
-                  <strong>Best Customer Service 2023:</strong> Awarded by Financial Services Excellence Council for superior client satisfaction
-                </li>
-                <li>
-                  <strong>ISO 27001 Certified:</strong> International standard for information security management systems
-                </li>
-                <li>
-                  <strong>SOC 2 Type II Compliant:</strong> Demonstrates our commitment to security, availability, and confidentiality
-                </li>
-                <li>
-                  <strong>Sustainable Finance Leader:</strong> Recognized for promoting sustainable and responsible financial practices
-                </li>
-                <li>
-                  <strong>Fast Company Most Innovative 2024:</strong> Listed among the most innovative companies in financial services
-                </li>
+
+    <section className={
+      `w-full py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00BFFF]'}`
+    }>
+        <div className="max-w-7xl  text-justify mx-auto px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-10" style={{ color: '#FFF' }}>Our Vision, Mission & Values</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Vision Card */}
+            <div className={
+              `rounded-2xl shadow-lg p-8 flex text-justify flex-col items-center ` +
+              (theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50')
+            }>
+              <div className="bg-[#00BFFF] rounded-full p-4 mb-4">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4" style={{ color: '#00BFFF' }}>Our Vision</h3>
+              <ul className={`text-left list-disc  text-justify pl-5 space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+                <li>To create a world where quality education is accessible to everyone.</li>
+                <li>Empowering learners to achieve their personal and professional goals.</li>
               </ul>
             </div>
-            <div className="awards-right" data-aos="fade-left" data-aos-delay="400">
-              <img src={aboutlast} alt="Awards" className="awards-img" />
+            {/* Mission Card */}
+            <div className={
+              `rounded-2xl shadow-lg p-8 flex flex-col items-center ` +
+              (theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50')
+            }>
+              <div className="bg-[#00BFFF] text-[#00bfff] rounded-full p-4 mb-4">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" /><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" /></svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4" style={{ color: '#00BFFF' }}>Our Mission</h3>
+              <ul className={`text-left list-disc pl-5 text-justify space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+                <li>To provide innovative, engaging, and practical learning experiences.</li>
+                <li>Bridge knowledge and opportunity for students globally.</li>
+              </ul>
+            </div>
+            {/* Values Card */}
+            <div className={
+              `rounded-2xl shadow-lg p-8 flex flex-col items-center ` +
+              (theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50')
+            }>
+              <div className="bg-[#00BFFF] rounded-full p-4 mb-4">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8l-4 4h8l-4-4z" /><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" /></svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4" style={{ color: '#00BFFF' }}>Our Values</h3>
+              <ul className={`text-left list-disc text-justify pl-5 space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+                <li>Integrity, innovation, and inclusivity in all we do.</li>
+                <li>Commitment to lifelong learning and student success.</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
+    {/* End Timeline Section */}
+    {/* Awards & Certificates Section */}
+    <section className={
+      `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
+    }>
+      <div className="max-w-7xl mx-auto px-6 text-justify lg:px-8 grid  lg:grid-cols-2 gap-27 items-center">
+        {/* Content Left */}
+        <div>
+          <h2 className="text-4xl font-bold mb-6" style={{ color: '#00BFFF' }}>Awards & Certificates</h2>
+          <p className={`text-lg mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Our commitment to excellence has been recognized by industry leaders and educational organizations. Over the years, we have received numerous awards and certificates for innovation, impact, and quality in financial education and services.</p>
+          <ul className={`list-disc pl-5 space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+            <li>Best Financial Education Platform 2022 - Global EdTech Awards</li>
+            <li>Innovation in Online Learning 2023 - FinTech Excellence</li>
+            <li>Top 100 Fastest Growing Companies 2024 - Business Insights</li>
+            <li>Certified by International Financial Education Association</li>
+          </ul>
+        </div>
+        {/* Image Right */}
+        <div className="flex justify-center">
+          <img src={missionImg} alt="Awards & Certificates" className="rounded-2xl shadow-xl w-full max-w-md object-cover" />
+        </div>
+      </div>
+    </section>
 
-      {/* Team Profiles */}
-      <section 
-        className={`team-section w-full py-16 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-duration="1200"
-      >
-        <div className="container mx-auto px-4">
-          <h2 style={{ color: theme === 'dark' ? '#fff' : '#000' }}
->Meet Our Leadership Team</h2>
-          <div className="team-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="100">
-              <div className="team-hover-bg" />
-              <img src={exp1} alt="CEO" className="team-photo orange-ring" />
-              <h3>Priya Sharma</h3>
-              <p className="team-title">Chief Executive Officer</p>
-              <p className="team-bio">
-                Priya brings 18 years of leadership in digital finance, driving our mission to empower clients with innovative solutions. She is passionate about financial inclusion and has led multiple award-winning fintech initiatives.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="200">
-              <div className="team-hover-bg" />
-              <img src={exp2} alt="CTO" className="team-photo orange-ring" />
-              <h3>Arjun Patel</h3>
-              <p className="team-title">Chief Technology Officer</p>
-              <p className="team-bio">
-                Arjun is a technology strategist with expertise in AI and cloud platforms. He leads our product innovation, ensuring secure and scalable solutions for all clients.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="300">
-              <div className="team-hover-bg" />
-              <img src={exp3} alt="CFO" className="team-photo orange-ring" />
-              <h3>Meera Desai</h3>
-              <p className="team-title">Chief Financial Officer</p>
-              <p className="team-bio">
-                Meera oversees our financial strategy and growth, with a focus on transparency and value creation. She has a track record of guiding startups to sustainable success.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="400">
-              <div className="team-hover-bg" />
-              <img src={exp4} alt="COO" className="team-photo orange-ring" />
-              <h3>Rohan Gupta</h3>
-              <p className="team-title">Chief Operating Officer</p>
-              <p className="team-bio">
-                Rohan ensures operational excellence and client satisfaction. With 14 years in financial operations, he is dedicated to delivering seamless experiences.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="500">
-              <div className="team-hover-bg" />
-              <img src={exp5} alt="CMO" className="team-photo orange-ring" />
-              <h3>Ananya Rao</h3>
-              <p className="team-title">Chief Marketing Officer</p>
-              <p className="team-bio">
-                Ananya leads our brand and outreach, building trust and engagement with clients. She specializes in digital marketing and financial education campaigns.
-              </p>
-            </div>
-            <div className="team-member team-hover-animate" data-aos="fade-up" data-aos-delay="600">
-              <div className="team-hover-bg" />
-              <img src={exp6} alt="Head of Client Success" className="team-photo orange-ring" />
-              <h3>Vikram Singh</h3>
-              <p className="team-title">Head of Client Success</p>
-              <p className="team-bio">
-                Vikram champions our client-first approach, ensuring every client receives personalized support and guidance throughout their financial journey.
-              </p>
-            </div>
+
+    <section className={
+      `w-full py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00BFFF]'}`
+    }>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 className="text-4xl font-bold text-center mb-10" style={{ color: '#FFF' }}>Our Instructors</h2>
+        <div className="grid  lg:grid-cols-3 gap-10">
+          {/* Row 1 */}
+          <div className="flex flex-col items-center">
+            <img src={e1} alt="Instructor 1" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
+            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Priya Sharma</h3>
+            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Expert in Financial Planning & Analysis with 10+ years of experience helping students master budgeting and forecasting.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img src={e2} alt="Instructor 2" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
+            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Rahul Verma</h3>
+            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Certified Public Accountant and Bookkeeping specialist, passionate about simplifying accounting for all learners.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img src={e3} alt="Instructor 3" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
+            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Anita Desai</h3>
+            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Investment Advisory professional, guiding students in building strong investment portfolios and financial independence.</p>
+          </div>
+          {/* Row 2 */}
+          <div className="flex flex-col items-center">
+            <img src={e4} alt="Instructor 4" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
+            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Suresh Kumar</h3>
+            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Audit & Compliance expert, ensuring students understand the importance of regulatory standards and ethical practices.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img src={e5} alt="Instructor 5" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
+            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Meera Joshi</h3>
+            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Budget Management coach, helping learners develop practical skills for personal and business financial success.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img src={e6} alt="Instructor 6" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
+            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Vikram Singh</h3>
+            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Tax Preparation & Filing specialist, making complex tax concepts easy and accessible for all students.</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* Awards & Certifications */}
-      
 
-      {/* CSR / Community Impact */}
-      <section 
-        className={`csr-section ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-        style={{ backgroundColor: bgColors[sectionIndex++ % 2] }}
-        data-aos="fade-up" data-aos-duration="1200"
-      >
-        <div className="container">
-          <h2 className="csr-heading pt-10">Community Impact & Social Responsibility</h2>
-          <div className="csr-cards-grid">
-            <div className="csr-item" data-aos="fade-up" data-aos-delay="100">
-              <h3>Financial Literacy Program</h3>
-              <p>
-                We've educated over 25,000 individuals through our free financial literacy workshops 
-                and online resources, helping people make informed financial decisions.
-              </p>
-              <div className="csr-stats">
-                <span>25,000+ People Educated</span>
+    <section className={
+      `py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
+    }>
+      <div className="container mx-auto px-4">
+        {/* Heading */}
+        <h2 className={`text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          Community Impact & <span style={{ color: '#00bfff' }}>Social Responsibility</span>
+        </h2>
+
+        {/* Grid */}
+        <div className="grid gap-8 md:grid-cols-3">
+          {communityPrograms.map((program, index) => (
+            <div
+              key={index}
+              className={`pt-3 pb-6 px-6 rounded-lg shadow-md flex flex-col justify-between ` + (theme === 'dark' ? 'bg-[#222]' : 'bg-white')}
+            >
+              <div>
+                <h3 className={`text-xl text-justify font-semibold mb-2 ${theme === 'dark' ? 'text-[#00BFFF]' : ''}`}>{program.title}</h3>
+                <p className={theme === 'dark' ? 'text-gray-200 text-justify mb-3' : 'text-gray-700 text-justify mb-3'}>{program.description}</p>
+              </div>
+              <div className="flex justify-center">
+                <span className="inline-block bg-[#00BFFF] rounded-full text-white font-semibold align-middle px-4 py-2">
+                  {program.stat}
+                </span>
               </div>
             </div>
-            <div className="csr-item" data-aos="fade-up" data-aos-delay="200">
-              <h3>Environmental Suability</h3>
-              <p>
-                Committed to carbon neutrality by 2025. We've reduced our carbon footprint by 40% 
-                through digital-first operations and renewable energy initiatives.
-              </p>
-              <div className="csr-stats">
-                <span>40% Carbon Reduction</span>
-              </div>
-            </div>
-            <div className="csr-item" data-aos="fade-up" data-aos-delay="300">
-              <h3>Community Investment</h3>
-              <p>
-                We donate 1% of our annual profits to local charities and have provided $500K+ 
-                in microloans to small businesses in underserved communities.
-              </p>
-              <div className="csr-stats">
-                <span>$500K+ in Microloans</span>
-              </div>
-            </div>
-            <div className="csr-item" data-aos="fade-up" data-aos-delay="400">
-              <h3>Diversity & Inclusion</h3>
-              <p>
-                Our workforce is 45% women and 60% from diverse backgrounds. We're committed to 
-                creating an inclusive workplace where everyone can thrive.
-              </p>
-              <div className="csr-stats">
-                <span>60% Diverse Workforce</span>
-              </div>
-            </div>
-            <div className="csr-item" data-aos="fade-up" data-aos-delay="500">
-              <h3>Employee Volunteerism</h3>
-              <p>
-                Our employees have volunteered over 10,000 hours in community service, supporting education, health, and local development projects.
-              </p>
-              <div className="csr-stats">
-                <span>10,000+ Volunteer Hours</span>
-              </div>
-            </div>
-            <div className="csr-item" data-aos="fade-up" data-aos-delay="600">
-              <h3>Tech for Good</h3>
-              <p>
-                Leveraging technology to bridge financial gaps, we've launched digital tools for underserved populations to access essential financial services.
-              </p>
-              <div className="csr-stats">
-                <span>5+ Digital Initiatives</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* Call to Action */}
+
+
+    
     </div>
   );
-};
-
-export default AboutUs;
+}

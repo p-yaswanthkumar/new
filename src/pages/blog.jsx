@@ -1,512 +1,389 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import blogHeroVideo from '../assets/bloghero.mp4';
-import blog1 from '../assets/blog1.jpg';
-import blog2 from '../assets/blog2.webp';
-import blog3 from '../assets/blog3.webp';
-import exp3 from '../assets/exp3.jpg';
-import exp4 from '../assets/exp4.jpg';
-import exp5 from '../assets/exp5.jpg';
-import exp6 from '../assets/exp6.jpg';
-import quizblog from '../assets/blogquiz.webp';
-
-// HERO SECTION
-const HeroSection = ({ theme }) => (
-  <section className={`relative min-h-[400px] mb-20 h-screen md:h-[500px] lg:h-[600px] w-full flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'text-white' : ''}`}>
-    {/* Hero Video Background */}
-    <div className="absolute inset-0 z-0">
-      <video
-        src={blogHeroVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="w-full h-full object-cover"
-      />
-    </div>
-    {/* Content */}
-    <div className="relative z-10  text-center w-full px-2 sm:px-4 md:px-8 lg:px-16 flex flex-col items-center justify-center">
-      <motion.h1
-        initial={{ opacity: 0, y: -40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 drop-shadow-lg ${theme === 'dark' ? 'text-white' : 'text-white'}`}
-      >
-        Financial Wisdom for a Brighter Future
-      </motion.h1>
-      <motion.p
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-        className={`text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-8 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-100'}`}
-      >
-        Explore expert articles, practical tips, and the latest trends to help you make confident financial decisions and achieve your goals.
-      </motion.p>
-    </div>
-  </section>
-);
-
-// FEATURED ARTICLES
-const featuredArticles = [
-  {
-    id: 1,
-    title: '5 Smart Ways to Save for Retirement',
-    summary: 'Discover actionable strategies to boost your retirement savings and secure your future.',
-    image: blog1,
-  },
-  {
-    id: 2,
-    title: 'Understanding Credit Scores',
-    summary: 'Learn how credit scores work and how to improve yours for better financial opportunities.',
-    image: blog2,
-  },
-  {
-    id: 3,
-    title: 'Top 10 Investment Myths Busted',
-    summary: 'Separate fact from fiction and make smarter investment decisions.',
-    image: blog3,
-  },
-];
-
-const FeaturedArticles = ({ theme }) => (
-  <section className="container mx-auto px-4 mb-32 py-16">
-    <h2 className="text-3xl font-bold text-orange-500 mb-8 text-center">Featured Articles</h2>
-    <div className="grid md:grid-cols-3 mt-8 gap-8">
-      {featuredArticles.map((art, i) => (
-        <motion.div key={art.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.2, duration: 0.6 }} className={`${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'} rounded-xl shadow-lg overflow-hidden flex flex-col`}>
-          <img src={art.image} alt={art.title} className="h-48 w-full object-cover" />
-          <div className="p-6 flex-1 flex flex-col">
-            <h3 className={`font-bold text-lg mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}>{art.title}</h3>
-            <p className={`mb-4 flex-1 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-600'}`}>{art.summary}</p>
-            <Link to={`/blog/${art.id}`} className="text-orange-500 font-semibold hover:underline mt-auto">Read More →</Link>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </section>
-);
-
-// CATEGORIES
+import React from "react";
+import blogHero from "../assets/blog.mp4";
+import { Brain, Code, BarChart3 } from "lucide-react";
+import blog1 from "../assets/blog1.jpeg";
+import blog2 from "../assets/blog2.webp";
+import blog3 from "../assets/blog3.avif";
+import { Link } from "react-router-dom";
 const categories = [
-  'Personal Finance',
-  'Investing',
-  'Tax Planning',
-  'Retirement',
-  'Insurance',
-  'Business Finance',
-];
-
-const Categories = ({ theme }) => (
-  <section className={`w-full mt-5 pb-5 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-[#fdf9f4] text-black'}`}>
-    <div className="container mx-auto px-4 grid grid-row-1 md:grid-cols-2 md:gap-x-20 gap-y-12 items-center">
-      {/* Left: Heading and Description */}
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <motion.h2 
-          className={`text-3xl font-bold mb-6 md:mb-8 text-left ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          Categories
-        </motion.h2>
-        <motion.p 
-          className={`text-lg max-w-md mb-4 md:mb-0 text-left ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          Explore a wide range of financial topics. Whether you're looking to invest, plan for retirement, or manage your business finances, our categories help you find the right advice and insights for your journey.
-        </motion.p>
-      </motion.div>
-      {/* Right: Category Cards */}
-      <div className="grid grid-cols-2 mt-20 gap-4 md:gap-6">
-        {categories.map((cat, i) => (
-          <motion.div 
-            key={i} 
-            className={`px-6 py-6 rounded-xl font-semibold text-lg shadow-sm cursor-pointer transition text-center ${theme === 'dark' ? 'bg-[#23344a] text-orange-200 hover:bg-[#1E2A38]' : 'bg-orange-100 text-orange-700 hover:bg-orange-200'}`}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.05, y: -5 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            viewport={{ once: true }}
-          >
-            {cat}
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-// MYTHS & FACTS
-const mythsAndFacts = [
   {
-    myth: 'You need a lot of money to start investing.',
-    fact: 'You can start investing with small amounts thanks to fractional shares and micro-investing apps.'
+    name: "AI & ML",
+    desc: "Discover the latest in artificial intelligence and machine learning.",
+    
   },
   {
-    myth: 'Checking your credit score hurts it.',
-    fact: 'Checking your own credit score is a soft inquiry and does not affect your score.'
+    name: "Web Development",
+    desc: "Explore modern frameworks, tools, and best practices.",
+   
   },
   {
-    myth: 'All debt is bad.',
-    fact: 'Some debt, like mortgages or student loans, can be considered good if managed responsibly.'
+    name: "Data Science",
+    desc: "Learn about data analytics, visualization, and insights.",
+    
   },
   {
-    myth: 'Investing is the same as gambling.',
-    fact: 'Investing is based on research and long-term growth, while gambling is based on chance.'
-  },
-  {
-    myth: 'You should always avoid credit cards.',
-    fact: 'Credit cards can be useful tools if used responsibly and paid off monthly.'
-  },
-  {
-    myth: 'Renting is throwing money away.',
-    fact: 'Renting can be a smart financial choice depending on your situation and goals.'
+    name: "Business & Strategy",
+    desc: "Insights on innovation, startups, and digital transformation.",
+   
   },
 ];
+  const features = [
+    {
+      title: "AI & Machine Learning",
+      description:
+        "Harness the power of AI and ML to automate processes, gain predictive insights, and build intelligent applications tailored to your business needs.",
+      image: blog1,
+      link: "/ai-ml",
+    },
+    {
+      title: "Web Development",
+      description:
+        "From responsive websites to scalable web apps, our development services ensure seamless user experiences and robust online presence.",
+      image: blog2,
+      link: "/web-development",
+    },
+    {
+      title: "Data Science",
+      description:
+        "Transform raw data into meaningful insights with advanced analytics, visualization, and data-driven strategies that boost decision-making.",
+      image: blog3,
+      link: "/data-science",
+    },
+  ];
+const services = [
+    {
+      name: "AI & ML",
+      features: ["Predictive Analytics", "Automation", "Chatbots", "Personalization"],
+    },
+    {
+      name: "Web Development",
+      features: ["Responsive Design", "SEO Friendly", "Modern Frameworks", "Performance Optimized"],
+    },
+    {
+      name: "Data Science",
+      features: ["Data Cleaning", "Visualization", "Dashboards", "Advanced Insights"],
+    },
+    {
+      name: "Business Strategy",
+      features: ["Market Research", "Growth Planning", "Digital Strategy", "Innovation Support"],
+    },
+  ];
 
-const MythsAndFacts = ({ theme }) => {
-  // Ensure 6 items for 2 columns x 3 rows
-  const mythsFactsGrid = mythsAndFacts.length >= 6
-    ? mythsAndFacts.slice(0, 6)
-    : [
-        ...mythsAndFacts,
-        ...Array(6 - mythsAndFacts.length).fill({ myth: '', fact: '' })
-      ];
+
+export default function BlogHero() {
+  // Theme state synced with Header
+  const [theme, setTheme] = React.useState('light');
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') || 'light';
+      setTheme(storedTheme);
+      const handleThemeChange = () => {
+        const newTheme = localStorage.getItem('theme') || 'light';
+        setTheme(newTheme);
+      };
+      window.addEventListener('theme-changed', handleThemeChange);
+      window.addEventListener('storage', handleThemeChange);
+      return () => {
+        window.removeEventListener('theme-changed', handleThemeChange);
+        window.removeEventListener('storage', handleThemeChange);
+      };
+    }
+  }, []);
+  // Read blogs from localStorage
+  const [latestBlogs, setLatestBlogs] = React.useState([]);
+  React.useEffect(() => {
+    const stored = localStorage.getItem("blogs");
+    if (stored) {
+      setLatestBlogs(JSON.parse(stored));
+    }
+  }, []);
+
   return (
-    <section className={`w-full px-0 py-1 ${theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-[#fff] text-black'}`}>
-      <div className="container mx-auto px-4">
-        <motion.h2 
-          className={`text-3xl mx-auto font-bold mb-8 mt-20 text-center ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          Myths & Facts
-        </motion.h2>
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-x-9 gap-y-10 max-w-7xl mx-auto">
-          {mythsFactsGrid.map((item, i) => (
-            <motion.div 
-              key={i} 
-              className="flex flex-col   md:last:border-r-0 pb-6 md:pb-0 md:pr-8 h-full min-h-[120px]"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.02, x: 5 }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-start gap-2">
-                <span className="font-bold text-orange-500 min-w-[50px]">Myth:</span>
-                <span className={theme === 'dark' ? 'text-white' : 'text-gray-800'}>{item.myth}</span>
+    <div className={theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-black'}>
+      {/* Hero Section */}
+      <section className="relative w-full h-screen flex items-center justify-center" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
+        {/* Background Video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src={blogHero}
+          autoPlay
+          muted
+          loop
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
+
+        {/* Content */}
+        <div className="relative text-center px-6" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+            Explore Our <span style={{ color: '#00bfff' }}>Blogs</span>
+          </h1>
+          <p className={`text-lg md:text-xl max-w-2xl mx-auto ${theme === 'dark' ? 'text-white' : 'text-white'}`}>
+            Stay updated with the latest insights, trends, and knowledge in{' '}
+            <span className="font-semibold" style={{ color: theme === 'dark' ? '#00bfff' : '#00bfff' }}>
+              AI, Web Development
+            </span>
+            , Data Science, and more. Learn and grow with us!
+          </p>
+        </div>
+      </section>
+
+      {/* Latest Blogs Section */}
+      <section className={`py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+            Latest <span className="text-[#00bfff]">Blogs</span>
+          </h2>
+          {latestBlogs.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-8">
+              {latestBlogs.map((blog, idx) => (
+                <article key={idx} className={`rounded-2xl shadow hover:shadow-lg transition duration-300 overflow-hidden ${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-gray-50 text-black'}`}>
+                  <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
+                  <div className="p-6">
+                    <h3 className={`text-xl font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{blog.title}</h3>
+                    <p className={`text-sm leading-relaxed mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>{blog.description}</p>
+                    <div className={`text-xs mb-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>By {blog.author}</div>
+                    <div className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>{new Date(blog.createdAt).toLocaleString()}</div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className={`text-center text-lg ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>No blogs added yet.</p>
+          )}
+        </div>
+      </section>
+
+      {/* Featured Articles Section */}
+      <section className={`py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Heading */}
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+            Featured <span style={{ color: '#fff' }}>Articles</span>
+          </h2>
+
+          {/* Grid */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <article
+                key={index}
+                className={`rounded-2xl shadow hover:shadow-lg transition duration-300 overflow-hidden ${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-gray-50 text-black'}`}
+              >
+                {/* Image */}
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  className="w-full h-48 object-cover"
+                />
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className={`text-xl font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    {feature.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>
+                    {feature.description}
+                  </p>
+                  <Link
+                    to={
+                      feature.title === "AI & Machine Learning"
+                        ? "/blog/1"
+                        : feature.title === "Web Development"
+                        ? "/blog/2"
+                        : feature.title === "Data Science"
+                        ? "/blog/3"
+                        : feature.link
+                    }
+                    className="text-[#00bfff] font-semibold hover:underline"
+                  >
+                    Read More →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Categories Section */}
+      <section className={`py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
+        <div className="max-w-7xl mx-auto px-6 grid  md:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Explore by <span style={{ color: '#00bfff' }}>Categories</span>
+            </h2>
+            <p className={`text-lg mb-6 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+              Our blogs are thoughtfully categorized to help you easily find
+              content that matches your interests—whether it's{' '}
+              <span className="font-semibold" style={{ color: '#00bfff' }}>
+                AI, Web Development, Data Science,
+              </span>{' '}
+              or practical strategies to grow your business.
+            </p>
+            <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+              Browse the categories and dive into articles curated to keep you ahead 
+              of the curve in technology and industry trends. Whether you’re a 
+              beginner exploring new fields, a professional seeking advanced knowledge, 
+              or a business leader looking for growth strategies, our blogs provide 
+              practical insights, step-by-step guides, and expert opinions tailored to 
+              your journey. Stay inspired, stay informed, and stay connected with the 
+              ever-evolving digital world.
+            </p>
+
+          </div>
+
+          {/* Right Cards Grid */}
+          <div className="grid  sm:grid-cols-2 gap-6">
+            {categories.map((cat, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-2xl shadow-md hover:shadow-lg transition ${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black'}`}
+              >
+                <div className="text-3xl mb-4">{cat.icon}</div>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: '#00bfff' }}>{cat.name}</h3>
+                <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}>{cat.desc}</p>
               </div>
-              <div className="flex items-start gap-2 mt-2">
-                <span className={`font-bold min-w-[50px] ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}>Fact:</span>
-                <span className={theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}>{item.fact}</span>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
+
+      <section className={`py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Heading */}
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+              Service <span style={{ color: '#fff' }}>Comparison</span>
+            </h2>
+
+        {/* Responsive Table */}
+        <div className="overflow-x-auto">
+          <table className={`w-full border rounded-lg shadow-md text-left ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+            <thead className={theme === 'dark' ? 'bg-[#111] text-white' : 'bg-[#000] text-white'}>
+              <tr>
+                <th className="px-6 py-3">Features</th>
+                {services.map((service, idx) => (
+                  <th key={idx} className="px-6 py-3 text-center">
+                    {service.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className={theme === 'dark' ? 'bg-[#222] divide-y divide-gray-700' : 'bg-white divide-y divide-gray-200'}>
+              {services[0].features.map((_, i) => (
+                <tr key={i}>
+                  {/* Feature Name */}
+                  <td className={`px-6 py-4 font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+                    {services[0].features[i]}
+                  </td>
+                  {/* Features across services */}
+                  {services.map((service, j) => (
+                    <td
+                      key={j}
+                      className={`px-6 py-4 text-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
+                    >
+                      {service.features[i] || "—"}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
-  );
-};
 
-// COMPARISON
-const comparisonData = [
-  { label: 'Traditional Savings', risk: 'Low', liquidity: 'High', return: '1-2% annual', minInvestment: '$1', taxBenefit: 'No' },
-  { label: 'Stock Market', risk: 'High', liquidity: 'Medium', return: '7-10% annual', minInvestment: '$10', taxBenefit: 'No' },
-  { label: 'Real Estate', risk: 'Medium', liquidity: 'Low', return: '4-8% annual', minInvestment: '$5,000', taxBenefit: 'Yes' },
-  { label: 'Fixed Deposits', risk: 'Low', liquidity: 'Low', return: '5-7% annual', minInvestment: '$100', taxBenefit: 'Yes' },
-  { label: 'Mutual Funds', risk: 'Medium', liquidity: 'Medium', return: '6-12% annual', minInvestment: '$50', taxBenefit: 'Sometimes' },
-  { label: 'Gold', risk: 'Medium', liquidity: 'Medium', return: '4-7% annual', minInvestment: '$10', taxBenefit: 'No' },
-];
 
-const Comparison = ({ theme }) => (
-  <section className={`w-full px-0  pt-5 pb-5 mt-0 ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-[#fdf9f4] text-black'}`}>
-    <div className="container mx-auto px-4">
-      <motion.h2 
-        className={`text-3xl font-bold mt-20 mb-8 text-center ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        Comparison
-      </motion.h2>
-      <div className="overflow-x-auto">
-        <motion.table 
-          className={`w-full max-w-5xl mx-auto rounded-xl shadow-lg overflow-hidden ${theme === 'dark' ? 'bg-[#141B25] text-white' : 'bg-white text-black'}`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <thead className={theme === 'dark' ? 'bg-[#23344a]' : 'bg-blue-900'}>
-            <tr>
-              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Type</th>
-              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Risk Level</th>
-              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Liquidity</th>
-              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Average Return</th>
-              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Min. Investment</th>
-              <th className="text-white px-6 py-4 text-left font-semibold text-lg">Tax Benefit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparisonData.map((item, i) => (
-              <motion.tr 
-                key={i} 
-                className={`border-b last:border-b-0 ${theme === 'dark' ? 'border-[#23344a]' : ''}`}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                whileHover={{ backgroundColor: theme === 'dark' ? '#1E2A38' : '#fef3c7' }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <td className={`px-6 py-4 font-semibold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-900'}`}>{item.label}</td>
-                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.risk}</td>
-                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.liquidity}</td>
-                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.return}</td>
-                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.minInvestment}</td>
-                <td className={`px-6 py-4 ${theme === 'dark' ? 'text-blue-100' : 'text-gray-700'}`}>{item.taxBenefit}</td>
-              </motion.tr>
-            ))}
-          </tbody>
-        </motion.table>
+
+  <section className={`py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
+    <div className="max-w-6xl mx-auto px-6">
+      {/* Heading */}
+      <h2 className="text-4xl md:text-5xl font-bold text-center mb-12" style={{ color: '#00bfff' }}>
+        Myths & Facts
+      </h2>
+
+      {/* Grid */}
+      <div className="grid md:grid-cols-2 gap-10">
+        {/* Item 1 */}
+        <div className="space-y-4">
+          <div className="flex gap-2">
+            <h3 className="text-red-600 font-bold">Myth:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>You need a lot of money to start investing.</p>
+          </div>
+          <div className="flex gap-2">
+            <h3 className="text-green-600 font-bold">Fact:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>You can start with small amounts thanks to fractional shares and micro-investing apps.</p>
+          </div>
+        </div>
+
+        {/* Item 2 */}
+        <div className="space-y-4">
+          <div className="flex gap-2">
+            <h3 className="text-red-600 font-bold">Myth:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Checking your credit score hurts it.</p>
+          </div>
+          <div className="flex gap-2">
+            <h3 className="text-green-600 font-bold">Fact:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Checking your own score is a soft inquiry and does not affect your credit.</p>
+          </div>
+        </div>
+
+        {/* Item 3 */}
+        <div className="space-y-4">
+          <div className="flex gap-2">
+            <h3 className="text-red-600 font-bold">Myth:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>All debt is bad.</p>
+          </div>
+          <div className="flex gap-2">
+            <h3 className="text-green-600 font-bold">Fact:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Some debt like mortgages or student loans can be good if managed responsibly.</p>
+          </div>
+        </div>
+
+        {/* Item 4 */}
+        <div className="space-y-4">
+          <div className="flex gap-2">
+            <h3 className="text-red-600 font-bold">Myth:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Investing is the same as gambling.</p>
+          </div>
+          <div className="flex gap-2">
+            <h3 className="text-green-600 font-bold">Fact:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Investing is based on research and growth, while gambling is based on chance.</p>
+          </div>
+        </div>
+
+        {/* Item 5 */}
+        <div className="space-y-4">
+          <div className="flex gap-2">
+            <h3 className="text-red-600 font-bold">Myth:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>You should always avoid credit cards.</p>
+          </div>
+          <div className="flex gap-2">
+            <h3 className="text-green-600 font-bold">Fact:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Credit cards can be useful if used responsibly and paid off monthly.</p>
+          </div>
+        </div>
+
+        {/* Item 6 */}
+        <div className="space-y-4">
+          <div className="flex gap-2">
+            <h3 className="text-red-600 font-bold">Myth:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Renting is throwing money away.</p>
+          </div>
+          <div className="flex gap-2">
+            <h3 className="text-green-600 font-bold">Fact:</h3>
+            <p className={theme === 'dark' ? 'text-white' : 'text-black'}>Renting can be a smart financial choice depending on your goals.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-);
-
-// QUIZ
-const quizQuestions = [
-  {
-    question: 'What is a good credit score?',
-    options: ['300-500', '600-750', '800-850'],
-    answer: 1,
-  },
-  {
-    question: 'Which investment is typically considered the riskiest?',
-    options: ['Savings Account', 'Stocks', 'Bonds'],
-    answer: 1,
-  },
-  {
-    question: 'What does ROI stand for?',
-    options: ['Rate of Interest', 'Return on Investment', 'Revenue on Income'],
-    answer: 1,
-  },
-  {
-    question: 'Which is NOT a type of insurance?',
-    options: ['Health', 'Travel', 'Shopping'],
-    answer: 2,
-  },
-  {
-    question: 'What is diversification in investing?',
-    options: ['Putting all money in one stock', 'Spreading investments across assets', 'Investing only in real estate'],
-    answer: 1,
-  },
-  {
-    question: 'Which is a tax-advantaged retirement account?',
-    options: ['401(k)', 'Savings Account', 'Checking Account'],
-    answer: 0,
-  },
-  {
-    question: 'What is a budget?',
-    options: ['A type of loan', 'A spending plan', 'A credit score'],
-    answer: 1,
-  },
-  {
-    question: 'Which is a fixed expense?',
-    options: ['Rent', 'Groceries', 'Entertainment'],
-    answer: 0,
-  },
-  {
-    question: 'What is compound interest?',
-    options: ['Interest on principal only', 'Interest on principal and previous interest', 'Interest on taxes'],
-    answer: 1,
-  },
-  {
-    question: 'Which is a liquid asset?',
-    options: ['Real Estate', 'Stocks', 'Savings Account'],
-    answer: 2,
-  },
-];
-
-const Quiz = ({ theme }) => {
-  const [quizIndex, setQuizIndex] = React.useState(0);
-  const [selected, setSelected] = React.useState(null);
-  const [showResult, setShowResult] = React.useState(false);
-  const currentQ = quizQuestions[quizIndex];
-
-  const handleQuiz = (idx) => {
-    setSelected(idx);
-    setShowResult(true);
-    setTimeout(() => {
-      setShowResult(false);
-      setSelected(null);
-    }, 1200);
-  };
-
-  const handlePrev = () => {
-    setShowResult(false);
-    setSelected(null);
-    setQuizIndex((prev) => (prev - 1 + quizQuestions.length) % quizQuestions.length);
-  };
-
-  const handleNext = () => {
-    setShowResult(false);
-    setSelected(null);
-    setQuizIndex((prev) => (prev + 1) % quizQuestions.length);
-  };
-
-  return (
-    <section className="container mx-auto px-4 py-16">
-      <motion.h2 
-        className={`text-3xl font-bold mb-8 mt-20 text-center ${theme === 'dark' ? 'text-white' : 'text-blue-900'}`}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        Finance Quiz
-      </motion.h2>
-      <div className="flex flex-row md:flex-row items-center gap-12 max-w-full mx-auto min-h-[420px] md:min-h-[500px] lg:min-h-[600px]">
-        {/* Left: Image */}
-        <motion.div 
-          className="w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <motion.img 
-            src={quizblog} 
-            alt="Quiz Visual" 
-            className="w-full max-w-md h-[320px] md:h-[400px] object-cover rounded-xl shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-        </motion.div>
-        {/* Right: Quiz */}
-        <motion.div 
-          className="w-full md:w-1/2 flex flex-col items-center"
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center justify-between w-full mb-4">
-            <motion.button
-              onClick={handlePrev}
-              className="p-2 rounded-full bg-gray-200 hover:bg-orange-200 text-2xl font-bold mr-2"
-              aria-label="Previous Question"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              &#8592;
-            </motion.button>
-            <motion.span 
-              className="font-semibold text-lg flex-1 text-center"
-              key={quizIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              {currentQ.question}
-            </motion.span>
-            <motion.button
-              onClick={handleNext}
-              className="p-2 rounded-full bg-gray-200 hover:bg-orange-200 text-2xl font-bold ml-2"
-              aria-label="Next Question"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              &#8594;
-            </motion.button>
-          </div>
-          <div className="flex flex-col gap-4 w-full">
-            {currentQ.options.map((opt, idx) => (
-              <motion.button
-                key={idx}
-                onClick={() => handleQuiz(idx)}
-                disabled={showResult}
-                className={`px-6 py-3 rounded-lg border text-left font-medium transition-all duration-200 w-full
-                  ${selected === idx
-                    ? (idx === currentQ.answer
-                        ? 'bg-green-100 border-green-500 text-green-700'
-                        : 'bg-red-100 border-red-500 text-red-700')
-                    : `${theme === 'dark' ? 'bg-gray-50 border-gray-200 text-black hover:bg-orange-100' : 'bg-gray-50 border-gray-200 hover:bg-orange-100'}`
-                  }`}
-                whileHover={{ scale: 1.02, x: 5 }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-              >
-                {opt}
-              </motion.button>
-            ))}
-          </div>
-          {showResult && (
-            <motion.div 
-              className={`mt-4 font-bold ${selected === currentQ.answer ? 'text-green-600' : 'text-red-600'}`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              {selected === currentQ.answer ? 'Correct!' : 'Incorrect'}
-            </motion.div>
-          )}
-          <motion.div 
-            className="mt-6 text-gray-500 text-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            Question {quizIndex + 1} of {quizQuestions.length}
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
 
 
-// MAIN BLOG PAGE
-const Blog = () => {
-  // Theme sync (instant, like other app pages)
-  const getTheme = () => localStorage.getItem('theme') || 'light';
-  const [theme, setTheme] = useState(getTheme());
-  useEffect(() => {
-    const syncTheme = () => setTheme(getTheme());
-    window.addEventListener('theme-changed', syncTheme);
-    window.addEventListener('storage', syncTheme);
-    window.addEventListener('focus', syncTheme);
-    return () => {
-      window.removeEventListener('theme-changed', syncTheme);
-      window.removeEventListener('storage', syncTheme);
-      window.removeEventListener('focus', syncTheme);
-    };
-  }, []);
-  return (
-    <div className={theme === 'dark' ? 'bg-[#1E2A38] text-white' : 'bg-gray-50 text-black'}>
-      <HeroSection theme={theme} />
-      <FeaturedArticles theme={theme} />
-      <Categories theme={theme} />
-      <MythsAndFacts theme={theme} />
-      <Comparison theme={theme} />
-      <Quiz theme={theme} />
+
     </div>
   );
-};
-
-export default Blog;
+}
