@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ethicalHero from "../assets/ethical.mp4";
-import e1 from "../assets/e1.avif";
-import e2 from "../assets/e2.jpeg";
-import e3 from "../assets/e3.jpg";
+import e1 from "../assets/e1.jpeg";
+import e2 from "../assets/e2 2.jpeg";
+import e3 from "../assets/e3.jpeg";
 
 export default function CybersecurityPage() {
   // Theme state synced with Header

@@ -1,27 +1,9 @@
 import React, { useState } from "react";
-import faqImage from "../assets/faq.jpg";
 import contactVideo from "../assets/contact.mp4"; 
 import contact1 from "../assets/contact1.jpg";
 import contact2 from "../assets/contact2.jpg";
 import contact3 from "../assets/contact3.webp";
-
-const cards = [
-  {
-    img: contact1,
-    title: "Visit Us",
-    text: "123 Business Street, Suite 100, YourCity",
-  },
-  {
-    img: contact2,
-    title: "Email Us",
-    text: "stackly.com",
-  },
-  {
-    img: contact3,
-    title: "Customer Care",
-    text: "+1 (800) 123-4567",
-  },
-];
+import faqImage from "../assets/faq.jpg";
 const faqs = [
   {
     question: "How do I get started with your services?",
@@ -45,8 +27,35 @@ const faqs = [
   },
 ];
 
+
+
+const cards = [
+  {
+    img: contact1,
+    title: "Visit Us",
+    text: "123 Business Street, Suite 100, YourCity",
+  },
+  {
+    img: contact2,
+    title: "Email Us",
+    text: "stackly.com",
+  },
+  {
+    img: contact3,
+    title: "Customer Care",
+    text: "+1 (800) 123-4567",
+  },
+];
+
 export default function ContactHero() {
-  // Theme state synced with Header
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleFAQ = (index) => {
+    console.log('Toggling FAQ index:', index, 'Current openIndex:', openIndex);
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  // Theme state synced with Header (live update)
   const [theme, setTheme] = React.useState('light');
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -64,16 +73,11 @@ export default function ContactHero() {
       };
     }
   }, []);
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
 
   return (
-    <div className={theme === 'dark' ? ' text-white' : ' text-black'}>
+    <div className={theme === 'dark' ? 'min-h-screen text-white' : 'min-h-screen  text-black'}>
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
+      <section className={`relative h-screen flex items-center justify-center ${theme === 'dark' ? '' : ''}`}> 
         {/* Background video */}
         <video
           autoPlay
@@ -87,34 +91,33 @@ export default function ContactHero() {
         </video>
 
         {/* Optional dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/40 -z-10"></div>
+        <div className={theme === 'dark' ? 'absolute inset-0 bg-black/60 -z-10' : 'absolute inset-0 bg-black/40 -z-10'}></div>
 
         {/* Content */}
-        <div className="relative text-center px-4 max-w-2xl" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
+        <div className={`relative text-center px-4 max-w-2xl ${theme === 'dark' ? 'text-white' : 'text-white'}`}> 
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-            Get in <span style={{ color: '#00bfff' }}>Touch</span> Today
+            Get in <span className="text-[#00bfff]">Touch</span> Today
           </h1>
-          <p className={`text-lg md:text-2xl font-light mb-6 ${theme === 'dark' ? 'text-white' : 'text-white'}`}>
-            Building <span className="font-semibold" style={{ color: '#00bfff' }}>solutions</span>, 
-            creating <span className="font-semibold" style={{ color: '#00bfff' }}>success</span> — let's make it happen together.
+          <p className="text-lg md:text-2xl font-light mb-6">
+            Building <span className="text-[#00bfff] font-semibold">solutions</span>, 
+            creating <span className="text-[#00bfff] font-semibold">success</span> — let's make it happen together.
           </p>
         </div>
       </section>
 
       {/* Contact Cards Section */}
-      <section className={`py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
+      <section className={`py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}> 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12" style={{ color: '#00bfff' }}>
+        <h2 className={`text-3xl md:text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-[#00bfff]' : 'text-white'}`}> 
           Meet Our Support Team
         </h2>
-
         {/* Cards Grid */}
         <div className="grid gap-10 md:grid-cols-3">
           {cards.map((card, index) => (
             <div
               key={index}
-              className={`rounded-2xl shadow-md hover:shadow-xl transition text-center p-6 ${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black'}`}
+              className={`${theme === 'dark' ? 'bg-[#181818] text-white' : 'bg-white text-black'} rounded-2xl shadow-md hover:shadow-xl transition text-center p-6`}
             >
               <img
                 src={card.img}
@@ -133,50 +136,49 @@ export default function ContactHero() {
 
 
 
-
-    <section className={`py-20 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
-      <div className="max-w-6xl mx-auto px-6">
+      <section className={`py-20 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
+      <div className="max-w-4xl mx-auto px-6">
         {/* Small Heading */}
-        <p className="font-semibold uppercase mb-2" style={{ color: '#fff' }}>
+        <p className="text-[#00bfff] font-semibold uppercase mb-2">
           Get in Touch
         </p>
         {/* Main Heading */}
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-10" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
-          Need help? <span style={{ color: '#fff' }}>Let's get in touch</span>
+        <h2 className={`text-3xl md:text-4xl font-extrabold mb-10 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}` }>
+          Need help? <span className="text-[#00bfff]">Let's get in touch</span>
         </h2>
 
         {/* Contact Form */}
-        <form className={`rounded-2xl shadow-lg p-8 space-y-6 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-white'}` }>
+        <form className={`${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black'} rounded-2xl shadow-lg p-8 space-y-6`}>
           <div className="grid md:grid-cols-2 gap-6">
             <input
               type="text"
               placeholder="First Name"
-              className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#222] text-white' : 'border-gray-200 bg-white text-black'}`}
+              className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#181818] text-white' : 'border-gray-200 bg-white text-black'}`}
             />
             <input
               type="text"
               placeholder="Last Name"
-              className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#222] text-white' : 'border-gray-200 bg-white text-black'}`}
+              className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#181818] text-white' : 'border-gray-200 bg-white text-black'}`}
             />
           </div>
           <input
             type="email"
             placeholder="Email"
-            className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#222] text-white' : 'border-gray-200 bg-white text-black'}`}
+            className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#181818] text-white' : 'border-gray-200 bg-white text-black'}`}
           />
           <input
             type="tel"
             placeholder="Phone"
-            className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#222] text-white' : 'border-gray-200 bg-white text-black'}`}
+            className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#181818] text-white' : 'border-gray-200 bg-white text-black'}`}
           />
           <textarea
             rows="5"
             placeholder="Write a Message"
-            className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#222] text-white' : 'border-gray-200 bg-white text-black'}`}
+            className={`border rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#181818] text-white' : 'border-gray-200 bg-white text-black'}`}
           ></textarea>
           <button
             type="submit"
-            className={`w-full font-semibold py-3 rounded-lg transition ${theme === 'dark' ? 'bg-white text-black hover:bg-gray-200' : 'bg-[#00bfff] text-white hover:bg-[#00a6d6]'}`}
+            className="w-full bg-[#00bfff] text-white font-semibold py-3 rounded-lg hover:bg-[#00a6d6] transition"
           >
             Send Message
           </button>
@@ -185,17 +187,16 @@ export default function ContactHero() {
     </section>
 
 
-
-     <section className={`py-20 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
-      <div className="max-w-7xl mx-auto px-6">
+      <section className={`py-20 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
+      <div className="max-w-6xl mx-auto px-6">
         {/* Small heading */}
-        <p className="text-[#00bfff] font-semibold uppercase mb-2">
+        <p className="text-[#fff] font-semibold uppercase mb-2">
           Location
         </p>
 
         {/* Main heading */}
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-10" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
-          How to <span style={{ color: '#00bfff' }}>Reach</span> Our Location
+        <h2 className={`text-3xl md:text-4xl font-extrabold mb-10 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          How to <span className="text-[#fff]">Reach</span> Our Location
         </h2>
 
         {/* Map embed */}
@@ -215,15 +216,16 @@ export default function ContactHero() {
     </section>
 
 
-    <section className={`py-20 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+
+      <section className={`py-20 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
+      <div className="max-w-7xl mx-auto px-6 grid  md:grid-cols-2 gap-12 items-center">
         {/* Left: Image and Heading */}
         <div>
-          <p className="font-semibold uppercase mb-2" style={{ color: '#fff' }}>
+          <p className="text-[#00bfff] font-semibold uppercase mb-2">
             Frequently Asked Questions
           </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-8" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
-            Got <span style={{ color: '#fff' }}>Questions?</span> We've Got Answers
+          <h2 className={`text-4xl md:text-5xl font-extrabold mb-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Got <span className="text-[#00bfff]">Questions?</span> We've Got Answers
           </h2>
           <img 
             src={faqImage} 
@@ -237,11 +239,11 @@ export default function ContactHero() {
           {faqs.map((faq, index) => (
             <div 
               key={index} 
-              className={`rounded-xl shadow-sm border ${theme === 'dark' ? 'bg-[#181818] border-gray-700 text-white' : 'bg-gray-50 border-gray-100 text-black'}`}
+              className={`${theme === 'dark' ? 'bg-[#222] border-gray-700' : 'bg-gray-50 border-gray-100'} rounded-xl shadow-sm border`}
             >
               <button 
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center p-6 text-left"
+                className={`w-full flex justify-between items-center p-6 text-left ${theme === 'dark' ? 'text-white' : ''}`}
               >
                 <span className={`font-semibold text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                   {faq.question}
@@ -251,7 +253,7 @@ export default function ContactHero() {
                 </span>
               </button>
               {openIndex === index && (
-                <div className={theme === 'dark' ? 'px-6 pb-6 text-gray-200' : 'px-6 pb-6 text-gray-600'}>
+                <div className={`px-6 pb-6 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>
                   {faq.answer}
                 </div>
               )}
@@ -262,12 +264,11 @@ export default function ContactHero() {
     </section>
 
 
-
-     <section className={` py-20 ${theme === 'dark' ? 'bg-[#000]' : 'bg-[#e6f7ff]'}`}>
+      <section className={`py-20 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
       <div className="max-w-4xl mx-auto text-center px-6">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
-          Stay <span style={{ color: '#00bfff' }}>Updated</span>
+        <h2 className={`text-4xl md:text-5xl font-extrabold mb-4 ${theme === 'dark' ? 'text-[#00bfff]' : 'text-gray-900'}`}>
+          Stay <span className="text-[#fff]">Updated</span>
         </h2>
         <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>
           Subscribe to our newsletter and never miss our latest news, updates, and special offers.
@@ -278,20 +279,18 @@ export default function ContactHero() {
           <input 
             type="email" 
             placeholder="Enter your email" 
-            className={`flex-1 px-6 py-4 rounded-xl border w-full sm:w-auto focus:outline-none focus:border-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#222] text-white' : 'border-gray-300 text-gray-800 bg-white'}`}
+            className={`flex-1 px-6 py-4 rounded-xl border w-full sm:w-auto focus:outline-none focus:border-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#181818] text-white' : 'border-gray-300 text-gray-800 bg-white'}`}
           />
           <button 
             type="submit" 
-            className={`px-8 py-4 rounded-xl font-semibold transition duration-300 w-full sm:w-auto ${theme === 'dark' ? 'bg-white text-black hover:bg-gray-200' : 'bg-[#00bfff] text-white hover:bg-[#00aee6]'}`}
+            className="bg-[#000] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#00] transition duration-300 w-full sm:w-auto"
           >
             Subscribe
           </button>
         </form>
-
-        {/* Privacy note */}
-        
       </div>
     </section>
+  
     </div>
   );
 }

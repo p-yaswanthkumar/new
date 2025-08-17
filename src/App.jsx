@@ -14,7 +14,7 @@ import BlockchainPage from './pages/Blockchain&Cryptocurrency';
 import CloudComputingPage from './pages/CloudComputing&DevOps';
 import BlogHero from './pages/blog';
 import BlogDetail from './pages/BlogDetail';
-import ContactHero from './pages/ContactUs';
+import ContactHero from './pages/contactus';
 import UserDetailsSection from './pages/admindashboard'; //
 import UserDashboard from './pages/userdashboard';
 
@@ -47,7 +47,7 @@ function App() {
                   <Route path="CloudComputing&DevOps" element={<CloudComputingPage />} />
                   <Route path="blog" element={<BlogHero />} />
                   <Route path="/blog/:id" element={<BlogDetail />} />
-                  <Route path="contactUs" element={<ContactHero />} />
+                  <Route path="contactus" element={<ContactHero />} />
                   <Route path="/userdashboard" element={<UserDashboard />} />
                   {/* Add more routes as needed */}
                 </Routes>
