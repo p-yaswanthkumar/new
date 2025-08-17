@@ -47,7 +47,7 @@ function App() {
                   <Route path="CloudComputing&DevOps" element={<CloudComputingPage />} />
                   <Route path="blog" element={<BlogHero />} />
                   <Route path="/blog/:id" element={<BlogDetail />} />
-                  <Route path="contactus" element={<ContactHero />} />
+                  <Route path="contactUs" element={<ContactHero />} />
                   <Route path="/userdashboard" element={<UserDashboard />} />
                   {/* Add more routes as needed */}
                 </Routes>
