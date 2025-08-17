@@ -111,15 +111,6 @@ export default function WelcomePage() {
           src={welcomeImg} 
           alt="Welcome" 
           className="absolute inset-0 w-full h-full object-cover"
-          width={600}
-            height={400}
-            style={{ maxWidth: '100%', height: 'auto', objectFit: 'cover' }}
-            srcSet={`
-              ${faqImage} 600w,
-              ${faqImage} 1200w,
-              ${faqImage} 1800w
-            `}
-            sizes="(max-width: 600px) 600px, (max-width: 1200px) 1200px, 1800px"
         />
       </div>
 
