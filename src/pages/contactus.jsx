@@ -48,6 +48,8 @@ const cards = [
 ];
 
 export default function ContactHero() {
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
@@ -148,7 +150,13 @@ export default function ContactHero() {
         </h2>
 
         {/* Contact Form */}
-        <form className={`${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black'} rounded-2xl shadow-lg p-8 space-y-6`}>
+        <form
+          className={`${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black'} rounded-2xl shadow-lg p-8 space-y-6`}
+          onSubmit={e => {
+            e.preventDefault();
+            setFormSubmitted(true);
+          }}
+        >
           <div className="grid md:grid-cols-2 gap-6">
             <input
               type="text"
@@ -179,9 +187,13 @@ export default function ContactHero() {
           <button
             type="submit"
             className="w-full bg-[#00bfff] text-white font-semibold py-3 rounded-lg hover:bg-[#00a6d6] transition"
+            disabled={formSubmitted}
           >
-            Send Message
+            {formSubmitted ? 'Submitted!' : 'Send Message'}
           </button>
+          {formSubmitted && (
+            <div className="text-green-500 text-center font-semibold mt-4">Submitted successfully!</div>
+          )}
         </form>
       </div>
     </section>
@@ -231,6 +243,7 @@ export default function ContactHero() {
             src={faqImage} 
             alt="FAQ illustration" 
             className="rounded-xl shadow-lg"
+            
           />
         </div>
 
@@ -275,19 +288,30 @@ export default function ContactHero() {
         </p>
 
         {/* Form */}
-        <form className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <form
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          onSubmit={e => {
+            e.preventDefault();
+            setNewsletterSubmitted(true);
+          }}
+        >
           <input 
             type="email" 
             placeholder="Enter your email" 
             className={`flex-1 px-6 py-4 rounded-xl border w-full sm:w-auto focus:outline-none focus:border-[#00bfff] ${theme === 'dark' ? 'border-gray-700 bg-[#181818] text-white' : 'border-gray-300 text-gray-800 bg-white'}`}
+            disabled={newsletterSubmitted}
           />
           <button 
             type="submit" 
             className="bg-[#000] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#00] transition duration-300 w-full sm:w-auto"
+            disabled={newsletterSubmitted}
           >
-            Subscribe
+            {newsletterSubmitted ? 'Subscribed!' : 'Subscribe'}
           </button>
         </form>
+        {newsletterSubmitted && (
+          <div className="text-green-500 text-center font-semibold mt-4">Subscribed successfully!</div>
+        )}
       </div>
     </section>
   
