@@ -48,7 +48,7 @@ const Header = () => {
   }, []);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   const toggleMobileMenu = () => {
@@ -93,7 +93,7 @@ const Header = () => {
             >
               <button
                 onClick={() => navigate('/home1')}
-                className={`flex items-center ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-[#00BFFF] transition-colors duration-200`}
+                className={`flex items-center ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
                 aria-haspopup="true"
                 aria-expanded={isHomeDropdownOpen}
               >
@@ -113,7 +113,7 @@ const Header = () => {
 
             <Link
               to="/aboutus"
-              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-[#00BFFF] transition-colors duration-200`}
+              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
             >
               About Us
             </Link>
@@ -134,7 +134,7 @@ const Header = () => {
             >
               <button
                 onClick={() => navigate('/services')}
-                className={`flex items-center ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-[#00BFFF] transition-colors duration-200`}
+                className={`flex items-center ${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
                 aria-haspopup="true"
                 aria-expanded={isServicesDropdownOpen}
               >
@@ -145,13 +145,13 @@ const Header = () => {
               </button>
               {isServicesDropdownOpen && (
                 <div className={`absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg border py-2 ${theme === 'dark' ? 'bg-[#1E2A38] border-[#141B25]' : 'bg-white border-gray-200'}`}>
-                  <Link to="/services" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
-                  <Link to="/Artificial-Intelligence&Machine-Learning" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Artificial Intelligence and machine learning</Link>
-                  <Link to="/web-development" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>web Development</Link>
-                  <Link to="/DataScience&Analytics" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Data Science and Analytics</Link>
-                  <Link to="/blockchaincryptocurrency" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Blockchain and Cryptocurrency</Link>
-                  <Link to="/Cybersecurity&Ethical-Hacking" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>cybersecurity and Ethical Hacking</Link>
-                  <Link to="/CloudComputing&DevOps" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>Cloud Computing and DevOps</Link>
+                    <Link to="/services" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
+                    <Link to="/CommercialConstruction" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Commercial Construction</Link>
+                    <Link to="/Design-Planning&Execution" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Design, Planning & Execution</Link>
+                    <Link to="/ResidentialConstruction" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Residential Construction</Link>
+                    <Link to="/ProjectManagement&Consultation" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Project Management & Consultation</Link>
+                    <Link to="/Renovation&Remodeling" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Renovation & Remodeling</Link>
+                    <Link to="/InteriorFit-outs" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Interior Fit-outs</Link>
                 </div>
               )}
             </div>
@@ -159,30 +159,30 @@ const Header = () => {
           
             <Link
               to="/blog"
-              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-[#00BFFF] transition-colors duration-200`}
+              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
             >
               Blog
             </Link>
 
             <Link
               to="/contactus"
-              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-[#00BFFF] transition-colors duration-200`}
+              className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
             >
               Contact Us
             </Link>
 
             {/* Dark Mode Toggle */}
             <button
-              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-blue-100 border-blue-300 hover:bg-blue-200'}`}
+              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-yellow-100 border-yellow-300 hover:bg-yellow-200'}`}
               onClick={toggleTheme}
               aria-label="Toggle dark mode"
             >
               {theme === 'dark' ? (
-                <svg className="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8.66-8.66h-1M4.34 12H3m15.07 4.93l-.71-.71M6.34 6.34l-.71-.71m12.02 12.02l-.71-.71M6.34 17.66l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               )}
@@ -209,7 +209,7 @@ const Header = () => {
     <>
       <ScrollToTop />
                     <button
-                      className="w-10 h-10 rounded-full bg-[#00bfff] flex items-center justify-center text-white font-semibold focus:outline-none"
+                      className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-white font-semibold focus:outline-none"
                       onClick={() => setIsAvatarDropdownOpen((v) => !v)}
                     >
                       {initials}
@@ -218,23 +218,15 @@ const Header = () => {
                       <div className={`absolute right-0 mt-2 w-40 rounded-md shadow-lg border py-2 z-50 ${theme === 'dark' ? 'bg-[#1E2A38] border-[#141B25]' : 'bg-white border-gray-200'}`}> 
                         {email === 'admin@enkonix.in' && (
                           <button
-                            className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#00bfff]' : 'text-gray-800 hover:bg-blue-100'}`}
+                            className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-yellow-400' : 'text-gray-800 hover:bg-yellow-100'}`}
                             onClick={() => { setIsAvatarDropdownOpen(false); navigate('/admindashboard'); }}
                           >
                             Back to Admin Dashboard
                           </button>
                         )}
-                        {/* User Dashboard link for non-admin users */}
-                        {email && email !== 'admin@enkonix.in' && (
-                          <button
-                            className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#00bfff]' : 'text-gray-800 hover:bg-blue-100'}`}
-                            onClick={() => { setIsAvatarDropdownOpen(false); navigate('/userdashboard'); }}
-                          >
-                            User Dashboard
-                          </button>
-                        )}
+                        
                         <button
-                          className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#00bfff]' : 'text-gray-800 hover:bg-blue-100'}`}
+                          className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-yellow-400' : 'text-gray-800 hover:bg-yellow-100'}`}
                           onClick={() => { setIsAvatarDropdownOpen(false); navigate('/welcome'); }}
                         >
                           Logout
@@ -251,7 +243,7 @@ const Header = () => {
           <div className="flex items-center space-x-4 min-[480px]:hidden">
             {/* Dark Mode Toggle (Mobile) */}
             <button
-              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-blue-100 border-blue-300 hover:bg-blue-200'}`}
+              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-yellow-100 border-yellow-300 hover:bg-yellow-200'}`}
               onClick={toggleTheme}
               aria-label="Toggle dark mode"
             >
@@ -260,7 +252,7 @@ const Header = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8.66-8.66h-1M4.34 12H3m15.07 4.93l-.71-.71M6.34 6.34l-.71-.71m12.02 12.02l-.71-.71M6.34 17.66l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               )}
@@ -286,7 +278,7 @@ const Header = () => {
                 return (
                   <>
                     <button
-                      className="w-10 h-10 rounded-full bg-[#00BFFF] flex items-center justify-center text-white font-semibold focus:outline-none"
+                      className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-white font-semibold focus:outline-none"
                       onClick={() => setIsAvatarDropdownOpen((v) => !v)}
                     >
                       {initials}
@@ -295,14 +287,14 @@ const Header = () => {
                       <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
                         {email === 'admin@enkonix.in' && (
                           <button
-                            className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-blue-100"
+                            className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-yellow-100"
                             onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/admindashboard'; }}
                           >
                             Back to Admin Dashboard
                           </button>
                         )}
                         <button
-                          className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-blue-100"
+                          className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-yellow-100"
                           onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
                         >
                           Logout
@@ -367,12 +359,12 @@ const Header = () => {
                 {isServicesDropdownOpen && (
                   <div className="pl-4 space-y-1">
                     <Link to="/services" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>All Services</Link>
-                    <Link to="/Artificial-Intelligence&Machine-Learning" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Artificial Intelligence and Machine Learning</Link>
-                    <Link to="/web-development" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Web Development</Link>
-                    <Link to="/DataScience&Analytics" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Data Science and Analytics</Link>
-                    <Link to="/blockchaincryptocurrency" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Blockchain and Cryptocurrency</Link>
-                    <Link to="/Cybersecurity&Ethical-Hacking" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Cybersecurity and Ethical Hacking</Link>
-                    <Link to="/CloudComputing&DevOps" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Cloud Computing and DevOps</Link>
+                    <Link to="/CommercialConstruction" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Commercial Construction</Link>
+                    <Link to="/Design-Planning&Execution" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Design, Planning & Execution</Link>
+                    <Link to="/ResidentialConstruction" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Residential Construction</Link>
+                    <Link to="/ProjectManagement&Consultation" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Project Management & Consultation</Link>
+                    <Link to="/Renovation&Remodeling" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Renovation & Remodeling</Link>
+                    <Link to="/InteriorFit-outs" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Interior Fit-outs</Link>
                   </div>
                 )}
               </div>

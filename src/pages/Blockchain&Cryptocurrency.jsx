@@ -1,10 +1,49 @@
-import React, { useState } from "react";
-import cryptoHero from "../assets/crypto.mp4";
-import b1 from "../assets/b1.avif";
-import b2 from "../assets/b2.jpeg";
-import b3 from "../assets/b3.jpeg";
 
-export default function BlockchainPage() {
+import React, { useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+import aihero from "../assets/com.mp4";
+import a1 from "../assets/com1.webp"; // your AI/ML service image
+import a2 from "../assets/com2.jpg"; // another AI/ML service 
+
+const benefits = [
+  {
+    title: "Tailored Business Solutions",
+    description: "We design spaces aligned with your industry needs and brand identity.",
+  },
+  {
+    title: "High-Grade Materials",
+    description: "Durable, low-maintenance materials built for heavy use and longevity.",
+  },
+  {
+    title: "Efficient Layouts",
+    description: "Optimized designs to maximize productivity and operational flow.",
+  },
+  {
+    title: "On-Schedule Completion",
+    description: "Robust project management to ensure timely delivery.",
+  },
+  {
+    title: "Transparent Costing",
+    description: "Clear, upfront pricing with no hidden expenses.",
+  },
+  {
+    title: "Proven Expertise",
+    description: "Experienced teams delivering precision and quality in every project.",
+  },
+];
+const steps = [
+  "Consultation to understand your business requirements",
+  "Comprehensive design and planning with detailed layouts",
+  "Clear cost estimation and approvals",
+  "Material procurement with strict quality standards",
+  "Expert-led construction and site supervision",
+  "Final delivery with full compliance and support",
+];
+
+
+export default function AIServicePage() {
   // Theme state synced with Header
   const [theme, setTheme] = useState('light');
   React.useEffect(() => {
@@ -17,6 +56,8 @@ export default function BlockchainPage() {
       };
       window.addEventListener('theme-changed', handleThemeChange);
       window.addEventListener('storage', handleThemeChange);
+      // Initialize AOS to animate every time section comes into view
+      AOS.init({ once: false, duration: 800 });
       return () => {
         window.removeEventListener('theme-changed', handleThemeChange);
         window.removeEventListener('storage', handleThemeChange);
@@ -28,216 +69,412 @@ export default function BlockchainPage() {
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-
-  const faqs = [
-    {
-      question: "What is Blockchain?",
-      answer:
-        "Blockchain is a decentralized digital ledger that records transactions securely and transparently across a network of computers.",
-    },
-    {
-      question: "Do you build custom blockchain solutions?",
-      answer:
-        "Yes, we design and develop custom blockchain platforms, smart contracts, and decentralized applications tailored to your needs.",
-    },
-    {
-      question: "Can blockchain improve business security?",
-      answer:
-        "Absolutely! Blockchain enhances data integrity, reduces fraud, and provides secure, tamper-proof records for your business.",
-    },
-    {
-      question: "Do you offer crypto wallet and exchange development?",
-      answer:
-        "Yes, we create secure crypto wallets, exchanges, and payment solutions for seamless digital asset management.",
-    },
-    {
-      question: "Is blockchain suitable for my industry?",
-      answer:
-        "Blockchain benefits industries like finance, supply chain, healthcare, real estate, and more by improving transparency and efficiency.",
-    },
-    {
-      question: "Do you provide ongoing support?",
-      answer:
-        "We offer continuous support, upgrades, and maintenance to keep your blockchain solutions secure and up-to-date.",
-    },
-  ];
-
   return (
     <div className={
-      `${theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-black'}`
+      `${theme === 'dark' ? 'min-h-screen bg-black text-white overflow-hidden' : 'min-h-screen bg-white text-black overflow-hidden'}`
     }>
       {/* Hero Section */}
-      <section className="relative w-full h-screen md:h-screen grid place-items-center text-center overflow-hidden" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
+      <section className="relative w-full h-screen md:h-screen grid place-items-center text-center overflow-hidden" style={{ color: theme === 'dark' ? '#fff' : '#fff' }} data-aos="fade-up" data-aos-duration="1000">
+        {/* Background Video */}
         <video
           className="absolute top-0 left-0 w-full h-full object-cover"
-          src={cryptoHero}
+          src={aihero}
           autoPlay
           loop
           muted
           playsInline
-          aria-label="Blockchain Hero Background Video"
         />
+
+        {/* Overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
-        <div className="relative z-10 px-6">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 leading-snug" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
-            Empowering Innovation with <span style={{ color: '#00bfff' }}>Blockchain Technology</span>
-          </h1>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${theme === 'dark' ? 'text-white' : 'text-white'}`}>
-            We deliver secure, scalable, and transparent blockchain solutions to help organizations transform operations and unlock new opportunities.
-          </p>
+
+        {/* Content */}
+        <div className="relative z-10 px-4 sm:px-6">
+         <h1 
+  className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 leading-snug" 
+  style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
+>
+  Building the Future of{' '}
+  <span style={{ color: '#facc15' /* Tailwind yellow-400 */ }}>Commercial Spaces</span>
+</h1>
+
+<p 
+  className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${theme === 'dark' ? 'text-white' : 'text-white'}`}
+>
+  We design and construct functional, innovative, and sustainable commercial 
+  buildings — helping businesses thrive with projects delivered on time and within budget.
+</p>
+
+
         </div>
       </section>
 
-      {/* Service Includes Section */}
-      <section className={
-        `py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`
-      }>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center px-4 md:px-6">
-          {/* Left Image */}
-          <div className="flex justify-center">
-            <img src={b1} alt="Blockchain Services" className="rounded-2xl shadow-lg w-full max-w-md md:max-w-full" />
-          </div>
-          {/* Right Content */}
-          <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 break-words leading-tight" style={{ color: '#fff' }}>
-              What Our Blockchain Service Includes
-            </h2>
-            <ul className="space-y-4 text-base sm:text-lg">
-              {[
-                'Custom Blockchain Development',
-                'Smart Contracts & DApps',
-                'Crypto Wallet & Exchange Solutions',
-                'Supply Chain & Asset Tracking',
-                'Security & Compliance',
-                'Ongoing Support & Maintenance',
-              ].map((item, idx) => (
-                <li className="flex items-center" key={item}>
-                  <span className={`w-3 h-3 rounded-full mr-3 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
-      {/* Who It's For Section */}
-      <section className={
-        `py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
-      }>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6 items-center">
-          {/* Left Side Text */}
-          <div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4 leading-snug" style={{ color: theme === 'dark' ? '#00bfff' : '#222' }}>
-              Who It's For?
-            </h2>
-            <p className={`text-lg mb-6 text-justify ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-              Our <span className="font-semibold" style={{ color: '#00bfff' }}>Blockchain solutions</span> empower organizations to innovate, secure transactions, and streamline operations. From finance to healthcare, supply chain to real estate, we help you harness the power of blockchain.
-            </p>
-          </div>
-          {/* Right Side Cards */}
-          <div className="grid lg:grid-cols-2 gap-6">
-            {[
-              { title: 'Finance', desc: 'Secure transactions and digital assets.' },
-              { title: 'Healthcare', desc: 'Protect patient data and streamline records.' },
-              { title: 'Supply Chain', desc: 'Track assets and improve transparency.' },
-              { title: 'Real Estate', desc: 'Simplify property transactions and records.' },
-            ].map((card, idx) => (
-              <div key={card.title} className={`p-6 rounded-2xl shadow-md hover:shadow-lg transition ` + (theme === 'dark' ? 'bg-[#222]' : 'bg-[#fdfcf9]')}>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#00bfff' }}>{card.title}</h3>
-                <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}>{card.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Benefits Section */}
-      <section className="relative w-full bg-cover bg-center py-20" style={{ backgroundImage: `url(${b2})` }}>
-        <div className="absolute inset-0" style={{ background: theme === 'dark' ? 'rgba(0,191,255,0.7)' : 'rgba(0,191,255,0.7)' }}></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center" style={{ color: '#fff' }}>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-12 drop-shadow-lg">
-            Benefits of Our Blockchain Services
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {[
-              "Decentralization & Transparency",
-              "Enhanced Security",
-              "Fraud Prevention",
-              "Efficient Transactions",
-              "Cost Reduction",
-              "Future-Ready Solutions",
-            ].map((benefit, index) => (
-              <div key={index} className={`backdrop-blur-md p-6 rounded-2xl shadow-lg hover:scale-105 transition ` + (theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black')}>
-                <h3 className="text-xl font-semibold mb-3">{benefit}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+<section 
+  className={`w-full py-16 ${theme === "dark" ? "bg-[#222]" : "bg-white"}`}
+  data-aos="fade-up" data-aos-delay="100"
+>
+  <div className="text-center mb-6">
+    <h2 
+      className={`text-4xl md:text-5xl font-extrabold leading-tight mb-4 
+      ${theme === "dark" ? "text-white" : "text-gray-900"}`}
+      data-aos="fade-up" data-aos-delay="120"
+    >
+      Our Commercial Construction Process
+    </h2>
+    <p 
+      className={`text-lg leading-relaxed 
+      ${theme === "dark" ? "text-white" : "text-gray-700"}`}
+      data-aos="fade-up" data-aos-delay="140"
+    >
+      From planning to project delivery, we ensure efficiency, 
+      quality, and transparency — helping your business space take shape seamlessly.
+    </p>
+  </div>
 
-      {/* FAQ Section */}
-      <section className={
-        `py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50'}`
-      }>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12" style={{ color: '#00bfff' }}>
-            Frequently Asked Questions
-          </h2>
-          <div className="grid lg:grid-cols-2 gap-6">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className={`rounded-2xl shadow-md p-6 cursor-pointer transition hover:shadow-lg ` + (theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black')}
-                onClick={() => toggleFAQ(index)}
-              >
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold">{faq.question}</h3>
-                  <span className="font-bold text-xl" style={{ color: '#00bfff' }}>
-                    {openIndex === index ? "-" : "+"}
-                  </span>
-                </div>
-                {openIndex === index && (
-                  <p className={theme === 'dark' ? 'mt-4 text-gray-200' : 'mt-4 text-gray-600'}>{faq.answer}</p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className={
-        `py-20 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`
-      }>
-        <div className="max-w-7xl mx-auto grid  lg:grid-cols-2 gap-10 items-center px-6">
-          {/* Left Content */}
-          <div className="space-y-6 flex flex-col justify-center h-full">
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            Ready to <span style={{ color: '#fff' }}>Innovate</span> with Blockchain?
-          </h2>
-          <p className={`text-lg ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    {/* LEFT CONTENT */}
+    <div className="flex flex-col justify-around text-justify h-full">
+      <ul className="space-y-4">
+        {steps.map((step, index) => (
+          <li 
+            key={index} 
+            className="flex items-start"
+            data-aos="fade-up" data-aos-delay={160 + index * 40}
           >
-            Partner with us to build secure, scalable, and future-ready blockchain solutions. Let’s transform your business, together.
-          </p>
-          <button className={
-            `px-8 py-4 font-semibold rounded-xl shadow-md transition self-start lg:self-auto ` +
-            (theme === 'dark' ? 'bg-white text-black hover:bg-gray-200' : 'bg-[#fff] text-black hover:bg-[#0099cc]')
-          }>
-            Get Started Today
-          </button>
-          </div>
+            <span 
+              className={`w-6 h-6 rounded-full text-white flex items-center justify-center text-sm font-semibold mr-4 shadow 
+              ${theme === "dark" ? "bg-yellow-400" : "bg-yellow-400"}`}
+            >
+              {index + 1}
+            </span>
+            <p 
+              className={`text-base leading-relaxed 
+              ${theme === "dark" ? "text-white" : "text-gray-700"}`}
+            >
+              {step}
+            </p>
+          </li>
+        ))}
+      </ul>
 
-          {/* Right Image */}
-          <div className="flex justify-center items-center h-full">
-            <img
-              src={b3}
-              alt="Blockchain CTA"
-              className="rounded-2xl shadow-lg w-full max-w-xl object-cover"
-            />
-          </div>
-        </div>
-      </section>
+      {/* BUTTON */}
+      <button 
+        className={`px-6 py-3 w-[200px] rounded-xl font-semibold text-lg shadow-md transition duration-300 mt-6
+        ${theme === "dark" 
+          ? "bg-yellow-400 text-black hover:bg-yellow-500" 
+          : "bg-yellow-400 text-black hover:bg-yellow-500"
+        }`}
+        data-aos="fade-up" data-aos-delay={160 + steps.length * 40}
+        onClick={() => {
+          const el = document.getElementById('pricing');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Start Your Project
+      </button>
     </div>
+
+    {/* RIGHT IMAGE */}
+    <div className="flex justify-center items-center" data-aos="fade-up" data-aos-delay="300">
+      <img 
+        src={a2} 
+        alt="Residential Construction" 
+        className="w-full h-full object-cover rounded-2xl shadow-lg"
+      />
+    </div>
+  </div>
+</section>
+      {/* Service Includes Section */}
+<section 
+  className="w-full py-16" 
+  style={{ backgroundColor: theme === 'dark' ? '#000' : '#f3f4f6' }}
+  data-aos="fade-up" data-aos-delay="400"
+>
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12  items-center">
+    {/* LEFT CONTENT */}
+    <div data-aos="fade-up" data-aos-delay="420">
+      <h2 
+        className="text-4xl font-bold mb-4"
+        style={{ color: '#FACC15' }} // yellow-400
+      >
+        Why Choose Our Residential Construction Services
+      </h2>
+      
+      <p 
+        className="mb-6 leading-relaxed text-justify" 
+        style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+      >
+        We don’t just build houses — we create homes designed around you. 
+        Our process ensures a stress-free experience, exceptional quality, 
+        and lasting value through careful planning and expert execution.
+      </p>
+
+      <p 
+        className="leading-relaxed text-justify" 
+        style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+      >
+        With a transparent workflow and continuous supervision, you’ll always 
+        know exactly what’s happening at every stage — no hidden surprises, 
+        only reliable results.
+      </p>
+      
+      <p 
+        className="mb-6 leading-relaxed text-justify" 
+        style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+      >
+        Whether it’s a villa, apartment, or individual home, we deliver 
+        spaces that reflect your vision, supported by our proven track record 
+        of precision, quality, and on-time completion.
+      </p>
+      <p 
+        className="mb-6 leading-relaxed text-justify" 
+        style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+      >
+        From concept to completion, we combine modern design tools with 
+        traditional craftsmanship. Our dedicated team works closely with you 
+        at every stage to ensure your dream home is built to perfection — 
+        functional, beautiful, and built to last.
+      </p>
+    </div>
+
+    {/* RIGHT CARDS - 6 BENEFITS IN GRID */}
+    <div className="grid sm:grid-cols-2 gap-6">
+      {benefits.map((benefit, index) => (
+        <div
+          key={index}
+          className="shadow-md rounded-xl p-6 hover:shadow-lg transition duration-300"
+          style={{ 
+            backgroundColor: theme === 'dark' ? '#111' : '#fff',
+            color: theme === 'dark' ? '#ddd' : '#444'
+          }}
+          data-aos="fade-up" data-aos-delay={440 + index * 40}
+        >
+          <h3 
+            className="text-lg font-semibold mb-2"
+            style={{ color: '#FACC15' }} // yellow-400
+          >
+            {benefit.title}
+          </h3>
+          <p className="text-sm leading-relaxed">
+            {benefit.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+     
+
+     
+ 
+<section className={`w-full py-20 ${theme === "dark" ? "bg-[#222]" : "bg-white"}`} data-aos="fade-up" data-aos-delay="600">
+  <div className="max-w-7xl mx-auto px-6">
+    <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${theme === "dark" ? "text-yellow-400" : "text-yellow-400"}`} data-aos="fade-up" data-aos-delay="620">
+      Residential Construction Cost Guide – 2025
+    </h2>
+    <p className={`text-lg mb-8 max-w-3xl ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`} data-aos="fade-up" data-aos-delay="640">
+      Explore our updated cost projections for modern homes, tailored to your preferences. 
+      These figures serve as a preliminary reference before detailed architectural and site planning.
+    </p>
+
+    <div className="overflow-x-auto" data-aos="fade-up" data-aos-delay="660">
+      <table className={`min-w-full border rounded-lg overflow-hidden text-left 
+        ${theme === "dark" ? "border-gray-700" : "border-gray-300"}`}>
+        <thead className={`${theme === "dark" ? "bg-yellow-400 text-black" : "bg-gray-800 text-white"}`}>
+          <tr>
+            <th className="px-4 py-3">Home Size</th>
+            <th className="px-4 py-3">Finish Level</th>
+            <th className="px-4 py-3">Approx. Budget (₹)</th>
+            <th className="px-4 py-3">Build Duration</th>
+            <th className="px-4 py-3">Upgrades Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className={`${theme === "dark" ? "bg-black text-gray-300" : "bg-white"}`}>
+            <td className="px-4 py-3">1200 sq.ft</td>
+            <td className="px-4 py-3">Economy</td>
+            <td className="px-4 py-3">₹20 – ₹24 Lakhs</td>
+            <td className="px-4 py-3">6 – 7 months</td>
+            <td className="px-4 py-3">Basic Flooring, Standard Fixtures</td>
+          </tr>
+          <tr className={`${theme === "dark" ? "bg-gray-900 text-gray-300" : "bg-gray-100"}`}>
+            <td className="px-4 py-3">1600 sq.ft</td>
+            <td className="px-4 py-3">Standard</td>
+            <td className="px-4 py-3">₹32 – ₹38 Lakhs</td>
+            <td className="px-4 py-3">7 – 8 months</td>
+            <td className="px-4 py-3">Wardrobes, Premium Paints</td>
+          </tr>
+          <tr className={`${theme === "dark" ? "bg-black text-gray-300" : "bg-white"}`}>
+            <td className="px-4 py-3">2000 sq.ft</td>
+            <td className="px-4 py-3">Premium</td>
+            <td className="px-4 py-3">₹45 – ₹55 Lakhs</td>
+            <td className="px-4 py-3">9 – 10 months</td>
+            <td className="px-4 py-3">Modular Kitchen, Designer Lighting</td>
+          </tr>
+          <tr className={`${theme === "dark" ? "bg-gray-900 text-gray-300" : "bg-gray-100"}`}>
+            <td className="px-4 py-3">2500+ sq.ft</td>
+            <td className="px-4 py-3">Luxury / Custom</td>
+            <td className="px-4 py-3">On Request</td>
+            <td className="px-4 py-3">Custom Timeline</td>
+            <td className="px-4 py-3">Home Automation, Solar Energy, Pool</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p className={`text-sm mt-4 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`} data-aos="fade-up" data-aos-delay="680">
+      * These are guideline prices. Exact estimates depend on soil conditions, location, 
+      material availability, and architectural design.  
+    </p>
+  </div>
+</section>
+
+
+
+
+
+<section
+  className={`w-full py-16 sm:py-20 ${
+    theme === "dark" ? "bg-[#000]" : "bg-gray-100"
+  }`}
+  id="case-study"
+  data-aos="fade-up" data-aos-delay="700"
+>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 items-center gap-12 md:gap-16">
+    <div className="grid justify-center" data-aos="fade-up" data-aos-delay="720">
+      <img
+        src={a1} // import your image at top: import caseStudyImg from "../assets/casestudy.jpg";
+        alt="Case Study"
+        className="rounded-2xl shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto object-cover"
+      />
+    </div>
+    
+    {/* LEFT CONTENT */}
+    <div data-aos="fade-up" data-aos-delay="740">
+  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-400 mb-4 sm:mb-6 leading-snug">
+    Case Study 
+  </h2>
+  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-400 mb-4 sm:mb-6 leading-snug">
+     Contemporary Urban Residence
+  </h2>
+  
+  <p
+    className={`text-base sm:text-lg md:text-xl mb-4 sm:mb-6 text-justify leading-relaxed ${
+      theme === "dark" ? "text-white" : "text-gray-800"
+    }`}
+  >
+    This residence exemplifies how innovative design and precise execution 
+    can transform a compact urban plot into a spacious, light-filled home. 
+    Our team handled every phase with meticulous planning and seamless coordination.
+  </p>
+  <ul
+    className={`space-y-3 sm:space-y-4 text-base sm:text-lg ${
+      theme === "dark" ? "text-white" : "text-gray-800"
+    }`}
+  >
+    <li className="grid grid-cols-[auto_1fr] gap-2">
+      <span className="text-yellow-400">•</span>
+      3,800 sq.ft modern home completed in just 8 months.
+    </li>
+    <li className="grid grid-cols-[auto_1fr] gap-2">
+      <span className="text-yellow-400">•</span>
+      Integrated passive ventilation and solar energy systems for sustainability.
+    </li>
+    <li className="grid grid-cols-[auto_1fr] gap-2">
+      <span className="text-yellow-400">•</span>
+      Achieved premium finishes while maintaining strict cost control.
+    </li>
+  </ul>
+</div>
+
+
+    {/* RIGHT IMAGE */}
+    
+  </div>
+</section>
+
+
+<section className={`w-full py-20 font-sans antialiased ${theme === "dark" ? "bg-[#222]" : "bg-[#FFF]"}`} data-aos="fade-up" data-aos-delay="800" id="pricing">
+  {/* SECTION HEADER */}
+  <div className="text-center mb-12">
+    <h2 className={`text-4xl md:text-5xl font-extrabold leading-tight mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`} data-aos="fade-up" data-aos-delay="820">
+      Our Pricing Plans
+    </h2>
+    <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`} data-aos="fade-up" data-aos-delay="840">
+      Transparent and flexible pricing for every stage of your residential construction project.
+    </p>
+  </div>
+
+  {/* PRICING GRID */}
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+    {/* CARD 1 */}
+    <div className={`border rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`} data-aos="fade-up" data-aos-delay="860">
+      <div className="bg-yellow-400 rounded-t-2xl p-6 text-center">
+        <h3 className="text-2xl font-bold text-gray-900">Basic</h3>
+        <p className="text-xl font-semibold text-gray-800 mt-2">₹1,200 / sq.ft</p>
+      </div>
+      <ul className={`p-6 flex-1 space-y-4 text-base leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+        <li>Standard Materials</li>
+        <li>Basic Design Consultation</li>
+        <li>Quality Workmanship</li>
+        <li>On-Time Delivery</li>
+      </ul>
+      <div className="p-6 text-center">
+        <button className="px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition duration-300">
+          Choose Plan
+        </button>
+      </div>
+    </div>
+
+    {/* CARD 2 (HIGHLIGHTED) */}
+    <div className={`border rounded-2xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col ${theme === "dark" ? "border-yellow-400" : "border-yellow-400"}`} data-aos="fade-up" data-aos-delay="900">
+      <div className="bg-yellow-400 rounded-t-2xl p-6 text-center">
+        <h3 className="text-2xl font-bold text-gray-900">Premium</h3>
+        <p className="text-xl font-semibold text-gray-900 mt-2">₹1,800 / sq.ft</p>
+      </div>
+      <ul className={`p-6 flex-1 space-y-4 text-base leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+        <li>Premium Materials</li>
+        <li>Custom Design Support</li>
+        <li>Site Supervision</li>
+        <li>Extended Warranty</li>
+      </ul>
+      <div className="p-6 text-center">
+        <button className="px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition duration-300">
+          Choose Plan
+        </button>
+      </div>
+    </div>
+
+    {/* CARD 3 */}
+    <div className={`border rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`} data-aos="fade-up" data-aos-delay="940">
+      <div className="bg-yellow-400 rounded-t-2xl p-6 text-center">
+        <h3 className="text-2xl font-bold text-gray-900">Luxury</h3>
+        <p className="text-xl font-semibold text-gray-800 mt-2">₹2,500 / sq.ft</p>
+      </div>
+      <ul className={`p-6 flex-1 space-y-4 text-base leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+        <li>Luxury-Grade Materials</li>
+        <li>End-to-End Design Support</li>
+        <li>Dedicated Project Manager</li>
+        <li>5-Year Warranty</li>
+      </ul>
+      <div className="p-6 text-center">
+        <button className="px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition duration-300">
+          Choose Plan
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    
+
+  </div>
   );
 }

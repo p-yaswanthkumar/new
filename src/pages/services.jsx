@@ -1,51 +1,107 @@
 import React from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
-import serviceHeroVideo from "../assets/servicehero.mp4";
-import s1 from "../assets/s1.png";
+import serviceHeroVideo from "../assets/service.mp4";
+import s1 from "../assets/s1.webp";
 import s2 from "../assets/s2.jpg";
 import s3 from "../assets/s3.jpg";
-import s4 from "../assets/s4.jpg";
-import s5 from "../assets/s5.jpg";
+import s4 from "../assets/s4.webp";
+import s5 from "../assets/s5.webp";
 import s6 from "../assets/s6.jpeg";
+import ex1 from "../assets/ex1.webp";
+import ex2 from "../assets/exm2.jpg";
+import ex3 from "../assets/exm3.jpeg";
+import ex4 from "../assets/ex4.avif";
+import ex5 from "../assets/exm5.webp";
+import cta from "../assets/cta.jpg";
+
 
 const services = [
   {
-    title: "Artificial Intelligence & Machine Learning",
-    description: "Master AI fundamentals, neural networks, deep learning, and real-world applications. Learn to build intelligent systems, predictive models, and automation tools that solve complex problems in industries like healthcare, finance, robotics, and e-commerce. Gain hands-on experience with popular AI frameworks such as TensorFlow and PyTorch, and understand how to implement AI responsibly and ethically. Explore AI-driven projects including chatbots, recommendation engines, computer vision applications, and natural language processing to prepare for high-demand careers in AI and data science.",
+    title: "Residential Construction",
+    description: "From concept to completion, we deliver high-quality homes tailored to your lifestyle and budget. Our residential construction services cover architectural design, structural planning, material selection, and on-site project management to ensure your dream home is delivered on time and to the highest standard. Whether it’s a luxury villa, modern apartment, or budget-friendly housing, we provide end-to-end solutions including interior finishing, landscaping, and smart home integrations. We focus on sustainability, energy efficiency, and safety, ensuring your home is both beautiful and future-ready.",
     image: s1,
-    link: "/Artificial-Intelligence&Machine-Learning",
+    link: "/residential-construction",
   },
   {
-    title: "Web Development",
-    description: "Learn frontend (React, HTML, CSS, JS) and backend (Node.js, Django) development. Build responsive websites, dynamic web applications, and interactive user interfaces while mastering the latest frameworks, libraries, and best practices. Understand full-stack development concepts, database integration, API creation, and deployment to cloud platforms. Gain practical experience by building real-world projects like e-commerce platforms, portfolio websites, and content management systems, equipping yourself for roles as a full-stack or frontend/back-end developer.",
+    title: "Commercial Construction",
+    description: "We design and build commercial spaces that drive business success. From office complexes and retail outlets to restaurants and mixed-use developments, our team manages every detail with precision. We ensure compliance with building codes, accessibility standards, and energy efficiency requirements, delivering modern, functional spaces tailored to your brand and operational needs. Our approach emphasizes durability, cost control, and seamless coordination between architects, engineers, and contractors to ensure timely delivery with no compromise on quality.",
     image: s2,
-    link: "/web-development",
+    link: "/commercial-construction",
   },
   {
-    title: "Data Science & Analytics",
-    description: "Analyze data, visualize trends, and create predictive models using Python & R. Gain expertise in data wrangling, statistical analysis, and machine learning algorithms to extract actionable insights. Work with real datasets, perform exploratory data analysis, and communicate findings effectively. Learn advanced topics like data mining, big data analytics, and business intelligence. Develop skills for careers as data analysts, data engineers, or data scientists across technology, finance, healthcare, and marketing sectors.",
+    title: "Interior Fit-outs",
+    description: "Transform any space into a fully functional and aesthetically pleasing environment. Our interior fit-out services include space planning, custom furniture, modular solutions, lighting design, false ceilings, flooring, and high-end finishes. We specialize in both residential and commercial interiors, ensuring optimized layouts, premium material usage, and flawless execution. With a focus on modern design trends and ergonomic solutions, we create interiors that enhance productivity, comfort, and visual appeal while maintaining budgetary efficiency.",
     image: s3,
-    link: "/DataScience&Analytics",
+    link: "/interior-fitouts",
   },
   {
-    title: "Blockchain & Cryptocurrency",
-    description: "Understand blockchain technology, smart contracts, and cryptocurrency development. Learn how decentralized systems work, develop secure blockchain applications, and explore opportunities in NFTs, DeFi, and digital asset management. Gain practical experience with Ethereum, Solidity, and other blockchain platforms. Explore real-world use cases including supply chain management, voting systems, digital identity verification, and cryptocurrency trading. Prepare for in-demand careers in blockchain development, crypto analysis, and decentralized finance solutions.",
+    title: "Renovation & Remodeling",
+    description: "Breathe new life into old spaces with our renovation and remodeling expertise. We handle structural upgrades, modern redesigns, plumbing and electrical rewiring, and complete interior overhauls. Whether it's modernizing a home, upgrading office interiors, or restoring heritage properties, our team ensures minimal disruption while delivering stunning results. We emphasize sustainable materials, space optimization, and innovative design approaches that increase property value, functionality, and aesthetics, tailored exactly to your vision.",
     image: s4,
-    link: "/Blockchain&Cryptocurrency",
+    link: "/renovation-remodeling",
   },
   {
-    title: "Cybersecurity & Ethical Hacking",
-    description: "Protect networks, perform penetration testing, and secure applications. Learn to identify vulnerabilities, implement security protocols, and defend against cyber threats to ensure data privacy and integrity. Explore real-world attack simulations, network defense strategies, and compliance standards such as GDPR and ISO. Gain hands-on experience with security tools, intrusion detection, malware analysis, and incident response. Build the expertise required to become a cybersecurity specialist, ethical hacker, or security consultant.",
+    title: "Design, Planning & Execution",
+    description: "Get comprehensive construction solutions under one roof. We provide architectural design, structural engineering, 3D visualization, and complete project execution. Our planning process ensures accurate budgeting, efficient resource allocation, and timely delivery, avoiding delays and cost overruns. By integrating advanced project management tools, we maintain transparency at every stage, giving clients real-time updates on progress. Our goal is to bring your vision to life with precision, creativity, and uncompromised quality.",
     image: s5,
-    link: "/Cybersecurity&Ethical-Hacking",
+    link: "/design-planning-execution",
   },
   {
-    title: "Cloud Computing & DevOps",
-    description: "Learn AWS, Azure, CI/CD pipelines, Docker, and Kubernetes for cloud solutions. Gain skills to design scalable cloud architectures, automate deployments, and manage infrastructure efficiently. Understand DevOps culture, monitoring, and continuous delivery practices, enabling you to build reliable, scalable, and high-performance cloud-based applications. Work on real-world cloud projects, implement serverless architectures, and optimize costs. Prepare for roles as cloud engineers, DevOps engineers, or system administrators in modern IT environments.",
+    title: "Project Management & Consultation",
+    description: "Our expert consultation and project management services ensure that your construction projects run smoothly, efficiently, and within budget. We provide feasibility studies, cost estimation, contract management, vendor coordination, and quality audits to ensure compliance with all safety and legal standards. Using modern tools for scheduling, monitoring, and reporting, we help you avoid delays, manage risks effectively, and achieve optimal results. Whether for small developments or large-scale infrastructure projects, our expertise guarantees flawless delivery.",
     image: s6,
-    link: "/CloudComputing&DevOps",
+    link: "/project-management-consultation",
   },
 ];
+const images = [
+    { src: ex1, title: "Luxury Villa", desc: "Modern design with premium finish" },
+    { src: ex2, title: "Corporate Office", desc: "Functional and elegant spaces" },
+    { src: ex3, title: "Retail Store", desc: "Inviting layouts to drive sales" },
+    { src: ex4, title: "Urban Apartment", desc: "Smart use of compact space" },
+    { src: ex5, title: "Signature Project", desc: "Defining architectural excellence" },
+  ];
+const communityPrograms = [
+  {
+    title: "Landmark Projects",
+    description:
+      "We have successfully completed over 500 residential, commercial, and industrial projects, setting benchmarks in quality and timely delivery.",
+    stat: "500+ Projects Delivered",
+  },
+  {
+    title: "Green Construction",
+    description:
+      "By adopting eco-friendly materials and energy-efficient designs, we've reduced project-related carbon emissions by 30%.",
+    stat: "30% Carbon Footprint Reduction",
+  },
+  {
+    title: "Skilled Workforce Training",
+    description:
+      "We have trained over 1,000 workers and engineers in advanced construction methods, ensuring safety and precision at every site.",
+    stat: "1,000+ Workers Trained",
+  },
+  {
+    title: "Community Infrastructure",
+    description:
+      "We’ve developed schools, hospitals, and community centers, improving access to essential services in underserved areas.",
+    stat: "50+ Social Projects",
+  },
+  {
+    title: "Safety First Initiative",
+    description:
+      "With regular safety drills and strict compliance protocols, we've achieved a remarkable safety record across all projects.",
+    stat: "Zero Major Incidents",
+  },
+  {
+    title: "Innovation in Engineering",
+    description:
+      "Our team leverages modern technology, including BIM and automated machinery, to optimize costs and enhance structural durability.",
+    stat: "5+ Cutting-edge Innovations",
+  },
+];
+
+
 
 
 export default function ServiceHero() {
@@ -61,6 +117,8 @@ export default function ServiceHero() {
       };
       window.addEventListener('theme-changed', handleThemeChange);
       window.addEventListener('storage', handleThemeChange);
+      // Initialize AOS for section animations
+      AOS.init({ once: false, duration: 800 });
       return () => {
         window.removeEventListener('theme-changed', handleThemeChange);
         window.removeEventListener('storage', handleThemeChange);
@@ -81,243 +139,315 @@ export default function ServiceHero() {
           muted
         />
         <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4" data-aos="fade-up" data-aos-duration="1000">
           <h1 className="text-5xl md:text-6xl font-bold" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
-            Elevate Your <span style={{ color: '#00bfff' }}>Experience</span>
-          </h1>
-          <p className={`mt-6 text-xl md:text-2xl max-w-3xl ${theme === 'dark' ? 'text-white' : 'text-white'}`}
-          >
-            Explore our curated services in Artificial Intelligence, Web Development, Data Science, Blockchain, Cybersecurity, and Cloud Computing. 
-            Tailored solutions that empower your learning journey and help you achieve your career goals.
-          </p>
+  Build Your <span style={{ color: '#facc15' }}>Vision</span>
+</h1>
+<p
+  className={`mt-6 text-xl md:text-2xl max-w-3xl ${
+    theme === 'dark' ? 'text-white' : 'text-white'
+  }`}
+>
+  Discover expert solutions in <span className="text-yellow-400 font-semibold">Project Management</span>, 
+  <span className="text-yellow-400 font-semibold"> Design & Planning</span>, 
+  and <span className="text-yellow-400 font-semibold">Construction Execution</span>.  
+  We turn concepts into reality — on time, on budget, with uncompromising quality.
+</p>
+
         </div>
       </section>
       {/* Service Steps Section */}
       
 
       {/* Services Section */}
-      <section className={
-        `py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
-      }>
-        <div className="container mx-auto px-4">
-<h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#00BFFF' }}>Explore Our Expertise</h2>
-          <div className="grid gap-12">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="grid md:grid-cols-2 items-center gap-6"
-              >
-                {/* Image */}
-                <div className={`${index % 2 !== 0 ? "md:order-2" : ""}`}>
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-80 rounded-lg shadow-lg"
-                  />
-                </div>
+      <section
+  className={`py-16 ${theme === 'dark' ? 'bg-[#111111]' : 'bg-[#f9fafb]'}`}
+>
+  <div className="container mx-auto px-4">
+    <h2
+      className="text-4xl font-bold text-center mb-12"
+      style={{ color: '#fecc15' }}
+      data-aos="fade-up" data-aos-delay="100"
+    >
+      Explore Our Construction Expertise
+    </h2>
 
-                {/* Content */}
-                <div className={`${index % 2 !== 0 ? "md:order-1" : ""}`}>
-                  <h3 className="text-2xl font-semibold mb-4" style={{ color: '#00BFFF' }}>{service.title}</h3>
-                  <p className={(theme === 'dark' ? 'text-gray-200 mb-6' : 'text-gray-700 mb-6') + ' text-justify'}>{service.description}</p>
-                  <Link
-                    to={service.link}
-                    className={
-                      `px-6 py-2 font-semibold rounded transition inline-block ` +
-                      (theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-600')
-                    }
-                  >
-                    Read More
-                  </Link>
-                </div>
-              </div>
-            ))}
+    <div className="grid gap-16">
+      {services.map((service, index) => (
+        <div
+          key={index}
+          className="grid md:grid-cols-2 items-center gap-8"
+          data-aos="fade-up" data-aos-delay={120 + index * 40}
+        >
+          {/* Image */}
+          <div className={`${index % 2 !== 0 ? "md:order-2" : ""}`}>
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-80 object-cover rounded-2xl shadow-xl border border-gray-300"
+              data-aos="fade-up" data-aos-delay={140 + index * 40}
+            />
+          </div>
+
+          {/* Content */}
+          <div className={`${index % 2 !== 0 ? "md:order-1" : ""}`}>
+            <h3
+              className="text-3xl font-semibold mb-4"
+              style={{ color: '#fecc15' }}
+              data-aos="fade-up" data-aos-delay={160 + index * 40}
+            >
+              {service.title}
+            </h3>
+            <p
+              className={
+                (theme === 'dark'
+                  ? 'text-gray-300 mb-6'
+                  : 'text-gray-800 mb-6') + ' text-justify leading-relaxed'
+              }
+              data-aos="fade-up" data-aos-delay={180 + index * 40}
+            >
+              {service.description}
+            </p>
+            <Link
+              to={service.link}
+              className={
+                `px-6 py-3 font-semibold rounded-lg transition inline-block shadow-md ` +
+                (theme === 'dark'
+                  ? 'bg-[#fecc15] text-black hover:bg-yellow-400'
+                  : 'bg-yellow-400 text-white hover:bg-blue-500')
+              }
+              data-aos="fade-up" data-aos-delay={200 + index * 40}
+            >
+              Read More
+            </Link>
           </div>
         </div>
-      </section>
-
-
-      <section className={
-        `py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00BFFF]'}`
-      }>
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#FFF' }}>How to Get Started</h2>
-          <div className="grid md:grid-cols-4 gap-10">
-            {/* Step 1 */}
-            <div className="flex flex-col items-center hover:scale-105 transition smooth text-center">
-              <div className={
-                `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
-                (theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]')
-              }>
-                <span className="text-3xl font-bold" style={{ color: '#00BFFF' }}>1</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: '#FFF' }}>Browse Services</h3>
-              <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Explore our range of technology and career-focused services to find what fits your goals.</p>
-            </div>
-            {/* Step 2 */}
-            <div className="flex flex-col items-center hover:scale-105 transition smooth text-center">
-              <div className={
-                `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
-                (theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]')
-              }>
-                <span className="text-3xl font-bold" style={{ color: '#00BFFF' }}>2</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: '#FFF' }}>Connect with Experts</h3>
-              <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Reach out to our instructors and advisors for guidance and personalized recommendations.</p>
-            </div>
-            {/* Step 3 */}
-            <div className="flex flex-col items-center hover:scale-105 transition smooth text-center">
-              <div className={
-                `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
-                (theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]')
-              }>
-                <span className="text-3xl font-bold" style={{ color: '#00BFFF' }}>3</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: '#FFF' }}>Enroll & Learn</h3>
-              <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Sign up for courses, workshops, or consulting sessions and start your learning journey.</p>
-            </div>
-            {/* Step 4 */}
-            <div className="flex flex-col items-center hover:scale-105 transition smooth text-center">
-              <div className={
-                `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
-                (theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]')
-              }>
-                <span className="text-3xl font-bold" style={{ color: '#00BFFF' }}>4</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: '#FFF' }}>Achieve Success</h3>
-              <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Apply your new skills, earn certificates, and advance your career with our support.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
 
 
       <section className={
-        `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
-      }>
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-6" style={{ color: '#00BFFF' }}>Our Pricing Plans</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Basic Plan */}
-            <div className={`rounded-2xl shadow-lg p-8 flex flex-col items-center ${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black'}`}>
-              <h3 className="text-2xl font-semibold mb-2">Basic</h3>
-              <div className="text-4xl font-bold mb-4" style={{ color: '#00BFFF' }}>$19<span className="text-lg font-normal">/mo</span></div>
-              <ul className="mb-6 space-y-2 text-left">
-                <li>✔️ Access to 3 courses</li>
-                <li>✔️ Community Support</li>
-                <li>✔️ Certificate of Completion</li>
-              </ul>
-              <button className={`px-6 py-2 rounded font-semibold transition ${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-600'}`}>Choose Basic</button>
-            </div>
-            {/* Pro Plan */}
-            <div className={`rounded-2xl shadow-lg p-8 flex flex-col items-center border-4 ${theme === 'dark' ? 'bg-[#181818] border-[#00BFFF] text-white' : 'bg-[#e6f7ff] border-[#00BFFF] text-black'}`}>
-              <h3 className="text-2xl font-semibold mb-2">Pro</h3>
-              <div className="text-4xl font-bold mb-4" style={{ color: '#00BFFF' }}>$49<span className="text-lg font-normal">/mo</span></div>
-              <ul className="mb-6 space-y-2 text-left">
-                <li>✔️ Access to all courses</li>
-                <li>✔️ Priority Support</li>
-                <li>✔️ Certificate & Projects</li>
-                <li>✔️ Monthly Webinars</li>
-              </ul>
-              <button className={`px-6 py-2 rounded font-semibold transition ${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-600'}`}>Choose Pro</button>
-            </div>
-            {/* Enterprise Plan */}
-            <div className={`rounded-2xl shadow-lg p-8 flex flex-col items-center ${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black'}`}>
-              <h3 className="text-2xl font-semibold mb-2">Enterprise</h3>
-              <div className="text-4xl font-bold mb-4" style={{ color: '#00BFFF' }}>$99<span className="text-lg font-normal">/mo</span></div>
-              <ul className="mb-6 space-y-2 text-left">
-                <li>✔️ Unlimited Users</li>
-                <li>✔️ Dedicated Account Manager</li>
-                <li>✔️ Custom Integrations</li>
-                <li>✔️ All Pro Features</li>
-              </ul>
-              <button className={`px-6 py-2 rounded font-semibold transition ${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-600'}`}>Contact Sales</button>
-            </div>
+  `py-16 ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'}`
+}>
+  <div className="container mx-auto px-4">
+    <h2 className="text-4xl font-bold text-center mb-12" style={{ color: theme === 'dark' ? '#FFD700' : '#333' }} data-aos="fade-up" data-aos-delay="300">
+      How to Get Started
+    </h2>
+    <div className="grid md:grid-cols-4 gap-10">
+      {/* Step 1 */}
+      <div className="flex flex-col items-center hover:scale-105 transition transform text-center" data-aos="fade-up" data-aos-delay="320">
+        <div className={
+          `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
+          (theme === 'dark' ? 'bg-[#333]' : 'bg-[#fff]')
+        }>
+          <span className="text-3xl font-bold" style={{ color: '#FFD700' }}>1</span>
+        </div>
+        <h3 className="text-xl font-semibold mb-2" style={{ color: theme === 'dark' ? '#FFD700' : '#333' }}>
+          Share Your Vision
+        </h3>
+        <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
+          Tell us about your project—whether it's a home, office, or commercial space.
+        </p>
+      </div>
+
+      {/* Step 2 */}
+      <div className="flex flex-col items-center hover:scale-105 transition transform text-center" data-aos="fade-up" data-aos-delay="360">
+        <div className={
+          `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
+          (theme === 'dark' ? 'bg-[#333]' : 'bg-[#fff]')
+        }>
+          <span className="text-3xl font-bold" style={{ color: '#FFD700' }}>2</span>
+        </div>
+        <h3 className="text-xl font-semibold mb-2" style={{ color: theme === 'dark' ? '#FFD700' : '#333' }}>
+          Get a Custom Plan
+        </h3>
+        <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
+          Our team designs a tailored plan including cost estimates and timelines.
+        </p>
+      </div>
+
+      {/* Step 3 */}
+      <div className="flex flex-col items-center hover:scale-105 transition transform text-center" data-aos="fade-up" data-aos-delay="400">
+        <div className={
+          `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
+          (theme === 'dark' ? 'bg-[#333]' : 'bg-[#fff]')
+        }>
+          <span className="text-3xl font-bold" style={{ color: '#FFD700' }}>3</span>
+        </div>
+        <h3 className="text-xl font-semibold mb-2" style={{ color: theme === 'dark' ? '#FFD700' : '#333' }}>
+          Watch Us Build
+        </h3>
+        <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
+          Sit back while we handle construction, ensuring quality at every stage.
+        </p>
+      </div>
+
+      {/* Step 4 */}
+      <div className="flex flex-col items-center hover:scale-105 transition transform text-center" data-aos="fade-up" data-aos-delay="440">
+        <div className={
+          `rounded-full w-20 h-20 flex items-center justify-center mb-4 shadow-lg ` +
+          (theme === 'dark' ? 'bg-[#333]' : 'bg-[#fff]')
+        }>
+          <span className="text-3xl font-bold" style={{ color: '#FFD700' }}>4</span>
+        </div>
+        <h3 className="text-xl font-semibold mb-2" style={{ color: theme === 'dark' ? '#FFD700' : '#333' }}>
+          Move In & Enjoy
+        </h3>
+        <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
+          Get the keys to your finished project, built exactly to your expectations.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+ {/* Projects Section */}
+<section className={`w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50'} overflow-hidden`}>
+  {/* Section heading */}
+  <div className="text-center mb-12">
+    <h2
+      className={`text-4xl md:text-5xl font-bold ${
+        theme === 'dark' ? 'text-white' : 'text-gray-800'
+      }`}
+      data-aos="fade-up" data-aos-delay="400"
+    >
+      Our <span className="text-yellow-400">Projects</span>
+    </h2>
+    <p
+      className={`mt-4 text-lg md:text-xl ${
+        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+      }`}
+      data-aos="fade-up" data-aos-delay="420"
+    >
+      A glimpse of our finest construction and design works
+    </p>
+  </div>
+
+  {/* Grid container */}
+  <div className="max-w-6xl mx-auto grid  lg:grid-cols-3 gap-6">
+    {/* ex5 big image (on desktop spans 2 rows, single col on mobile) */}
+    <div className="relative group overflow-hidden rounded-2xl shadow-lg md:row-span-2" data-aos="fade-up" data-aos-delay="440">
+      <img
+        src={images[4].src}
+        alt={images[4].title}
+        className="w-full h-full object-cover transition-all duration-500 group-hover:opacity-0"
+        data-aos="fade-up" data-aos-delay="460"
+      />
+      {/* Hover overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto bg-yellow-400 transition-all duration-500">
+        <h3 className="text-2xl font-bold text-black px-4 py-2 rounded-lg mb-2">{images[4].title}</h3>
+        <p className="text-lg text-black px-3 py-1 rounded">{images[4].desc}</p>
+      </div>
+    </div>
+
+    {/* Other images */}
+    {images.slice(0, 4).map((img, idx) => (
+      <div key={idx} className="relative group overflow-hidden rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay={500 + idx * 40}>
+        <img
+          src={img.src}
+          alt={img.title}
+          className="w-full h-full object-cover transition-all duration-500 group-hover:opacity-0"
+          data-aos="fade-up" data-aos-delay={520 + idx * 40}
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto bg-yellow-400 transition-all duration-500">
+          <h3 className="text-xl font-bold text-black px-3 py-1 rounded mb-1">{img.title}</h3>
+          <p className="text-black px-2 py-1 rounded">{img.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+{/* Community Impact Section */}
+<section className={`py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-100'} overflow-hidden`}>
+  <div className="container mx-auto px-4">
+    {/* Heading */}
+    <h2 className={`text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-black'}`} data-aos="fade-up" data-aos-delay="600">
+      Community Impact & <span style={{ color: '#fecc15' }}>Social Responsibility</span>
+    </h2>
+
+    {/* Grid */}
+    <div className="grid gap-8 md:grid-cols-3">
+      {communityPrograms.map((program, index) => (
+        <div
+          key={index}
+          className={`pt-3 pb-6 px-6 rounded-lg shadow-md flex flex-col justify-between ${theme === 'dark' ? 'bg-[#222]' : 'bg-white'}`}
+          data-aos="fade-up" data-aos-delay={620 + index * 40}
+        >
+          <div>
+            <h3 className={`text-xl text-justify font-semibold mb-2 ${theme === 'dark' ? 'text-[#fecc15]' : 'text-black'}`} data-aos="fade-up" data-aos-delay={640 + index * 40}>
+              {program.title}
+            </h3>
+            <p className={`${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} text-justify mb-3`} data-aos="fade-up" data-aos-delay={660 + index * 40}>
+              {program.description}
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <span className="inline-block bg-[#fecc15] rounded-full text-white font-semibold align-middle px-4 py-2" data-aos="fade-up" data-aos-delay={680 + index * 40}>
+              {program.stat}
+            </span>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
+
+
+
+
+
+     
 
       {/* Technology & Tools Section */}
-      <section className={`w-full py-16 ${theme === 'dark' ? 'bg-[#000]' : 'bg-[#00BFFF]'}`}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-12 text-center" style={{ color: '#FFF' }}>Technology & Tools</h2>
-          <div className="flex  md:flex-row md:items-start gap-10">
-            {/* Left: Paragraph */}
-            <div className="md:w-1/2 w-full flex items-center justify-center md:justify-start mb-8 md:mb-0">
-              <p
-  className={`text-lg text-justify ${
-    theme === "dark" ? "text-gray-200" : "text-gray-700"
-  }`}
-  style={{ maxWidth: "400px" }}
->
-  We empower your learning with the latest industry-standard technologies and tools, 
-  ensuring you gain hands-on experience that truly matters. 
-  Our programs go beyond theory, focusing on practical application through real projects, 
-  case studies, and interactive challenges. 
-  Every course is designed in collaboration with industry experts, so you learn the 
-  exact skills companies are looking for today. 
-  With dedicated mentorship and continuous feedback, we help you build confidence 
-  alongside your technical expertise. 
-  Whether you are starting your career or upgrading your skills. </p>
+     <section className={`w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#fff]'} overflow-hidden`}>
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
+    {/* LEFT CONTENT */}
+    <div>
+      <h2 
+        className="text-4xl md:text-5xl font-bold mb-6 leading-tight" 
+        style={{ color: '#facc15' }}
+        data-aos="fade-up" data-aos-delay="700"
+      >
+        Ready to Build With Us?
+      </h2>
+      <p 
+        className={`text-lg md:text-xl mb-8 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}
+        data-aos="fade-up" data-aos-delay="720"
+      >
+        Join hands with our expert team to bring your vision to life — from concept to completion.  
+        Let's create something extraordinary, together.
+      </p>
+      <a 
+        href="/contactus" 
+        className={
+          `inline-block font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ` +
+          (theme === 'dark' 
+            ? 'bg-yellow-400 text-black hover:bg-[#00BFFF] hover:text-white' 
+            : 'bg-yellow-400 text-black hover:bg-[#00BFFF] hover:text-white'
+          )
+        }
+        data-aos="fade-up" data-aos-delay="740"
+      >
+        Contact Us
+      </a>
+    </div>
 
-            </div>
-            {/* Right: 2x2 Grid of 4 boxes */}
-            <div className="md:w-1/2 w-full grid  sm:grid-cols-2 gap-6">
-              {/* AI/ML */}
-              <div className={`p-6 rounded-xl shadow-md ${theme === 'dark' ? 'bg-[#181818] text-white' : 'bg-white text-black'}`}>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#00BFFF' }}>AI & Machine Learning</h3>
-                <ul className="list-disc ml-5">
-                  <li>TensorFlow</li>
-                  <li>PyTorch</li>
-                </ul>
-              </div>
-              {/* Web Dev */}
-              <div className={`p-6 rounded-xl shadow-md ${theme === 'dark' ? 'bg-[#181818] text-white' : 'bg-white text-black'}`}>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#00BFFF' }}>Web Development</h3>
-                <ul className="list-disc ml-5">
-                  <li>React</li>
-                  <li>Node.js</li>
-                  <li>Django</li>
-                </ul>
-              </div>
-              {/* Data Science */}
-              <div className={`p-6 rounded-xl shadow-md ${theme === 'dark' ? 'bg-[#181818] text-white' : 'bg-white text-black'}`}>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#00BFFF' }}>Data Science & Analytics</h3>
-                <ul className="list-disc ml-5">
-                  <li>Python</li>
-                  <li>R</li>
-                  <li>Tableau</li>
-                </ul>
-              </div>
-              {/* Blockchain & Cloud */}
-              <div className={`p-6 rounded-xl shadow-md ${theme === 'dark' ? 'bg-[#181818] text-white' : 'bg-white text-black'}`}>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#00BFFF' }}>Blockchain & Cloud</h3>
-                <ul className="list-disc ml-5">
-                  <li>Ethereum</li>
-                  <li>Solidity</li>
-                  <li>AWS</li>
-                  <li>Docker</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    {/* RIGHT IMAGE */}
+    <div className="flex justify-center" data-aos="fade-up" data-aos-delay="760">
+      <img 
+        src={cta} 
+        alt="Join our journey" 
+        className="rounded-2xl shadow-lg w-full md:w-[90%] object-cover"
+      />
+    </div>
+  </div>
+</section>
 
-      <section className={
-        `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
-      }>
-      <div className="max-w-3xl mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold mb-6" style={{ color: '#00BFFF' }}>Ready to Join Our Journey?</h2>
-        <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Become part of our award-winning community and unlock new opportunities for growth, learning, and success. Connect with us today to start your journey!</p>
-        <a href="/contactus" className={
-          `inline-block font-bold py-3 px-8 rounded-full shadow-lg transition ` +
-          (theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-[#0099cc]')
-        }>Contact Us</a>
-      </div>
-    </section>
     </div>
   );
 }

@@ -1,10 +1,50 @@
-import React, { useState } from "react";
-import ethicalHero from "../assets/ethical.mp4";
-import e1 from "../assets/e1.jpeg";
-import e2 from "../assets/e2 2.jpeg";
-import e3 from "../assets/e3.jpeg";
 
-export default function CybersecurityPage() {
+
+import React, { useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+import aihero from "../assets/ren.mp4";
+import a1 from "../assets/ren1.png"; // your AI/ML service image
+import a2 from "../assets/ren2.jpg"; // another AI/ML service 
+
+const benefits = [
+  {
+    title: "Customized Renovation Plans",
+    description: "Solutions tailored to upgrade your existing spaces without compromising on comfort or functionality.",
+  },
+  {
+    title: "Structural and Aesthetic Improvements",
+    description: "From foundation fixes to modern finishes, we enhance both strength and style.",
+  },
+  {
+    title: "Smart Space Reconfiguration",
+    description: "Redesign layouts to make better use of available space while improving flow.",
+  },
+  {
+    title: "On-Time Project Delivery",
+    description: "Systematic planning ensures your remodeling project is completed as scheduled.",
+  },
+  {
+    title: "Clear and Honest Pricing",
+    description: "Upfront cost estimates with no hidden surprises during or after the renovation.",
+  },
+  {
+    title: "Skilled Renovation Experts",
+    description: "Experienced teams handle everything from demolition to detailing with precision.",
+  },
+];
+const steps = [
+  "Initial consultation to assess current structure and identify goals",
+  "Design concepts with before-and-after visualizations",
+  "Transparent cost estimation and approval",
+  "Careful demolition and preparation of existing spaces",
+  "Upgrading materials, fixtures, and finishes with strict quality checks",
+  "Final inspection, snag fixes, and handover with support",
+];
+
+
+export default function AIServicePage() {
   // Theme state synced with Header
   const [theme, setTheme] = useState('light');
   React.useEffect(() => {
@@ -23,211 +63,441 @@ export default function CybersecurityPage() {
       };
     }
   }, []);
+  // AOS initialization (must be inside the component)
+  React.useEffect(() => {
+    AOS.init({ once: false });
+  }, []);
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-
-  const faqs = [
-    {
-      question: "What is Cybersecurity?",
-      answer:
-        "Cybersecurity protects systems, networks, and data from digital attacks, ensuring confidentiality, integrity, and availability.",
-    },
-    {
-      question: "What is Ethical Hacking?",
-      answer:
-        "Ethical hacking involves authorized testing of systems to identify vulnerabilities and strengthen security before malicious hackers can exploit them.",
-    },
-    {
-      question: "Do you offer penetration testing?",
-      answer:
-        "Yes, we provide comprehensive penetration testing to uncover and address security gaps in your infrastructure.",
-    },
-    {
-      question: "Can you help with compliance?",
-      answer:
-        "We assist organizations in meeting regulatory standards like GDPR, HIPAA, and PCI-DSS through robust security practices.",
-    },
-    {
-      question: "Do you provide incident response?",
-      answer:
-        "Absolutely! Our team offers rapid incident response and recovery to minimize damage and restore operations quickly.",
-    },
-    {
-      question: "Is ongoing monitoring available?",
-      answer:
-        "Yes, we offer continuous monitoring and threat intelligence to keep your systems secure around the clock.",
-    },
-  ];
-
   return (
-    <div className={theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-black'}>
+    <div className={
+      `${theme === 'dark' ? 'min-h-screen bg-black text-white overflow-hidden' : 'min-h-screen bg-white text-black overflow-hidden'}`
+    }>
       {/* Hero Section */}
-      <section className="relative w-full h-screen md:h-screen grid place-items-center text-center overflow-hidden" style={{ color: theme === 'dark' ? '#fff' : '#222' }}>
+      <section className="relative w-full h-screen md:h-screen grid place-items-center text-center overflow-hidden" style={{ color: theme === 'dark' ? '#fff' : '#fff' }} data-aos="fade-up" data-aos-delay="100">
+        {/* Background Video */}
         <video
           className="absolute top-0 left-0 w-full h-full object-cover"
-          src={ethicalHero}
+          src={aihero}
           autoPlay
           loop
           muted
           playsInline
-          aria-label="Cybersecurity Hero Background Video"
+          data-aos="fade"
+          data-aos-delay="120"
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
-        <div className="relative z-10 px-6">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 leading-snug" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
-            Safeguarding Your Digital World with <span style={{ color: '#00bfff' }}>Cybersecurity & Ethical Hacking</span>
-          </h1>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${theme === 'dark' ? 'text-white' : 'text-white'}`}>
-            We deliver advanced security solutions, ethical hacking, and proactive defense to protect your business from evolving cyber threats.
-          </p>
-        </div>
+
+        {/* Overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-black/50" data-aos="fade" data-aos-delay="140"></div>
+
+        {/* Content */}
+        <div className="relative z-10 px-4 sm:px-6" data-aos="fade-up" data-aos-delay="160">
+  <h1 
+    className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 leading-snug" 
+    style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
+    data-aos="fade-up" data-aos-delay="180"
+  >
+    Transforming Homes with{' '}
+    <span style={{ color: '#facc15' /* Tailwind yellow-400 */ }} data-aos="zoom-in" data-aos-delay="200">Renovation & Remodeling</span>
+  </h1>
+
+<p 
+  className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${theme === 'dark' ? 'text-white' : 'text-white'}`}
+  data-aos="fade-up" data-aos-delay="220"
+>
+  We breathe new life into your spaces — upgrading layouts, finishes, and functionality 
+  to match your evolving lifestyle, all while ensuring quality craftsmanship and on-time delivery.
+</p>
+
+</div>
+
       </section>
 
-      {/* Service Includes Section */}
-      <section className={`py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center px-4 md:px-6">
-          {/* Left Image */}
-          <div className="flex justify-center">
-            <img src={e1} alt="Cybersecurity Services" className="rounded-2xl shadow-lg w-full max-w-md md:max-w-full" />
-          </div>
-          {/* Right Content */}
-          <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 break-words leading-tight" style={{ color: '#fff' }}>
-              What Our Cybersecurity Service Includes
-            </h2>
-            <ul className="space-y-4 text-base sm:text-lg">
-              {[
-                'Vulnerability Assessment & Penetration Testing',
-                'Network & Endpoint Security',
-                'Security Awareness Training',
-                'Compliance & Risk Management',
-                'Incident Response & Recovery',
-                'Continuous Monitoring & Threat Intelligence',
-              ].map((item, idx) => (
-                <li className="flex items-center" key={item}>
-                  <span className={`w-3 h-3 rounded-full mr-3 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
-      {/* Who It's For Section */}
-      <section className={`py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6 items-center">
-          {/* Left Side Text */}
-          <div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4 leading-snug" style={{ color: theme === 'dark' ? '#00bfff' : '#222' }}>
-              Who It's For?
-            </h2>
-            <p className={`text-lg mb-6 text-justify ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-              Our <span className="font-semibold" style={{ color: '#00bfff' }}>Cybersecurity & Ethical Hacking solutions</span> empower organizations to defend against cyber threats, ensure compliance, and build trust. From financial institutions to healthcare, retail to government, we help you stay secure and resilient.
-            </p>
-          </div>
-          {/* Right Side Cards */}
-          <div className="grid lg:grid-cols-2 gap-6">
-            {[
-              { title: 'Finance', desc: 'Protect sensitive data and transactions.' },
-              { title: 'Healthcare', desc: 'Safeguard patient records and privacy.' },
-              { title: 'Retail', desc: 'Secure customer data and payment systems.' },
-              { title: 'Government', desc: 'Defend critical infrastructure and public services.' },
-            ].map((card, idx) => (
-              <div key={card.title} className={`p-6 rounded-2xl shadow-md hover:shadow-lg transition ` + (theme === 'dark' ? 'bg-[#222]' : 'bg-[#fdfcf9]')}>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#00bfff' }}>{card.title}</h3>
-                <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}>{card.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Benefits Section */}
-      <section className="relative w-full bg-cover bg-center py-20" style={{ backgroundImage: `url(${e2})` }}>
-        <div className="absolute inset-0" style={{ background: theme === 'dark' ? 'rgba(0,191,255,0.7)' : 'rgba(0,191,255,0.7)' }}></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center" style={{ color: '#fff' }}>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-12 drop-shadow-lg">
-            Benefits of Our Cybersecurity Services
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {[
-              "Threat Prevention & Detection",
-              "Regulatory Compliance",
-              "Business Continuity",
-              "Data Privacy & Protection",
-              "Risk Reduction",
-              "24/7 Security Monitoring",
-            ].map((benefit, index) => (
-              <div key={index} className={`backdrop-blur-md p-6 rounded-2xl shadow-lg hover:scale-105 transition ` + (theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black')}>
-                <h3 className="text-xl font-semibold mb-3">{benefit}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+<section 
+  className={`w-full py-16 ${theme === "dark" ? "bg-[#222]" : "bg-white"}`}
+  data-aos="fade-up" data-aos-delay="240"
+>
+  <div className="text-center mb-6" data-aos="fade-up" data-aos-delay="260">
+   <h2 
+    className={`text-4xl md:text-5xl font-extrabold leading-tight mb-4 
+    ${theme === "dark" ? "text-white" : "text-gray-900"}`}
+    data-aos="fade-up" data-aos-delay="280"
+  >
+    Your Journey to a Reimagined Space
+  </h2>
+<p 
+  className={`text-lg leading-relaxed 
+  ${theme === "dark" ? "text-white" : "text-gray-700"}`}
+  data-aos="fade-up" data-aos-delay="300"
+>
+  We guide you through every stage  final reveal 
+  ensuring your renovation or remodel is smooth, transparent, and perfectly aligned with your vision.
+</p>
 
-      {/* FAQ Section */}
-      <section className={`py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50'}`}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12" style={{ color: '#00bfff' }}>
-            Frequently Asked Questions
-          </h2>
-          <div className="grid lg:grid-cols-2 gap-6">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className={`rounded-2xl shadow-md p-6 cursor-pointer transition hover:shadow-lg ` + (theme === 'dark' ? 'bg-[#222] text-white' : 'bg-white text-black')}
-                onClick={() => toggleFAQ(index)}
-              >
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold">{faq.question}</h3>
-                  <span className="font-bold text-xl" style={{ color: '#00bfff' }}>
-                    {openIndex === index ? "-" : "+"}
-                  </span>
-                </div>
-                {openIndex === index && (
-                  <p className={theme === 'dark' ? 'mt-4 text-gray-200' : 'mt-4 text-gray-600'}>{faq.answer}</p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className={`py-20 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00bfff]'}`}>
-        <div className="max-w-7xl mx-auto grid  lg:grid-cols-2 gap-10 items-center px-6">
-          {/* Left Content */}
-          <div className="space-y-6 flex flex-col justify-center h-full">
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            Ready to <span style={{ color: '#fff' }}>Secure</span> Your Business?
-          </h2>
-          <p className={`text-lg ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}
+  </div>
+
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up" data-aos-delay="320">
+  {/* LEFT CONTENT */}
+  <div className="flex flex-col justify-between h-full" data-aos="fade-right" data-aos-delay="340">
+    <ul className="space-y-5" data-aos="fade-up" data-aos-delay="360">
+      {steps.map((step, index) => (
+        <li 
+          key={index} 
+          className="flex items-start"
+          data-aos="fade-up" data-aos-delay={380 + index * 20}
+        >
+          <span 
+            className="w-6 h-6 rounded-full bg-yellow-400 text-black flex items-center justify-center text-sm font-semibold mr-4 shadow"
           >
-            Partner with us to build resilient defenses, ensure compliance, and protect your digital assets. Let’s secure your future, together.
+            {index + 1}
+          </span>
+          <p 
+            className={`text-base leading-relaxed 
+            ${theme === "dark" ? "text-white" : "text-gray-700"}`}
+          >
+            {step}
           </p>
-          <button className={
-            `px-8 py-4 font-semibold rounded-xl shadow-md transition self-start lg:self-auto ` +
-            (theme === 'dark' ? 'bg-white text-black hover:bg-gray-200' : 'bg-[#fff] text-black hover:bg-[#0099cc]')
-          }>
-            Get Protected Today
-          </button>
-          </div>
+        </li>
+      ))}
+    </ul>
 
-          {/* Right Image */}
-          <div className="flex justify-center items-center h-full">
-            <img
-              src={e3}
-              alt="Cybersecurity CTA"
-              className="rounded-2xl shadow-lg w-full max-w-xl object-cover"
-            />
-          </div>
-        </div>
-      </section>
+    {/* BUTTON */}
+    <button 
+        className={`px-6 py-3 w-[200px] rounded-xl font-semibold text-lg shadow-md transition duration-300 mt-6
+        ${theme === "dark" 
+          ? "bg-yellow-400 text-black hover:bg-yellow-500" 
+          : "bg-yellow-400 text-black hover:bg-yellow-500"
+        }`}
+        data-aos="fade-up" data-aos-delay={160 + steps.length * 40}
+        onClick={() => {
+          const el = document.getElementById('pricing');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      >
+        Start Your Project
+      </button>
+  </div>
+
+
+    {/* RIGHT IMAGE */}
+    <div className="flex justify-center items-center" data-aos="fade-left" data-aos-delay="420">
+      <img 
+        src={a1} 
+        alt="Residential Construction" 
+        className="w-full h-full object-cover rounded-2xl shadow-lg"
+      />
     </div>
+  </div>
+</section>
+      {/* Service Includes Section */}
+<section 
+  className="w-full py-16" 
+  style={{ backgroundColor: theme === 'dark' ? '#000' : '#f3f4f6' }}
+  data-aos="fade-up" data-aos-delay="440"
+>
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12  items-center">
+    {/* LEFT CONTENT */}
+    <div data-aos="fade-right" data-aos-delay="460">
+      <h2 
+        className="text-4xl font-bold mb-4"
+        style={{ color: '#FACC15' }} // yellow-400
+        data-aos="fade-up" data-aos-delay="480"
+      >
+        Benefits of Choosing Our Interior Design Services
+      </h2>
+
+<p 
+  className="mb-6 leading-relaxed text-justify" 
+  style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+  data-aos="fade-up" data-aos-delay="500"
+>
+  We go beyond just decorating spaces. Our approach ensures a stress-free 
+  experience, superior quality, and interiors that truly reflect your lifestyle. 
+  Every project combines smart planning, innovative design, and your personal touch.
+</p>
+
+<p 
+  className="mb-6 leading-relaxed text-justify" 
+  style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+>
+  With a transparent process and detailed supervision, you’ll always 
+  know what’s happening at every stage no surprises, just reliable 
+  results and beautifully executed interiors.
+</p>
+
+<p 
+  className="leading-relaxed text-justify" 
+  style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+>
+  Whether it's a modern apartment, luxury villa, or commercial space, 
+  we focus on delivering designs that elevate your everyday living, 
+  backed by our proven track record of creating functional and timeless interiors.
+</p>
+<p 
+  className="mb-6 leading-relaxed text-justify" 
+  style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+>
+  We go beyond just decorating spaces. Our approach ensures a stress-free 
+  experience, superior quality, and interiors that truly reflect your lifestyle. 
+  Every project combines smart planning, innovative design, and your personal touch.
+</p>
+<p 
+  className="leading-relaxed text-justify" 
+  style={{ color: theme === 'dark' ? '#ddd' : '#444' }}
+>
+  Whether it's a modern apartment, luxury villa, or commercial space, 
+  we focus on delivering designs that elevate your everyday living, 
+  backed by our proven track record of creating functional and timeless interiors.
+</p>
+
+
+    </div>
+
+    {/* RIGHT CARDS - 6 BENEFITS IN GRID */}
+    <div className="grid sm:grid-cols-2 gap-6" data-aos="fade-left" data-aos-delay="520">
+      {benefits.map((benefit, index) => (
+        <div
+          key={index}
+          className="shadow-md rounded-xl p-6 hover:shadow-lg transition duration-300"
+          style={{ 
+            backgroundColor: theme === 'dark' ? '#111' : '#fff',
+            color: theme === 'dark' ? '#ddd' : '#444'
+          }}
+          data-aos="zoom-in" data-aos-delay={540 + index * 20}
+        >
+          <h3 
+            className="text-lg font-semibold mb-2"
+            style={{ color: '#FACC15' }} // yellow-400
+          >
+            {benefit.title}
+          </h3>
+          <p className="text-sm leading-relaxed">
+            {benefit.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+     
+
+     
+ 
+<section className={`w-full py-20 ${theme === "dark" ? "bg-[#222]" : "bg-white"}`} data-aos="fade-up" data-aos-delay="600"> 
+  <div className="max-w-7xl mx-auto px-6" data-aos="fade-up" data-aos-delay="620">
+    <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${theme === "dark" ? "text-yellow-400" : "text-yellow-400"}`} data-aos="fade-up" data-aos-delay="640"> 
+      Cost Estimator – Provide Your Details
+    </h2>
+    <p className={`text-lg mb-8 max-w-3xl ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`} data-aos="fade-up" data-aos-delay="660"> 
+      Get a quick estimate by sharing your name and phone number. We’ll reach out to provide tailored guidance
+      on floor area, design style, and material selection.
+    </p>
+
+    {/* Table stays same */}
+    <div className="overflow-x-auto" data-aos="fade-up" data-aos-delay="680">
+      <table className={`min-w-full border rounded-lg overflow-hidden text-left 
+        ${theme === "dark" ? "border-gray-700" : "border-gray-300"}`}>
+        <thead className={`${theme === "dark" ? "bg-yellow-400 text-black" : "bg-gray-800 text-white"}`}>
+          <tr>
+            <th className="px-4 py-3">Floor Area</th>
+            <th className="px-4 py-3">Interior Style</th>
+            <th className="px-4 py-3">Estimated Cost (₹)</th>
+            <th className="px-4 py-3">Timeline</th>
+            <th className="px-4 py-3">Key Inclusions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className={`${theme === "dark" ? "bg-black text-gray-300" : "bg-white"}`}>
+            <td className="px-4 py-3">500 – 800 sq.ft</td>
+            <td className="px-4 py-3">Basic</td>
+            <td className="px-4 py-3">₹6 – ₹9 Lakhs</td>
+            <td className="px-4 py-3">4 – 6 weeks</td>
+            <td className="px-4 py-3">False Ceiling, Wardrobes, Basic Lighting</td>
+          </tr>
+          <tr className={`${theme === "dark" ? "bg-gray-900 text-gray-300" : "bg-gray-100"}`}>
+            <td className="px-4 py-3">800 – 1200 sq.ft</td>
+            <td className="px-4 py-3">Premium</td>
+            <td className="px-4 py-3">₹10 – ₹15 Lakhs</td>
+            <td className="px-4 py-3">6 – 8 weeks</td>
+            <td className="px-4 py-3">Modular Kitchen, Designer Lighting, Wallpaper</td>
+          </tr>
+          <tr className={`${theme === "dark" ? "bg-black text-gray-300" : "bg-white"}`}>
+            <td className="px-4 py-3">1200 – 1800 sq.ft</td>
+            <td className="px-4 py-3">Luxury</td>
+            <td className="px-4 py-3">₹18 – ₹25 Lakhs</td>
+            <td className="px-4 py-3">8 – 10 weeks</td>
+            <td className="px-4 py-3">Premium Finishes, Custom Furniture, Smart Lighting</td>
+          </tr>
+          <tr className={`${theme === "dark" ? "bg-gray-900 text-gray-300" : "bg-gray-100"}`}>
+            <td className="px-4 py-3">1800+ sq.ft</td>
+            <td className="px-4 py-3">Custom</td>
+            <td className="px-4 py-3">On Request</td>
+            <td className="px-4 py-3">Custom Timeline</td>
+            <td className="px-4 py-3">Home Automation, Designer Art, Imported Materials</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p className={`text-sm mt-4 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`} data-aos="fade-up" data-aos-delay="700"> 
+      * Prices are indicative and may vary depending on city, material brands, and customization level.  
+    </p>
+  </div>
+</section>
+
+
+
+ 
+
+
+
+
+<section
+  className={`w-full py-16 sm:py-20 ${
+    theme === "dark" ? "bg-[#000]" : "bg-gray-100"
+  }`}
+  id="case-study"
+  data-aos="fade-up" data-aos-delay="720"
+>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 items-center gap-12 md:gap-16">
+    <div className="grid justify-center" data-aos="fade-up" data-aos-delay="740">
+      <img
+        src={a2} // import your image at top: import caseStudyImg from "../assets/casestudy.jpg";
+        alt="Case Study"
+        className="rounded-2xl shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto object-cover"
+      />
+    </div>
+    
+    {/* LEFT CONTENT */}
+   <div data-aos="fade-up" data-aos-delay="760">
+ <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-400 mb-4 sm:mb-6 leading-snug">
+  Case Study 
+</h2>
+<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-400 mb-4 sm:mb-6 leading-snug">
+  Luxury Residential Interior
+</h2>
+
+<p
+  className={`text-base sm:text-lg md:text-xl text-justify mb-4 sm:mb-6 leading-relaxed ${
+    theme === "dark" ? "text-white" : "text-gray-800"
+  }`}
+>
+  This project showcases our ability to merge comfort, style, and 
+  functionality. From concept to execution, we created a home that’s 
+  warm, inviting, and uniquely tailored to the client’s lifestyle.
+</p>
+
+<ul
+  className={`space-y-3 sm:space-y-4 text-base sm:text-lg ${
+    theme === "dark" ? "text-white" : "text-gray-800"
+  }`}
+>
+  <li className="grid grid-cols-[auto_1fr] gap-2">
+    <span className="text-yellow-400">•</span>
+    4,200 sq.ft villa transformed into a contemporary living space.
+  </li>
+  <li className="grid grid-cols-[auto_1fr] gap-2">
+    <span className="text-yellow-400">•</span>
+    Bespoke interiors with smart storage and luxury finishes.
+  </li>
+  <li className="grid grid-cols-[auto_1fr] gap-2">
+    <span className="text-yellow-400">•</span>
+    Delivered within budget with seamless project coordination.
+  </li>
+</ul>
+
+</div>
+
+    {/* RIGHT IMAGE */}
+    
+  </div>
+</section>
+
+
+<section className={`w-full py-20 font-sans antialiased ${theme === "dark" ? "bg-[#222]" : "bg-[#FFF]"}`} data-aos="fade-up" data-aos-delay="800" id="pricing"> 
+  {/* SECTION HEADER */}
+  <div className="text-center mb-12" data-aos="fade-up" data-aos-delay="820">
+    <h2 className={`text-4xl md:text-5xl font-extrabold leading-tight mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`} data-aos="fade-up" data-aos-delay="840"> 
+      Our Pricing Plans
+    </h2>
+    <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`} data-aos="fade-up" data-aos-delay="860"> 
+      Transparent and flexible pricing for every stage of your residential construction project.
+    </p>
+  </div>
+
+  {/* PRICING GRID */}
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="880">
+    {/* CARD 1 */}
+    <div className={`border rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`} data-aos="zoom-in" data-aos-delay="900">
+      <div className="bg-yellow-400 rounded-t-2xl p-6 text-center" data-aos="fade-up" data-aos-delay="920">
+        <h3 className="text-2xl font-bold text-gray-900">Basic</h3>
+        <p className="text-xl font-semibold text-gray-800 mt-2">₹1,200 / sq.ft</p>
+      </div>
+      <ul className={`p-6 flex-1 space-y-4 text-base leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+        <li>Standard Materials</li>
+        <li>Basic Design Consultation</li>
+        <li>Quality Workmanship</li>
+        <li>On-Time Delivery</li>
+      </ul>
+      <div className="p-6 text-center">
+        <button className="px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition duration-300">
+          Choose Plan
+        </button>
+      </div>
+    </div>
+
+    {/* CARD 2 (HIGHLIGHTED) */}
+    <div className={`border rounded-2xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col ${theme === "dark" ? "border-yellow-400" : "border-yellow-400"}`} data-aos="zoom-in" data-aos-delay="940">
+      <div className="bg-yellow-400 rounded-t-2xl p-6 text-center" data-aos="fade-up" data-aos-delay="960">
+        <h3 className="text-2xl font-bold text-gray-900">Premium</h3>
+        <p className="text-xl font-semibold text-gray-900 mt-2">₹1,800 / sq.ft</p>
+      </div>
+      <ul className={`p-6 flex-1 space-y-4 text-base leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+        <li>Premium Materials</li>
+        <li>Custom Design Support</li>
+        <li>Site Supervision</li>
+        <li>Extended Warranty</li>
+      </ul>
+      <div className="p-6 text-center">
+        <button className="px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition duration-300">
+          Choose Plan
+        </button>
+      </div>
+    </div>
+
+    {/* CARD 3 */}
+    <div className={`border rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`} data-aos="zoom-in" data-aos-delay="980">
+      <div className="bg-yellow-400 rounded-t-2xl p-6 text-center" data-aos="fade-up" data-aos-delay="1000">
+        <h3 className="text-2xl font-bold text-gray-900">Luxury</h3>
+        <p className="text-xl font-semibold text-gray-800 mt-2">₹2,500 / sq.ft</p>
+      </div>
+      <ul className={`p-6 flex-1 space-y-4 text-base leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+        <li>Luxury-Grade Materials</li>
+        <li>End-to-End Design Support</li>
+        <li>Dedicated Project Manager</li>
+        <li>5-Year Warranty</li>
+      </ul>
+      <div className="p-6 text-center">
+        <button className="px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl shadow hover:bg-yellow-300 transition duration-300">
+          Choose Plan
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    
+
+  </div>
   );
 }

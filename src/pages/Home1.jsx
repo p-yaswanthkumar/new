@@ -1,9 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
-import heroVideo from "../assets/home1hero.mp4";
-import questions from "../data/questions";
-import whyChooseImg from "../assets/whychooseus.avif";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useLocation, Link } from "react-router-dom";
+import heroVideo from "../assets/herohome.mp4";
 import impactImg from "../assets/impact.jpg";
+import img1 from "../assets/1.png";
+import img2 from "../assets/2.png";
+import img3 from "../assets/3.png";
+import r from "../assets/r1.jpg";
+import c from "../assets/c1.jpg";
+import i from "../assets/i1.jpg";
 
 // Helper for count up animation
 function useCountUp(target, duration = 1200) {
@@ -68,60 +74,15 @@ function ImpactMetric({ value, suffix, label, delay, color }) {
 }
 
 // Child component for instructor form
-function JoinInstructorForm({ instructorForm, instructors, handleInstructorChange, handleInstructorSubmit, showSuccess }) {
-  return (
-    <>
-      <form className="bg-[#e6f7ff] text-black rounded-lg shadow p-6 mb-8 flex flex-col gap-4" onSubmit={handleInstructorSubmit} autoComplete="off">
-        <input
-          type="text"
-          name="name"
-          value={instructorForm.name}
-          onChange={handleInstructorChange}
-          placeholder="Full Name"
-          className="px-4 py-3 text-black bg-white rounded border border-[#00BFFF] shadow focus:outline-none focus:ring-2 focus:ring-[#00BFFF] placeholder:text-gray-700"
-          required
-          autoComplete="off"
-        />
-        <input
-          type="email"
-          name="email"
-          value={instructorForm.email}
-          onChange={handleInstructorChange}
-          placeholder="Email Address"
-          className="px-4 py-3 text-black bg-white rounded border border-[#00BFFF] shadow focus:outline-none focus:ring-2 focus:ring-[#00BFFF] placeholder:text-gray-700"
-          required
-          autoComplete="off"
-        />
-        <input
-          type="text"
-          name="expertise"
-          value={instructorForm.expertise}
-          onChange={handleInstructorChange}
-          placeholder="Area of Expertise"
-          className="px-4 py-3 text-black bg-white rounded border border-[#00BFFF] shadow focus:outline-none focus:ring-2 focus:ring-[#00BFFF] placeholder:text-gray-700"
-          required
-          autoComplete="off"
-        />
-        <button
-          type="submit"
-          className="bg-[#00BFFF] text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-500 transition-colors"
-        >
-          Submit
-        </button>
-      </form>
-      {showSuccess && (
-        <div className="mt-4 text-green-600 font-semibold text-lg">Successfully submitted!</div>
-      )}
-    </>
-  );
-}
 
 // MAIN COMPONENT
 export default function Home1() {
   const location = useLocation();
   useEffect(() => {
+  if (location.state?.fromNav) {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }
+}, [location]);
   // Theme state synced with Header
   const [theme, setTheme] = useState('light');
   useEffect(() => {
@@ -134,6 +95,8 @@ export default function Home1() {
       };
       window.addEventListener('theme-changed', handleThemeChange);
       window.addEventListener('storage', handleThemeChange);
+      // Initialize AOS to animate every time section comes into view
+      AOS.init({ once: false, duration: 800 });
       return () => {
         window.removeEventListener('theme-changed', handleThemeChange);
         window.removeEventListener('storage', handleThemeChange);
@@ -141,173 +104,130 @@ export default function Home1() {
     }
   }, []);
   // Instructor form state and logic (must be at top level, before return)
-  const [instructorForm, setInstructorForm] = useState({ name: '', email: '', expertise: '' });
-  const [instructors, setInstructors] = useState(() => {
-    try {
-      return JSON.parse(window.localStorage.getItem('instructors') || '[]');
-    } catch (e) {
-      return [];
-    }
+const [formData, setFormData] = useState({
+    name: "",
+    phoneNumber: "",
+    siteArea: "",
+    plotLocation: "",
+    construction: "",
+    houseType: ""
   });
 
-  const handleInstructorChange = (e) => {
+  const [showToast, setShowToast] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setInstructorForm((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
-  const [showOverview, setShowOverview] = useState(true);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const handleInstructorSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!instructorForm.name || !instructorForm.email || !instructorForm.expertise) return;
-    const newList = [...instructors, { ...instructorForm }];
-    setInstructors(newList);
-    window.localStorage.setItem('instructors', JSON.stringify(newList));
-    setInstructorForm({ name: '', email: '', expertise: '' });
-    setShowSuccess(true);
-    setShowOverview(false);
-    setTimeout(() => setShowSuccess(false), 2000);
+
+    // Store in localStorage
+    const savedForms = JSON.parse(localStorage.getItem("customPackages") || "[]");
+    savedForms.push(formData);
+    localStorage.setItem("customPackages", JSON.stringify(savedForms));
+
+    // Show toast
+    setShowToast(true);
+    setToastVisible(true);
+
+    setTimeout(() => {
+      setToastVisible(false); // start fade-out
+    }, 2500);
+
+    setTimeout(() => {
+      setShowToast(false); // remove completely
+    }, 3000);
+
+    // Reset form
+    setFormData({
+      name: "",
+      phoneNumber: "",
+      siteArea: "",
+      plotLocation: "",
+      construction: "",
+      houseType: ""
+    });
   };
+
   // ...existing code...
   const [streak, setStreak] = useState(0);
   const [selected, setSelected] = useState(null);
   const [question, setQuestion] = useState({});
   const [attemptedToday, setAttemptedToday] = useState(false);
+  const [area, setArea] = useState("");
+  const [floors, setFloors] = useState(1);
+  const [quality, setQuality] = useState("standard");
+  const [projectLocation, setProjectLocation] = useState("urban");
+  const [extras, setExtras] = useState({ interior: false, landscaping: false });
+  const [estimate, setEstimate] = useState(null);
+
+  // ✅ Calculation function
+  const calculateEstimate = (e) => {
+    e.preventDefault();
+
+    const qualityRates = {
+      standard: 1500,
+      premium: 2000,
+      luxury: 3000,
+    };
+
+    const locationFactor = {
+      urban: 1.2,
+      semiUrban: 1.0,
+      rural: 0.85,
+    };
+
+    let cost = area * floors * qualityRates[quality];
+    cost *= locationFactor[projectLocation];
+
+    if (extras.interior) cost += area * 400;
+    if (extras.landscaping) cost += area * 200;
+
+    setEstimate(cost.toFixed(2));
+  };
   
   // Carousel logic moved to top level
-  const testimonials = [
-    {
-      title: "Outstanding Support",
-      text: "The support team is always available and quick to resolve any issues. Their dedication to student satisfaction is unmatched.",
-      name: "Michael Chen",
-      role: "Data Analyst",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-      rating: 5,
-    },
-    {
-      title: "Great Results, Every Time",
-      text: "I have completed multiple courses and always received great results. Highly recommended for anyone looking to upskill.",
-      name: "David Lee",
-      role: "Marketing Director",
-      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
-      rating: 5,
-    },
-    {
-      title: "Professional & Creative",
-      text: "The instructors brought our vision to life. The platform looks amazing and the content is top-notch!",
-      name: "Priya Singh",
-      role: "Owner, Artistry",
-      avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-      rating: 4,
-    },
-    {
-      title: "Flexible Learning",
-      text: "The flexible schedules allowed me to learn at my own pace. I could balance work and study easily.",
-      name: "Rahul Sharma",
-      role: "Software Engineer",
-      avatar: "https://randomuser.me/api/portraits/men/76.jpg",
-      rating: 5,
-    },
-    {
-      title: "Hands-on Projects",
-      text: "The hands-on projects helped me gain real-world experience. I feel confident in my new skills.",
-      name: "Emily Carter",
-      role: "UX Designer",
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-      rating: 5,
-    },
-    {
-      title: "Expert Instructors",
-      text: "The instructors are truly experts in their fields. Their teaching style made complex topics easy to understand.",
-      name: "Amit Patel",
-      role: "Business Analyst",
-      avatar: "https://randomuser.me/api/portraits/men/23.jpg",
-      rating: 5,
-    },
-  ];
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const prev = () => setCarouselIndex((i) => (i - 3 + testimonials.length) % testimonials.length);
-  const next = () => setCarouselIndex((i) => (i + 3) % testimonials.length);
-  let cards = testimonials.slice(carouselIndex, carouselIndex + 3);
-  if (cards.length < 3) {
-    cards = cards.concat(testimonials.slice(0, 3 - cards.length));
-  }
+  
+const categories = {
+  Residential: {
+  img: r,
+  heading: "Residential Projects",
+  desc: "Our residential projects are designed with families in mind, blending comfort, functionality, and aesthetics to create homes that truly enhance everyday living. From contemporary apartments and gated communities to luxury villas and independent houses, we bring architectural elegance and structural durability together. Every project is carefully planned with attention to detail from high quality  utilization that maximizes natural light, ventilation, and energy efficiency. We also focus on integrating modern amenities and future-ready designs, ensuring homes that not only meet today’s lifestyle needs but also add long-term value. Whether it’s a full-scale renovation or a new build from the ground up, our team is committed to on-time delivery, superior craftsmanship,  security, and pride of ownership.",
+},
 
-  useEffect(() => {
-    const savedStreak = parseInt(localStorage.getItem("dailyStreak")) || 0;
-    const lastAttemptDate = localStorage.getItem("lastAttemptDate");
-    const savedAnswer = localStorage.getItem("todayAnswer");
-    const today = new Date().toDateString();
+Commercial: {
+  img: c,
+  heading: "Commercial Projects",
+  desc: "We deliver high-performance commercial spaces that balance design excellence with business functionality, helping enterprises grow in dynamic markets. Our portfolio includes office complexes, retail outlets, shopping malls, co-working hubs, and mixed-use developments — all engineered to meet modern business requirements. We emphasize efficient layouts that improve workflow, cutting-edge designs that enhance brand identity, and sustainable solutions that reduce operational costs. Each project is built with advanced technology, strong compliance with international safety standards, and premium finishes to ensure long-term durability. By collaborating  also boost productivity, inspire employees, and position businesses for long-term success in competitive industries.",
+},
 
-    // Pick today's question
-    const startDate = new Date("2025-01-01");
-    const diffDays = Math.floor(
-      (new Date().getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
-    );
-    const index = diffDays % questions.length;
-    setQuestion(questions[index]);
+  Industrial: {
+    img: i,
+    heading: "Industrial Projects",
+    desc: "Industrial construction demands strength, reliability, and scalability — and that’s where we excel. Our projects range from warehouses and manufacturing units to logistics hubs and large-scale industrial complexes. We prioritize structural safety, operational efficiency, and compliance with regulatory standards to deliver facilities that withstand demanding environments. With advanced engineering techniques and high-grade materials, we ensure every project supports heavy-duty operations while allowing room for future expansion. Our industrial solutions empower businesses to scale faster, operate smoothly, and achieve long-term growth.",
+  },
+};
 
-    // Handle streak logic
-    if (lastAttemptDate === today) {
-      setStreak(savedStreak);
-      setAttemptedToday(true);
-      if (savedAnswer) setSelected(savedAnswer);
-    } else {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      if (lastAttemptDate === yesterday.toDateString()) {
-        setStreak(savedStreak);
-      } else {
-        setStreak(0);
-        localStorage.setItem("dailyStreak", 0);
-      }
-      setAttemptedToday(false);
-      setSelected(null);
-    }
-  }, []);
-    const scrollToQuiz = () => {
-    const quizSection = document.getElementById("quiz");
-    if (quizSection) {
-      quizSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
-  const handleAnswer = (option) => {
-    if (attemptedToday) return;
+  const [activeCategory, setActiveCategory] = useState("Residential");
 
-    const today = new Date().toDateString();
-    setSelected(option);
-    setAttemptedToday(true);
 
-    setStreak((prev) => {
-      const newStreak = prev + 1;
-      localStorage.setItem("dailyStreak", newStreak);
-      return newStreak;
-    });
+  
 
-    localStorage.setItem("todayAnswer", option);
-    localStorage.setItem("lastAttemptDate", today);
-
-    // Save quiz attempt history
-    const quizHistory = JSON.parse(localStorage.getItem("quizAnswers") || "[]");
-    quizHistory.push({
-      date: today,
-      question: question.q,
-      options: question.options,
-      correctAnswer: question.answer,
-      selectedAnswer: option
-    });
-    localStorage.setItem("quizAnswers", JSON.stringify(quizHistory));
-  };
-
+  
   return (
     <div className={
-      `${theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-black'}`
+      `${theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-white'}`
     }>
       
       {/* Hero Section - Full width */}
       <section
         className="relative w-full h-screen overflow-hidden"
+        data-aos="fade-up"
+        data-aos-duration="1000"
       >
         <video
           className="absolute top-0 left-0 w-full h-full object-cover"
@@ -318,24 +238,33 @@ export default function Home1() {
           playsInline
         ></video>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
-            <span style={{ color: '#00BFFF' }}>Learn </span> Without Limits
-          </h1>
-          <p className={
-            `mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`
-          }>
-            Empower your future with top-quality online courses, expert instructors, and 
-            hands-on projects designed to help you gain real-world skills. 
-            Join thousands of learners worldwide who are transforming their careers, 
-            achieving their goals, and unlocking their full potential with our interactive 
-            and flexible learning platform.
-          </p>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4" data-aos="fade-up" data-aos-duration="1000">
+          <h1 
+  className="text-4xl md:text-6xl font-bold" 
+  style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
+>
+  Build Your Dream with <span style={{ color: '#facc15' }}>Expert Construction</span>
+</h1>
+
+<p 
+  className={`mt-4 max-w-4xl text-lg md:text-xl ${
+    theme === 'dark' ? 'text-fff' : 'text-fff'
+  }`}
+  data-aos="fade-up" data-aos-delay="200"
+>
+  From homes to commercial spaces, we deliver top-quality construction solutions 
+  that stand the test of time. With expert engineers, skilled craftsmen, and 
+  modern technology, we ensure every project is built with precision, safety, 
+  and durability. Whether you’re planning a new build, renovation, or 
+  infrastructure project, we bring your vision to life — on time and within budget.
+</p>
+
           <button
-            onClick={scrollToQuiz}
+            onClick={() => window.scrollTo({ top: document.getElementById('project-categories').offsetTop, behavior: 'smooth' })}
             className={
-              `${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-[#00BFFF]' : 'bg-[#00BFFF] text-white hover:bg-[#00BFFF]'} px-6 py-3 mt-5 rounded-lg transition-colors font-semibold`
+              `${theme === 'dark' ? 'bg-[#facc15] text-white hover:bg-[#ca8a04]' : 'bg-[#facc15] text-white hover:bg-[#ca8a04]'} px-6 py-3 mt-5 rounded-lg transition-colors font-semibold`
             }
+            data-aos="zoom-in" data-aos-delay="400"
           >
             Learn More
           </button>
@@ -343,269 +272,538 @@ export default function Home1() {
       </section>
 
       {/* Daily Question - Centered container */}
-      <section
-        className={
-          `py-16 px-6 relative ${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-[#e6f7ff] text-black'}`
-        }
-        id="quiz"
-      >
-        <div className={`absolute top-4 right-4 px-4 py-2 rounded-full shadow ${theme === 'dark' ? 'bg-[#00BFFF] text-white' : 'bg-[#00BFFF] text-white'}`}>
-          🔥 Streak: {streak} days
-        </div>
-
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="text-lg font-semibold mb-2" style={{ color: '#00BFFF' }}>
-            Daily Challenge
-          </div>
-
-          <p className={`text-xl font-medium mb-8 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>{question.q}</p>
-
-          <div className="grid gap-4 max-w-md mx-auto">
-            {question.options?.map((opt) => {
-              const isCorrect = opt === question.answer;
-              const isSelected = selected === opt;
-
-              return (
-                <button
-                  key={opt}
-                  onClick={() => handleAnswer(opt)}
-                  disabled={attemptedToday}
-                  className={
-                    `px-4 py-3 rounded-lg border text-lg transition-colors ` +
-                    (
-                      attemptedToday
-                        ? isCorrect
-                          ? 'bg-green-500 text-white'
-                          : isSelected
-                          ? 'bg-red-500 text-white'
-                          : theme === 'dark'
-                            ? 'bg-gray-800 text-white'
-                            : 'bg-white text-black'
-                        : isSelected
-                        ? 'bg-blue-500 text-white'
-                        : theme === 'dark'
-                          ? 'bg-gray-800 text-white hover:bg-gray-700'
-                          : 'bg-white text-black hover:bg-gray-200'
-                    ) +
-                    (attemptedToday ? ' opacity-80 cursor-not-allowed' : '')
-                  }
-                >
-                  {opt}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us - Full width grid */}
-      <section
-        className={
-          `w-full py-16 ${theme === 'dark' ? 'bg-[#000]' : 'bg-[#00BFFF]'}`
-        }
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side Image with fadeInLeft */}
-          <div>
-            <img
-              src={whyChooseImg}
-              alt="Why Choose Us"
-              className="rounded-2xl shadow-lg w-full"
-            />
-          </div>
-
-          {/* Right Side Content with fadeInRight */}
-          <div>
-            <h2 className={`text-3xl font-bold mb-6 ${theme === 'dark' ? 'text-[#00BFFF]' : 'text-white'}`}>Unlock Your Learning Potential</h2>
-            <p className={`text-lg text-justify mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-              We provide top-notch educational content tailored to your unique learning needs. 
-              Our platform combines expert instructors
-              With flexible schedules, and a supportive community of learners, 
-              we empower you to reach your goals faster and build skills that stand out in today’s competitive world. 
-              Join thousands of students who have transformed their careers and embraced lifelong learning with us.
-            </p>
-            <ul className={`space-y-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-              <li className="flex items-start">
-                <span className={theme === 'dark' ? 'text-gray-200 mr-3' : 'text-gray-700 mr-3'}>✔</span> Experienced and certified instructors
-              </li>
-              <li className="flex items-start">
-                <span className={theme === 'dark' ? 'text-gray-200 mr-3' : 'text-gray-700 mr-3'}>✔</span> Flexible learning schedules
-              </li>
-              <li className="flex items-start">
-                <span className={theme === 'dark' ? 'text-gray-200 mr-3' : 'text-gray-700 mr-3'}>✔</span> Hands-on projects and case studies
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-    {/* Join as Instructor Section */}
-   
-
-    {/* ...existing code... */}
-
-    {/* CTA Section */}
-    
-
-    {/* Testimonial Carousel Section */}
-    <section
-      className={
-        `w-full py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#e6f7ff]'}`
-      }
-    >
-      <div className="max-w-5xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-4" style={{ color: '#00BFFF' }}>What Our Learners Say</h2>
-        <p className={`text-center text-lg mb-10 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Real feedback from students who have transformed their careers with us.</p>
-
-        {/* Carousel Logic - Arrows beside cards */}
-        <div className="flex items-center justify-center w-full">
-          <button
-            onClick={prev}
-            className={`w-12 h-12 flex items-center justify-center rounded-full shadow transition-colors mr-6 ${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-500'}`}
-            aria-label="Previous"
-          >
-            &#8592;
-          </button>
-          <div className="w-full max-w-4xl">
-            <div className="grid lg:grid-cols-3 gap-8">
-              {cards.map((t, idx) => (
-                <div key={idx} className={`rounded-xl shadow-lg p-6 border-t-4 flex flex-col ${theme === 'dark' ? 'bg-[#181818] border-[#00BFFF]' : 'bg-white border-[#00BFFF]'}`} data-aos="fade-up" data-aos-delay={idx * 100}>
-                  <div className="flex items-center mb-3">
-                    <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full mr-3 border-2 border-[#00BFFF]" />
-                    <div>
-                      <div className="font-semibold" style={{ color: '#00BFFF' }}>{t.name}</div>
-                      <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{t.role}</div>
-                    </div>
-                  </div>
-                  <div className={`font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>{t.title}</div>
-                  <div className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{t.text}</div>
-                  <div className="flex items-center mt-auto">
-                    {Array.from({ length: t.rating }).map((_, i) => (
-                      <svg key={i} className="w-5 h-5" style={{ color: '#00BFFF' }} fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 00-1.175 0l-3.38 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.174 9.393c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.966z" /></svg>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center mt-6 gap-2">
-              {[0, 1].map((i) => (
-                <span
-                  key={i}
-                  className={`w-3 h-3 rounded-full ${carouselIndex === i * 3 ? 'bg-[#00BFFF]' : theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'}`}
-                ></span>
-              ))}
-            </div>
-          </div>
-          <button
-            onClick={next}
-            className={`w-12 h-12 flex items-center justify-center rounded-full shadow transition-colors ml-6 ${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-500'}`}
-            aria-label="Next"
-          >
-            &#8594;
-          </button>
-        </div>
-      </div>
-    </section>
-
-
-<section
-  className="w-full relative py-16"
-  style={{
-    backgroundImage: `url(${impactImg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
+     <section
+  className={`w-full py-16 sm:py-20 ${
+    theme === "dark" ? "bg-[#222]" : "bg-[#FFF]"
+  } overflow-hidden`}
+  id="project-categories"
+  data-aos="fade-up"
+  data-aos-delay="100"
 >
-  {/* Overlay gradient */}
-  <div className="absolute inset-0" style={{ background: theme === 'dark' ? 'rgba(0,191,255,0.25)' : 'rgba(0,191,255,0.3)' }}></div>
+  <div className="max-w-7xl mx-auto px-4">
+    {/* Heading */}
+    <h2
+      className="text-4xl font-bold text-center mb-4"
+      style={{ color: theme === "dark" ? "#fff" : "#000" }}
+      data-aos="fade-up"
+    >
+      Explore Our Expertise
+    </h2>
+    <p
+      className={`text-lg text-center mb-12 ${
+        theme === "dark" ? "text-gray-300" : "text-gray-600"
+      }`}
+      data-aos="fade-up" data-aos-delay="200"
+    >
+      From homes to industries — discover the categories of projects we proudly
+      deliver with quality and precision.
+    </p>
 
-  <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-    <h2 className="text-5xl font-bold text-center mb-12" style={{ color: '#fff' }}>Our Impact</h2>
+    {/* Filter Buttons */}
+    <div className="flex justify-center gap-6 mb-12" data-aos="fade-up" data-aos-delay="400">
+      {Object.keys(categories).map((name) => (
+        <button
+          key={name}
+          onClick={() => setActiveCategory(name)}
+          className={`px-6 py-2 rounded-lg font-medium transition ${
+            activeCategory === name
+              ? "bg-yellow-400 text-black"
+              : theme === "dark"
+              ? "bg-[#111] text-gray-300 hover:bg-[#222]"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+          }`}
+          data-aos="zoom-in"
+        >
+          {name}
+        </button>
+      ))}
+    </div>
 
-    <div className="grid lg:grid-cols-4 gap-8 text-center">
-      {/* Metric 1 */}
-      <ImpactMetric value={10000} suffix="+" label="Students Enrolled" delay={100} color="#00BFFF" />
-      {/* Metric 2 */}
-      <ImpactMetric value={500} suffix="+" label="Expert Instructors" delay={200} color="#00BFFF" />
-      {/* Metric 3 */}
-      <ImpactMetric value={120} suffix="+" label="Courses Offered" delay={300} color="#00BFFF" />
-      {/* Metric 4 */}
-      <ImpactMetric value={95} suffix="%" label="Student Satisfaction" delay={400} color="#00BFFF" />
+    {/* Content Layout */}
+    <div className="grid md:grid-cols-2 gap-10 items-center">
+      {/* Left Image */}
+      <div className="w-full" data-aos="fade-right" data-aos-delay="200">
+        <img
+          src={categories[activeCategory].img}
+          alt={categories[activeCategory].heading}
+          className="w-full h-[350px] object-cover rounded-2xl shadow-lg transition-all duration-500"
+        />
+      </div>
+
+      {/* Right Content */}
+      <div className="text-left" data-aos="fade-left" data-aos-delay="400">
+        <h3 className="text-3xl font-semibold mb-4 text-yellow-400">
+          {categories[activeCategory].heading}
+        </h3>
+        <p
+          className={`text-lg text-justify ${
+            theme === "dark" ? "text-gray-300" : "text-gray-600"
+          }`}
+        >
+          {categories[activeCategory].desc}
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
 
+      
 
+      {/* Why Choose Us - Full width grid */}
+<section
+      className={`w-full py-16 sm:py-20 ${
+        theme === "dark" ? "bg-[#000]" : "bg-gray-100"
+      } overflow-hidden`}
+      id="services"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+      <div className="max-w-7xl mx-auto px-4 text-center">
+        {/* Heading */}
+        <h2
+          className="text-4xl font-bold mb-4"
+          style={{ color: theme === "dark" ? "#facc15" : "#facc15" }}
+        >
+          We Provide Services
+        </h2>
+        <p
+          className={`text-lg mb-12 ${
+            theme === "dark" ? "text-gray-300" : "text-gray-600"
+          }`}
+        >
+          From planning to execution, we deliver high-quality construction
+          solutions tailored to your needs.
+        </p>
 
- <section
-   className={`w-full py-16 flex items-center justify-center ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`}
- >
-      <div className="max-w-2xl mx-auto w-full text-center px-6">
-        <h2 className="text-4xl font-bold mb-4" style={{ color: '#00BFFF' }}>Join as Instructor</h2>
-        <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Share your expertise and inspire learners worldwide. Fill out the form below to join our instructor community.</p>
-        <form className={
-          `${theme === 'dark' ? 'bg-[#222] text-white' : 'bg-[#e6f7ff] text-black'} rounded-lg shadow p-6 mb-8 flex flex-col gap-4`
-        } onSubmit={handleInstructorSubmit} autoComplete="off">
-          <input
-            type="text"
-            name="name"
-            value={instructorForm.name}
-            onChange={handleInstructorChange}
-            placeholder="Full Name"
-            className={
-              `px-4 py-3 rounded border shadow focus:outline-none focus:ring-2 placeholder:text-gray-700 ` +
-              (theme === 'dark'
-                ? 'text-white bg-[#181818] border-[#00BFFF] focus:ring-[#00BFFF]'
-                : 'text-black bg-white border-[#00BFFF] focus:ring-[#00BFFF]')
-            }
-            required
-            autoComplete="off"
-          />
-          <input
-            type="email"
-            name="email"
-            value={instructorForm.email}
-            onChange={handleInstructorChange}
-            placeholder="Email Address"
-            className={
-              `px-4 py-3 rounded border shadow focus:outline-none focus:ring-2 placeholder:text-gray-700 ` +
-              (theme === 'dark'
-                ? 'text-white bg-[#181818] border-[#00BFFF] focus:ring-[#00BFFF]'
-                : 'text-black bg-white border-[#00BFFF] focus:ring-[#00BFFF]')
-            }
-            required
-            autoComplete="off"
-          />
-          <input
-            type="text"
-            name="expertise"
-            value={instructorForm.expertise}
-            onChange={handleInstructorChange}
-            placeholder="Area of Expertise"
-            className={
-              `px-4 py-3 rounded border shadow focus:outline-none focus:ring-2 placeholder:text-gray-700 ` +
-              (theme === 'dark'
-                ? 'text-white bg-[#181818] border-[#00BFFF] focus:ring-[#00BFFF]'
-                : 'text-black bg-white border-[#00BFFF] focus:ring-[#00BFFF]')
-            }
-            required
-            autoComplete="off"
-          />
-          <button
-            type="submit"
-            className={
-              `${theme === 'dark' ? 'bg-[#00BFFF] text-white hover:bg-blue-400' : 'bg-[#00BFFF] text-white hover:bg-blue-500'} font-semibold px-6 py-3 rounded-lg shadow transition-colors`
-            }
-          >
-            Submit
-          </button>
-        </form>
-        {showSuccess && (
-          <div className="mt-4 text-green-600 font-semibold text-lg">Successfully submitted!</div>
-        )}
+        {/* Cards */}
+        <div className="grid gap-8 md:grid-cols-3" >
+          {/* Residential */}
+          <div className="p-6 rounded-2xl shadow-lg border hover:shadow-xl transition bg-white" style={{ backgroundColor: theme === "dark" ? "#222" : "#fff" }}>
+            <img src={img1} alt="Residential" className="h-16 mx-auto mb-6" />
+            <h3 className="text-2xl font-semibold  text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>Residential</h3>
+            <p className="text-gray-600 mb-6" style={{ color: theme === "dark" ? "#fff" : "#000" }}>
+              From modern homes to luxury apartments, we build spaces that are
+              stylish, functional, and durable.
+            </p>
+<Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
+  Get Started
+</Link>
+          </div>
+
+          {/* Interior Designs */}
+          <div className="p-6 rounded-2xl shadow-lg border hover:shadow-xl transition bg-white" style={{ backgroundColor: theme === "dark" ? "#222" : "#fff" }}>
+            <img src={img2} alt="Interior Designs" className="h-16 mx-auto mb-6" />
+            <h3 className="text-2xl font-semibold text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>Interior Designs</h3>
+            <p className="text-gray-600 mb-6" style={{ color: theme === "dark" ? "#fff" : "#000" }}>
+              Creative and functional designs that transform your interiors into
+              elegant and comfortable spaces.
+            </p>
+            <Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
+  Get Started
+</Link>
+          </div>
+
+          {/* Structural Repair */}
+          <div className="p-6 rounded-2xl shadow-lg border hover:shadow-xl transition bg-white" style={{ backgroundColor: theme === "dark" ? "#222" : "#fff" }}>
+            <img src={img3} alt="Structural Repair" className="h-16 mx-auto mb-6" />
+            <h3 className="text-2xl font-semibold text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>Structural Repair</h3>
+            <p className="text-gray-600 mb-6" style={{ color: theme === "dark" ? "#fff" : "#000" }}>
+              Reliable repair and strengthening services to ensure safety and
+              long-term stability of your structures.
+            </p>
+         <Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
+  Get Started
+</Link>
+          </div>
+        </div>
       </div>
     </section>
+
+
+
+
+      {/* Add your other sections here... */}
+
+   <section className={`w-full min-h-screen flex items-center justify-center  
+  ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} overflow-hidden`}
+    data-aos="fade-up"
+    data-aos-delay="300"
+  >
+  <div className={`rounded-2xl shadow-2xl w-full max-w-4xl p-8 
+    ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+    
+    {/* Section Heading */}
+    <h2 
+      className="text-3xl md:text-4xl font-bold text-center mb-6"
+      style={{ color: theme === "dark" ? "#facc15" : "#facc15" }}
+    >
+      Construction Cost Estimator
+    </h2>
+
+    <form
+      onSubmit={calculateEstimate}
+      className="grid grid-cols-1 md:grid-cols-2 gap-6"
+    >
+      {/* Area */}
+      <div>
+        <label 
+          className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          Built-up Area (sqft)
+        </label>
+        <input
+          type="number"
+          value={area}
+          onChange={(e) => setArea(e.target.value)}
+          required
+          className={`w-full px-4 py-2 rounded-lg border 
+            ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white text-gray-900'} 
+            focus:ring-2 focus:ring-yellow-400 outline-none transition`}
+        />
+      </div>
+
+      {/* Floors */}
+      <div>
+        <label 
+          className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          Number of Floors
+        </label>
+        <input
+          type="number"
+          min="1"
+          value={floors}
+          onChange={(e) => setFloors(e.target.value)}
+          required
+          className={`w-full px-4 py-2 rounded-lg border 
+            ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white text-gray-900'} 
+            focus:ring-2 focus:ring-yellow-400 outline-none transition`}
+        />
+      </div>
+
+      {/* Quality */}
+      <div>
+        <label 
+          className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          Construction Quality
+        </label>
+        <select
+          value={quality}
+          onChange={(e) => setQuality(e.target.value)}
+          className={`w-full px-4 py-2 rounded-lg border 
+            ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white text-gray-900'} 
+            focus:ring-2 focus:ring-yellow-400 outline-none transition`}
+        >
+          <option value="standard">Standard</option>
+          <option value="premium">Premium</option>
+          <option value="luxury">Luxury</option>
+        </select>
+      </div>
+
+      {/* Location */}
+      <div>
+        <label 
+          className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          Project Location
+        </label>
+        <select
+          value={projectLocation}
+          onChange={(e) => setProjectLocation(e.target.value)}
+          className={`w-full px-4 py-2 rounded-lg border 
+            ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white text-gray-900'} 
+            focus:ring-2 focus:ring-yellow-400 outline-none transition`}
+        >
+          <option value="urban">Urban</option>
+          <option value="semiUrban">Semi-Urban</option>
+          <option value="rural">Rural</option>
+        </select>
+      </div>
+
+      {/* Extras */}
+      <div className="md:col-span-2 flex flex-col gap-3">
+        <label 
+          className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          Additional Services
+        </label>
+        <div className="flex gap-6 flex-wrap">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={extras.interior}
+              onChange={(e) =>
+                setExtras({ ...extras, interior: e.target.checked })
+              }
+              className="accent-yellow-400"
+            />
+            Interior Work (+ ₹400/sqft)
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={extras.landscaping}
+              onChange={(e) =>
+                setExtras({ ...extras, landscaping: e.target.checked })
+              }
+              className="accent-yellow-400"
+            />
+            Landscaping (+ ₹200/sqft)
+          </label>
+        </div>
+      </div>
+
+      {/* Button */}
+      <div className="md:col-span-2 flex justify-center">
+        <button
+          type="submit"
+          className="px-8 py-3 rounded-lg bg-yellow-400 text-gray-900 font-semibold 
+                     hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 transition"
+        >
+          Calculate Estimate
+        </button>
+      </div>
+    </form>
+
+    {/* Result */}
+    {estimate && (
+      <div className="mt-8 text-center">
+        <h3 
+          className="text-2xl font-bold"
+          style={{ color: theme === "dark" ? "#facc15" : "#facc15" }}
+        >
+          Estimated Cost
+        </h3>
+        <p 
+          className="text-3xl font-extrabold mt-2"
+          style={{ color: theme === "dark" ? "#facc15" : "#facc15" }}
+        >
+          ₹ {estimate}
+        </p>
+      </div>
+    )}
+  </div>
+</section>
+
+    
+
+
+
+
+
+    
+
+    {/* Testimonial Carousel Section */}
+    
+
+<section
+  className="w-full relative py-16 overflow-hidden"
+  style={{
+    backgroundImage: `url(${impactImg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+  data-aos="fade-up"
+  data-aos-delay="400"
+>
+  {/* Overlay gradient */}
+  <div 
+  className="absolute inset-0" 
+  style={{ background: 'rgba(250,204,21,0.3)' }} // yellow-400 with transparency
+></div>
+
+<div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+  <h2 
+  className="text-5xl font-bold text-center mb-12" 
+  style={{ color: '#fff' }}
+>
+  Building a Legacy of Excellence
+</h2>
+
+
+  <div className="grid lg:grid-cols-4  rounded-full gap-8 text-center">
+    {/* Metric 1 */}
+    <ImpactMetric 
+      value={250} 
+      suffix="+" 
+      label="Projects Completed" 
+      delay={100} 
+      color="#000" // yellow-400
+    />
+    {/* Metric 2 */}
+    <ImpactMetric 
+      value={50} 
+      suffix="+" 
+      label="Ongoing Constructions" 
+      delay={200} 
+      color="#000" 
+    />
+    {/* Metric 3 */}
+    <ImpactMetric 
+      value={30} 
+      suffix="+" 
+      label="Cities Served" 
+      delay={300} 
+      color="#000" 
+    />
+    {/* Metric 4 */}
+    <ImpactMetric 
+      value={98} 
+      suffix="%" 
+      label="Client Satisfaction" 
+      delay={400} 
+      color="#000" 
+    />
+  </div>
+</div>
+</section>
+
+<div className="relative" data-aos="fade-up" data-aos-delay="500">
+  {/* FORM */}
+  <div className={`max-w-full mx-auto shadow-lg rounded-xl p-6 
+    ${theme === 'dark' ? 'bg-[#181818] text-white' : 'bg-white text-gray-900'}`}>
+      
+    <h2 className={`text-4xl font-bold text-center mb-6 mt-10
+      ${theme === 'dark' ? 'text-[#fed700]' : 'text-yellow-400'}`}>
+      Need A Custom Package?
+    </h2>
+
+    <p className={`text-center mb-10 
+      ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+      Please submit the following form and we will get back to you with the best quotation.
+    </p>
+
+    <form onSubmit={handleSubmit} 
+      className={`p-8 rounded-lg shadow-lg space-y-6 
+        ${theme === 'dark' ? 'bg-[#1f1f1f]' : 'bg-white'}`}>
+      
+      {/* Name */}
+      <div>
+        <label className="block font-semibold mb-2">Name</label>
+        <input 
+          type="text" 
+          name="name"
+          placeholder="Enter your name"
+          value={formData.name}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
+            ${theme === 'dark' 
+              ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
+              : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
+          required 
+        />
+      </div>
+
+      {/* Phone Number */}
+      <div>
+        <label className="block font-semibold mb-2">Phone Number</label>
+        <input 
+          type="tel" 
+          name="phoneNumber"
+          placeholder="Enter your phone number"
+          value={formData.phoneNumber}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
+            ${theme === 'dark' 
+              ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
+              : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
+          required 
+        />
+      </div>
+
+      {/* Site Area */}
+      <div>
+        <label className="block font-medium mb-2">Site Area (Sq.ft)</label>
+        <input 
+          type="text" 
+          name="siteArea"
+          placeholder="Enter site area in Sq.ft"
+          value={formData.siteArea}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
+            ${theme === 'dark' 
+              ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
+              : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
+          required
+        />
+      </div>
+
+      {/* Plot Location */}
+      <div>
+        <label className="block font-medium mb-2">Plot Location</label>
+        <input 
+          type="text" 
+          name="plotLocation"
+          placeholder="Enter plot location"
+          value={formData.plotLocation}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
+            ${theme === 'dark' 
+              ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
+              : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
+        />
+      </div>
+
+      {/* Construction Type */}
+      <div>
+        <label className="block font-medium mb-2">Construction Type</label>
+        <select 
+          name="construction"
+          value={formData.construction}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
+            ${theme === 'dark' 
+              ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
+              : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
+        >
+          <option value="">Select</option>
+          <option value="Residential construction">Residential construction</option>
+          <option value="Commercial construction">Commercial construction</option>
+        </select>
+      </div>
+
+      {/* House Type */}
+      <div>
+        <label className="block font-medium mb-2">House Type</label>
+        <select 
+          name="houseType"
+          value={formData.houseType}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
+            ${theme === 'dark' 
+              ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
+              : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
+        >
+          <option value="">Select</option>
+          <option value="Ground floor">Ground floor</option>
+          <option value="Duplex">Duplex</option>
+          <option value="Triplex">Triplex</option>
+        </select>
+      </div>
+
+      {/* Submit Button */}
+      <button 
+        type="submit"
+        className={`w-full font-bold py-3 rounded 
+          ${theme === 'dark' 
+            ? 'bg-[#fed700] text-black hover:bg-yellow-500' 
+            : 'bg-yellow-400 text-black hover:bg-yellow-500'}`}
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+
+  {/* TOAST */}
+  {showToast && (
+    <div
+      className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg transition-all duration-500 
+        ${toastVisible 
+          ? 'opacity-100 translate-y-0 bg-green-600 text-white' 
+          : 'opacity-0 translate-y-4 bg-green-600 text-white'}`}
+    >
+      Your details have been saved!
+    </div>
+  )}
+</div>
+
 
 
     

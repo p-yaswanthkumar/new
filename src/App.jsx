@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { initTheme } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home1 from './pages/Home1';
@@ -19,6 +21,9 @@ import UserDetailsSection from './pages/admindashboard'; //
 import UserDashboard from './pages/userdashboard';
 
 function App() {
+  useEffect(() => {
+    initTheme();
+  }, []);
   return (
     <BrowserRouter>
       <div className="App">
@@ -39,12 +44,12 @@ function App() {
                   <Route path="home2" element={<Home2Hero />} />
                   <Route path="aboutus" element={<AboutHero />} />
                   <Route path="services" element={<ServiceHero />} />
-                  <Route path="Artificial-Intelligence&Machine-Learning" element={<AIHero />} />
-                  <Route path="web-development" element={<WebDevServicePage />} />
-                  <Route path="DataScience&Analytics" element={<DataSciencePage />} />
-                  <Route path="blockchaincryptocurrency" element={<BlockchainPage />} />
-                  <Route path="Cybersecurity&Ethical-Hacking" element={<CybersecurityPage />} />
-                  <Route path="CloudComputing&DevOps" element={<CloudComputingPage />} />
+                  <Route path="ResidentialConstruction" element={<AIHero />} />
+                  <Route path="ProjectManagement&Consultation" element={<WebDevServicePage />} />
+                  <Route path="Design-Planning&Execution" element={<DataSciencePage />} />
+                  <Route path="CommercialConstruction" element={<BlockchainPage />} />
+                  <Route path="Renovation&Remodeling" element={<CybersecurityPage />} />
+                  <Route path="InteriorFit-outs" element={<CloudComputingPage />} />
                   <Route path="blog" element={<BlogHero />} />
                   <Route path="/blog/:id" element={<BlogDetail />} />
                   <Route path="contactus" element={<ContactHero />} />

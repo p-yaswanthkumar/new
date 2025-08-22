@@ -1,20 +1,70 @@
+
+
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 import Header from "../components/Header";
-import { ResponsiveContainer, BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
 
 export default function UserDetailsSection() {
-  // Theme state
-  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+
+  // --- THEME: Always use the current theme from localStorage, update immediately on change ---
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'light';
+    }
+    return 'light';
+  });
+
   useEffect(() => {
-    const syncTheme = () => setTheme(localStorage.getItem("theme") || "light");
-    window.addEventListener("storage", syncTheme);
-    window.addEventListener("theme-changed", syncTheme);
+    const updateTheme = () => {
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      setTheme(currentTheme);
+      if (typeof window !== 'undefined') {
+        if (currentTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.body.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.body.classList.remove('dark');
+        }
+      }
+    };
+    window.addEventListener('theme-changed', updateTheme);
+    window.addEventListener('storage', updateTheme);
+    updateTheme(); // run once on mount
     return () => {
-      window.removeEventListener("storage", syncTheme);
-      window.removeEventListener("theme-changed", syncTheme);
+      window.removeEventListener('theme-changed', updateTheme);
+      window.removeEventListener('storage', updateTheme);
     };
   }, []);
+  // ...existing code...
+  // State hooks must come before any usage
+  const [editIdx, setEditIdx] = useState(null);
+  const [editForm, setEditForm] = useState({ title: '', image: '', author: '', description: '' });
+  const [signupDetails, setSignupDetails] = useState([]);
+  const [blogs, setBlogs] = useState([]);
+  const [blogForm, setBlogForm] = useState({ title: '', image: '', author: '', description: '' });
+  const [customerPackages, setCustomerPackages] = useState([]);
+  // Latest Projects state
+  const [latestProjects, setLatestProjects] = useState([]);
+  const [projectForm, setProjectForm] = useState({ image: '', title: '', duration: '', description: '' });
+  const [editProjectIdx, setEditProjectIdx] = useState(null);
+
+  // Chart data for user signups by date
+  const signupCountsByDate = signupDetails.reduce((acc, user) => {
+    if (user.signupDate) {
+      acc[user.signupDate] = (acc[user.signupDate] || 0) + 1;
+    }
+    return acc;
+  }, {});
+  const signupChartData = Object.entries(signupCountsByDate).map(([date, count]) => ({ date, count }));
+
+  // ...existing code...
+
+  // --- Summary Graph Section ---
+  // Place this above the User Signup and Customer Packages sections in the return
+  // ...rest of your component logic and JSX...
+  // (No code should be outside the function)
 
   // NOTE: In your theme toggle logic (e.g., in Header), after updating localStorage, add:
   // window.dispatchEvent(new Event("themeChanged"));
@@ -46,53 +96,71 @@ export default function UserDetailsSection() {
     localStorage.setItem("blogs", JSON.stringify(newBlogs));
     setEditIdx(null);
   };
-  const [editIdx, setEditIdx] = useState(null);
-  const [editForm, setEditForm] = useState({ title: '', date: '', time: '', description: '' });
-  const [webinarRegistrations, setWebinarRegistrations] = useState([]);
-  const [webinars, setWebinars] = useState([]);
-  const [webinarForm, setWebinarForm] = useState({ title: '', date: '', time: '', description: '' });
 
-  const [signupDetails, setSignupDetails] = useState([]);
-  const [instructorDetails, setInstructorDetails] = useState([]);
-  const [blogs, setBlogs] = useState([]);
-  const [blogForm, setBlogForm] = useState({ title: '', image: '', author: '', description: '' });
 
-  // Prepare data for signup graph (signups per day)
-  const signupDateCounts = signupDetails.reduce((acc, user) => {
-    if (user.signupDate) {
-      acc[user.signupDate] = (acc[user.signupDate] || 0) + 1;
-    }
-    return acc;
-  }, {});
-  const signupGraphData = Object.entries(signupDateCounts).map(([date, count]) => ({ date, count }));
 
-  // Prepare data for instructor graph (instructors per expertise)
-  const expertiseCounts = instructorDetails.reduce((acc, inst) => {
-    if (inst.expertise) {
-      acc[inst.expertise] = (acc[inst.expertise] || 0) + 1;
-    }
-    return acc;
-  }, {});
-  const instructorGraphData = Object.entries(expertiseCounts).map(([expertise, count]) => ({ expertise, count }));
 
   useEffect(() => {
     // Fetch all admin data from localStorage
     const fetchDetails = () => {
       const storedUsers = localStorage.getItem("users");
       setSignupDetails(storedUsers ? JSON.parse(storedUsers) : []);
-      const storedInstructors = localStorage.getItem("instructors");
-      setInstructorDetails(storedInstructors ? JSON.parse(storedInstructors) : []);
-      const storedWebinars = localStorage.getItem("webinars");
-      setWebinars(storedWebinars ? JSON.parse(storedWebinars) : []);
-      const storedRegistrations = localStorage.getItem("webinarRegistrations");
-      setWebinarRegistrations(storedRegistrations ? JSON.parse(storedRegistrations) : []);
+      // Removed instructor, webinar, and registration fetch
       const storedBlogs = localStorage.getItem("blogs");
       setBlogs(storedBlogs ? JSON.parse(storedBlogs) : []);
+      // Fetch customer packages
+      const storedPackages = localStorage.getItem("customPackages");
+      let parsedPackages = [];
+      try {
+        parsedPackages = storedPackages ? JSON.parse(storedPackages) : [];
+      } catch (e) {
+        console.error("Error parsing customPackages from localStorage", e, storedPackages);
+        parsedPackages = [];
+      }
+      console.log("Loaded customPackages:", parsedPackages);
+      setCustomerPackages(parsedPackages);
+      // Fetch latest projects
+      const storedProjects = localStorage.getItem('latestProjects');
+      setLatestProjects(storedProjects ? JSON.parse(storedProjects) : []);
     };
     fetchDetails();
     window.addEventListener("storage", fetchDetails);
     return () => window.removeEventListener("storage", fetchDetails);
   }, []);
+
+  // Latest Projects handlers
+  const handleProjectInput = (e) => {
+    const { name, value } = e.target;
+    setProjectForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleProjectSubmit = (e) => {
+    e.preventDefault();
+    if (!projectForm.image || !projectForm.title || !projectForm.duration || !projectForm.description) return;
+    let newProjects;
+    if (editProjectIdx !== null) {
+      newProjects = latestProjects.map((p, i) => i === editProjectIdx ? { ...projectForm } : p);
+    } else {
+      newProjects = [{ ...projectForm }, ...latestProjects];
+    }
+    setLatestProjects(newProjects);
+    localStorage.setItem('latestProjects', JSON.stringify(newProjects));
+    setProjectForm({ image: '', title: '', duration: '', description: '' });
+    setEditProjectIdx(null);
+  };
+
+  const handleEditProject = (idx) => {
+    setEditProjectIdx(idx);
+    setProjectForm(latestProjects[idx]);
+  };
+
+  const handleDeleteProject = (idx) => {
+    const newProjects = latestProjects.filter((_, i) => i !== idx);
+    setLatestProjects(newProjects);
+    localStorage.setItem('latestProjects', JSON.stringify(newProjects));
+    setEditProjectIdx(null);
+    setProjectForm({ image: '', title: '', duration: '', description: '' });
+  };
 
   // After adding/removing a blog, always sync with localStorage
   const syncBlogs = () => {
@@ -100,62 +168,7 @@ export default function UserDetailsSection() {
     setBlogs(storedBlogs ? JSON.parse(storedBlogs) : []);
   };
 
-  // After adding/removing a webinar, always sync with localStorage
-  const syncWebinars = () => {
-    const storedWebinars = localStorage.getItem("webinars");
-    setWebinars(storedWebinars ? JSON.parse(storedWebinars) : []);
-  };
 
-  // Handle form input changes
-  const handleWebinarInput = (e) => {
-    const { name, value } = e.target;
-    setWebinarForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Handle form submit
-  const handleWebinarSubmit = (e) => {
-    e.preventDefault();
-    if (!webinarForm.title || !webinarForm.date || !webinarForm.time || !webinarForm.description) return;
-    const newWebinars = [...webinars, { ...webinarForm }];
-    localStorage.setItem("webinars", JSON.stringify(newWebinars));
-    syncWebinars();
-    setWebinarForm({ title: '', date: '', time: '', description: '' });
-  };
-
-  // Remove a webinar
-  const handleRemoveWebinar = (idx) => {
-    const newWebinars = webinars.filter((_, i) => i !== idx);
-    localStorage.setItem("webinars", JSON.stringify(newWebinars));
-    syncWebinars();
-  };
-
-  // Start editing a webinar
-  const handleEditWebinar = (idx) => {
-    setEditIdx(idx);
-  const [editForm, setEditForm] = useState({ title: '', image: '', author: '', description: '' });
-  };
-
-  // Handle edit form input
-  const handleEditInput = (e) => {
-    const { name, value } = e.target;
-    setEditForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-
-  // Save edited webinar
-  const handleEditSave = (idx) => {
-    if (!editForm.title || !editForm.date || !editForm.time || !editForm.description) return;
-    const b = blogs[idx];
-    setEditForm({
-      title: b.title || '',
-      image: b.image || '',
-      author: b.author || '',
-      description: b.description || ''
-    });
-    setWebinars(newWebinars);
-    localStorage.setItem("webinars", JSON.stringify(newWebinars));
-    setEditIdx(null);
-  };
 
   // Handle blog form input
   const handleBlogInput = (e) => {
@@ -185,6 +198,9 @@ export default function UserDetailsSection() {
     )}>
       <Header />
 
+      
+      {/* Latest Projects Section */}
+
       {/* User Signup Table Section */}
       <div className={clsx(
         "rounded-xl shadow p-6 mt-16",
@@ -192,7 +208,7 @@ export default function UserDetailsSection() {
       )}>
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
-          "text-[#00bfff]"
+          theme === "dark" ? "text-yellow-400" : "text-yellow-400"
         )}>User Signup Details</h2>
         {signupDetails.length > 0 ? (
           <div className="overflow-x-auto">
@@ -202,7 +218,7 @@ export default function UserDetailsSection() {
             )}>
               <thead className={clsx(
                 "text-white",
-                theme === "dark" ? "bg-[#005f8f]" : "bg-[#00bfff]"
+                theme === "dark" ? "bg-yellow-400 text-black" : "bg-yellow-400 text-black"
               )}>
                 <tr>
                   <th className="px-4 py-2 text-center">S.No</th>
@@ -216,7 +232,7 @@ export default function UserDetailsSection() {
               </thead>
               <tbody>
                 {signupDetails.map((user, idx) => (
-                  <tr key={user.email || idx} className={clsx("border-b", theme === "dark" ? "border-[#005f8f]" : "border-[#00bfff]") }>
+                  <tr key={user.email || idx} className={clsx("border-b", theme === "dark" ? "border-yellow-400" : "border-yellow-400") }>
                     <td className="px-4 py-2 text-center">{idx + 1}</td>
                     <td className="px-4 py-2 text-center">{user.firstName}</td>
                     <td className="px-4 py-2 text-center">{user.lastName}</td>
@@ -234,16 +250,24 @@ export default function UserDetailsSection() {
         )}
       </div>
 
-      {/* Instructor Details Table Section */}
+
+
+
+
+
+
+
+
+      {/* Customer Packages Table Section */}
       <div className={clsx(
-        "rounded-xl shadow p-6 mt-6",
+        "rounded-xl shadow p-6 mt-8",
         theme === "dark" ? "bg-[#181f2a]" : "bg-white"
       )}>
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
-          "text-[#00bfff]"
-        )}>Instructor Details</h2>
-        {instructorDetails.length > 0 ? (
+          theme === "dark" ? "text-yellow-400" : "text-yellow-400"
+        )}>Customer Packages</h2>
+        {customerPackages && customerPackages.length > 0 ? (
           <div className="overflow-x-auto">
             <table className={clsx(
               "min-w-full border rounded-lg",
@@ -251,138 +275,125 @@ export default function UserDetailsSection() {
             )}>
               <thead className={clsx(
                 "text-white",
-                theme === "dark" ? "bg-[#005f8f]" : "bg-[#00bfff]"
+                theme === "dark" ? "bg-yellow-400 text-black" : "bg-yellow-400 text-black"
               )}>
                 <tr>
                   <th className="px-4 py-2 text-center">S.No</th>
                   <th className="px-4 py-2 text-center">Name</th>
-                  <th className="px-4 py-2 text-center">Email</th>
-                  <th className="px-4 py-2 text-center">Expertise</th>
+                  <th className="px-4 py-2 text-center">Phone Number</th>
+                  <th className="px-4 py-2 text-center">Site Area</th>
+                  <th className="px-4 py-2 text-center">Plot Location</th>
+                  <th className="px-4 py-2 text-center">Other Info</th>
                 </tr>
               </thead>
               <tbody>
-                {instructorDetails.map((inst, idx) => (
-                  <tr key={inst.email || idx} className={clsx("border-b", theme === "dark" ? "border-[#005f8f]" : "border-[#00bfff]") }>
+                {customerPackages.map((pkg, idx) => (
+                  <tr key={pkg.id || idx} className={clsx("border-b", theme === "dark" ? "border-yellow-400" : "border-yellow-400") }>
                     <td className="px-4 py-2 text-center">{idx + 1}</td>
-                    <td className="px-4 py-2 text-center">{inst.name}</td>
-                    <td className="px-4 py-2 text-center">{inst.email}</td>
-                    <td className="px-4 py-2 text-center">{inst.expertise}</td>
+                    <td className="px-4 py-2 text-center">{pkg.name || '-'}</td>
+                    <td className="px-4 py-2 text-center">{pkg.phoneNumber || '-'}</td>
+                    <td className="px-4 py-2 text-center">{pkg.siteArea || '-'}</td>
+                    <td className="px-4 py-2 text-center">{pkg.plotLocation || '-'}</td>
+                    <td className="px-4 py-2 text-center">{
+                      Object.entries(pkg)
+                        .filter(([key]) => !['name','phoneNumber','siteArea','plotLocation','id'].includes(key))
+                        .map(([key, value]) => (
+                          <div key={key}><span className="font-semibold">{key}:</span> {String(value)}</div>
+                        ))
+                    }</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         ) : (
-          <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No instructor details found.</p>
+          <>
+            <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No customer packages found.</p>
+            {/* Debug: show raw localStorage value if present */}
+            {typeof window !== 'undefined' && localStorage.getItem('customPackages') && (
+              <pre className="mt-2 text-xs text-red-500 bg-gray-100 p-2 rounded">Raw localStorage: {localStorage.getItem('customPackages')}</pre>
+            )}
+          </>
         )}
       </div>
 
-      {/* Dashboard Graphs */}
+{/* --- User Signups by Date Graph Section --- */}
       <div className={clsx(
-        "rounded-xl shadow p-6 mt-6",
+        "rounded-xl shadow p-6 mt-12 mb-8",
         theme === "dark" ? "bg-[#181f2a]" : "bg-white"
       )}>
         <h2 className={clsx(
-          "text-2xl font-bold mb-8 text-center",
-          "text-[#00bfff]"
-        )}>Dashboard Graphs</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <h3 className={clsx(
-              "text-lg font-semibold mb-4 text-center",
-              "text-[#00bfff]"
-            )}>Signups Per Day</h3>
-            {signupGraphData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={signupGraphData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#374151" : "#e5e7eb"} />
-                  <XAxis dataKey="date" stroke={theme === "dark" ? "#fff" : "#22223b"} />
-                  <YAxis allowDecimals={false} stroke={theme === "dark" ? "#fff" : "#22223b"} />
-                  <Tooltip contentStyle={{ background: theme === "dark" ? "#181f2a" : "#fff", color: theme === "dark" ? "#fff" : "#22223b" }} />
-                  <Bar dataKey="count" fill="#00bfff" />
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No signup data for graph.</p>
-            )}
-          </div>
-          <div>
-            <h3 className={clsx(
-              "text-lg font-semibold mb-4 text-center",
-              "text-[#00bfff]"
-            )}>Instructors Per Expertise</h3>
-            {instructorGraphData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={instructorGraphData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#374151" : "#e5e7eb"} />
-                  <XAxis dataKey="expertise" stroke={theme === "dark" ? "#fff" : "#22223b"} />
-                  <YAxis allowDecimals={false} stroke={theme === "dark" ? "#fff" : "#22223b"} />
-                  <Tooltip contentStyle={{ background: theme === "dark" ? "#181f2a" : "#fff", color: theme === "dark" ? "#fff" : "#22223b" }} />
-                  <Bar dataKey="count" fill="#00bfff" />
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No instructor data for graph.</p>
-            )}
-          </div>
-        </div>
+          "text-2xl font-bold mb-4 text-center",
+          theme === "dark" ? "text-yellow-400" : "text-yellow-400"
+        )}>User Signups by Date</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={signupChartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#444" : "#eee"} />
+            <XAxis dataKey="date" stroke={theme === "dark" ? "#fff" : "#222"} />
+            <YAxis stroke={theme === "dark" ? "#fff" : "#222"} allowDecimals={false} />
+            <Tooltip wrapperStyle={{ color: theme === "dark" ? '#222' : '#222' }} />
+            <Bar dataKey="count" fill={theme === "dark" ? "#facc15" : "#facc15"} barSize={60} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
 
-      {/* Upcoming Webinar Section */}
+
+
       <div className={clsx(
         "rounded-xl shadow p-6 mt-8",
         theme === "dark" ? "bg-[#181f2a]" : "bg-white"
       )}>
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
-          "text-[#00bfff]"
-        )}>Upcoming Webinar</h2>
-        <form className="mb-6 w-full" onSubmit={handleWebinarSubmit}>
-          <div className="flex flex-row gap-4 mb-4 w-full">
+          theme === "dark" ? "text-yellow-400" : "text-yellow-400"
+        )}>Latest Projects</h2>
+        <form className="mb-6 w-full" onSubmit={handleProjectSubmit}>
+          <div className="flex flex-col md:flex-row gap-4 mb-4">
+            <input
+              type="text"
+              name="image"
+              value={projectForm.image}
+              onChange={handleProjectInput}
+              placeholder="Image URL"
+              className={clsx(
+                "border rounded px-4 py-3 text-lg flex-1 min-w-0",
+                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
+              )}
+              required
+            />
             <input
               type="text"
               name="title"
-              value={webinarForm.title}
-              onChange={handleWebinarInput}
-              placeholder="Webinar Title"
+              value={projectForm.title}
+              onChange={handleProjectInput}
+              placeholder="Project Title"
               className={clsx(
-                "border rounded px-4 py-3 text-lg w-2/4 min-w-0",
+                "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
               )}
               required
             />
             <input
-              type="date"
-              name="date"
-              value={webinarForm.date}
-              onChange={handleWebinarInput}
+              type="text"
+              name="duration"
+              value={projectForm.duration}
+              onChange={handleProjectInput}
+              placeholder="Duration"
               className={clsx(
-                "border rounded px-4 py-3 text-lg w-1/4 min-w-0",
-                theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
-              )}
-              required
-            />
-            <input
-              type="time"
-              name="time"
-              value={webinarForm.time}
-              onChange={handleWebinarInput}
-              className={clsx(
-                "border rounded px-4 py-3 text-lg w-1/4 min-w-0",
+                "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
               )}
               required
             />
           </div>
           <div className="mb-4">
-            <input
-              type="text"
+            <textarea
               name="description"
-              value={webinarForm.description}
-              onChange={handleWebinarInput}
-              placeholder="Description"
+              value={projectForm.description}
+              onChange={handleProjectInput}
+              placeholder="Project Description"
               className={clsx(
-                "border rounded px-4 py-3 text-lg w-full",
+                "border rounded px-4 py-3 text-lg w-full min-h-[80px]",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
               )}
               required
@@ -391,142 +402,46 @@ export default function UserDetailsSection() {
           <div className="flex justify-center">
             <button type="submit" className={clsx(
               "rounded px-5 py-2 text-base font-semibold transition",
-              "bg-[#00bfff] text-white hover:bg-[#0099cc]"
-            )}>Add Webinar</button>
+              "bg-yellow-400 text-black hover:bg-yellow-500"
+            )}>{editProjectIdx !== null ? 'Update Project' : 'Add Project'}</button>
+            {editProjectIdx !== null && (
+              <button type="button" onClick={() => { setEditProjectIdx(null); setProjectForm({ image: '', title: '', duration: '', description: '' }); }}
+                className={clsx("ml-4 rounded px-5 py-2 text-base font-semibold transition", theme === "dark" ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-300 text-black hover:bg-gray-400")}
+              >Cancel</button>
+            )}
           </div>
         </form>
         <div>
-          {webinars.length > 0 ? (
-            <ul className="space-y-2">
-              {webinars.map((webinar, idx) => (
+          {latestProjects.length > 0 ? (
+            <ul className="space-y-4">
+              {latestProjects.map((proj, idx) => (
                 <li key={idx} className={clsx(
-                  "border rounded p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2",
+                  "border rounded p-4 flex flex-col md:flex-row md:items-center gap-4",
                   theme === "dark" ? "border-gray-700 bg-[#232b3b]" : "border-gray-200 bg-white"
                 )}>
-                  {editIdx === idx ? (
-                    <form className="flex flex-col md:flex-row md:items-center gap-2 w-full" onSubmit={e => { e.preventDefault(); handleEditSave(idx); }}>
-                      <input
-                        type="text"
-                        name="title"
-                        value={editForm.title}
-                        onChange={handleEditInput}
-                        className={clsx(
-                          "border rounded px-2 py-1 md:w-32 w-full",
-                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
-                        )}
-                        required
-                      />
-                      <input
-                        type="date"
-                        name="date"
-                        value={editForm.date}
-                        onChange={handleEditInput}
-                        className={clsx(
-                          "border rounded px-2 py-1 md:w-32 w-full",
-                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
-                        )}
-                        required
-                      />
-                      <input
-                        type="time"
-                        name="time"
-                        value={editForm.time}
-                        onChange={handleEditInput}
-                        className={clsx(
-                          "border rounded px-2 py-1 md:w-24 w-full",
-                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
-                        )}
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="description"
-                        value={editForm.description}
-                        onChange={handleEditInput}
-                        className={clsx(
-                          "border rounded px-2 py-1 md:flex-1 w-full",
-                          theme === "dark" ? "bg-[#181f2a] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
-                        )}
-                        required
-                      />
-                      <button type="submit" className={clsx(
-                        "rounded px-3 py-1 font-semibold transition",
-                        "bg-[#00bfff] text-white hover:bg-[#0099cc]"
-                      )}>Save</button>
-                      <button type="button" className={clsx(
-                        "rounded px-3 py-1 font-semibold transition",
-                        theme === "dark" ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-300 text-black hover:bg-gray-400"
-                      )} onClick={handleEditCancel}>Cancel</button>
-                    </form>
-                  ) : (
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-2">
-                      <div>
-                        <span className="font-semibold">{webinar.title}</span> <span className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>({webinar.date} {webinar.time})</span>
-                        <div className={clsx(theme === "dark" ? "text-gray-300" : "text-gray-700", "text-sm mt-1")}>{webinar.description}</div>
-                      </div>
-                      <div className="flex gap-2 mt-2 md:mt-0">
-                        <button className={clsx(
-                          "rounded px-3 py-1 font-semibold transition",
-                          theme === "dark" ? "bg-yellow-500 text-white hover:bg-yellow-400" : "bg-yellow-400 text-white hover:bg-yellow-500"
-                        )} onClick={() => handleEditWebinar(idx)}>Edit</button>
-                        <button className={clsx(
-                          "rounded px-3 py-1 font-semibold transition",
-                          theme === "dark" ? "bg-red-600 text-white hover:bg-red-500" : "bg-red-500 text-white hover:bg-red-600"
-                        )} onClick={() => handleRemoveWebinar(idx)}>Remove</button>
-                      </div>
-                    </div>
-                  )}
+                  <img src={proj.image} alt={proj.title} className="w-24 h-24 object-cover rounded" />
+                  <div className="flex-1">
+                    <div className={clsx("font-bold text-lg", theme === "dark" ? "text-yellow-400" : "text-yellow-400")}>{proj.title}</div>
+                    <div className={clsx("text-sm mb-1", theme === "dark" ? "text-gray-300" : "text-gray-600")}>{proj.duration}</div>
+                    <div className={clsx("text-sm mb-1", theme === "dark" ? "text-gray-200" : "text-gray-700")}>{proj.description}</div>
+                  </div>
+                  <div className="flex gap-2 mt-2 md:mt-0">
+                    <button className={clsx(
+                      "rounded px-3 py-1 font-semibold transition",
+                      theme === "dark" ? "bg-yellow-500 text-white hover:bg-yellow-400" : "bg-yellow-400 text-white hover:bg-yellow-500"
+                    )} onClick={() => handleEditProject(idx)}>Edit</button>
+                    <button className={clsx(
+                      "rounded px-3 py-1 font-semibold transition",
+                      theme === "dark" ? "bg-red-600 text-white hover:bg-red-500" : "bg-red-500 text-white hover:bg-red-600"
+                    )} onClick={() => handleDeleteProject(idx)}>Remove</button>
+                  </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No upcoming webinars added.</p>
+            <p className={clsx("text-center", theme === "dark" ? "text-gray-400" : "text-gray-500")}>No projects added yet.</p>
           )}
         </div>
-      </div>
-
-      {/* Webinar Registrations Section */}
-      <div className={clsx(
-        "rounded-xl shadow p-6 mt-8",
-        theme === "dark" ? "bg-[#181f2a]" : "bg-white"
-      )}>
-        <h2 className={clsx(
-          "text-2xl font-bold mb-4",
-          "text-[#00bfff]"
-        )}>Webinar Registrations</h2>
-        {webinarRegistrations.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className={clsx(
-              "min-w-full border rounded-lg",
-              theme === "dark" ? "border-gray-700" : "border-gray-200"
-            )}>
-              <thead className="bg-[#00bfff] text-white">
-                <tr>
-                  <th className="px-4 py-2 text-center">S.No</th>
-                  <th className="px-4 py-2 text-center">Webinar Title</th>
-                  <th className="px-4 py-2 text-center">Date</th>
-                  <th className="px-4 py-2 text-center">Name</th>
-                  <th className="px-4 py-2 text-center">Email</th>
-                  <th className="px-4 py-2 text-center">Registered At</th>
-                </tr>
-              </thead>
-              <tbody>
-                {webinarRegistrations.map((reg, idx) => (
-                  <tr key={idx} className={clsx("border-b", theme === "dark" ? "border-gray-700" : "border-gray-200") }>
-                    <td className="px-4 py-2 text-center">{idx + 1}</td>
-                    <td className="px-4 py-2 text-center">{reg.webinarTitle}</td>
-                    <td className="px-4 py-2 text-center">{reg.webinarDate}</td>
-                    <td className="px-4 py-2 text-center">{reg.name}</td>
-                    <td className="px-4 py-2 text-center">{reg.email}</td>
-                    <td className="px-4 py-2 text-center">{new Date(reg.registeredAt).toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No webinar registrations found.</p>
-        )}
       </div>
 
       {/* Add New Blog Section */}
@@ -536,7 +451,7 @@ export default function UserDetailsSection() {
       )}>
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
-          "text-[#00bfff]"
+          theme === "dark" ? "text-yellow-400" : "text-yellow-400"
         )}>Add New Blog</h2>
         <form className="mb-6 w-full" onSubmit={handleBlogSubmit}>
           <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -595,7 +510,7 @@ export default function UserDetailsSection() {
           <div className="flex justify-center">
             <button type="submit" className={clsx(
               "rounded px-5 py-2 text-base font-semibold transition",
-              "bg-[#00bfff] text-white hover:bg-[#0099cc]"
+              "bg-yellow-400 text-black hover:bg-yellow-500"
             )}>Add Blog</button>
           </div>
         </form>
@@ -657,7 +572,7 @@ export default function UserDetailsSection() {
                         <div className="flex gap-2 mt-2">
                           <button type="submit" className={clsx(
                             "rounded px-3 py-1 font-semibold transition",
-                            "bg-[#00bfff] text-white hover:bg-[#0099cc]"
+                            "bg-yellow-400 text-black hover:bg-yellow-500"
                           )}>Save</button>
                           <button type="button" className={clsx(
                             "rounded px-3 py-1 font-semibold transition",
@@ -669,7 +584,7 @@ export default function UserDetailsSection() {
                       <>
                         <div className={clsx(
                           "font-bold text-lg",
-                          "text-[#00bfff]"
+                          theme === "dark" ? "text-yellow-400" : "text-yellow-400"
                         )}>{blog.title}</div>
                         <div className={clsx(
                           "text-sm mb-1",

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { setTheme } from "../theme";
 import { useNavigate } from "react-router-dom";
-import welcomeImg from "../assets/welcome.jpg";
+import welcomeImg from "../assets/welcome1.jpg";
 import logoImg from "../assets/logo.png";
 
 export default function WelcomePage() {
@@ -48,6 +49,7 @@ export default function WelcomePage() {
     e.preventDefault();
     // Check for admin credentials
     if (loginEmail === "admin@enkonix.in" && loginPassword === "admin123") {
+      setTheme("dark");
       localStorage.setItem("firstname", "admin");
       localStorage.setItem("lastname", "dashboard");
       localStorage.setItem("email", loginEmail);
@@ -57,6 +59,7 @@ export default function WelcomePage() {
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find(u => u.email === loginEmail && u.password === loginPassword);
     if (user) {
+      setTheme("dark");
       // Store user details in localStorage for dashboard/avatar
       localStorage.setItem("firstname", user.firstName || "");
       localStorage.setItem("lastname", user.lastName || "");
@@ -104,27 +107,39 @@ export default function WelcomePage() {
   };
 
   return (
-    <div className="grid h-screen  md:grid-cols-2">
-      {/* LEFT SECTION */}
-      <div className="bg-[#00bfff] relative w-full h-full min-h-[200px]">
-        <img 
-          src={welcomeImg} 
-          alt="Welcome" 
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      </div>
+    <div className="relative w-full h-screen">
+  {/* FULL BACKGROUND IMAGE */}
+  <img
+    src={welcomeImg}
+    alt="Welcome"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
 
-      {/* RIGHT SECTION */}
-      <div className="flex items-center bg-[#00BFFF]/10 justify-center p-4 md:p-8">
-        <div className="w-full max-w-md">
+  {/* OVERLAY (optional for darkening the image) */}
+  <div className="absolute inset-0 bg-black/30"></div>
+
+  {/* FORM CONTAINER */}
+  <div className="relative flex items-center justify-left h-full pl-0 md:justify-start md:pl-24">
+  <div className="w-full max-w-md p-6 rounded-xl shadow-lg">
+<div className="flex flex-col items-left mb-4">
+                <img src={logoImg} alt="Logo" className="h-13 w-20 mb-2" />
+              </div>
+    {/* Heading section */}
+    <div className="text-left mb-6">
+
+      <h3 className="text-sm uppercase tracking-widest text-yellow-400 font-semibold">
+        We Make
+      </h3>
+      <h1 className="text-4xl md:text-5xl font-bold text-white mt-1">
+        Dream Houses
+      </h1>
+    </div>
           
           {!showSignup && !showForgot ? (
             /* LOGIN FORM */
             <>
-              <div className="flex flex-col items-left mb-4">
-                <img src={logoImg} alt="Logo" className="h-13 w-20 mb-2" />
-              </div>
-              <h2 className="text-2xl font-bold mb-6 text-left">Login</h2>
+              
+              <h2 className="text-2xl font-bold mb-6  text-yellow-400 text-left">Login</h2>
               <form className="space-y-4" onSubmit={handleLogin}>
                 <input 
                   type="email" 
@@ -143,20 +158,20 @@ export default function WelcomePage() {
                   required
                 />
                 <div className="flex justify-between items-center text-sm">
-                  <button type="button" className="text-[#00BFFF] hover:underline" onClick={() => setShowForgot(true)}>Forgot password?</button>
+                  <button type="button" className="text-yellow-400 hover:underline" onClick={() => setShowForgot(true)}>Forgot password?</button>
                 </div>
                 <button 
                   type="submit" 
-                  className="w-full bg-[#00BFFF] text-white p-3 rounded-lg hover:bg-[#00BFFF]"
+                  className="w-full bg-yellow-400 text-white p-3 rounded-lg hover:bg-yellow-500"
                 >
                   Login
                 </button>
               </form>
 
-              <p className="mt-4 text-sm text-gray-600">
+              <p className="mt-4 text-sm text-white">
                 Don’t have an account?{" "}
                 <button 
-                  className="text-[#00BFFF] hover:underline" 
+                  className="text-yellow-400 hover:underline" 
                   onClick={() => setShowSignup(true)}
                 >
                   Sign up
@@ -166,10 +181,8 @@ export default function WelcomePage() {
           ) : showForgot ? (
             /* FORGOT PASSWORD FORM */
             <>
-              <div className="flex flex-col items-left mb-4">
-                <img src={logoImg} alt="Logo" className="h-13 w-20 mb-2" />
-              </div>
-              <h2 className="text-2xl font-bold mb-6 text-left">Reset Password</h2>
+              
+              <h2 className="text-2xl font-bold mb-6  text-yellow-400 text-left">Reset Password</h2>
               <form className="space-y-4" onSubmit={handleForgotPassword}>
                 <input
                   type="email"
@@ -197,7 +210,7 @@ export default function WelcomePage() {
                 />
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600"
+                  className="w-full bg-yellow-400 text-white p-3 rounded-lg hover:bg-yellow-500"
                 >
                   Reset Password
                 </button>
@@ -213,10 +226,8 @@ export default function WelcomePage() {
           ) : (
             /* SIGNUP FORM */
             <>
-            <div className="flex flex-col items-left mb-4">
-                <img src={logoImg} alt="Logo" className="h-13 w-20 mb-2" />
-              </div>
-              <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+  
+              <h2 className="text-2xl font-bold text-yellow-400 mb-6">Sign Up</h2>
               <form className="space-y-4" onSubmit={handleSignup}>
                 <div className="flex gap-2">
                   <input 
@@ -270,16 +281,16 @@ export default function WelcomePage() {
                 />
                 <button 
                   type="submit" 
-                  className="w-full bg-[#00BFFF] text-white p-3 rounded-lg hover:bg-[#00BFFF]"
+                  className="w-full bg-yellow-400 text-white p-3 rounded-lg hover:bg-yellow-500"
                 >
                   Sign Up
                 </button>
               </form>
 
-              <p className="mt-4 text-sm text-gray-600">
+              <p className="mt-4 text-sm text-white">
                 Already have an account?{" "}
                 <button 
-                  className="text-[#00BFFF] hover:underline" 
+                  className="text-yellow-400 hover:underline" 
                   onClick={() => setShowSignup(false)}
                 >
                   Login

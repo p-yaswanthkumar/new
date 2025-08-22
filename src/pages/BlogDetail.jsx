@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import blog1 from "../assets/blog1.jpeg";
-import blog2 from "../assets/blog2.webp";
-import blog3 from "../assets/blog3.avif";
+import blog1 from "../assets/blog1.jpg";
+import blog2 from "../assets/blog2.jpg";
+import blog3 from "../assets/blog3.jpg";
 
 export default function BlogDetail() {
   // Theme state synced with Header
@@ -29,133 +29,103 @@ export default function BlogDetail() {
   const blogs = [
   {
     id: "1",
-    title: "AI & Machine Learning",
+    title: "Residential Construction",
     image: blog1,
     intro:
-      "AI and Machine Learning are revolutionizing industries with automation, predictive insights, and smarter systems. From automating repetitive tasks to enabling advanced innovations like self-driving cars and personalized medicine, AI is becoming the backbone of modern technology.",
+      "Residential construction focuses on creating functional, comfortable, and aesthetically pleasing living spaces. From single-family homes to luxury villas and apartment complexes, it combines design, planning, and execution to bring dream homes to life.",
     sections: [
       {
-        heading: "Introduction to AI",
+        heading: "Planning & Design",
         content:
-          "Artificial Intelligence is the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. It covers multiple branches such as computer vision, natural language processing, robotics, and expert systems. AI systems rely on algorithms and models trained on large datasets, allowing them to adapt and improve over time. Unlike traditional programming, AI learns and evolves, creating systems that can make predictions, reason, and even exhibit creativity.",
+          "Successful residential projects begin with detailed planning and thoughtful design. This includes understanding the client's lifestyle, budget, and future needs, while integrating architectural aesthetics with practical layouts. Zoning laws, building codes, and environmental considerations are carefully addressed during the planning stage.",
       },
       {
-        heading: "Benefits of Machine Learning",
+        heading: "Construction Process",
         content:
-          "Machine Learning enables systems to learn from data, improving accuracy and efficiency over time without human intervention. Businesses benefit from predictive analytics, fraud detection, personalized recommendations, and smarter automation. For example, e-commerce platforms use ML to suggest products, streaming services recommend content, and healthcare providers detect diseases earlier. Over time, ML reduces costs, minimizes errors, and adapts to changing environments, ensuring systems remain effective as new challenges arise.",
+          "Residential construction involves site preparation, foundation work, framing, plumbing, electrical, and finishing. Each stage must adhere to strict quality standards to ensure durability and safety. Coordination among architects, engineers, and contractors ensures smooth progress.",
       },
       {
-        heading: "Real-World Applications",
+        heading: "Material Selection",
         content:
-          "AI is used in healthcare (diagnostics, drug discovery, personalized medicine), finance (risk assessment, fraud detection, algorithmic trading), and education (personalized learning paths, grading automation). Self-driving cars use sensors and ML models to interpret surroundings in real-time, while voice assistants like Alexa and Siri understand natural language to interact with users. AI also plays a critical role in agriculture, cybersecurity, supply chain optimization, and even creative industries such as art and music generation.",
+          "Choosing the right materials—whether sustainable timber, energy-efficient windows, or high-grade concrete—affects both cost and long-term performance. Modern projects increasingly incorporate eco-friendly and smart home materials for better energy efficiency.",
       },
       {
-        heading: "Automation Advantages",
+        heading: "Cost & Timeline Management",
         content:
-          "Automation reduces costs, minimizes errors, and speeds up processes across various business sectors. In manufacturing, robots handle repetitive and dangerous tasks, reducing human risk. In offices, AI chatbots automate customer support, while Robotic Process Automation (RPA) takes care of invoice processing, HR onboarding, and compliance. The advantages extend to scalability, where businesses can process millions of operations simultaneously with minimal resources. This leads to faster delivery, better efficiency, and increased profits.",
+          "A key challenge in residential projects is staying on budget and schedule. Using project management tools, contractors track progress, manage resources, and prevent delays caused by weather, labor shortages, or supply chain issues.",
       },
       {
-        heading: "Data-Driven Insights",
+        heading: "Modern Trends",
         content:
-          "ML models analyze large datasets to provide predictive and prescriptive analytics that support decision-making. For example, retailers forecast demand and optimize inventory, while governments use AI-driven insights for urban planning and disaster management. Predictive analytics identifies upcoming trends, while prescriptive analytics suggests the best possible actions to achieve goals. As organizations collect massive amounts of structured and unstructured data, AI tools help uncover hidden patterns, customer behavior, and business opportunities that would otherwise remain invisible.",
-      },
-      {
-        heading: "Challenges & Solutions",
-        content:
-          "Challenges include bias, data privacy, and model transparency. AI systems can unintentionally perpetuate discrimination if trained on biased data. Privacy concerns arise when personal information is used without consent. Additionally, the 'black box' nature of AI makes it difficult to understand why models make certain decisions. Solutions lie in ethical AI frameworks, transparent algorithms, explainable AI models (XAI), and strict data governance policies. Organizations must also ensure regular audits, diverse datasets, and compliance with international regulations like GDPR to build trust.",
-      },
-      {
-        heading: "Future Scope",
-        content:
-          "AI will continue evolving, driving innovation in robotics, IoT, and smart cities for decades to come. The future of AI lies in Artificial General Intelligence (AGI), where machines could understand and perform tasks across any domain just like humans. Emerging fields like neuromorphic computing, quantum AI, and bio-AI are set to push the boundaries of what machines can do. In healthcare, AI will power advanced genetic engineering and predictive healthcare, while in education, personalized AI tutors will transform learning experiences globally.",
+          "Smart homes, open layouts, and sustainable building practices dominate modern residential construction. Energy-efficient designs, renewable energy solutions like solar panels, and modular construction are also gaining popularity.",
       },
     ],
   },
   {
     id: "2",
-    title: "Web Development",
+    title: "Commercial Projects",
     image: blog2,
     intro:
-      "Web Development powers the digital world with responsive websites, scalable applications, and seamless online experiences. From simple static websites to complex enterprise platforms, web development brings businesses, services, and users together on a global scale.",
+      "Commercial construction covers offices, retail spaces, hotels, warehouses, and mixed-use developments. These projects demand scalability, compliance with regulations, and designs that align with a company’s brand and operational goals.",
     sections: [
       {
-        heading: "Modern Web Frameworks",
+        heading: "Pre-Construction Planning",
         content:
-          "React, Angular, and Vue have transformed frontend development with reusable components and fast rendering. These frameworks encourage modular code, making large applications more maintainable and scalable. Developers also benefit from powerful ecosystems with libraries, community support, and integrations. Progressive frameworks such as Svelte and Next.js are pushing the boundaries even further, enabling faster performance, server-side rendering, and SEO optimization out of the box.",
+          "Commercial projects begin with feasibility studies, site surveys, budgeting, and design approvals. Early planning ensures compliance with building codes, fire safety standards, and accessibility requirements.",
       },
       {
-        heading: "Responsive Design",
+        heading: "Structural Design & Engineering",
         content:
-          "Responsive design ensures websites look great on all devices, from mobiles to desktops. With mobile-first development becoming a standard, responsive frameworks like Tailwind CSS and Bootstrap make it easier to adapt layouts for any screen size. Media queries, flexible grids, and adaptive typography ensure a seamless user experience. A well-executed responsive design not only enhances usability but also boosts SEO ranking, as Google prioritizes mobile-friendly websites.",
+          "High-rise buildings, shopping complexes, and industrial facilities require robust structural engineering. Materials like reinforced concrete and structural steel ensure strength, safety, and longevity.",
       },
       {
-        heading: "Frontend Technologies",
+        heading: "Technology Integration",
         content:
-          "HTML, CSS, and JavaScript remain the backbone of frontend development. HTML structures content, CSS styles it, and JavaScript adds interactivity. With modern enhancements like CSS Grid, Flexbox, and ES6+ features, developers can now build cleaner, more efficient, and dynamic applications. Frameworks and preprocessors such as Sass, LESS, and TypeScript further enhance productivity, making frontend development faster, cleaner, and more error-resistant.",
+          "Modern commercial spaces incorporate advanced HVAC systems, smart lighting, access control, and IoT devices to enhance efficiency. Green building certifications (LEED, IGBC) are also becoming standard.",
       },
       {
-        heading: "Backend Systems",
+        heading: "Project Execution",
         content:
-          "Node.js, Django, and Laravel power backend operations, ensuring scalability and security. The backend is responsible for managing databases, authentication, APIs, and server-side logic. Node.js provides asynchronous processing, making it great for real-time apps like chat platforms, while Django offers security features out-of-the-box, and Laravel simplifies PHP development with elegant syntax. Cloud-native backends with serverless architecture (AWS Lambda, Firebase) are now emerging as the future, reducing server costs and scaling automatically.",
+          "Execution involves coordination between multiple stakeholders—developers, architects, engineers, and subcontractors. Strict adherence to timelines and quality standards is crucial to avoid costly overruns.",
       },
       {
-        heading: "API Integrations",
+        heading: "Future of Commercial Construction",
         content:
-          "APIs connect systems, enabling apps to share data seamlessly. RESTful APIs and GraphQL are widely used for smooth communication between frontend and backend. Businesses rely on APIs for payment processing, maps, social media integrations, and AI services. With microservices architecture, applications are broken into smaller services communicating via APIs, increasing flexibility and fault tolerance. APIs also open opportunities for third-party developers to build add-ons, boosting product reach and adoption.",
-      },
-      {
-        heading: "Security Practices",
-        content:
-          "Encryption, authentication, and secure coding keep applications safe from attacks. Developers must guard against threats like SQL injection, XSS, CSRF, and DDoS attacks. SSL certificates, strong password hashing, token-based authentication (JWT), and two-factor authentication are standard practices. Web Application Firewalls (WAF) and automated penetration testing are also becoming essential. As cybercrime increases, businesses must prioritize security at every stage of development instead of treating it as an afterthought.",
-      },
-      {
-        heading: "Scalability Solutions",
-        content:
-          "Cloud platforms like AWS, Azure, and GCP ensure that applications scale with user demand. Scalability involves both vertical (adding resources to a server) and horizontal (adding more servers) scaling. Load balancers, containerization with Docker, and orchestration with Kubernetes make it easier to handle millions of concurrent users. Serverless computing reduces infrastructure costs by scaling automatically. Companies like Netflix and Spotify rely on microservices and cloud scalability to serve millions of global users without interruptions.",
+          "Trends include sustainable construction methods, modular office spaces, and high-performance façades. Flexible designs allow companies to adapt spaces quickly as business needs evolve.",
       },
     ],
   },
   {
     id: "3",
-    title: "Data Science",
+    title: "Interior Fit-outs",
     image: blog3,
     intro:
-      "Data Science empowers organizations to extract insights, predict trends, and drive decision-making with data. It combines mathematics, statistics, computer science, and business knowledge to solve real-world problems and generate value from information.",
+      "Interior fit-outs transform bare structures into functional, fully finished spaces. They focus on design, efficiency, and branding to create workplaces, retail outlets, and residences that reflect unique identities.",
     sections: [
       {
-        heading: "Introduction to Data Science",
+        heading: "Understanding Fit-out Types",
         content:
-          "Data Science combines statistics, computer science, and domain expertise to analyze and interpret data. It covers the full pipeline from data collection, cleaning, and preprocessing to advanced modeling and visualization. Unlike traditional analytics, Data Science uses machine learning to uncover hidden patterns and correlations. Its multidisciplinary nature makes it applicable across diverse sectors like healthcare, retail, sports, finance, and government.",
+          "Fit-outs are typically categorized as Shell & Core, Category A, or Category B. While Category A includes basic finishes (ceilings, flooring, lighting), Category B tailors the interior to the client’s specific requirements.",
       },
       {
-        heading: "Importance of Data",
+        heading: "Space Planning",
         content:
-          "Data is the new oil; it drives business decisions and strategies in every sector. Organizations rely on structured (databases, spreadsheets) and unstructured data (text, images, videos, social media). Proper use of data enables smarter marketing, better risk management, and improved customer experiences. For example, companies like Amazon use data to optimize logistics, while Google refines search results, and Netflix improves content recommendations. Data empowers organizations to stay competitive in an increasingly digital world.",
+          "Effective space planning optimizes layouts for comfort, productivity, and safety. It ensures proper placement of partitions, furniture, and amenities without wasting valuable space.",
       },
       {
-        heading: "Visualization Techniques",
+        heading: "Material & Finish Selection",
         content:
-          "Tools like Power BI, Tableau, and D3.js help visualize data clearly for decision-makers. Good visualization transforms complex data into understandable graphs, heatmaps, dashboards, and infographics. This allows decision-makers to spot trends, correlations, and anomalies instantly. Advanced visualization techniques like interactive dashboards and real-time charts help businesses react faster. Choosing the right visualization is key—bar charts for comparison, line graphs for trends, scatterplots for correlations, and geographic maps for regional insights.",
+          "Interior materials—flooring, wall panels, lighting fixtures, and furniture—impact both aesthetics and functionality. Durable, eco-friendly materials are preferred to balance design with sustainability.",
       },
       {
-        heading: "Predictive Analytics",
+        heading: "Project Coordination",
         content:
-          "Predictive models forecast outcomes, helping businesses prepare for future challenges. Retailers predict customer churn, finance companies assess credit risk, and hospitals forecast patient admissions. Predictive analytics uses regression models, decision trees, and neural networks trained on historical data to estimate future events. Combined with real-time analytics, it allows organizations to act proactively, reducing risks and capturing new opportunities. Industries like weather forecasting and stock trading heavily depend on predictive analytics for planning.",
+          "Fit-out projects require close collaboration among designers, contractors, and suppliers. Managing timelines, budgets, and on-site changes ensures smooth execution without disrupting business operations.",
       },
       {
-        heading: "Machine Learning Role",
+        heading: "Latest Trends",
         content:
-          "ML algorithms enhance predictions, automate analysis, and improve model performance. Supervised learning handles classification and regression tasks, while unsupervised learning uncovers hidden patterns and clusters in data. Reinforcement learning powers robotics and game AI. In Data Science, ML helps detect fraud, recommend products, optimize supply chains, and even generate text or images. The combination of ML with Big Data technologies allows businesses to process petabytes of information in real-time, unlocking new levels of intelligence.",
-      },
-      {
-        heading: "Business Use Cases",
-        content:
-          "Data Science helps in fraud detection, customer insights, supply chain optimization, and marketing campaigns. In healthcare, predictive models detect early signs of diseases, while in finance, fraud detection systems save billions by catching anomalies. Retailers like Walmart optimize inventory and pricing using advanced analytics. Sports teams use Data Science to analyze player performance and game strategies. Governments rely on data analytics for traffic management, crime prediction, and public health monitoring.",
-      },
-      {
-        heading: "Future Trends",
-        content:
-          "The future lies in automated data science (AutoML), AI-driven analytics, and real-time data processing. Edge computing will allow faster analysis directly on devices without sending everything to the cloud. AI will make Data Science more accessible through natural language queries, enabling non-technical users to generate insights. Quantum computing promises a revolution in data processing, handling problems impossible for classical systems. As businesses become more data-driven, Data Science will be at the core of every innovation.",
+          "Biophilic designs, acoustic solutions, flexible workspaces, and technology-enabled interiors are trending. Businesses are also emphasizing brand-aligned designs that leave a lasting impression on clients.",
       },
     ],
   },
@@ -171,7 +141,7 @@ export default function BlogDetail() {
         `text-center py-20 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`
       }>
         <h2 className="text-2xl font-bold">Blog Not Found</h2>
-        <Link to="/blog" className="text-[#00bfff] underline mt-4 block">
+        <Link to="/blog" className="text-yellow-400 underline mt-4 block">
           Back to Blogs
         </Link>
       </div>
@@ -181,7 +151,7 @@ export default function BlogDetail() {
   return (
     <div className={theme === 'dark' ? 'pt-20 min-h-screen bg-black text-white' : 'pt-20 min-h-screen bg-white text-black'}>
       {/* Back Link */}
-      <Link to="/blog" className="text-[#00bfff] underline mt-4 block">
+      <Link to="/blog" className="text-yellow-400 underline mt-4 block">
         Back to Blogs
       </Link>
       {/* Blog Hero */}
@@ -201,7 +171,7 @@ export default function BlogDetail() {
         </p>
         {blog.sections.map((sec, index) => (
           <div key={index} className="mb-10">
-            <h2 className="text-2xl font-bold mb-4" style={{ color: '#00bfff' }}>
+            <h2 className="text-2xl font-bold mb-4" style={{ color: '#fecc15' }}>
               {sec.heading}
             </h2>
             <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>{sec.content}</p>

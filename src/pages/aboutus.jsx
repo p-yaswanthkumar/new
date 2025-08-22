@@ -1,50 +1,97 @@
 import React from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
 import aboutHero from "../assets/abouthero.mp4";
 import missionImg from "../assets/mission.avif";
-import e1 from "../assets/e1.avif";
-import e2 from "../assets/e2.jpeg";
-import e3 from "../assets/e3.jpg";
-import e4 from "../assets/e4.jpg";
-import e5 from "../assets/e5.jpg";
-import e6 from "../assets/e6.jpg";
-const communityPrograms = [
+import e1 from "../assets/ex1.jpg";
+import e2 from "../assets/ex2.webp";
+import e3 from "../assets/ex3.jpg";
+import e4 from "../assets/ex4.jpg";
+import e5 from "../assets/ex5.jpg";
+import e6 from "../assets/ex6.jpg";
+import awardsImg from "../assets/awards.webp";
+import c1 from "../assets/c1.avif";
+import c2 from "../assets/c2.jpg";
+import c3 from "../assets/c3.png";
+import c4 from "../assets/c4.webp";
+import c5 from "../assets/c5.jpg";
+import c6 from "../assets/c6.png";
+import c7 from "../assets/c7.png";
+import c8 from "../assets/c8.png";
+import c9 from "../assets/c9.png";
+import c10 from "../assets/c10.jpg";
+import mission from "../assets/mission.avif";
+import visionImg from "../assets/v.png";
+import missionImg1 from "../assets/m.png";
+
+const logos = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10];
+
+
+
+
+const images = [e1, e2, e3, e4, e5, e6];
+const team = [
+  { img: e1, name: "John Doe", role: "Structural Engineer" },
+  { img: e2, name: "Michael Brown", role: "Project Manager" },
+  { img: e3, name: "David Johnson", role: "Site Engineer" },
+  { img: e4, name: "Emily Davis", role: "Design Engineer" },
+  { img: e5, name: "Sarah Wilson", role: "Surveyor" },
+  { img: e6, name: "Olivia Smith", role: "Civil Consultant" },
+];
+
+const timelineData = [
   {
-    title: "Free Learning Access",
-    description:
-      "We've provided over 10,000 free course enrollments to students from underprivileged communities, helping bridge the digital education gap.",
-    stat: "10,000+ Students Empowered",
+    year: "2018",
+    title: "Company Founded",
+    description: "Started with a small but skilled team, focused on delivering reliable residential construction services.",
+    align: "left"
   },
   {
-    title: "Environmental Awareness",
-    description:
-      "Our platform promotes eco-friendly practices by using digital-first content delivery, reducing paper usage and carbon footprint by 35%.",
-    stat: "35% Carbon Reduction",
+    year: "2019",
+    title: "First 50 Projects",
+    description: "Completed 50+ high-quality residential and commercial projects on time and within budget.",
+    align: "right"
   },
   {
-    title: "Scholarship & Grants",
-    description:
-      "We offer scholarships and micro-grants to support talented learners, enabling them to access premium courses and skill-building programs.",
-    stat: "$200K+ in Scholarships",
+    year: "2020",
+    title: "Technology Integration",
+    description: "Introduced project management software to streamline planning, costing, and execution.",
+    align: "left"
   },
   {
-    title: "Diversity & Inclusion",
-    description:
-      "Our students come from over 40 countries and diverse backgrounds. We are committed to creating an inclusive learning environment for all.",
-    stat: "40+ Countries Represented",
+    year: "2021",
+    title: "Expanded Services",
+    description: "Added interior fit-outs and turnkey project solutions to meet client demands.",
+    align: "right"
   },
   {
-    title: "Volunteer Mentorship",
-    description:
-      "Our educators and alumni have volunteered over 5,000 hours mentoring students, guiding them through career and project challenges.",
-    stat: "5,000+ Volunteer Hours",
+    year: "2022",
+    title: "Regional Expansion",
+    description: "Began operations in multiple states, successfully delivering large-scale commercial projects.",
+    align: "left"
   },
   {
-    title: "Tech for Social Good",
-    description:
-      "We develop tools and projects that leverage technology to enhance learning accessibility and provide educational resources to underserved communities.",
-    stat: "5+ Digital Initiatives",
+    year: "2023",
+    title: "Smart Construction",
+    description: "Adopted IoT and AI tools for real-time monitoring and better quality control on projects.",
+    align: "right"
+  },
+  {
+    year: "2024",
+    title: "500+ Projects Delivered",
+    description: "Reached a major milestone of successfully completing over 500 projects across sectors.",
+    align: "left"
   },
 ];
+const achievements = [
+    "Recognized as Best Infrastructure Company in 2024",
+    "Completed 100+ large-scale civil engineering projects",
+    "Awarded for Excellence in Sustainable Construction",
+    "ISO 9001:2015 Certified for quality management",
+    "Top-rated safety performance for three consecutive years",
+  ];
+
 
 export default function AboutPage() {
   // Theme state synced with Header
@@ -59,6 +106,8 @@ export default function AboutPage() {
       };
       window.addEventListener('theme-changed', handleThemeChange);
       window.addEventListener('storage', handleThemeChange);
+      // Initialize AOS for section animations
+      AOS.init({ once: false, duration: 800 });
       return () => {
         window.removeEventListener('theme-changed', handleThemeChange);
         window.removeEventListener('storage', handleThemeChange);
@@ -67,7 +116,7 @@ export default function AboutPage() {
   }, []);
   return (
     <div className={
-      `${theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-black'}`
+      `${theme === 'dark' ? 'min-h-screen bg-black text-white overflow-x-hidden' : 'min-h-screen bg-white text-black overflow-x-hidden'}`
     }>
       
       {/* Hero Section */}
@@ -81,14 +130,19 @@ export default function AboutPage() {
           playsInline
         />
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
-            Empowering <span style={{ color: '#00BFFF' }}>Minds</span>, Transforming Futures
-          </h1>
-          <p className={`mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`}>
-            At our core, we are passionate about providing world-class education to learners everywhere.  
-            Our mission is to bridge the gap between knowledge and opportunity, creating a platform where curiosity meets achievement and innovation drives success.
-          </p>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4" data-aos="fade-up" data-aos-duration="1000">
+          <h1 
+  className="text-4xl md:text-6xl font-bold" 
+  style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
+>
+  Building <span style={{ color: '#facc15' }}>Dreams</span>, Shaping Skylines
+</h1>
+<p 
+  className={`mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`}
+>
+  We specialize in bringing your vision to life with expert design, precise planning, and flawless execution.  
+  From concept to completion, we deliver projects built to last — with quality, transparency, and on-time delivery at every step.
+</p>
         </div>
       </section>
 
@@ -102,290 +156,319 @@ export default function AboutPage() {
       {/* Vision & Mission Section */}
      
     {/* Our Growth Through Years Timeline Section */}
-    <section className={
-      `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
-    }>
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-14" style={{ color: '#00BFFF' }}>Our Journey Through the Years</h2>
-        <div className="relative">
-          <div className="absolute left-1/2 top-0 w-1 bg-[#00BFFF] h-full transform -translate-x-1/2"></div>
-          <div className="flex flex-col gap-16">
-            {/* 2018 */}
-            <div className="relative flex items-center min-h-[180px]">
-              <div className="w-1/2 flex justify-end pr-8">
-                <div className={
-                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
-                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
-                }>
-                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2018</div>
-                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Company Founded</h3>
-                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Started with a team of 5 passionate individuals and a vision to revolutionize financial services.</p>
-                </div>
-              </div>
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
-                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2018</span>
-              </div>
-              <div className="w-1/2"></div>
-            </div>
-            {/* 2019 */}
-            <div className="relative flex items-center min-h-[180px]">
-              <div className="w-1/2"></div>
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
-                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2019</span>
-              </div>
-              <div className="w-1/2 flex justify-start pl-8">
-                <div className={
-                  `rounded-lg shadow-lg p-8 w-full max-w-md mr-auto ` +
-                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
-                }>
-                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2019</div>
-                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>First 100 Clients</h3>
-                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Reached our first milestone of serving 100 satisfied clients with personalized financial solutions.</p>
-                </div>
-              </div>
-            </div>
-            {/* 2020 */}
-            <div className="relative flex items-center min-h-[180px]">
-              <div className="w-1/2 flex justify-end pr-8">
-                <div className={
-                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
-                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
-                }>
-                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2020</div>
-                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Digital Transformation</h3>
-                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Launched our comprehensive digital platform, making financial services more accessible than ever.</p>
-                </div>
-              </div>
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
-                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2020</span>
-              </div>
-              <div className="w-1/2"></div>
-            </div>
-            {/* 2021 */}
-            <div className="relative flex items-center min-h-[180px]">
-              <div className="w-1/2"></div>
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
-                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2021</span>
-              </div>
-              <div className="w-1/2 flex justify-start pl-8">
-                <div className={
-                  `rounded-lg shadow-lg p-8 w-full max-w-md mr-auto ` +
-                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
-                }>
-                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2021</div>
-                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Series A Funding</h3>
-                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Secured $10M in Series A funding to expand our services and reach more clients globally.</p>
-                </div>
-              </div>
-            </div>
-            {/* 2022 */}
-            <div className="relative flex items-center min-h-[180px]">
-              <div className="w-1/2 flex justify-end pr-8">
-                <div className={
-                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
-                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
-                }>
-                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2022</div>
-                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>International Expansion</h3>
-                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Expanded operations to 5 countries, serving over 10,000 clients worldwide.</p>
-                </div>
-              </div>
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
-                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2022</span>
-              </div>
-              <div className="w-1/2"></div>
-            </div>
-            {/* 2023 */}
-            <div className="relative flex items-center min-h-[180px]">
-              <div className="w-1/2"></div>
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
-                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2023</span>
-              </div>
-              <div className="w-1/2 flex justify-start pl-8">
-                <div className={
-                  `rounded-lg shadow-lg p-8 w-full max-w-md mr-auto ` +
-                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
-                }>
-                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2023</div>
-                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>AI Integration</h3>
-                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Integrated advanced AI technology to provide smarter, more personalized financial insights.</p>
-                </div>
-              </div>
-            </div>
-            {/* 2024 */}
-            <div className="relative flex items-center min-h-[180px]">
-              <div className="w-1/2 flex justify-end pr-8">
-                <div className={
-                  `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
-                  (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
-                }>
-                  <div className="font-bold mb-2" style={{ color: '#00BFFF' }}>2024</div>
-                  <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>50,000+ Clients</h3>
-                  <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>Reached the milestone of serving over 50,000 clients with our innovative financial solutions.</p>
-                </div>
-              </div>
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
-                <span className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">2024</span>
-              </div>
-              <div className="w-1/2"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section className={
-      `w-full py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00BFFF]'}`
-    }>
-        <div className="max-w-7xl  text-justify mx-auto px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-10" style={{ color: '#FFF' }}>Our Vision, Mission & Values</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Vision Card */}
-            <div className={
-              `rounded-2xl shadow-lg p-8 flex text-justify flex-col items-center ` +
-              (theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50')
-            }>
-              <div className="bg-[#00BFFF] rounded-full p-4 mb-4">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#00BFFF' }}>Our Vision</h3>
-              <ul className={`text-left list-disc  text-justify pl-5 space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-                <li>To create a world where quality education is accessible to everyone.</li>
-                <li>Empowering learners to achieve their personal and professional goals.</li>
-              </ul>
-            </div>
-            {/* Mission Card */}
-            <div className={
-              `rounded-2xl shadow-lg p-8 flex flex-col items-center ` +
-              (theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50')
-            }>
-              <div className="bg-[#00BFFF] text-[#00bfff] rounded-full p-4 mb-4">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" /><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" /></svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#00BFFF' }}>Our Mission</h3>
-              <ul className={`text-left list-disc pl-5 text-justify space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-                <li>To provide innovative, engaging, and practical learning experiences.</li>
-                <li>Bridge knowledge and opportunity for students globally.</li>
-              </ul>
-            </div>
-            {/* Values Card */}
-            <div className={
-              `rounded-2xl shadow-lg p-8 flex flex-col items-center ` +
-              (theme === 'dark' ? 'bg-[#181818]' : 'bg-gray-50')
-            }>
-              <div className="bg-[#00BFFF] rounded-full p-4 mb-4">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8l-4 4h8l-4-4z" /><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" /></svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#00BFFF' }}>Our Values</h3>
-              <ul className={`text-left list-disc text-justify pl-5 space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-                <li>Integrity, innovation, and inclusivity in all we do.</li>
-                <li>Commitment to lifelong learning and student success.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-    {/* End Timeline Section */}
-    {/* Awards & Certificates Section */}
-    <section className={
-      `w-full py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
-    }>
-      <div className="max-w-7xl mx-auto px-6 text-justify lg:px-8 grid  lg:grid-cols-2 gap-27 items-center">
-        {/* Content Left */}
-        <div>
-          <h2 className="text-4xl font-bold mb-6" style={{ color: '#00BFFF' }}>Awards & Certificates</h2>
-          <p className={`text-lg mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Our commitment to excellence has been recognized by industry leaders and educational organizations. Over the years, we have received numerous awards and certificates for innovation, impact, and quality in financial education and services.</p>
-          <ul className={`list-disc pl-5 space-y-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
-            <li>Best Financial Education Platform 2022 - Global EdTech Awards</li>
-            <li>Innovation in Online Learning 2023 - FinTech Excellence</li>
-            <li>Top 100 Fastest Growing Companies 2024 - Business Insights</li>
-            <li>Certified by International Financial Education Association</li>
-          </ul>
-        </div>
-        {/* Image Right */}
-        <div className="flex justify-center">
-          <img src={missionImg} alt="Awards & Certificates" className="rounded-2xl shadow-xl w-full max-w-md object-cover" />
-        </div>
-      </div>
-    </section>
-
-
-    <section className={
-      `w-full py-16 ${theme === 'dark' ? 'bg-[#222]' : 'bg-[#00BFFF]'}`
-    }>
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center mb-10" style={{ color: '#FFF' }}>Our Instructors</h2>
-        <div className="grid  lg:grid-cols-3 gap-10">
-          {/* Row 1 */}
-          <div className="flex flex-col items-center">
-            <img src={e1} alt="Instructor 1" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
-            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Priya Sharma</h3>
-            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Expert in Financial Planning & Analysis with 10+ years of experience helping students master budgeting and forecasting.</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={e2} alt="Instructor 2" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
-            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Rahul Verma</h3>
-            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Certified Public Accountant and Bookkeeping specialist, passionate about simplifying accounting for all learners.</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={e3} alt="Instructor 3" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
-            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Anita Desai</h3>
-            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Investment Advisory professional, guiding students in building strong investment portfolios and financial independence.</p>
-          </div>
-          {/* Row 2 */}
-          <div className="flex flex-col items-center">
-            <img src={e4} alt="Instructor 4" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
-            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Suresh Kumar</h3>
-            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Audit & Compliance expert, ensuring students understand the importance of regulatory standards and ethical practices.</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={e5} alt="Instructor 5" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
-            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Meera Joshi</h3>
-            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Budget Management coach, helping learners develop practical skills for personal and business financial success.</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={e6} alt="Instructor 6" className="w-40 h-40 object-cover rounded-full shadow-lg mb-4" />
-            <h3 className="text-xl font-bold mb-2" style={{ color: '#FFF' }}>Vikram Singh</h3>
-            <p className={theme === 'dark' ? 'text-gray-200 text-center' : 'text-gray-700 text-center'}>Tax Preparation & Filing specialist, making complex tax concepts easy and accessible for all students.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section className={
-      `py-16 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#e6f7ff]'}`
-    }>
-      <div className="container mx-auto px-4">
-        {/* Heading */}
-        <h2 className={`text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-          Community Impact & <span style={{ color: '#00bfff' }}>Social Responsibility</span>
-        </h2>
-
-        {/* Grid */}
-        <div className="grid gap-8 md:grid-cols-3">
-          {communityPrograms.map((program, index) => (
+    <section className={`w-full py-16 overflow-hidden ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#fff]'}`}> 
+  <div className="max-w-4xl mx-auto px-4">
+    <h2 className="text-4xl font-bold text-center mb-14 text-yellow-400" data-aos="fade-up" data-aos-delay="100">
+      Our Journey Through the Years
+    </h2>
+    <div className="relative">
+      <div className="absolute left-1/2 top-0 w-1 bg-yellow-400 h-full transform -translate-x-1/2"></div>
+      <div className="flex flex-col gap-16">
+        {timelineData.map((item) => {
+          const isLeft = item.align === "left";
+          return (
             <div
-              key={index}
-              className={`pt-3 pb-6 px-6 rounded-lg shadow-md flex flex-col justify-between ` + (theme === 'dark' ? 'bg-[#222]' : 'bg-white')}
+              key={item.year}
+              className="relative flex items-center min-h-[180px]"
+              data-aos="fade-up"
+              data-aos-delay="150"
             >
-              <div>
-                <h3 className={`text-xl text-justify font-semibold mb-2 ${theme === 'dark' ? 'text-[#00BFFF]' : ''}`}>{program.title}</h3>
-                <p className={theme === 'dark' ? 'text-gray-200 text-justify mb-3' : 'text-gray-700 text-justify mb-3'}>{program.description}</p>
-              </div>
-              <div className="flex justify-center">
-                <span className="inline-block bg-[#00BFFF] rounded-full text-white font-semibold align-middle px-4 py-2">
-                  {program.stat}
+              {/* Left side */}
+              {isLeft && (
+                <div className="w-1/2 flex justify-end pr-8">
+                  <div
+                    className={
+                      `rounded-lg shadow-lg p-8 w-full max-w-md ml-auto ` +
+                      (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                    }
+                  >
+                    <div className="font-bold mb-2 text-yellow-400">{item.year}</div>
+                    <h3
+                      className={`text-xl font-bold mb-2 ${
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Year circle */}
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center z-10">
+                <span className="bg-yellow-400 text-white rounded-full px-4 py-2 font-bold text-lg shadow-lg">
+                  {item.year}
                 </span>
               </div>
+
+              {/* Right side */}
+              {!isLeft && <div className="w-1/2"></div>}
+              {item.align === "right" && (
+                <div className="w-1/2 flex justify-start pl-8">
+                  <div
+                    className={
+                      `rounded-lg shadow-lg p-8 w-full max-w-md mr-auto ` +
+                      (theme === 'dark' ? 'bg-[#222]' : 'bg-white')
+                    }
+                  >
+                    <div className="font-bold mb-2 text-yellow-400">{item.year}</div>
+                    <h3
+                      className={`text-xl font-bold mb-2 ${
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {isLeft && <div className="w-1/2"></div>}
             </div>
-          ))}
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div className={`w-full py-16 relative font-sans antialiased ${theme === 'dark' ? 'bg-[#181818] text-white' : 'bg-gray-100 text-gray-800'}`}> 
+  <div className="container mx-auto px-6">
+
+    {/* Title and description */}
+    <div className="mb-12 text-center lg:text-left" data-aos="fade-up" data-aos-delay="200">
+      <h1 className={`text-3xl md:text-4xl font-bold ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-400'}`}>
+        Our Mission and Vision Statement
+      </h1>
+      <p className={`mt-2 max-w-4xl mx-auto lg:mx-0 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+        This slide shows the mission and vision statement of a construction company 
+        describing its desired future position, purpose, goals, and expertise.
+      </p>
+    </div>
+
+    {/* Main grid */}
+    <div className="grid lg:grid-cols-3 gap-8 items-stretch">
+
+      {/* Vision Card */}
+      <div className={`p-8 rounded-3xl shadow-lg flex flex-col items-center text-center lg:text-left lg:items-start ${theme === 'dark' ? 'bg-[#222]' : 'bg-white'}`} data-aos="fade-up" data-aos-delay="250">
+        <div className="p-4 bg-yellow-400 rounded-full mb-4">
+          <img 
+            src={visionImg} 
+            alt="Vision icon" 
+            className="w-8 h-8 object-contain"
+          />
         </div>
+        <h3 className={`text-xl md:text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+          Vision
+        </h3>
+        <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+          To become a globally recognized construction leader by driving innovation 
+          and delivering projects of unmatched quality and precision.
+        </p>
+      </div>
+
+      {/* Center Image */}
+      <div className="flex justify-center items-center" data-aos="fade-up" data-aos-delay="300">
+        <img 
+          src={mission} 
+          alt="Team collaboration" 
+          className="w-full h-full object-cover rounded-3xl shadow-2xl max-h-[400px]"
+        />
+      </div>
+
+      {/* Mission Card */}
+      <div className={`p-8 rounded-3xl shadow-lg flex flex-col items-center text-center lg:text-left lg:items-start ${theme === 'dark' ? 'bg-[#222]' : 'bg-white'}`} data-aos="fade-up" data-aos-delay="350">
+        <div className="p-4 bg-yellow-400 rounded-full mb-4">
+          <img 
+            src={missionImg1} 
+            alt="Mission icon" 
+            className="w-8 h-8 object-contain"
+          />
+        </div>
+        <h3 className={`text-xl md:text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+          Mission
+        </h3>
+        <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+          To deliver cost-effective, sustainable, and customer-centric construction 
+          solutions while maintaining excellence and integrity.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+   
+   
+
+
+
+    {/* End Timeline Section */}
+    {/* Awards & Certificates Section */}
+    <section className={`py-20 ${theme === "dark" ? "bg-[#000]" : "bg-white"} overflow-hidden`}>
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-10">
+        
+        {/* LEFT CONTENT */}
+        <div className="flex flex-col justify-center" data-aos="fade-up" data-aos-delay="300">
+          <h2 
+            className={`text-3xl md:text-4xl font-bold mb-6 ${
+              theme === "dark" ? "text-yellow-400" : "text-yellow-400"
+            }`}
+          >
+            Our Achievements & Awards
+          </h2>
+          <p 
+            className={`text-lg leading-relaxed text-justify ${
+              theme === "dark" ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            Over the years, we’ve been recognized for delivering world-class 
+            construction projects with unmatched quality and precision. Our 
+            awards highlight our commitment to excellence, innovation, and 
+            sustainable engineering practices.
+          </p>
+          <ul className="space-y-3 list-disc pl-5">
+            {achievements.map((item, index) => (
+              <li 
+                key={index} 
+                className={`text-lg leading-relaxed ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* RIGHT IMAGE */}
+        <div className="flex justify-center" data-aos="fade-up" data-aos-delay="350">
+          <img 
+            src={awardsImg} 
+            alt="Awards and Achievements" 
+            className="w-full h-full object-cover rounded-2xl shadow-lg"
+          />
+        </div>
+
       </div>
     </section>
 
+  <section className={`py-20 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-white'} overflow-hidden`}>
+  <div className="max-w-7xl mx-auto px-6">
+    <h2 className={`text-3xl md:text-4xl font-bold text-center mb-14 ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-400'}`} data-aos="fade-up" data-aos-delay="400">
+      Meet Our Civil Engineers
+    </h2>
 
+    <div className="grid lg:grid-cols-3 gap-10">
+      {team.map((member, index) => (
+        <div
+          key={index}
+          className="relative overflow-hidden rounded-2xl shadow-lg group"
+          data-aos="fade-up"
+          data-aos-delay={450 + index * 50}
+        >
+          {/* Team Member Image */}
+          <img
+            src={member.img}
+            alt={member.name}
+            className="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500"
+          />
+
+          {/* Yellow overlay on hover */}
+          <div className="absolute inset-0 bg-yellow-400/50 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center gap-4">
+            <a href="#" className={`text-black text-2xl hover:text-white`}>
+              <FaLinkedin />
+            </a>
+            <a href="#" className={`text-black text-2xl hover:text-white`}>
+              <FaTwitter />
+            </a>
+            <a href="#" className={`text-black text-2xl hover:text-white`}>
+              <FaInstagram />
+            </a>
+          </div>
+
+          {/* Name and Role */}
+          <div className={`absolute bottom-0 left-0 right-0 ${theme === 'dark' ? 'bg-black/80' : 'bg-white/90'} text-center py-4`}>
+            <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-yellow-400' : 'text-gray-900'}`}>
+              {member.name}
+            </h3>
+            <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+              {member.role}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+
+    <section
+      className={`w-full py-12 relative w-full ${theme === "dark" ? "bg-[#000]" : "bg-[#f9f9f9]"} overflow-hidden`}
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <h2
+  className={`text-3xl font-bold text-center ${
+    theme === "dark" ? "text-yellow-400" : "text-gray-800"
+  }`}
+  data-aos="fade-up" data-aos-delay="500"
+>
+  Our Trusted Partners
+</h2>
+<p
+  className={`text-lg text-center mt-2 mb-8 ${
+    theme === "dark" ? "text-gray-400" : "text-gray-600"
+  }`}
+  data-aos="fade-up" data-aos-delay="520"
+>
+  Collaborating with industry leaders to build a better tomorrow.
+</p>
+
+
+        {/* SCROLLING CONTAINER */}
+        <div className="overflow-hidden relative">
+          <div className="flex animate-scroll hover:[animation-play-state:paused] ">
+            {[...logos, ...logos].map((logo, idx) => (
+              <div
+                key={idx}
+                className="flex-shrink-0 w-48 h-28 flex hover:scale-110 transition duration-500 items-center justify-center mx-4"
+              >
+                <img
+                  src={logo}
+                  alt={`Partner ${idx + 1}`}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* INLINE CSS BELOW SECTION */}
+      <style>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-scroll {
+          animation: scroll 20s linear infinite;
+        }
+      `}</style>
+    </section>
+
+    
 
     
     </div>
