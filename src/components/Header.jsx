@@ -13,6 +13,26 @@ const Header = () => {
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const servicesDropdownTimeout = React.useRef();
   const [theme, setTheme] = useState('light');
+  const [direction, setDirection] = useState('ltr');
+  // RTL/LTR direction effect
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedDir = localStorage.getItem('direction') || 'ltr';
+      setDirection(savedDir);
+      document.documentElement.setAttribute('dir', savedDir);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('dir', direction);
+      localStorage.setItem('direction', direction);
+    }
+  }, [direction]);
+
+  const toggleDirection = () => {
+    setDirection((prev) => (prev === 'ltr' ? 'rtl' : 'ltr'));
+  };
   // Ensure theme is set only after mount (SSR-safe)
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -171,7 +191,21 @@ const Header = () => {
               Contact Us
             </Link>
 
-            {/* Dark Mode Toggle */}
+          {/* RTL/LTR Toggle */}
+          <button
+            className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${direction === 'rtl' ? 'bg-blue-200 border-blue-400 hover:bg-blue-300' : 'bg-gray-100 border-gray-300 hover:bg-gray-200'}`}
+            onClick={toggleDirection}
+            aria-label="Toggle RTL/LTR"
+            title={direction === 'rtl' ? 'Switch to LTR' : 'Switch to RTL'}
+          >
+            {direction === 'rtl' ? (
+              <span className="font-bold text-blue-700">RTL</span>
+            ) : (
+              <span className="font-bold text-gray-700">LTR</span>
+            )}
+          </button>
+
+          {/* Dark Mode Toggle */}
             <button
               className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-yellow-100 border-yellow-300 hover:bg-yellow-200'}`}
               onClick={toggleTheme}
@@ -241,7 +275,21 @@ const Header = () => {
 
           {/* Mobile icons - Only visible on very small screens */}
           <div className="flex items-center space-x-4 min-[480px]:hidden">
-            {/* Dark Mode Toggle (Mobile) */}
+          {/* RTL/LTR Toggle (Mobile) */}
+            <button
+              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${direction === 'rtl' ? 'bg-blue-200 border-blue-400 hover:bg-blue-300' : 'bg-gray-100 border-gray-300 hover:bg-gray-200'}`}
+              onClick={toggleDirection}
+              aria-label="Toggle RTL/LTR"
+              title={direction === 'rtl' ? 'Switch to LTR' : 'Switch to RTL'}
+            >
+              {direction === 'rtl' ? (
+                <span className="font-bold text-blue-700">RTL</span>
+              ) : (
+                <span className="font-bold text-gray-700">LTR</span>
+              )}
+            </button>
+
+          {/* Dark Mode Toggle (Mobile) */}
             <button
               className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-yellow-100 border-yellow-300 hover:bg-yellow-200'}`}
               onClick={toggleTheme}
