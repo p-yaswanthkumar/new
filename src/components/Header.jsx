@@ -1,10 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import ScrollToTop from '../pages/scroll-top';
+import { useTranslation } from 'react-i18next';
 
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
+// Simple translation object
+const translations = {
+  en: {
+    home: 'Home',
+    home1: 'Home 1',
+    home2: 'Home 2',
+    about: 'About Us',
+    services: 'Services',
+    allServices: 'All Services',
+    commercial: 'Commercial Construction',
+    design: 'Design, Planning & Execution',
+    residential: 'Residential Construction',
+    pmc: 'Project Management & Consultation',
+    renovation: 'Renovation & Remodeling',
+    interior: 'Interior Fit-outs',
+    blog: 'Blog',
+    contact: 'Contact Us',
+    rtl: 'RTL',
+    ltr: 'LTR',
+    lang: 'Language',
+  },
+  ar: {
+    home: 'الرئيسية',
+    home1: 'الصفحة الرئيسية 1',
+    home2: 'الصفحة الرئيسية 2',
+    about: 'معلومات عنا',
+    services: 'الخدمات',
+    allServices: 'كل الخدمات',
+    commercial: 'البناء التجاري',
+    design: 'التصميم والتخطيط والتنفيذ',
+    residential: 'البناء السكني',
+    pmc: 'إدارة المشاريع والاستشارات',
+    renovation: 'التجديد والتحديث',
+    interior: 'تشطيبات داخلية',
+    blog: 'مدونة',
+    contact: 'اتصل بنا',
+    rtl: 'من اليمين لليسار',
+    ltr: 'من اليسار لليمين',
+    lang: 'اللغة',
+  },
+  he: {
+    home: 'בית',
+    home1: 'בית 1',
+    home2: 'בית 2',
+    about: 'עלינו',
+    services: 'שירותים',
+    allServices: 'כל השירותים',
+    commercial: 'בנייה מסחרית',
+    design: 'עיצוב, תכנון וביצוע',
+    residential: 'בנייה למגורים',
+    pmc: 'ניהול פרויקטים וייעוץ',
+    renovation: 'שיפוץ ושדרוג',
+    interior: 'גימורים פנימיים',
+    blog: 'בלוג',
+    contact: 'צור קשר',
+    rtl: 'ימין לשמאל',
+    ltr: 'שמאל לימין',
+    lang: 'שפה',
+  },
+};
+
+const rtlLangs = ['ar', 'he'];
+
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,25 +78,36 @@ const Header = () => {
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const servicesDropdownTimeout = React.useRef();
   const [theme, setTheme] = useState('light');
-  const [direction, setDirection] = useState('ltr');
-  // RTL/LTR direction effect
+  const [language, setLanguage] = useState(localStorage.getItem('language') || 'en');
+  const [direction, setDirection] = useState(rtlLangs.includes(localStorage.getItem('language')) ? 'rtl' : 'ltr');
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  // Language and RTL/LTR effect
+  const [isLangDropdownOpenMobile, setIsLangDropdownOpenMobile] = useState(false);
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedDir = localStorage.getItem('direction') || 'ltr';
-      setDirection(savedDir);
-      document.documentElement.setAttribute('dir', savedDir);
+      const savedLang = localStorage.getItem('language') || 'en';
+      setLanguage(savedLang);
+      const dir = rtlLangs.includes(savedLang) ? 'rtl' : 'ltr';
+      setDirection(dir);
+      document.documentElement.setAttribute('dir', dir);
+      localStorage.setItem('direction', dir);
     }
   }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      document.documentElement.setAttribute('dir', direction);
-      localStorage.setItem('direction', direction);
+      const dir = rtlLangs.includes(language) ? 'rtl' : 'ltr';
+      setDirection(dir);
+      document.documentElement.setAttribute('dir', dir);
+      localStorage.setItem('direction', dir);
+      localStorage.setItem('language', language);
     }
-  }, [direction]);
+  }, [language]);
 
-  const toggleDirection = () => {
-    setDirection((prev) => (prev === 'ltr' ? 'rtl' : 'ltr'));
+  const handleLanguageChange = (lang) => {
+    setLanguage(lang);
+    i18n.changeLanguage(lang); // Update i18next language globally
+    setIsLangDropdownOpen(false);
   };
   // Ensure theme is set only after mount (SSR-safe)
   useEffect(() => {
@@ -99,8 +175,31 @@ const Header = () => {
 
           {/* Right side - Navigation and Icons */}
           <div className="hidden min-[480px]:flex items-center space-x-8">
-            {/* Home Dropdown */}
 
+            {/* Language Selector */}
+            <div className="relative">
+              <button
+                className={`flex items-center px-2 py-1 rounded ${theme === 'dark' ? 'text-white' : 'text-black'} border border-gray-300 mr-2`}
+                aria-haspopup="true"
+                aria-expanded={isLangDropdownOpen}
+                title={translations[language].lang}
+                onClick={() => setIsLangDropdownOpen((v) => !v)}
+              >
+                {language === 'en' && '🇺🇸'}
+                {language === 'ar' && '🇸🇦'}
+                {language === 'he' && '🇮🇱'}
+                <span className="ml-1">{translations[language].lang}</span>
+              </button>
+              {isLangDropdownOpen && (
+                <div className="absolute left-0 mt-2 w-28 rounded-md shadow-lg border bg-white z-50">
+                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => handleLanguageChange('en')}>🇺🇸 English</button>
+                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => handleLanguageChange('ar')}>🇸🇦 العربية</button>
+                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => handleLanguageChange('he')}>🇮🇱 עברית</button>
+                </div>
+              )}
+            </div>
+
+            {/* Home Dropdown */}
             <div
               className="relative"
               onMouseEnter={() => {
@@ -117,15 +216,15 @@ const Header = () => {
                 aria-haspopup="true"
                 aria-expanded={isHomeDropdownOpen}
               >
-                Home
+                {translations[language].home}
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               {isHomeDropdownOpen && (
                 <div className={`absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg border py-2 ${theme === 'dark' ? 'bg-[#1E2A38] border-[#141B25]' : 'bg-white border-gray-200'}`}>
-                  <Link to="/home1" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsHomeDropdownOpen(false)}>Home 1</Link>
-                  <Link to="/home2" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsHomeDropdownOpen(false)}>Home 2</Link>
+                  <Link to="/home1" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsHomeDropdownOpen(false)}>{translations[language].home1}</Link>
+                  <Link to="/home2" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsHomeDropdownOpen(false)}>{translations[language].home2}</Link>
                 </div>
               )}
             </div>
@@ -135,7 +234,7 @@ const Header = () => {
               to="/aboutus"
               className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
             >
-              About Us
+              {translations[language].about}
             </Link>
 
             {/* User Dashboard link for non-admin users */}
@@ -158,52 +257,41 @@ const Header = () => {
                 aria-haspopup="true"
                 aria-expanded={isServicesDropdownOpen}
               >
-                Services
+                {translations[language].services}
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               {isServicesDropdownOpen && (
                 <div className={`absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg border py-2 ${theme === 'dark' ? 'bg-[#1E2A38] border-[#141B25]' : 'bg-white border-gray-200'}`}>
-                    <Link to="/services" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>All Services</Link>
-                    <Link to="/CommercialConstruction" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Commercial Construction</Link>
-                    <Link to="/Design-Planning&Execution" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Design, Planning & Execution</Link>
-                    <Link to="/ResidentialConstruction" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Residential Construction</Link>
-                    <Link to="/ProjectManagement&Consultation" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Project Management & Consultation</Link>
-                    <Link to="/Renovation&Remodeling" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Renovation & Remodeling</Link>
-                    <Link to="/InteriorFit-outs" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Interior Fit-outs</Link>
+                    <Link to="/services" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => setIsServicesDropdownOpen(false)}>{translations[language].allServices}</Link>
+                    <Link to="/CommercialConstruction" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].commercial}</Link>
+                    <Link to="/Design-Planning&Execution" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].design}</Link>
+                    <Link to="/ResidentialConstruction" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].residential}</Link>
+                    <Link to="/ProjectManagement&Consultation" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].pmc}</Link>
+                    <Link to="/Renovation&Remodeling" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].renovation}</Link>
+                    <Link to="/InteriorFit-outs" className={`block px-4 py-2 ${theme === 'dark' ? 'text-white hover:bg-[#22304a]' : 'text-gray-800 hover:bg-gray-100'}`} onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].interior}</Link>
                 </div>
               )}
             </div>
             
           
+
             <Link
               to="/blog"
               className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
             >
-              Blog
+              {translations[language].blog}
             </Link>
 
             <Link
               to="/contactus"
               className={`${theme === 'dark' ? 'text-white' : 'text-black'} hover:text-yellow-400 transition-colors duration-200`}
             >
-              Contact Us
+              {translations[language].contact}
             </Link>
 
-          {/* RTL/LTR Toggle */}
-          <button
-            className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${direction === 'rtl' ? 'bg-blue-200 border-blue-400 hover:bg-blue-300' : 'bg-gray-100 border-gray-300 hover:bg-gray-200'}`}
-            onClick={toggleDirection}
-            aria-label="Toggle RTL/LTR"
-            title={direction === 'rtl' ? 'Switch to LTR' : 'Switch to RTL'}
-          >
-            {direction === 'rtl' ? (
-              <span className="font-bold text-blue-700">RTL</span>
-            ) : (
-              <span className="font-bold text-gray-700">LTR</span>
-            )}
-          </button>
+
 
           {/* Dark Mode Toggle */}
             <button
@@ -275,19 +363,28 @@ const Header = () => {
 
           {/* Mobile icons - Only visible on very small screens */}
           <div className="flex items-center space-x-4 min-[480px]:hidden">
-          {/* RTL/LTR Toggle (Mobile) */}
-            <button
-              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-200 ${direction === 'rtl' ? 'bg-blue-200 border-blue-400 hover:bg-blue-300' : 'bg-gray-100 border-gray-300 hover:bg-gray-200'}`}
-              onClick={toggleDirection}
-              aria-label="Toggle RTL/LTR"
-              title={direction === 'rtl' ? 'Switch to LTR' : 'Switch to RTL'}
-            >
-              {direction === 'rtl' ? (
-                <span className="font-bold text-blue-700">RTL</span>
-              ) : (
-                <span className="font-bold text-gray-700">LTR</span>
-              )}
-            </button>
+            <div className="relative ">
+                <button
+                  className={`flex items-center px-2 py-1 rounded ${theme === 'dark' ? 'text-white' : 'text-black'} border border-gray-300`}
+                  aria-haspopup="true"
+                  aria-expanded={isLangDropdownOpenMobile}
+                  title={translations[language].lang}
+                  onClick={() => setIsLangDropdownOpenMobile((v) => !v)}
+                >
+                  {language === 'en' && '🇺🇸'}
+                  {language === 'ar' && '🇸🇦'}
+                  {language === 'he' && '🇮🇱'}
+                  <span className="ml-1">{translations[language].lang}</span>
+                </button>
+                {isLangDropdownOpenMobile && (
+                  <div className="absolute left-0 mt-2 w-18 rounded-md shadow-lg border bg-white z-50">
+                    <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => { handleLanguageChange('en'); setIsLangDropdownOpenMobile(false); }}>🇺🇸 English</button>
+                    <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => { handleLanguageChange('ar'); setIsLangDropdownOpenMobile(false); }}>🇸🇦 العربية</button>
+                    <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => { handleLanguageChange('he'); setIsLangDropdownOpenMobile(false); }}>🇮🇱 עברית</button>
+                  </div>
+                )}
+              </div>
+
 
           {/* Dark Mode Toggle (Mobile) */}
             <button
@@ -353,6 +450,7 @@ const Header = () => {
                 );
               })()}
             </div>
+            
 
             {/* Mobile menu button */}
             <button
@@ -370,27 +468,30 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="min-[480px]:hidden border-t border-gray-200 bg-white">
             <div className="px-2 pt-2 pb-3 space-y-1">
+              {/* Language Selector (Mobile) */}
+              
+
               {/* Mobile Home Dropdown */}
               <div className="relative">
                 <button
                   onClick={toggleHomeDropdown}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md"
                 >
-                  <span>Home</span>
+                  <span>{translations[language].home}</span>
                   <svg className={`w-4 h-4 transition-transform duration-200 ${isHomeDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 {isHomeDropdownOpen && (
                   <div className="pl-4 space-y-1">
-                    <a href="/home1" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsHomeDropdownOpen(false); setIsMobileMenuOpen(false); }}>Home 1</a>
-                    <a href="/home2" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsHomeDropdownOpen(false); setIsMobileMenuOpen(false); }}>Home 2</a>
+                    <a href="/home1" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsHomeDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].home1}</a>
+                    <a href="/home2" className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md" onClick={() => { setIsHomeDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].home2}</a>
                   </div>
                 )}
               </div>
 
               <Link to="/aboutus" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
-                About Us
+                {translations[language].about}
               </Link>
 
               {/* Mobile Services Dropdown */}
@@ -399,31 +500,30 @@ const Header = () => {
                   onClick={toggleServicesDropdown}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md"
                 >
-                  <span>Services</span>
+                  <span>{translations[language].services}</span>
                   <svg className={`w-4 h-4 transition-transform duration-200 ${isServicesDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 {isServicesDropdownOpen && (
                   <div className="pl-4 space-y-1">
-                    <Link to="/services" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>All Services</Link>
-                    <Link to="/CommercialConstruction" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Commercial Construction</Link>
-                    <Link to="/Design-Planning&Execution" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Design, Planning & Execution</Link>
-                    <Link to="/ResidentialConstruction" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Residential Construction</Link>
-                    <Link to="/ProjectManagement&Consultation" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Project Management & Consultation</Link>
-                    <Link to="/Renovation&Remodeling" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Renovation & Remodeling</Link>
-                    <Link to="/InteriorFit-outs" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>Interior Fit-outs</Link>
+                    <Link to="/services" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].allServices}</Link>
+                    <Link to="/CommercialConstruction" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].commercial}</Link>
+                    <Link to="/Design-Planning&Execution" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].design}</Link>
+                    <Link to="/ResidentialConstruction" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].residential}</Link>
+                    <Link to="/ProjectManagement&Consultation" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].pmc}</Link>
+                    <Link to="/Renovation&Remodeling" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].renovation}</Link>
+                    <Link to="/InteriorFit-outs" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => { setIsServicesDropdownOpen(false); setIsMobileMenuOpen(false); }}>{translations[language].interior}</Link>
                   </div>
                 )}
               </div>
 
-
               <Link to="/blog" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
-                Blog
+                {translations[language].blog}
               </Link>
 
               <Link to="/contactus" className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
-                Contact Us
+                {translations[language].contact}
               </Link>
             </div>
           </div>

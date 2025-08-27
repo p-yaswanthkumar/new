@@ -1,7 +1,7 @@
-
 import React, { useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useTranslation } from 'react-i18next';
 
 import aihero from "../assets/d.mp4";
 import a1 from "../assets/d1.jpg"; // your AI/ML service image
@@ -44,6 +44,7 @@ const steps = [
 
 
 export default function AIServicePage() {
+  const { t } = useTranslation();
   React.useEffect(() => {
     AOS.init({ once: false });
   }, []);

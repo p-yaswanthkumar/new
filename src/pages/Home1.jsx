@@ -10,6 +10,7 @@ import img3 from "../assets/3.png";
 import r from "../assets/r1.jpg";
 import c from "../assets/c1.jpg";
 import i from "../assets/i1.jpg";
+import { useTranslation } from "react-i18next";
 
 // Helper for count up animation
 function useCountUp(target, duration = 1200) {
@@ -78,6 +79,7 @@ function ImpactMetric({ value, suffix, label, delay, color }) {
 // MAIN COMPONENT
 export default function Home1() {
   const location = useLocation();
+  const { t } = useTranslation();
   useEffect(() => {
   if (location.state?.fromNav) {
     window.scrollTo(0, 0);
@@ -152,7 +154,6 @@ const [formData, setFormData] = useState({
     });
   };
 
-  // ...existing code...
   const [streak, setStreak] = useState(0);
   const [selected, setSelected] = useState(null);
   const [question, setQuestion] = useState({});
@@ -191,25 +192,26 @@ const [formData, setFormData] = useState({
   
   // Carousel logic moved to top level
   
-const categories = {
-  Residential: {
-  img: r,
-  heading: "Residential Projects",
-  desc: "Our residential projects are designed with families in mind, blending comfort, functionality, and aesthetics to create homes that truly enhance everyday living. From contemporary apartments and gated communities to luxury villas and independent houses, we bring architectural elegance and structural durability together. Every project is carefully planned with attention to detail from high quality  utilization that maximizes natural light, ventilation, and energy efficiency. We also focus on integrating modern amenities and future-ready designs, ensuring homes that not only meet today’s lifestyle needs but also add long-term value. Whether it’s a full-scale renovation or a new build from the ground up, our team is committed to on-time delivery, superior craftsmanship,  security, and pride of ownership.",
-},
 
-Commercial: {
-  img: c,
-  heading: "Commercial Projects",
-  desc: "We deliver high-performance commercial spaces that balance design excellence with business functionality, helping enterprises grow in dynamic markets. Our portfolio includes office complexes, retail outlets, shopping malls, co-working hubs, and mixed-use developments — all engineered to meet modern business requirements. We emphasize efficient layouts that improve workflow, cutting-edge designs that enhance brand identity, and sustainable solutions that reduce operational costs. Each project is built with advanced technology, strong compliance with international safety standards, and premium finishes to ensure long-term durability. By collaborating  also boost productivity, inspire employees, and position businesses for long-term success in competitive industries.",
-},
-
-  Industrial: {
-    img: i,
-    heading: "Industrial Projects",
-    desc: "Industrial construction demands strength, reliability, and scalability — and that’s where we excel. Our projects range from warehouses and manufacturing units to logistics hubs and large-scale industrial complexes. We prioritize structural safety, operational efficiency, and compliance with regulatory standards to deliver facilities that withstand demanding environments. With advanced engineering techniques and high-grade materials, we ensure every project supports heavy-duty operations while allowing room for future expansion. Our industrial solutions empower businesses to scale faster, operate smoothly, and achieve long-term growth.",
-  },
-};
+function getCategories(t) {
+  return {
+    Residential: {
+      img: r,
+      heading: t('home1.categories.residential.heading', 'Residential Projects'),
+      desc: t('home1.categories.residential.desc', 'Our residential projects are designed with families in mind, blending comfort, functionality, and aesthetics to create homes that truly enhance everyday living. From contemporary apartments and gated communities to luxury villas and independent houses, we bring architectural elegance and structural durability together. Every project is carefully planned with attention to detail from high quality utilization that maximizes natural light, ventilation, and energy efficiency. We also focus on integrating modern amenities and future-ready designs, ensuring homes that not only meet today’s lifestyle needs but also add long-term value. Whether it’s a full-scale renovation or a new build from the ground up, our team is committed to on-time delivery, superior craftsmanship, security, and pride of ownership.'),
+    },
+    Commercial: {
+      img: c,
+      heading: t('home1.categories.commercial.heading', 'Commercial Projects'),
+      desc: t('home1.categories.commercial.desc', 'We deliver high-performance commercial spaces that balance design excellence with business functionality, helping enterprises grow in dynamic markets. Our portfolio includes office complexes, retail outlets, shopping malls, co-working hubs, and mixed-use developments — all engineered to meet modern business requirements. We emphasize efficient layouts that improve workflow, cutting-edge designs that enhance brand identity, and sustainable solutions that reduce operational costs. Each project is built with advanced technology, strong compliance with international safety standards, and premium finishes to ensure long-term durability. By collaborating also boost productivity, inspire employees, and position businesses for long-term success in competitive industries.'),
+    },
+    Industrial: {
+      img: i,
+      heading: t('home1.categories.industrial.heading', 'Industrial Projects'),
+      desc: t('home1.categories.industrial.desc', 'Industrial construction demands strength, reliability, and scalability — and that’s where we excel. Our projects range from warehouses and manufacturing units to logistics hubs and large-scale industrial complexes. We prioritize structural safety, operational efficiency, and compliance with regulatory standards to deliver facilities that withstand demanding environments. With advanced engineering techniques and high-grade materials, we ensure every project supports heavy-duty operations while allowing room for future expansion. Our industrial solutions empower businesses to scale faster, operate smoothly, and achieve long-term growth.'),
+    },
+  };
+}
 
 
   const [activeCategory, setActiveCategory] = useState("Residential");
@@ -218,11 +220,12 @@ Commercial: {
   
 
   
+  const categories = getCategories(t);
+
   return (
     <div className={
       `${theme === 'dark' ? 'min-h-screen bg-black text-white' : 'min-h-screen bg-white text-white'}`
     }>
-      
       {/* Hero Section - Full width */}
       <section
         className="relative w-full h-screen overflow-hidden"
@@ -240,25 +243,17 @@ Commercial: {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4" data-aos="fade-up" data-aos-duration="1000">
           <h1 
-  className="text-4xl md:text-6xl font-bold" 
-  style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
->
-  Build Your Dream with <span style={{ color: '#facc15' }}>Expert Construction</span>
-</h1>
-
-<p 
-  className={`mt-4 max-w-4xl text-lg md:text-xl ${
-    theme === 'dark' ? 'text-fff' : 'text-fff'
-  }`}
-  data-aos="fade-up" data-aos-delay="200"
->
-  From homes to commercial spaces, we deliver top-quality construction solutions 
-  that stand the test of time. With expert engineers, skilled craftsmen, and 
-  modern technology, we ensure every project is built with precision, safety, 
-  and durability. Whether you’re planning a new build, renovation, or 
-  infrastructure project, we bring your vision to life — on time and within budget.
-</p>
-
+            className="text-4xl md:text-6xl font-bold" 
+            style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
+          >
+            {t('home1.heroTitle', 'Build Your Dream with')} <span style={{ color: '#facc15' }}>{t('home1.heroHighlight', 'Expert Construction')}</span>
+          </h1>
+          <p 
+            className={`mt-4 max-w-4xl text-lg md:text-xl ${theme === 'dark' ? 'text-fff' : 'text-fff'}`}
+            data-aos="fade-up" data-aos-delay="200"
+          >
+            {t('home1.heroDesc', 'From homes to commercial spaces, we deliver top-quality construction solutions that stand the test of time. With expert engineers, skilled craftsmen, and modern technology, we ensure every project is built with precision, safety, and durability. Whether you’re planning a new build, renovation, or infrastructure project, we bring your vision to life — on time and within budget.')}
+          </p>
           <button
             onClick={() => window.scrollTo({ top: document.getElementById('project-categories').offsetTop, behavior: 'smooth' })}
             className={
@@ -266,7 +261,7 @@ Commercial: {
             }
             data-aos="zoom-in" data-aos-delay="400"
           >
-            Learn More
+            {t('home1.learnMore', 'Learn More')}
           </button>
         </div>
       </section>
@@ -287,7 +282,7 @@ Commercial: {
       style={{ color: theme === "dark" ? "#fff" : "#000" }}
       data-aos="fade-up"
     >
-      Explore Our Expertise
+      {t('home1.categories.title', 'Explore Our Expertise')}
     </h2>
     <p
       className={`text-lg text-center mb-12 ${
@@ -295,8 +290,7 @@ Commercial: {
       }`}
       data-aos="fade-up" data-aos-delay="200"
     >
-      From homes to industries — discover the categories of projects we proudly
-      deliver with quality and precision.
+      {t('home1.categories.desc', 'From homes to industries — discover the categories of projects we proudly deliver with quality and precision.')}
     </p>
 
     {/* Filter Buttons */}
@@ -314,7 +308,7 @@ Commercial: {
           }`}
           data-aos="zoom-in"
         >
-          {name}
+          {t(`home1.categories.${name.toLowerCase()}.tab`, name)}
         </button>
       ))}
     </div>
@@ -365,15 +359,14 @@ Commercial: {
           className="text-4xl font-bold mb-4"
           style={{ color: theme === "dark" ? "#facc15" : "#facc15" }}
         >
-          We Provide Services
+          {t('home1.services.title', 'We Provide Services')}
         </h2>
         <p
           className={`text-lg mb-12 ${
             theme === "dark" ? "text-gray-300" : "text-gray-600"
           }`}
         >
-          From planning to execution, we deliver high-quality construction
-          solutions tailored to your needs.
+          {t('home1.services.desc', 'From planning to execution, we deliver high-quality construction solutions tailored to your needs.')}
         </p>
 
         {/* Cards */}
@@ -381,40 +374,37 @@ Commercial: {
           {/* Residential */}
           <div className="p-6 rounded-2xl shadow-lg border hover:shadow-xl transition bg-white" style={{ backgroundColor: theme === "dark" ? "#222" : "#fff" }}>
             <img src={img1} alt="Residential" className="h-16 mx-auto mb-6" />
-            <h3 className="text-2xl font-semibold  text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>Residential</h3>
+            <h3 className="text-2xl font-semibold  text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>{t('home1.services.residential.title', 'Residential')}</h3>
             <p className="text-gray-600 mb-6" style={{ color: theme === "dark" ? "#fff" : "#000" }}>
-              From modern homes to luxury apartments, we build spaces that are
-              stylish, functional, and durable.
+              {t('home1.services.residential.desc', 'From modern homes to luxury apartments, we build spaces that are stylish, functional, and durable.')}
             </p>
-<Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
-  Get Started
-</Link>
+            <Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
+              {t('home1.services.getStarted', 'Get Started')}
+            </Link>
           </div>
 
           {/* Interior Designs */}
           <div className="p-6 rounded-2xl shadow-lg border hover:shadow-xl transition bg-white" style={{ backgroundColor: theme === "dark" ? "#222" : "#fff" }}>
             <img src={img2} alt="Interior Designs" className="h-16 mx-auto mb-6" />
-            <h3 className="text-2xl font-semibold text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>Interior Designs</h3>
+            <h3 className="text-2xl font-semibold text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>{t('home1.services.interior.title', 'Interior Designs')}</h3>
             <p className="text-gray-600 mb-6" style={{ color: theme === "dark" ? "#fff" : "#000" }}>
-              Creative and functional designs that transform your interiors into
-              elegant and comfortable spaces.
+              {t('home1.services.interior.desc', 'Creative and functional designs that transform your interiors into elegant and comfortable spaces.')}
             </p>
             <Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
-  Get Started
-</Link>
+              {t('home1.services.getStarted', 'Get Started')}
+            </Link>
           </div>
 
           {/* Structural Repair */}
           <div className="p-6 rounded-2xl shadow-lg border hover:shadow-xl transition bg-white" style={{ backgroundColor: theme === "dark" ? "#222" : "#fff" }}>
             <img src={img3} alt="Structural Repair" className="h-16 mx-auto mb-6" />
-            <h3 className="text-2xl font-semibold text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>Structural Repair</h3>
+            <h3 className="text-2xl font-semibold text-black mb-4" style={{ color: theme === "dark" ? "#fff" : "#000" }}>{t('home1.services.structural.title', 'Structural Repair')}</h3>
             <p className="text-gray-600 mb-6" style={{ color: theme === "dark" ? "#fff" : "#000" }}>
-              Reliable repair and strengthening services to ensure safety and
-              long-term stability of your structures.
+              {t('home1.services.structural.desc', 'Reliable repair and strengthening services to ensure safety and long-term stability of your structures.')}
             </p>
-         <Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
-  Get Started
-</Link>
+            <Link to="/contactus" className="bg-[#fed700] text-black font-medium py-2 px-6 rounded-lg hover:bg-[#e5c400] transition ">
+              {t('home1.services.getStarted', 'Get Started')}
+            </Link>
           </div>
         </div>
       </div>
@@ -438,7 +428,7 @@ Commercial: {
       className="text-3xl md:text-4xl font-bold text-center mb-6"
       style={{ color: theme === "dark" ? "#facc15" : "#facc15" }}
     >
-      Construction Cost Estimator
+      {t('home1.estimator.title', 'Construction Cost Estimator')}
     </h2>
 
     <form
@@ -449,7 +439,7 @@ Commercial: {
       <div>
         <label 
           className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          Built-up Area (sqft)
+          {t('home1.estimator.area', 'Built-up Area (sqft)')}
         </label>
         <input
           type="number"
@@ -466,7 +456,7 @@ Commercial: {
       <div>
         <label 
           className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          Number of Floors
+          {t('home1.estimator.floors', 'Number of Floors')}
         </label>
         <input
           type="number"
@@ -484,7 +474,7 @@ Commercial: {
       <div>
         <label 
           className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          Construction Quality
+          {t('home1.estimator.quality', 'Construction Quality')}
         </label>
         <select
           value={quality}
@@ -493,9 +483,9 @@ Commercial: {
             ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white text-gray-900'} 
             focus:ring-2 focus:ring-yellow-400 outline-none transition`}
         >
-          <option value="standard">Standard</option>
-          <option value="premium">Premium</option>
-          <option value="luxury">Luxury</option>
+          <option value="standard">{t('home1.estimator.qualityStandard', 'Standard')}</option>
+          <option value="premium">{t('home1.estimator.qualityPremium', 'Premium')}</option>
+          <option value="luxury">{t('home1.estimator.qualityLuxury', 'Luxury')}</option>
         </select>
       </div>
 
@@ -503,7 +493,7 @@ Commercial: {
       <div>
         <label 
           className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          Project Location
+          {t('home1.estimator.location', 'Project Location')}
         </label>
         <select
           value={projectLocation}
@@ -512,9 +502,9 @@ Commercial: {
             ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white text-gray-900'} 
             focus:ring-2 focus:ring-yellow-400 outline-none transition`}
         >
-          <option value="urban">Urban</option>
-          <option value="semiUrban">Semi-Urban</option>
-          <option value="rural">Rural</option>
+          <option value="urban">{t('home1.estimator.locationUrban', 'Urban')}</option>
+          <option value="semiUrban">{t('home1.estimator.locationSemiUrban', 'Semi-Urban')}</option>
+          <option value="rural">{t('home1.estimator.locationRural', 'Rural')}</option>
         </select>
       </div>
 
@@ -522,7 +512,7 @@ Commercial: {
       <div className="md:col-span-2 flex flex-col gap-3">
         <label 
           className={`block mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          Additional Services
+          {t('home1.estimator.extras', 'Additional Services')}
         </label>
         <div className="flex gap-6 flex-wrap">
           <label className="flex items-center gap-2 cursor-pointer">
@@ -534,7 +524,7 @@ Commercial: {
               }
               className="accent-yellow-400"
             />
-            Interior Work (+ ₹400/sqft)
+            {t('home1.estimator.interior', 'Interior Work (+ ₹400/sqft)')}
           </label>
           <label className="flex items-center gap-2 cursor-pointer">
             <input
@@ -545,7 +535,7 @@ Commercial: {
               }
               className="accent-yellow-400"
             />
-            Landscaping (+ ₹200/sqft)
+            {t('home1.estimator.landscaping', 'Landscaping (+ ₹200/sqft)')}
           </label>
         </div>
       </div>
@@ -557,7 +547,7 @@ Commercial: {
           className="px-8 py-3 rounded-lg bg-yellow-400 text-gray-900 font-semibold 
                      hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 transition"
         >
-          Calculate Estimate
+          {t('home1.estimator.calculate', 'Calculate Estimate')}
         </button>
       </div>
     </form>
@@ -569,7 +559,7 @@ Commercial: {
           className="text-2xl font-bold"
           style={{ color: theme === "dark" ? "#facc15" : "#facc15" }}
         >
-          Estimated Cost
+          {t('home1.estimator.estimatedCost', 'Estimated Cost')}
         </h3>
         <p 
           className="text-3xl font-extrabold mt-2"
@@ -610,12 +600,12 @@ Commercial: {
 ></div>
 
 <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-  <h2 
-  className="text-5xl font-bold text-center mb-12" 
-  style={{ color: '#fff' }}
->
-  Building a Legacy of Excellence
-</h2>
+      <h2 
+      className="text-5xl font-bold text-center mb-12" 
+      style={{ color: '#fff' }}
+    >
+      {t('home1.impact.title', 'Building a Legacy of Excellence')}
+    </h2>
 
 
   <div className="grid lg:grid-cols-4  rounded-full gap-8 text-center">
@@ -623,7 +613,7 @@ Commercial: {
     <ImpactMetric 
       value={250} 
       suffix="+" 
-      label="Projects Completed" 
+      label={t('home1.impact.projectsCompleted', 'Projects Completed')} 
       delay={100} 
       color="#000" // yellow-400
     />
@@ -631,7 +621,7 @@ Commercial: {
     <ImpactMetric 
       value={50} 
       suffix="+" 
-      label="Ongoing Constructions" 
+      label={t('home1.impact.ongoingConstructions', 'Ongoing Constructions')} 
       delay={200} 
       color="#000" 
     />
@@ -639,7 +629,7 @@ Commercial: {
     <ImpactMetric 
       value={30} 
       suffix="+" 
-      label="Cities Served" 
+      label={t('home1.impact.citiesServed', 'Cities Served')} 
       delay={300} 
       color="#000" 
     />
@@ -647,7 +637,7 @@ Commercial: {
     <ImpactMetric 
       value={98} 
       suffix="%" 
-      label="Client Satisfaction" 
+      label={t('home1.impact.clientSatisfaction', 'Client Satisfaction')} 
       delay={400} 
       color="#000" 
     />
@@ -662,12 +652,12 @@ Commercial: {
       
     <h2 className={`text-4xl font-bold text-center mb-6 mt-10
       ${theme === 'dark' ? 'text-[#fed700]' : 'text-yellow-400'}`}>
-      Need A Custom Package?
+      {t('home1.customPackage.title', 'Need A Custom Package?')}
     </h2>
 
     <p className={`text-center mb-10 
       ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-      Please submit the following form and we will get back to you with the best quotation.
+      {t('home1.customPackage.desc', 'Please submit the following form and we will get back to you with the best quotation.')}
     </p>
 
     <form onSubmit={handleSubmit} 
@@ -676,11 +666,11 @@ Commercial: {
       
       {/* Name */}
       <div>
-        <label className="block font-semibold mb-2">Name</label>
+        <label className="block font-semibold mb-2">{t('home1.customPackage.name', 'Name')}</label>
         <input 
           type="text" 
           name="name"
-          placeholder="Enter your name"
+          placeholder={t('home1.customPackage.namePlaceholder', 'Enter your name')}
           value={formData.name}
           onChange={handleChange}
           className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
@@ -693,11 +683,11 @@ Commercial: {
 
       {/* Phone Number */}
       <div>
-        <label className="block font-semibold mb-2">Phone Number</label>
+        <label className="block font-semibold mb-2">{t('home1.customPackage.phone', 'Phone Number')}</label>
         <input 
           type="tel" 
           name="phoneNumber"
-          placeholder="Enter your phone number"
+          placeholder={t('home1.customPackage.phonePlaceholder', 'Enter your phone number')}
           value={formData.phoneNumber}
           onChange={handleChange}
           className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
@@ -710,11 +700,11 @@ Commercial: {
 
       {/* Site Area */}
       <div>
-        <label className="block font-medium mb-2">Site Area (Sq.ft)</label>
+        <label className="block font-medium mb-2">{t('home1.customPackage.siteArea', 'Site Area (Sq.ft)')}</label>
         <input 
           type="text" 
           name="siteArea"
-          placeholder="Enter site area in Sq.ft"
+          placeholder={t('home1.customPackage.siteAreaPlaceholder', 'Enter site area in Sq.ft')}
           value={formData.siteArea}
           onChange={handleChange}
           className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
@@ -727,11 +717,11 @@ Commercial: {
 
       {/* Plot Location */}
       <div>
-        <label className="block font-medium mb-2">Plot Location</label>
+        <label className="block font-medium mb-2">{t('home1.customPackage.plotLocation', 'Plot Location')}</label>
         <input 
           type="text" 
           name="plotLocation"
-          placeholder="Enter plot location"
+          placeholder={t('home1.customPackage.plotLocationPlaceholder', 'Enter plot location')}
           value={formData.plotLocation}
           onChange={handleChange}
           className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 
@@ -743,7 +733,7 @@ Commercial: {
 
       {/* Construction Type */}
       <div>
-        <label className="block font-medium mb-2">Construction Type</label>
+        <label className="block font-medium mb-2">{t('home1.customPackage.constructionType', 'Construction Type')}</label>
         <select 
           name="construction"
           value={formData.construction}
@@ -753,15 +743,15 @@ Commercial: {
               ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
               : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
         >
-          <option value="">Select</option>
-          <option value="Residential construction">Residential construction</option>
-          <option value="Commercial construction">Commercial construction</option>
+          <option value="">{t('home1.customPackage.select', 'Select')}</option>
+          <option value="Residential construction">{t('home1.customPackage.residentialConstruction', 'Residential construction')}</option>
+          <option value="Commercial construction">{t('home1.customPackage.commercialConstruction', 'Commercial construction')}</option>
         </select>
       </div>
 
       {/* House Type */}
       <div>
-        <label className="block font-medium mb-2">House Type</label>
+        <label className="block font-medium mb-2">{t('home1.customPackage.houseType', 'House Type')}</label>
         <select 
           name="houseType"
           value={formData.houseType}
@@ -771,10 +761,10 @@ Commercial: {
               ? 'bg-[#181818] text-white border-gray-600 focus:ring-[#fed700]' 
               : 'bg-white text-black border-gray-300 focus:ring-yellow-400'}`}
         >
-          <option value="">Select</option>
-          <option value="Ground floor">Ground floor</option>
-          <option value="Duplex">Duplex</option>
-          <option value="Triplex">Triplex</option>
+          <option value="">{t('home1.customPackage.select', 'Select')}</option>
+          <option value="Ground floor">{t('home1.customPackage.groundFloor', 'Ground floor')}</option>
+          <option value="Duplex">{t('home1.customPackage.duplex', 'Duplex')}</option>
+          <option value="Triplex">{t('home1.customPackage.triplex', 'Triplex')}</option>
         </select>
       </div>
 
@@ -786,7 +776,7 @@ Commercial: {
             ? 'bg-[#fed700] text-black hover:bg-yellow-500' 
             : 'bg-yellow-400 text-black hover:bg-yellow-500'}`}
       >
-        Submit
+        {t('home1.customPackage.submit', 'Submit')}
       </button>
     </form>
   </div>
@@ -799,7 +789,7 @@ Commercial: {
           ? 'opacity-100 translate-y-0 bg-green-600 text-white' 
           : 'opacity-0 translate-y-4 bg-green-600 text-white'}`}
     >
-      Your details have been saved!
+      {t('home1.customPackage.toast', 'Your details have been saved!')}
     </div>
   )}
 </div>

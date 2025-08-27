@@ -16,45 +16,6 @@ import ex4 from "../assets/ex4.avif";
 import ex5 from "../assets/exm5.webp";
 import cta from "../assets/cta.jpg";
 
-
-const services = [
-  {
-    title: "Residential Construction",
-    description: "From concept to completion, we deliver high-quality homes tailored to your lifestyle and budget. Our residential construction services cover architectural design, structural planning, material selection, and on-site project management to ensure your dream home is delivered on time and to the highest standard. Whether it’s a luxury villa, modern apartment, or budget-friendly housing, we provide end-to-end solutions including interior finishing, landscaping, and smart home integrations. We focus on sustainability, energy efficiency, and safety, ensuring your home is both beautiful and future-ready.",
-    image: s1,
-    link: "/residential-construction",
-  },
-  {
-    title: "Commercial Construction",
-    description: "We design and build commercial spaces that drive business success. From office complexes and retail outlets to restaurants and mixed-use developments, our team manages every detail with precision. We ensure compliance with building codes, accessibility standards, and energy efficiency requirements, delivering modern, functional spaces tailored to your brand and operational needs. Our approach emphasizes durability, cost control, and seamless coordination between architects, engineers, and contractors to ensure timely delivery with no compromise on quality.",
-    image: s2,
-    link: "/commercial-construction",
-  },
-  {
-    title: "Interior Fit-outs",
-    description: "Transform any space into a fully functional and aesthetically pleasing environment. Our interior fit-out services include space planning, custom furniture, modular solutions, lighting design, false ceilings, flooring, and high-end finishes. We specialize in both residential and commercial interiors, ensuring optimized layouts, premium material usage, and flawless execution. With a focus on modern design trends and ergonomic solutions, we create interiors that enhance productivity, comfort, and visual appeal while maintaining budgetary efficiency.",
-    image: s3,
-    link: "/interior-fitouts",
-  },
-  {
-    title: "Renovation & Remodeling",
-    description: "Breathe new life into old spaces with our renovation and remodeling expertise. We handle structural upgrades, modern redesigns, plumbing and electrical rewiring, and complete interior overhauls. Whether it's modernizing a home, upgrading office interiors, or restoring heritage properties, our team ensures minimal disruption while delivering stunning results. We emphasize sustainable materials, space optimization, and innovative design approaches that increase property value, functionality, and aesthetics, tailored exactly to your vision.",
-    image: s4,
-    link: "/renovation-remodeling",
-  },
-  {
-    title: "Design, Planning & Execution",
-    description: "Get comprehensive construction solutions under one roof. We provide architectural design, structural engineering, 3D visualization, and complete project execution. Our planning process ensures accurate budgeting, efficient resource allocation, and timely delivery, avoiding delays and cost overruns. By integrating advanced project management tools, we maintain transparency at every stage, giving clients real-time updates on progress. Our goal is to bring your vision to life with precision, creativity, and uncompromised quality.",
-    image: s5,
-    link: "/design-planning-execution",
-  },
-  {
-    title: "Project Management & Consultation",
-    description: "Our expert consultation and project management services ensure that your construction projects run smoothly, efficiently, and within budget. We provide feasibility studies, cost estimation, contract management, vendor coordination, and quality audits to ensure compliance with all safety and legal standards. Using modern tools for scheduling, monitoring, and reporting, we help you avoid delays, manage risks effectively, and achieve optimal results. Whether for small developments or large-scale infrastructure projects, our expertise guarantees flawless delivery.",
-    image: s6,
-    link: "/project-management-consultation",
-  },
-];
 const images = [
     { src: ex1, title: "Luxury Villa", desc: "Modern design with premium finish" },
     { src: ex2, title: "Corporate Office", desc: "Functional and elegant spaces" },
@@ -105,8 +66,49 @@ const communityPrograms = [
 
 
 export default function ServiceHero() {
+
   // Theme state synced with Header
   const [theme, setTheme] = React.useState('light');
+  const { t } = useTranslation();
+
+  const services = [
+    {
+      title: t('services.0.title', 'Residential Construction'),
+      description: t('services.0.description', 'From concept to completion, we deliver high-quality homes tailored to your lifestyle and budget. Our residential construction services cover architectural design, structural planning, material selection, and on-site project management to ensure your dream home is delivered on time and to the highest standard. Whether it’s a luxury villa, modern apartment, or budget-friendly housing, we provide end-to-end solutions including interior finishing, landscaping, and smart home integrations. We focus on sustainability, energy efficiency, and safety, ensuring your home is both beautiful and future-ready.'),
+      image: s1,
+      link: "/residential-construction",
+    },
+    {
+      title: t('services.1.title', 'Commercial Construction'),
+      description: t('services.1.description', 'We design and build commercial spaces that drive business success. From office complexes and retail outlets to restaurants and mixed-use developments, our team manages every detail with precision. We ensure compliance with building codes, accessibility standards, and energy efficiency requirements, delivering modern, functional spaces tailored to your brand and operational needs. Our approach emphasizes durability, cost control, and seamless coordination between architects, engineers, and contractors to ensure timely delivery with no compromise on quality.'),
+      image: s2,
+      link: "/commercial-construction",
+    },
+    {
+      title: t('services.2.title', 'Interior Fit-outs'),
+      description: t('services.2.description', 'Transform any space into a fully functional and aesthetically pleasing environment. Our interior fit-out services include space planning, custom furniture, modular solutions, lighting design, false ceilings, flooring, and high-end finishes. We specialize in both residential and commercial interiors, ensuring optimized layouts, premium material usage, and flawless execution. With a focus on modern design trends and ergonomic solutions, we create interiors that enhance productivity, comfort, and visual appeal while maintaining budgetary efficiency.'),
+      image: s3,
+      link: "/interior-fitouts",
+    },
+    {
+      title: t('services.3.title', 'Renovation & Remodeling'),
+      description: t('services.3.description', 'Breathe new life into old spaces with our renovation and remodeling expertise. We handle structural upgrades, modern redesigns, plumbing and electrical rewiring, and complete interior overhauls. Whether it\'s modernizing a home, upgrading office interiors, or restoring heritage properties, our team ensures minimal disruption while delivering stunning results. We emphasize sustainable materials, space optimization, and innovative design approaches that increase property value, functionality, and aesthetics, tailored exactly to your vision.'),
+      image: s4,
+      link: "/renovation-remodeling",
+    },
+    {
+      title: t('services.4.title', 'Design, Planning & Execution'),
+      description: t('services.4.description', 'Get comprehensive construction solutions under one roof. We provide architectural design, structural engineering, 3D visualization, and complete project execution. Our planning process ensures accurate budgeting, efficient resource allocation, and timely delivery, avoiding delays and cost overruns. By integrating advanced project management tools, we maintain transparency at every stage, giving clients real-time updates on progress. Our goal is to bring your vision to life with precision, creativity, and uncompromised quality.'),
+      image: s5,
+      link: "/design-planning-execution",
+    },
+    {
+      title: t('services.5.title', 'Project Management & Consultation'),
+      description: t('services.5.description', 'Our expert consultation and project management services ensure that your construction projects run smoothly, efficiently, and within budget. We provide feasibility studies, cost estimation, contract management, vendor coordination, and quality audits to ensure compliance with all safety and legal standards. Using modern tools for scheduling, monitoring, and reporting, we help you avoid delays, manage risks effectively, and achieve optimal results. Whether for small developments or large-scale infrastructure projects, our expertise guarantees flawless delivery.'),
+      image: s6,
+      link: "/project-management-consultation",
+    },
+  ];
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedTheme = localStorage.getItem('theme') || 'light';

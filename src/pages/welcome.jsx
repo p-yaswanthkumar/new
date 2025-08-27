@@ -3,8 +3,10 @@ import { setTheme } from "../theme";
 import { useNavigate } from "react-router-dom";
 import welcomeImg from "../assets/welcome1.jpg";
 import logoImg from "../assets/logo.png";
+import { useTranslation } from "react-i18next";
 
 export default function WelcomePage() {
+  const { t } = useTranslation();
   const [showForgot, setShowForgot] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotPassword, setForgotPassword] = useState("");
@@ -14,18 +16,18 @@ export default function WelcomePage() {
   const handleForgotPassword = (e) => {
     e.preventDefault();
     if (forgotPassword !== forgotConfirm) {
-      alert("Passwords do not match.");
+      alert(t('passwords_do_not_match'));
       return;
     }
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const idx = users.findIndex(u => u.email === forgotEmail);
     if (idx === -1) {
-      alert("Email not found.");
+      alert(t('email_not_found'));
       return;
     }
     users[idx].password = forgotPassword;
     localStorage.setItem("users", JSON.stringify(users));
-    alert("Password updated successfully!");
+    alert(t('password_updated_successfully'));
     setShowForgot(false);
     setForgotEmail("");
     setForgotPassword("");
@@ -66,7 +68,7 @@ export default function WelcomePage() {
       localStorage.setItem("email", user.email || "");
       navigate("/home1");
     } else {
-      alert("Invalid email or password.");
+      alert(t('invalid_email_or_password'));
     }
   };
 
@@ -74,12 +76,12 @@ export default function WelcomePage() {
   const handleSignup = (e) => {
     e.preventDefault();
     if (signupData.password !== signupData.confirmPassword) {
-      alert("Passwords do not match.");
+      alert(t('passwords_do_not_match'));
       return;
     }
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     if (users.find(u => u.email === signupData.email)) {
-      alert("Email already registered.");
+      alert(t('email_already_registered'));
       return;
     }
     const now = new Date();
@@ -94,7 +96,7 @@ export default function WelcomePage() {
     };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
-    alert("Signup successful!");
+    alert(t('signup_successful'));
     setShowSignup(false);
     setSignupData({
       firstName: "",
@@ -128,10 +130,10 @@ export default function WelcomePage() {
     <div className="text-left mb-6">
 
       <h3 className="text-sm uppercase tracking-widest text-yellow-400 font-semibold">
-        We Make
+        {t('we_make')}
       </h3>
       <h1 className="text-4xl md:text-5xl font-bold text-white mt-1">
-        Dream Houses
+        {t('dream_houses')}
       </h1>
     </div>
           
@@ -139,11 +141,11 @@ export default function WelcomePage() {
             /* LOGIN FORM */
             <>
               
-              <h2 className="text-2xl font-bold mb-6  text-yellow-400 text-left">Login</h2>
+              <h2 className="text-2xl font-bold mb-6  text-yellow-400 text-left">{t('login')}</h2>
               <form className="space-y-4" onSubmit={handleLogin}>
                 <input 
                   type="email" 
-                  placeholder="Email" 
+                  placeholder={t('email')}
                   className="w-full border p-3 rounded-lg"
                   value={loginEmail}
                   onChange={e => setLoginEmail(e.target.value)}
@@ -151,30 +153,30 @@ export default function WelcomePage() {
                 />
                 <input 
                   type="password" 
-                  placeholder="Password" 
+                  placeholder={t('password')} 
                   className="w-full border p-3 rounded-lg"
                   value={loginPassword}
                   onChange={e => setLoginPassword(e.target.value)}
                   required
                 />
                 <div className="flex justify-between items-center text-sm">
-                  <button type="button" className="text-yellow-400 hover:underline" onClick={() => setShowForgot(true)}>Forgot password?</button>
+                  <button type="button" className="text-yellow-400 hover:underline" onClick={() => setShowForgot(true)}>{t('forgot_password')}?</button>
                 </div>
                 <button 
                   type="submit" 
                   className="w-full bg-yellow-400 text-white p-3 rounded-lg hover:bg-yellow-500"
                 >
-                  Login
+                  {t('login')}
                 </button>
               </form>
 
               <p className="mt-4 text-sm text-white">
-                Don’t have an account?{" "}
+                {t('dont_have_account')}{" "}
                 <button 
                   className="text-yellow-400 hover:underline" 
                   onClick={() => setShowSignup(true)}
                 >
-                  Sign up
+                  {t('sign_up')}
                 </button>
               </p>
             </>
@@ -182,11 +184,11 @@ export default function WelcomePage() {
             /* FORGOT PASSWORD FORM */
             <>
               
-              <h2 className="text-2xl font-bold mb-6  text-yellow-400 text-left">Reset Password</h2>
+              <h2 className="text-2xl font-bold mb-6  text-yellow-400 text-left">{t('reset_password')}</h2>
               <form className="space-y-4" onSubmit={handleForgotPassword}>
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder={t('email')}
                   className="w-full border p-3 rounded-lg"
                   value={forgotEmail}
                   onChange={e => setForgotEmail(e.target.value)}
@@ -194,7 +196,7 @@ export default function WelcomePage() {
                 />
                 <input
                   type="password"
-                  placeholder="New Password"
+                  placeholder={t('new_password')}
                   className="w-full border p-3 rounded-lg"
                   value={forgotPassword}
                   onChange={e => setForgotPassword(e.target.value)}
@@ -202,7 +204,7 @@ export default function WelcomePage() {
                 />
                 <input
                   type="password"
-                  placeholder="Confirm New Password"
+                  placeholder={t('confirm_new_password')}
                   className="w-full border p-3 rounded-lg"
                   value={forgotConfirm}
                   onChange={e => setForgotConfirm(e.target.value)}
@@ -212,14 +214,14 @@ export default function WelcomePage() {
                   type="submit"
                   className="w-full bg-yellow-400 text-white p-3 rounded-lg hover:bg-yellow-500"
                 >
-                  Reset Password
+                  {t('reset_password')}
                 </button>
                 <button
                   type="button"
                   className="w-full mt-2 bg-gray-200 text-gray-700 p-3 rounded-lg hover:bg-gray-300"
                   onClick={() => setShowForgot(false)}
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
               </form>
             </>
@@ -227,12 +229,12 @@ export default function WelcomePage() {
             /* SIGNUP FORM */
             <>
   
-              <h2 className="text-2xl font-bold text-yellow-400 mb-6">Sign Up</h2>
+              <h2 className="text-2xl font-bold text-yellow-400 mb-6">{t('sign_up')}</h2>
               <form className="space-y-4" onSubmit={handleSignup}>
                 <div className="flex gap-2">
                   <input 
                     type="text" 
-                    placeholder="First Name" 
+                    placeholder={t('first_name')} 
                     className="w-1/2 border p-3 rounded-lg"
                     value={signupData.firstName}
                     onChange={e => setSignupData({ ...signupData, firstName: e.target.value })}
@@ -240,7 +242,7 @@ export default function WelcomePage() {
                   />
                   <input 
                     type="text" 
-                    placeholder="Last Name" 
+                    placeholder={t('last_name')} 
                     className="w-1/2 border p-3 rounded-lg"
                     value={signupData.lastName}
                     onChange={e => setSignupData({ ...signupData, lastName: e.target.value })}
@@ -249,7 +251,7 @@ export default function WelcomePage() {
                 </div>
                 <input 
                   type="email" 
-                  placeholder="Email" 
+                  placeholder={t('email')} 
                   className="w-full border p-3 rounded-lg"
                   value={signupData.email}
                   onChange={e => setSignupData({ ...signupData, email: e.target.value })}
@@ -257,7 +259,7 @@ export default function WelcomePage() {
                 />
                 <input 
                   type="tel" 
-                  placeholder="Phone Number" 
+                  placeholder={t('phone_number')} 
                   className="w-full border p-3 rounded-lg"
                   value={signupData.phone}
                   onChange={e => setSignupData({ ...signupData, phone: e.target.value })}
@@ -265,7 +267,7 @@ export default function WelcomePage() {
                 />
                 <input 
                   type="password" 
-                  placeholder="Password" 
+                  placeholder={t('password')} 
                   className="w-full border p-3 rounded-lg"
                   value={signupData.password}
                   onChange={e => setSignupData({ ...signupData, password: e.target.value })}
@@ -273,7 +275,7 @@ export default function WelcomePage() {
                 />
                 <input 
                   type="password" 
-                  placeholder="Confirm Password" 
+                  placeholder={t('confirm_password')} 
                   className="w-full border p-3 rounded-lg"
                   value={signupData.confirmPassword}
                   onChange={e => setSignupData({ ...signupData, confirmPassword: e.target.value })}
@@ -283,17 +285,17 @@ export default function WelcomePage() {
                   type="submit" 
                   className="w-full bg-yellow-400 text-white p-3 rounded-lg hover:bg-yellow-500"
                 >
-                  Sign Up
+                  {t('sign_up')}
                 </button>
               </form>
 
               <p className="mt-4 text-sm text-white">
-                Already have an account?{" "}
+                {t('already_have_account')}{" "}
                 <button 
                   className="text-yellow-400 hover:underline" 
                   onClick={() => setShowSignup(false)}
                 >
-                  Login
+                  {t('login')}
                 </button>
               </p>
             </>

@@ -1,11 +1,11 @@
-
-
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 import Header from "../components/Header";
+import { useTranslation } from 'react-i18next';
 
 export default function UserDetailsSection() {
+  const { t } = useTranslation();
 
   // --- THEME: Always use the current theme from localStorage, update immediately on change ---
   const [theme, setTheme] = useState(() => {
@@ -209,7 +209,7 @@ export default function UserDetailsSection() {
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
           theme === "dark" ? "text-yellow-400" : "text-yellow-400"
-        )}>User Signup Details</h2>
+        )}>{t('userSignupDetails')}</h2>
         {signupDetails.length > 0 ? (
           <div className="overflow-x-auto">
             <table className={clsx(
@@ -221,13 +221,13 @@ export default function UserDetailsSection() {
                 theme === "dark" ? "bg-yellow-400 text-black" : "bg-yellow-400 text-black"
               )}>
                 <tr>
-                  <th className="px-4 py-2 text-center">S.No</th>
-                  <th className="px-4 py-2 text-center">First Name</th>
-                  <th className="px-4 py-2 text-center">Last Name</th>
-                  <th className="px-4 py-2 text-center">Email</th>
-                  <th className="px-4 py-2 text-center">Phone</th>
-                  <th className="px-4 py-2 text-center">Signup Time</th>
-                  <th className="px-4 py-2 text-center">Signup Date</th>
+                  <th className="px-4 py-2 text-center">{t('sNo')}</th>
+                  <th className="px-4 py-2 text-center">{t('firstName')}</th>
+                  <th className="px-4 py-2 text-center">{t('lastName')}</th>
+                  <th className="px-4 py-2 text-center">{t('email')}</th>
+                  <th className="px-4 py-2 text-center">{t('phone')}</th>
+                  <th className="px-4 py-2 text-center">{t('signupTime')}</th>
+                  <th className="px-4 py-2 text-center">{t('signupDate')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -246,7 +246,7 @@ export default function UserDetailsSection() {
             </table>
           </div>
         ) : (
-          <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No user signup details found.</p>
+          <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>{t('noUserSignupDetails')}</p>
         )}
       </div>
 
@@ -266,7 +266,7 @@ export default function UserDetailsSection() {
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
           theme === "dark" ? "text-yellow-400" : "text-yellow-400"
-        )}>Customer Packages</h2>
+        )}>{t('customerPackages')}</h2>
         {customerPackages && customerPackages.length > 0 ? (
           <div className="overflow-x-auto">
             <table className={clsx(
@@ -278,12 +278,12 @@ export default function UserDetailsSection() {
                 theme === "dark" ? "bg-yellow-400 text-black" : "bg-yellow-400 text-black"
               )}>
                 <tr>
-                  <th className="px-4 py-2 text-center">S.No</th>
-                  <th className="px-4 py-2 text-center">Name</th>
-                  <th className="px-4 py-2 text-center">Phone Number</th>
-                  <th className="px-4 py-2 text-center">Site Area</th>
-                  <th className="px-4 py-2 text-center">Plot Location</th>
-                  <th className="px-4 py-2 text-center">Other Info</th>
+                  <th className="px-4 py-2 text-center">{t('sNo')}</th>
+                  <th className="px-4 py-2 text-center">{t('name')}</th>
+                  <th className="px-4 py-2 text-center">{t('phoneNumber')}</th>
+                  <th className="px-4 py-2 text-center">{t('siteArea')}</th>
+                  <th className="px-4 py-2 text-center">{t('plotLocation')}</th>
+                  <th className="px-4 py-2 text-center">{t('otherInfo')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -308,7 +308,7 @@ export default function UserDetailsSection() {
           </div>
         ) : (
           <>
-            <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>No customer packages found.</p>
+            <p className={clsx(theme === "dark" ? "text-gray-400" : "text-gray-500")}>{t('noCustomerPackages')}</p>
             {/* Debug: show raw localStorage value if present */}
             {typeof window !== 'undefined' && localStorage.getItem('customPackages') && (
               <pre className="mt-2 text-xs text-red-500 bg-gray-100 p-2 rounded">Raw localStorage: {localStorage.getItem('customPackages')}</pre>
@@ -325,7 +325,7 @@ export default function UserDetailsSection() {
         <h2 className={clsx(
           "text-2xl font-bold mb-4 text-center",
           theme === "dark" ? "text-yellow-400" : "text-yellow-400"
-        )}>User Signups by Date</h2>
+        )}>{t('userSignupsByDate')}</h2>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={signupChartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#444" : "#eee"} />
@@ -346,7 +346,7 @@ export default function UserDetailsSection() {
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
           theme === "dark" ? "text-yellow-400" : "text-yellow-400"
-        )}>Latest Projects</h2>
+        )}>{t('latestProjects')}</h2>
         <form className="mb-6 w-full" onSubmit={handleProjectSubmit}>
           <div className="flex flex-col md:flex-row gap-4 mb-4">
             <input
@@ -354,7 +354,7 @@ export default function UserDetailsSection() {
               name="image"
               value={projectForm.image}
               onChange={handleProjectInput}
-              placeholder="Image URL"
+              placeholder={t('imageUrl')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -366,7 +366,7 @@ export default function UserDetailsSection() {
               name="title"
               value={projectForm.title}
               onChange={handleProjectInput}
-              placeholder="Project Title"
+              placeholder={t('projectTitle')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -378,7 +378,7 @@ export default function UserDetailsSection() {
               name="duration"
               value={projectForm.duration}
               onChange={handleProjectInput}
-              placeholder="Duration"
+              placeholder={t('duration')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -391,7 +391,7 @@ export default function UserDetailsSection() {
               name="description"
               value={projectForm.description}
               onChange={handleProjectInput}
-              placeholder="Project Description"
+              placeholder={t('projectDescription')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg w-full min-h-[80px]",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -403,11 +403,11 @@ export default function UserDetailsSection() {
             <button type="submit" className={clsx(
               "rounded px-5 py-2 text-base font-semibold transition",
               "bg-yellow-400 text-black hover:bg-yellow-500"
-            )}>{editProjectIdx !== null ? 'Update Project' : 'Add Project'}</button>
+            )}>{editProjectIdx !== null ? t('updateProject') : t('addProject')}</button>
             {editProjectIdx !== null && (
               <button type="button" onClick={() => { setEditProjectIdx(null); setProjectForm({ image: '', title: '', duration: '', description: '' }); }}
                 className={clsx("ml-4 rounded px-5 py-2 text-base font-semibold transition", theme === "dark" ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-300 text-black hover:bg-gray-400")}
-              >Cancel</button>
+              >{t('cancel')}</button>
             )}
           </div>
         </form>
@@ -429,17 +429,17 @@ export default function UserDetailsSection() {
                     <button className={clsx(
                       "rounded px-3 py-1 font-semibold transition",
                       theme === "dark" ? "bg-yellow-500 text-white hover:bg-yellow-400" : "bg-yellow-400 text-white hover:bg-yellow-500"
-                    )} onClick={() => handleEditProject(idx)}>Edit</button>
+                    )} onClick={() => handleEditProject(idx)}>{t('edit')}</button>
                     <button className={clsx(
                       "rounded px-3 py-1 font-semibold transition",
                       theme === "dark" ? "bg-red-600 text-white hover:bg-red-500" : "bg-red-500 text-white hover:bg-red-600"
-                    )} onClick={() => handleDeleteProject(idx)}>Remove</button>
+                    )} onClick={() => handleDeleteProject(idx)}>{t('remove')}</button>
                   </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className={clsx("text-center", theme === "dark" ? "text-gray-400" : "text-gray-500")}>No projects added yet.</p>
+            <p className={clsx("text-center", theme === "dark" ? "text-gray-400" : "text-gray-500")}>{t('noProjectsAdded')}</p>
           )}
         </div>
       </div>
@@ -452,7 +452,7 @@ export default function UserDetailsSection() {
         <h2 className={clsx(
           "text-2xl font-bold mb-4",
           theme === "dark" ? "text-yellow-400" : "text-yellow-400"
-        )}>Add New Blog</h2>
+        )}>{t('addNewBlog')}</h2>
         <form className="mb-6 w-full" onSubmit={handleBlogSubmit}>
           <div className="flex flex-col md:flex-row gap-4 mb-4">
             <input
@@ -460,7 +460,7 @@ export default function UserDetailsSection() {
               name="title"
               value={blogForm.title}
               onChange={handleBlogInput}
-              placeholder="Blog Title"
+              placeholder={t('blogTitle')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -472,7 +472,7 @@ export default function UserDetailsSection() {
               name="image"
               value={blogForm.image}
               onChange={handleBlogInput}
-              placeholder="Image URL"
+              placeholder={t('imageUrl')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -486,7 +486,7 @@ export default function UserDetailsSection() {
               name="author"
               value={blogForm.author}
               onChange={handleBlogInput}
-              placeholder="Author Name"
+              placeholder={t('authorName')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg flex-1 min-w-0",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -499,7 +499,7 @@ export default function UserDetailsSection() {
               name="description"
               value={blogForm.description}
               onChange={handleBlogInput}
-              placeholder="Description"
+              placeholder={t('description')}
               className={clsx(
                 "border rounded px-4 py-3 text-lg w-full min-h-[80px]",
                 theme === "dark" ? "bg-[#232b3b] text-white border-gray-700" : "bg-white text-[#22223b] border-gray-300"
@@ -511,7 +511,7 @@ export default function UserDetailsSection() {
             <button type="submit" className={clsx(
               "rounded px-5 py-2 text-base font-semibold transition",
               "bg-yellow-400 text-black hover:bg-yellow-500"
-            )}>Add Blog</button>
+            )}>{t('addBlog')}</button>
           </div>
         </form>
         <div>
@@ -573,11 +573,11 @@ export default function UserDetailsSection() {
                           <button type="submit" className={clsx(
                             "rounded px-3 py-1 font-semibold transition",
                             "bg-yellow-400 text-black hover:bg-yellow-500"
-                          )}>Save</button>
+                          )}>{t('save')}</button>
                           <button type="button" className={clsx(
                             "rounded px-3 py-1 font-semibold transition",
                             theme === "dark" ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-300 text-black hover:bg-gray-400"
-                          )} onClick={handleEditCancel}>Cancel</button>
+                          )} onClick={handleEditCancel}>{t('cancel')}</button>
                         </div>
                       </form>
                     ) : (
@@ -589,7 +589,7 @@ export default function UserDetailsSection() {
                         <div className={clsx(
                           "text-sm mb-1",
                           theme === "dark" ? "text-gray-300" : "text-gray-600"
-                        )}>By {blog.author}</div>
+                        )}>{t('by')} {blog.author}</div>
                         <div className={clsx(
                           "text-sm mb-1",
                           theme === "dark" ? "text-gray-200" : "text-gray-700"
@@ -602,11 +602,11 @@ export default function UserDetailsSection() {
                           <button className={clsx(
                             "rounded px-3 py-1 font-semibold transition",
                             theme === "dark" ? "bg-yellow-500 text-white hover:bg-yellow-400" : "bg-yellow-400 text-white hover:bg-yellow-500"
-                          )} onClick={() => handleEditBlog(idx)}>Edit</button>
+                          )} onClick={() => handleEditBlog(idx)}>{t('edit')}</button>
                           <button className={clsx(
                             "rounded px-3 py-1 font-semibold transition",
                             theme === "dark" ? "bg-red-600 text-white hover:bg-red-500" : "bg-red-500 text-white hover:bg-red-600"
-                          )} onClick={() => handleRemoveBlog(idx)}>Remove</button>
+                          )} onClick={() => handleRemoveBlog(idx)}>{t('remove')}</button>
                         </div>
                       </>
                     )}
@@ -615,7 +615,7 @@ export default function UserDetailsSection() {
               ))}
             </ul>
           ) : (
-            <p className={clsx("text-center", theme === "dark" ? "text-gray-400" : "text-gray-500")}>No blogs added yet.</p>
+            <p className={clsx("text-center", theme === "dark" ? "text-gray-400" : "text-gray-500")}>{t('noBlogsAdded')}</p>
           )}
         </div>
       </div>

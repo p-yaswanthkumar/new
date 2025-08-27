@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { initTheme } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -18,15 +19,25 @@ import BlogHero from './pages/blog';
 import BlogDetail from './pages/BlogDetail';
 import ContactHero from './pages/contactus';
 import UserDetailsSection from './pages/admindashboard'; //
-import UserDashboard from './pages/userdashboard';
+// import UserDashboard from './pages/userdashboard';
+import './i18n';
 
 function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const dir = i18n.language === 'ar' || i18n.language === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.dir = dir;
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
   useEffect(() => {
     initTheme();
   }, []);
   return (
     <BrowserRouter>
       <div className="App">
+        <Header />
         <Routes>
           {/* Redirect root to /welcome */}
           <Route path="/" element={<WelcomePage />} />
@@ -38,7 +49,6 @@ function App() {
             path="/*"
             element={
               <>
-                <Header />
                 <Routes>
                   <Route path="home1" element={<Home1 />} />
                   <Route path="home2" element={<Home2Hero />} />
@@ -53,7 +63,7 @@ function App() {
                   <Route path="blog" element={<BlogHero />} />
                   <Route path="/blog/:id" element={<BlogDetail />} />
                   <Route path="contactus" element={<ContactHero />} />
-                  <Route path="/userdashboard" element={<UserDashboard />} />
+                  {/* <Route path="/userdashboard" element={<UserDashboard />} /> */}
                   {/* Add more routes as needed */}
                 </Routes>
                 <Footer />

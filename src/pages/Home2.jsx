@@ -1,7 +1,6 @@
-
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-
+import { useTranslation } from 'react-i18next';
 
 import home2Video from "../assets/herohome2.mp4";
 
@@ -19,6 +18,7 @@ import ctaImg from "../assets/cta.jpg";
 
 
 export default function Home2() {
+  const { t } = useTranslation();
   // Latest Projects state from localStorage
   const [latestProjects, setLatestProjects] = useState([]);
   useEffect(() => {
@@ -76,50 +76,50 @@ const images = [re1, re2, re3, re4, re5, re6];
 
   const testimonials = [
     {
-      title: "Reliable Team, Solid Results",
-      text: "The crew delivered our project on schedule and within budget. Their attention to safety and quality was outstanding.",
-      name: "Michael Chen",
-      role: "Project Manager, Skyline Developments",
+      title: t('home2.testimonials.0.title', 'Reliable Team, Solid Results'),
+      text: t('home2.testimonials.0.text', 'The crew delivered our project on schedule and within budget. Their attention to safety and quality was outstanding.'),
+      name: t('home2.testimonials.0.name', 'Michael Chen'),
+      role: t('home2.testimonials.0.role', 'Project Manager, Skyline Developments'),
       avatar: "https://randomuser.me/api/portraits/men/32.jpg",
       rating: 5,
     },
     {
-      title: "Exceptional Workmanship",
-      text: "Every detail was handled with precision. From foundation to finish, their craftsmanship speaks for itself.",
-      name: "David Lee",
-      role: "Architect",
+      title: t('home2.testimonials.1.title', 'Exceptional Workmanship'),
+      text: t('home2.testimonials.1.text', 'Every detail was handled with precision. From foundation to finish, their craftsmanship speaks for itself.'),
+      name: t('home2.testimonials.1.name', 'David Lee'),
+      role: t('home2.testimonials.1.role', 'Architect'),
       avatar: "https://randomuser.me/api/portraits/men/45.jpg",
       rating: 5,
     },
     {
-      title: "Creative Solutions",
-      text: "We had a challenging site, but they came up with smart, cost-effective solutions without cutting corners.",
-      name: "Priya Singh",
-      role: "Owner, Artistry Interiors",
+      title: t('home2.testimonials.2.title', 'Creative Solutions'),
+      text: t('home2.testimonials.2.text', 'We had a challenging site, but they came up with smart, cost-effective solutions without cutting corners.'),
+      name: t('home2.testimonials.2.name', 'Priya Singh'),
+      role: t('home2.testimonials.2.role', 'Owner, Artistry Interiors'),
       avatar: "https://randomuser.me/api/portraits/women/65.jpg",
       rating: 4,
     },
     {
-      title: "On Time, Every Time",
-      text: "Their scheduling is impressive. Even with tight deadlines, they kept everything moving smoothly.",
-      name: "Rahul Sharma",
-      role: "Real Estate Developer",
+      title: t('home2.testimonials.3.title', 'On Time, Every Time'),
+      text: t('home2.testimonials.3.text', 'Their scheduling is impressive. Even with tight deadlines, they kept everything moving smoothly.'),
+      name: t('home2.testimonials.3.name', 'Rahul Sharma'),
+      role: t('home2.testimonials.3.role', 'Real Estate Developer'),
       avatar: "https://randomuser.me/api/portraits/men/76.jpg",
       rating: 5,
     },
     {
-      title: "Built to Last",
-      text: "The finished building is solid and beautiful. It’s clear they use high-quality materials and skilled labor.",
-      name: "Emily Carter",
-      role: "Homeowner",
+      title: t('home2.testimonials.4.title', 'Built to Last'),
+      text: t('home2.testimonials.4.text', 'The finished building is solid and beautiful. It’s clear they use high-quality materials and skilled labor.'),
+      name: t('home2.testimonials.4.name', 'Emily Carter'),
+      role: t('home2.testimonials.4.role', 'Homeowner'),
       avatar: "https://randomuser.me/api/portraits/women/44.jpg",
       rating: 5,
     },
     {
-      title: "Professional & Trustworthy",
-      text: "Communication was clear throughout the process. I always knew what stage we were in — no surprises.",
-      name: "Amit Patel",
-      role: "Business Owner",
+      title: t('home2.testimonials.5.title', 'Professional & Trustworthy'),
+      text: t('home2.testimonials.5.text', 'Communication was clear throughout the process. I always knew what stage we were in — no surprises.'),
+      name: t('home2.testimonials.5.name', 'Amit Patel'),
+      role: t('home2.testimonials.5.role', 'Business Owner'),
       avatar: "https://randomuser.me/api/portraits/men/23.jpg",
       rating: 5,
     },
@@ -153,30 +153,26 @@ const images = [re1, re2, re3, re4, re5, re6];
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4" data-aos="fade-up" data-aos-duration="1000">
           
-<h1 className="text-4xl md:text-6xl font-bold" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
-  <span style={{ color: '#facc15' }}>Build </span> Without Boundaries
-</h1>
-<p className={
-  `mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`
-}>
-  Shape your vision into reality with cutting edge construction solutions, expert craftsmanship, 
-  and a commitment to precision. From dream homes to landmark projects, 
-  we deliver structures that stand the test of time. 
-  Partner with us to create spaces that inspire, perform, and last for generations.
-</p>
-
-          <button
-            className={
-              `mt-6 px-6 py-3 rounded-lg shadow transition font-semibold ` +
-              (theme === 'dark' ? 'bg-[#facc15] text-white hover:bg-[#facc15]' : 'bg-[#facc15] text-white hover:bg-[#facc15]')
-            }
-            onClick={() => {
-              const el = document.getElementById('about-us');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Get Started
-          </button>
+      <h1 className="text-4xl md:text-6xl font-bold" style={{ color: theme === 'dark' ? '#fff' : '#fff' }}>
+        <span style={{ color: '#facc15' }}>{t('home2.hero.highlight', 'Build')}</span> {t('home2.hero.title', 'Without Boundaries')}
+      </h1>
+      <p className={
+        `mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`
+      }>
+        {t('home2.hero.desc', 'Shape your vision into reality with cutting edge construction solutions, expert craftsmanship, and a commitment to precision. From dream homes to landmark projects, we deliver structures that stand the test of time. Partner with us to create spaces that inspire, perform, and last for generations.')}
+      </p>
+      <button
+        className={
+          `mt-6 px-6 py-3 rounded-lg shadow transition font-semibold ` +
+          (theme === 'dark' ? 'bg-[#facc15] text-white hover:bg-[#facc15]' : 'bg-[#facc15] text-white hover:bg-[#facc15]')
+        }
+        onClick={() => {
+          const el = document.getElementById('about-us');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
+      >
+        {t('home2.hero.cta', 'Get Started')}
+      </button>
         </div>
       </section>
 
@@ -192,7 +188,7 @@ const images = [re1, re2, re3, re4, re5, re6];
     {/* LEFT CONTENT */}
     <div id="about-us">
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-400 mb-4 sm:mb-6 leading-snug" data-aos="fade-up" data-aos-delay="100">
-        Building Trust, Crafting Excellence
+        {t('home2.about.title', 'Building Trust, Crafting Excellence')}
       </h2>
       <p
         className={`text-base sm:text-lg md:text-xl mb-4 sm:mb-6 leading-relaxed ${
@@ -200,10 +196,7 @@ const images = [re1, re2, re3, re4, re5, re6];
         }`}
         data-aos="fade-up" data-aos-delay="120"
       >
-        Our mission goes beyond constructing buildings.we create spaces that 
-        inspire, endure, and add value to every life they touch. With innovation 
-        at our core and quality in every brick, we deliver projects that speak 
-        for themselves.
+        {t('home2.about.desc', 'Our mission goes beyond constructing buildings. We create spaces that inspire, endure, and add value to every life they touch. With innovation at our core and quality in every brick, we deliver projects that speak for themselves.')}
       </p>
       <ul
         className={`space-y-3 sm:space-y-4 text-base sm:text-lg ${
@@ -213,13 +206,12 @@ const images = [re1, re2, re3, re4, re5, re6];
       >
         <li className="grid grid-cols-[auto_1fr] gap-2">
           <span className="text-yellow-400">•</span>
-          Decades of combined industry experience across residential, commercial, and industrial projects.
+          {t('home2.about.bullet1', 'Decades of combined industry experience across residential, commercial, and industrial projects.')}
         </li>
         <li className="grid grid-cols-[auto_1fr] gap-2">
           <span className="text-yellow-400">•</span>
-          Modern architectural designs balanced with functionality and durability.
+          {t('home2.about.bullet2', 'Modern architectural designs balanced with functionality and durability.')}
         </li>
-        
       </ul>
     </div>
 
@@ -258,7 +250,7 @@ const images = [re1, re2, re3, re4, re5, re6];
           style={{ color: theme === "dark" ? "#fff" : "#000" }}
           data-aos="fade-up" data-aos-delay="200"
         >
-          Transformations That Speak
+          {t('home2.transform.title', 'Transformations That Speak')}
         </h2>
         <p
           className={`text-lg mb-12 ${
@@ -266,8 +258,7 @@ const images = [re1, re2, re3, re4, re5, re6];
           }`}
           data-aos="fade-up" data-aos-delay="220"
         >
-          See the difference our expertise makes — real before & after results
-          from our construction projects.
+          {t('home2.transform.desc', 'See the difference our expertise makes — real before & after results from our construction projects.')}
         </p>
 
         {/* Image Display */}
@@ -304,7 +295,7 @@ const images = [re1, re2, re3, re4, re5, re6];
      `}</style>
      <div className="max-w-7xl mx-auto px-4">
        <h2 className="text-4xl font-bold text-center mb-8" style={{ color: '#facc15' }} data-aos="fade-up" data-aos-delay="300">
-         Latest Projects
+         {t('home2.latest.title', 'Latest Projects')}
        </h2>
        {latestProjects && latestProjects.length > 0 ? (
          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -337,7 +328,7 @@ const images = [re1, re2, re3, re4, re5, re6];
        >
          <div className="max-w-5xl mx-auto px-4">
            <h2 className="text-4xl font-bold text-center mb-4" style={{ color: '#fed700' }} data-aos="fade-up" data-aos-delay="400">
-     What Our Clients Say
+     {t('home2.testimonials.title', 'What Our Clients Say')}
    </h2>
    <p
      className={`text-center text-lg mb-10 ${
@@ -345,8 +336,7 @@ const images = [re1, re2, re3, re4, re5, re6];
      }`}
      data-aos="fade-up" data-aos-delay="420"
    >
-     Genuine feedback from homeowners and businesses who trusted us to build their
-     dreams and improve their spaces.
+     {t('home2.testimonials.desc', 'Genuine feedback from homeowners and businesses who trusted us to build their dreams and improve their spaces.')}
    </p>
    
    
@@ -415,7 +405,7 @@ const images = [re1, re2, re3, re4, re5, re6];
         style={{ color: "#facc15" }} // yellow-400
         data-aos="fade-up" data-aos-delay="500"
       >
-        Ready to Build Something Great?
+        {t('home2.cta.title', 'Ready to Build Something Great?')}
       </h2>
       <p 
         className={`text-lg mb-8 ${
@@ -423,15 +413,14 @@ const images = [re1, re2, re3, re4, re5, re6];
         }`}
         data-aos="fade-up" data-aos-delay="520"
       >
-        Partner with our expert civil engineers to plan, design, and execute 
-        projects that stand the test of time. Let’s create a better future, together.
+        {t('home2.cta.desc', 'Partner with our expert civil engineers to plan, design, and execute projects that stand the test of time. Let’s create a better future, together.')}
       </p>
       <a
         href="/contactus"
         className="inline-block bg-[#facc15] text-black font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl"
         data-aos="fade-up" data-aos-delay="540"
       >
-        Contact Us
+        {t('home2.cta.button', 'Contact Us')}
       </a>
     </div>
 

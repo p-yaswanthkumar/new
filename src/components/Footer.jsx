@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import ScrollToTop from '../pages/scroll-top';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   useEffect(() => {
     const handleThemeChange = () => setTheme(localStorage.getItem('theme') || 'light');
@@ -37,12 +39,12 @@ const Footer = () => {
             
             {/* Company Name */}
             <h3 className="text-yellow-400 font-semibold text-lg">
-              Online Training Platform
+              {t('footer.companyName')}
             </h3>
             
             {/* Description */}
             <p className={`${textSub} text-sm leading-relaxed`}>
-              Empowering learners worldwide with interactive online courses, expert instructors, and real-world skill development for every career stage.
+              {t('footer.description')}
             </p>
             
             {/* Social Media Icons */}
@@ -101,32 +103,32 @@ const Footer = () => {
           {/* Column 2 - Quick Links */}
           <div className="space-y-4">
             <h3 className="text-yellow-400 font-semibold text-lg">
-              Quick Links
+              {t('footer.quickLinks')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/home1" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                  Home
+                  {t('footer.home')}
                 </Link>
               </li>
               <li>
                 <Link to="/aboutus" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                  About Us
+                  {t('footer.aboutUs')}
                 </Link>
               </li>
               <li>
                 <Link to="/services" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                  Services
+                  {t('footer.services')}
                 </Link>
               </li>
               <li>
                 <Link to="/blog" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                  Blog
+                  {t('footer.blog')}
                 </Link>
               </li>
               <li>
                 <Link to="/contactus" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                  Contact us
+                  {t('footer.contactUs')}
                 </Link>
               </li>
             </ul>
@@ -134,20 +136,20 @@ const Footer = () => {
 
           {/* Column 3 - Our Services */}
           <div>
-            <h4 className="text-yellow-400 font-semibold text-lg mb-4">Our Services</h4>
+            <h4 className="text-yellow-400 font-semibold text-lg mb-4">{t('footer.ourServices')}</h4>
             <ul className="space-y-2">
-              <li><Link to="/CommercialConstruction" className="hover:text-yellow-400 transition-colors">Commercial Construction</Link></li>
-              <li><Link to="/Design-Planning&Execution" className="hover:text-yellow-400 transition-colors">Design, Planning & Execution</Link></li>
-              <li><Link to="/ResidentialConstruction" className="hover:text-yellow-400 transition-colors">Residential Construction</Link></li>
-              <li><Link to="/ProjectManagement&Consultation" className="hover:text-yellow-400 transition-colors">Project Management & Consultation</Link></li>
-              <li><Link to="/Renovation&Remodeling" className="hover:text-yellow-400 transition-colors">Renovation & Remodeling</Link></li>
-              <li><Link to="/InteriorFit-outs" className="hover:text-yellow-400 transition-colors">Interior Fit-outs</Link></li>
+              <li><Link to="/CommercialConstruction" className="hover:text-yellow-400 transition-colors">{t('footer.commercialConstruction')}</Link></li>
+              <li><Link to="/Design-Planning&Execution" className="hover:text-yellow-400 transition-colors">{t('footer.designPlanningExecution')}</Link></li>
+              <li><Link to="/ResidentialConstruction" className="hover:text-yellow-400 transition-colors">{t('footer.residentialConstruction')}</Link></li>
+              <li><Link to="/ProjectManagement&Consultation" className="hover:text-yellow-400 transition-colors">{t('footer.projectManagementConsultation')}</Link></li>
+              <li><Link to="/Renovation&Remodeling" className="hover:text-yellow-400 transition-colors">{t('footer.renovationRemodeling')}</Link></li>
+              <li><Link to="/InteriorFit-outs" className="hover:text-yellow-400 transition-colors">{t('footer.interiorFitOuts')}</Link></li>
             </ul>
           </div>
           {/* Column 4 - Get In Touch */}
           <div className="space-y-4">
             <h3 className="text-yellow-400 font-semibold text-lg">
-              Get In Touch
+              {t('footer.getInTouch')}
             </h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
@@ -182,7 +184,7 @@ const Footer = () => {
   to="/contactus" 
                   className="w-full bg-yellow-400 hover:bg-yellow-400 bg-opacity-80 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 mt-4 whitespace-nowrap text-center block"
 >
-  Start Your  Journey
+  {t('footer.startYourJourney')}
 </Link>
           </div>
         </div>
@@ -200,13 +202,13 @@ const Footer = () => {
             {/* Legal Links */}
             <div className="flex space-x-6 text-sm">
               <a href="#" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                Privacy Policy
+                {t('footer.privacyPolicy')}
               </a>
               <a href="#" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                Terms of Service
+                {t('footer.termsOfService')}
               </a>
               <a href="#" className={`${textSub} hover:text-yellow-400 transition-colors duration-200`}>
-                Cookie Policy
+                {t('footer.cookiePolicy')}
               </a>
             </div>
           </div>
@@ -217,4 +219,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

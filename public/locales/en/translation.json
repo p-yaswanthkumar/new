@@ -1,0 +1,317 @@
+  ,
+  "services": {
+    "hero": {
+      "title1": "Build Your",
+      "title2": "Vision",
+      "desc": "Discover expert solutions in <1>Project Management</1>, <3>Design & Planning</3>, and <5>Construction Execution</5>. We turn concepts into reality — on time, on budget, with uncompromising quality."
+    },
+    "sectionTitle": "Explore Our Construction Expertise",
+    "serviceCards": [
+      {
+        "title": "Residential Construction",
+        "desc": "From concept to completion, we deliver high-quality homes tailored to your lifestyle and budget. Our residential construction services cover architectural design, structural planning, material selection, and on-site project management to ensure your dream home is delivered on time and to the highest standard. Whether it’s a luxury villa, modern apartment, or budget-friendly housing, we provide end-to-end solutions including interior finishing, landscaping, and smart home integrations. We focus on sustainability, energy efficiency, and safety, ensuring your home is both beautiful and future-ready.",
+        "link": "/residential-construction"
+      },
+      {
+        "title": "Commercial Construction",
+        "desc": "We design and build commercial spaces that drive business success. From office complexes and retail outlets to restaurants and mixed-use developments, our team manages every detail with precision. We ensure compliance with building codes, accessibility standards, and energy efficiency requirements, delivering modern, functional spaces tailored to your brand and operational needs. Our approach emphasizes durability, cost control, and seamless coordination between architects, engineers, and contractors to ensure timely delivery with no compromise on quality.",
+        "link": "/commercial-construction"
+      },
+      {
+        "title": "Interior Fit-outs",
+        "desc": "Transform any space into a fully functional and aesthetically pleasing environment. Our interior fit-out services include space planning, custom furniture, modular solutions, lighting design, false ceilings, flooring, and high-end finishes. We specialize in both residential and commercial interiors, ensuring optimized layouts, premium material usage, and flawless execution. With a focus on modern design trends and ergonomic solutions, we create interiors that enhance productivity, comfort, and visual appeal while maintaining budgetary efficiency.",
+        "link": "/interior-fitouts"
+      },
+      {
+        "title": "Renovation & Remodeling",
+        "desc": "Breathe new life into old spaces with our renovation and remodeling expertise. We handle structural upgrades, modern redesigns, plumbing and electrical rewiring, and complete interior overhauls. Whether it's modernizing a home, upgrading office interiors, or restoring heritage properties, our team ensures minimal disruption while delivering stunning results. We emphasize sustainable materials, space optimization, and innovative design approaches that increase property value, functionality, and aesthetics, tailored exactly to your vision.",
+        "link": "/renovation-remodeling"
+      },
+      {
+        "title": "Design, Planning & Execution",
+        "desc": "Get comprehensive construction solutions under one roof. We provide architectural design, structural engineering, 3D visualization, and complete project execution. Our planning process ensures accurate budgeting, efficient resource allocation, and timely delivery, avoiding delays and cost overruns. By integrating advanced project management tools, we maintain transparency at every stage, giving clients real-time updates on progress. Our goal is to bring your vision to life with precision, creativity, and uncompromised quality.",
+        "link": "/design-planning-execution"
+      },
+      {
+        "title": "Project Management & Consultation",
+        "desc": "Our expert consultation and project management services ensure that your construction projects run smoothly, efficiently, and within budget. We provide feasibility studies, cost estimation, contract management, vendor coordination, and quality audits to ensure compliance with all safety and legal standards. Using modern tools for scheduling, monitoring, and reporting, we help you avoid delays, manage risks effectively, and achieve optimal results. Whether for small developments or large-scale infrastructure projects, our expertise guarantees flawless delivery.",
+        "link": "/project-management-consultation"
+      }
+    ],
+    "readMore": "Read More",
+    "stepsTitle": "How to Get Started",
+    "steps": [
+      {
+        "title": "Share Your Vision",
+        "desc": "Tell us about your project—whether it's a home, office, or commercial space."
+      },
+      {
+        "title": "Get a Custom Plan",
+        "desc": "Our team designs a tailored plan including cost estimates and timelines."
+      },
+      {
+        "title": "Watch Us Build",
+        "desc": "Sit back while we handle construction, ensuring quality at every stage."
+      },
+      {
+        "title": "Move In & Enjoy",
+        "desc": "Get the keys to your finished project, built exactly to your expectations."
+      }
+    ],
+    "projectsTitle": "Our <1>Projects</1>",
+    "projectsDesc": "A glimpse of our finest construction and design works",
+    "projectImages": [
+      { "title": "Luxury Villa", "desc": "Modern design with premium finish" },
+      { "title": "Corporate Office", "desc": "Functional and elegant spaces" },
+      { "title": "Retail Store", "desc": "Inviting layouts to drive sales" },
+      { "title": "Urban Apartment", "desc": "Smart use of compact space" },
+      { "title": "Signature Project", "desc": "Defining architectural excellence" }
+    ],
+    "communityTitle": "Community Impact & <1>Social Responsibility</1>",
+    "communityPrograms": [
+      {
+        "title": "Landmark Projects",
+        "desc": "We have successfully completed over 500 residential, commercial, and industrial projects, setting benchmarks in quality and timely delivery.",
+        "stat": "500+ Projects Delivered"
+      },
+      {
+        "title": "Green Construction",
+        "desc": "By adopting eco-friendly materials and energy-efficient designs, we've reduced project-related carbon emissions by 30%.",
+        "stat": "30% Carbon Footprint Reduction"
+      },
+      {
+        "title": "Skilled Workforce Training",
+        "desc": "We have trained over 1,000 workers and engineers in advanced construction methods, ensuring safety and precision at every site.",
+        "stat": "1,000+ Workers Trained"
+      },
+      {
+        "title": "Community Infrastructure",
+        "desc": "We’ve developed schools, hospitals, and community centers, improving access to essential services in underserved areas.",
+        "stat": "50+ Social Projects"
+      },
+      {
+        "title": "Safety First Initiative",
+        "desc": "With regular safety drills and strict compliance protocols, we've achieved a remarkable safety record across all projects.",
+        "stat": "Zero Major Incidents"
+      },
+      {
+        "title": "Innovation in Engineering",
+        "desc": "Our team leverages modern technology, including BIM and automated machinery, to optimize costs and enhance structural durability.",
+        "stat": "5+ Cutting-edge Innovations"
+      }
+    ],
+    "ctaTitle": "Ready to Build With Us?",
+    "ctaDesc": "Join hands with our expert team to bring your vision to life — from concept to completion.  Let's create something extraordinary, together.",
+    "ctaButton": "Contact Us"
+  }
+{
+  "aboutus": {
+    "hero": {
+      "title1": "Building",
+      "title2": "Dreams",
+      "title3": "Shaping Skylines",
+      "desc": "We specialize in bringing your vision to life with expert design, precise planning, and flawless execution.  From concept to completion, we deliver projects built to last — with quality, transparency, and on-time delivery at every step."
+    },
+    "timeline": {
+      "title": "Our Journey Through the Years",
+      "2018": { "title": "Company Founded", "desc": "Started with a small but skilled team, focused on delivering reliable residential construction services." },
+      "2019": { "title": "First 50 Projects", "desc": "Completed 50+ high-quality residential and commercial projects on time and within budget." },
+      "2020": { "title": "Technology Integration", "desc": "Introduced project management software to streamline planning, costing, and execution." },
+      "2021": { "title": "Expanded Services", "desc": "Added interior fit-outs and turnkey project solutions to meet client demands." },
+      "2022": { "title": "Regional Expansion", "desc": "Began operations in multiple states, successfully delivering large-scale commercial projects." },
+      "2023": { "title": "Smart Construction", "desc": "Adopted IoT and AI tools for real-time monitoring and better quality control on projects." },
+      "2024": { "title": "500+ Projects Delivered", "desc": "Reached a major milestone of successfully completing over 500 projects across sectors." }
+    },
+    "missionVision": {
+      "title": "Our Mission and Vision Statement",
+      "desc": "This slide shows the mission and vision statement of a construction company describing its desired future position, purpose, goals, and expertise."
+    },
+    "vision": {
+      "title": "Vision",
+      "desc": "To become a globally recognized construction leader by driving innovation and delivering projects of unmatched quality and precision."
+    },
+    "mission": {
+      "title": "Mission",
+      "desc": "To deliver cost-effective, sustainable, and customer-centric construction solutions while maintaining excellence and integrity."
+    },
+    "awards": {
+      "title": "Our Achievements & Awards",
+      "desc": "Over the years, we’ve been recognized for delivering world-class construction projects with unmatched quality and precision. Our awards highlight our commitment to excellence, innovation, and sustainable engineering practices.",
+      "items": {
+        "0": "Recognized as Best Infrastructure Company in 2024",
+        "1": "Completed 100+ large-scale civil engineering projects",
+        "2": "Awarded for Excellence in Sustainable Construction",
+        "3": "ISO 9001:2015 Certified for quality management",
+        "4": "Top-rated safety performance for three consecutive years"
+      }
+    },
+    "team": {
+      "title": "Meet Our Civil Engineers",
+      "0": { "name": "John Doe", "role": "Structural Engineer" },
+      "1": { "name": "Michael Brown", "role": "Project Manager" },
+      "2": { "name": "David Johnson", "role": "Site Engineer" },
+      "3": { "name": "Emily Davis", "role": "Design Engineer" },
+      "4": { "name": "Sarah Wilson", "role": "Surveyor" },
+      "5": { "name": "Olivia Smith", "role": "Civil Consultant" }
+    },
+    "partners": {
+      "title": "Our Trusted Partners",
+      "desc": "Collaborating with industry leaders to build a better tomorrow."
+    }
+  },
+  "home2": {
+    "hero": {
+      "highlight": "Build",
+      "title": "Without Boundaries",
+      "desc": "Shape your vision into reality with cutting edge construction solutions, expert craftsmanship, and a commitment to precision. From dream homes to landmark projects, we deliver structures that stand the test of time. Partner with us to create spaces that inspire, perform, and last for generations.",
+      "cta": "Get Started"
+    },
+    "about": {
+      "title": "Building Trust, Crafting Excellence",
+      "desc": "Our mission goes beyond constructing buildings. We create spaces that inspire, endure, and add value to every life they touch. With innovation at our core and quality in every brick, we deliver projects that speak for themselves.",
+      "bullet1": "Decades of combined industry experience across residential, commercial, and industrial projects.",
+      "bullet2": "Modern architectural designs balanced with functionality and durability."
+    },
+    "transform": {
+      "title": "Transformations That Speak",
+      "desc": "See the difference our expertise makes — real before & after results from our construction projects."
+    },
+    "latest": {
+      "title": "Latest Projects"
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "desc": "Genuine feedback from homeowners and businesses who trusted us to build their dreams and improve their spaces.",
+      "0": {
+        "title": "Reliable Team, Solid Results",
+        "text": "The crew delivered our project on schedule and within budget. Their attention to safety and quality was outstanding.",
+        "name": "Michael Chen",
+        "role": "Project Manager, Skyline Developments"
+      },
+      "1": {
+        "title": "Exceptional Workmanship",
+        "text": "Every detail was handled with precision. From foundation to finish, their craftsmanship speaks for itself.",
+        "name": "David Lee",
+        "role": "Architect"
+      },
+      "2": {
+        "title": "Creative Solutions",
+        "text": "We had a challenging site, but they came up with smart, cost-effective solutions without cutting corners.",
+        "name": "Priya Singh",
+        "role": "Owner, Artistry Interiors"
+      },
+      "3": {
+        "title": "On Time, Every Time",
+        "text": "Their scheduling is impressive. Even with tight deadlines, they kept everything moving smoothly.",
+        "name": "Rahul Sharma",
+        "role": "Real Estate Developer"
+      },
+      "4": {
+        "title": "Built to Last",
+        "text": "The finished building is solid and beautiful. It’s clear they use high-quality materials and skilled labor.",
+        "name": "Emily Carter",
+        "role": "Homeowner"
+      },
+      "5": {
+        "title": "Professional & Trustworthy",
+        "text": "Communication was clear throughout the process. I always knew what stage we were in — no surprises.",
+        "name": "Amit Patel",
+        "role": "Business Owner"
+      }
+    },
+    "cta": {
+      "title": "Ready to Build Something Great?",
+      "desc": "Partner with our expert civil engineers to plan, design, and execute projects that stand the test of time. Let’s create a better future, together.",
+      "button": "Contact Us"
+    }
+  },
+  "home1": {
+    "heroTitle": "Build Your Dream with",
+    "heroHighlight": "Expert Construction",
+    "heroDesc": "From homes to commercial spaces, we deliver top-quality construction solutions that stand the test of time. With expert engineers, skilled craftsmen, and modern technology, we ensure every project is built with precision, safety, and durability. Whether you’re planning a new build, renovation, or infrastructure project, we bring your vision to life — on time and within budget.",
+    "learnMore": "Learn More",
+    "categories": {
+      "title": "Explore Our Expertise",
+      "desc": "From homes to industries — discover the categories of projects we proudly deliver with quality and precision.",
+      "residential": {
+        "tab": "Residential",
+        "heading": "Residential Projects",
+        "desc": "Our residential projects are designed with families in mind, blending comfort, functionality, and aesthetics to create homes that truly enhance everyday living. From contemporary apartments and gated communities to luxury villas and independent houses, we bring architectural elegance and structural durability together. Every project is carefully planned with attention to detail from high quality utilization that maximizes natural light, ventilation, and energy efficiency. We also focus on integrating modern amenities and future-ready designs, ensuring homes that not only meet today’s lifestyle needs but also add long-term value. Whether it’s a full-scale renovation or a new build from the ground up, our team is committed to on-time delivery, superior craftsmanship, security, and pride of ownership."
+      },
+      "commercial": {
+        "tab": "Commercial",
+        "heading": "Commercial Projects",
+        "desc": "We deliver high-performance commercial spaces that balance design excellence with business functionality, helping enterprises grow in dynamic markets. Our portfolio includes office complexes, retail outlets, shopping malls, co-working hubs, and mixed-use developments — all engineered to meet modern business requirements. We emphasize efficient layouts that improve workflow, cutting-edge designs that enhance brand identity, and sustainable solutions that reduce operational costs. Each project is built with advanced technology, strong compliance with international safety standards, and premium finishes to ensure long-term durability. By collaborating also boost productivity, inspire employees, and position businesses for long-term success in competitive industries."
+      },
+      "industrial": {
+        "tab": "Industrial",
+        "heading": "Industrial Projects",
+        "desc": "Industrial construction demands strength, reliability, and scalability — and that’s where we excel. Our projects range from warehouses and manufacturing units to logistics hubs and large-scale industrial complexes. We prioritize structural safety, operational efficiency, and compliance with regulatory standards to deliver facilities that withstand demanding environments. With advanced engineering techniques and high-grade materials, we ensure every project supports heavy-duty operations while allowing room for future expansion. Our industrial solutions empower businesses to scale faster, operate smoothly, and achieve long-term growth."
+      }
+    },
+    "services": {
+      "title": "We Provide Services",
+      "desc": "From planning to execution, we deliver high-quality construction solutions tailored to your needs.",
+      "residential": {
+        "title": "Residential",
+        "desc": "From modern homes to luxury apartments, we build spaces that are stylish, functional, and durable."
+      },
+      "interior": {
+        "title": "Interior Designs",
+        "desc": "Creative and functional designs that transform your interiors into elegant and comfortable spaces."
+      },
+      "structural": {
+        "title": "Structural Repair",
+        "desc": "Reliable repair and strengthening services to ensure safety and long-term stability of your structures."
+      },
+      "getStarted": "Get Started"
+    },
+    "estimator": {
+      "title": "Construction Cost Estimator",
+      "area": "Built-up Area (sqft)",
+      "floors": "Number of Floors",
+      "quality": "Construction Quality",
+      "qualityStandard": "Standard",
+      "qualityPremium": "Premium",
+      "qualityLuxury": "Luxury",
+      "location": "Project Location",
+      "locationUrban": "Urban",
+      "locationSemiUrban": "Semi-Urban",
+      "locationRural": "Rural",
+      "extras": "Additional Services",
+      "interior": "Interior Work (+ ₹400/sqft)",
+      "landscaping": "Landscaping (+ ₹200/sqft)",
+      "calculate": "Calculate Estimate",
+      "estimatedCost": "Estimated Cost"
+    },
+    "impact": {
+      "title": "Building a Legacy of Excellence",
+      "projectsCompleted": "Projects Completed",
+      "ongoingConstructions": "Ongoing Constructions",
+      "citiesServed": "Cities Served",
+      "clientSatisfaction": "Client Satisfaction"
+    },
+    "customPackage": {
+      "title": "Need A Custom Package?",
+      "desc": "Please submit the following form and we will get back to you with the best quotation.",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "siteArea": "Site Area (Sq.ft)",
+      "siteAreaPlaceholder": "Enter site area in Sq.ft",
+      "plotLocation": "Plot Location",
+      "plotLocationPlaceholder": "Enter plot location",
+      "constructionType": "Construction Type",
+      "select": "Select",
+      "residentialConstruction": "Residential construction",
+      "commercialConstruction": "Commercial construction",
+      "houseType": "House Type",
+      "groundFloor": "Ground floor",
+      "duplex": "Duplex",
+      "triplex": "Triplex",
+      "submit": "Submit",
+      "toast": "Your details have been saved!"
+    }
+  }
+}

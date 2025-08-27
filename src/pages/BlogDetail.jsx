@@ -3,8 +3,10 @@ import { useParams, Link } from "react-router-dom";
 import blog1 from "../assets/blog1.jpg";
 import blog2 from "../assets/blog2.jpg";
 import blog3 from "../assets/blog3.jpg";
+import { useTranslation } from "react-i18next";
 
 export default function BlogDetail() {
+  const { t } = useTranslation();
   // Theme state synced with Header
   const [theme, setTheme] = React.useState('light');
   React.useEffect(() => {

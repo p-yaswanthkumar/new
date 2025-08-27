@@ -24,6 +24,7 @@ import c10 from "../assets/c10.jpg";
 import mission from "../assets/mission.avif";
 import visionImg from "../assets/v.png";
 import missionImg1 from "../assets/m.png";
+import { useTranslation } from "react-i18next";
 
 const logos = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10];
 
@@ -114,6 +115,7 @@ export default function AboutPage() {
       };
     }
   }, []);
+  const { t } = useTranslation();
   return (
     <div className={
       `${theme === 'dark' ? 'min-h-screen bg-black text-white overflow-x-hidden' : 'min-h-screen bg-white text-black overflow-x-hidden'}`
@@ -132,17 +134,16 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4" data-aos="fade-up" data-aos-duration="1000">
           <h1 
-  className="text-4xl md:text-6xl font-bold" 
-  style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
->
-  Building <span style={{ color: '#facc15' }}>Dreams</span>, Shaping Skylines
-</h1>
-<p 
-  className={`mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`}
->
-  We specialize in bringing your vision to life with expert design, precise planning, and flawless execution.  
-  From concept to completion, we deliver projects built to last — with quality, transparency, and on-time delivery at every step.
-</p>
+            className="text-4xl md:text-6xl font-bold" 
+            style={{ color: theme === 'dark' ? '#fff' : '#fff' }}
+          >
+            {t('aboutus.hero.title1', 'Building')} <span style={{ color: '#facc15' }}>{t('aboutus.hero.title2', 'Dreams')}</span>, {t('aboutus.hero.title3', 'Shaping Skylines')}
+          </h1>
+          <p 
+            className={`mt-4 max-w-3xl text-lg md:text-xl ${theme === 'dark' ? 'text-white' : 'text-white'}`}
+          >
+            {t('aboutus.hero.desc', 'We specialize in bringing your vision to life with expert design, precise planning, and flawless execution.  From concept to completion, we deliver projects built to last — with quality, transparency, and on-time delivery at every step.')}
+          </p>
         </div>
       </section>
 
@@ -159,7 +160,7 @@ export default function AboutPage() {
     <section className={`w-full py-16 overflow-hidden ${theme === 'dark' ? 'bg-[#181818]' : 'bg-[#fff]'}`}> 
   <div className="max-w-4xl mx-auto px-4">
     <h2 className="text-4xl font-bold text-center mb-14 text-yellow-400" data-aos="fade-up" data-aos-delay="100">
-      Our Journey Through the Years
+      {t('aboutus.timeline.title', 'Our Journey Through the Years')}
     </h2>
     <div className="relative">
       <div className="absolute left-1/2 top-0 w-1 bg-yellow-400 h-full transform -translate-x-1/2"></div>
@@ -188,10 +189,10 @@ export default function AboutPage() {
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}
                     >
-                      {item.title}
+                      {t(`aboutus.timeline.${item.year}.title`, item.title)}
                     </h3>
                     <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>
-                      {item.description}
+                      {t(`aboutus.timeline.${item.year}.desc`, item.description)}
                     </p>
                   </div>
                 </div>
@@ -220,10 +221,10 @@ export default function AboutPage() {
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}
                     >
-                      {item.title}
+                      {t(`aboutus.timeline.${item.year}.title`, item.title)}
                     </h3>
                     <p className={theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}>
-                      {item.description}
+                      {t(`aboutus.timeline.${item.year}.desc`, item.description)}
                     </p>
                   </div>
                 </div>
@@ -243,11 +244,10 @@ export default function AboutPage() {
     {/* Title and description */}
     <div className="mb-12 text-center lg:text-left" data-aos="fade-up" data-aos-delay="200">
       <h1 className={`text-3xl md:text-4xl font-bold ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-400'}`}>
-        Our Mission and Vision Statement
+        {t('aboutus.missionVision.title', 'Our Mission and Vision Statement')}
       </h1>
       <p className={`mt-2 max-w-4xl mx-auto lg:mx-0 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-        This slide shows the mission and vision statement of a construction company 
-        describing its desired future position, purpose, goals, and expertise.
+        {t('aboutus.missionVision.desc', 'This slide shows the mission and vision statement of a construction company describing its desired future position, purpose, goals, and expertise.')}
       </p>
     </div>
 
@@ -264,11 +264,10 @@ export default function AboutPage() {
           />
         </div>
         <h3 className={`text-xl md:text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-          Vision
+          {t('aboutus.vision.title', 'Vision')}
         </h3>
         <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-          To become a globally recognized construction leader by driving innovation 
-          and delivering projects of unmatched quality and precision.
+          {t('aboutus.vision.desc', 'To become a globally recognized construction leader by driving innovation and delivering projects of unmatched quality and precision.')}
         </p>
       </div>
 
@@ -291,11 +290,10 @@ export default function AboutPage() {
           />
         </div>
         <h3 className={`text-xl md:text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-          Mission
+          {t('aboutus.mission.title', 'Mission')}
         </h3>
         <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-          To deliver cost-effective, sustainable, and customer-centric construction 
-          solutions while maintaining excellence and integrity.
+          {t('aboutus.mission.desc', 'To deliver cost-effective, sustainable, and customer-centric construction solutions while maintaining excellence and integrity.')}
         </p>
       </div>
 
@@ -322,17 +320,14 @@ export default function AboutPage() {
               theme === "dark" ? "text-yellow-400" : "text-yellow-400"
             }`}
           >
-            Our Achievements & Awards
+            {t('aboutus.awards.title', 'Our Achievements & Awards')}
           </h2>
           <p 
             className={`text-lg leading-relaxed text-justify ${
               theme === "dark" ? "text-gray-300" : "text-gray-700"
             }`}
           >
-            Over the years, we’ve been recognized for delivering world-class 
-            construction projects with unmatched quality and precision. Our 
-            awards highlight our commitment to excellence, innovation, and 
-            sustainable engineering practices.
+            {t('aboutus.awards.desc', 'Over the years, we’ve been recognized for delivering world-class construction projects with unmatched quality and precision. Our awards highlight our commitment to excellence, innovation, and sustainable engineering practices.')}
           </p>
           <ul className="space-y-3 list-disc pl-5">
             {achievements.map((item, index) => (
@@ -342,7 +337,7 @@ export default function AboutPage() {
                   theme === "dark" ? "text-gray-300" : "text-gray-700"
                 }`}
               >
-                {item}
+                {t(`aboutus.awards.items.${index}`, item)}
               </li>
             ))}
           </ul>
@@ -363,7 +358,7 @@ export default function AboutPage() {
   <section className={`py-20 ${theme === 'dark' ? 'bg-[#181818]' : 'bg-white'} overflow-hidden`}>
   <div className="max-w-7xl mx-auto px-6">
     <h2 className={`text-3xl md:text-4xl font-bold text-center mb-14 ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-400'}`} data-aos="fade-up" data-aos-delay="400">
-      Meet Our Civil Engineers
+      {t('aboutus.team.title', 'Meet Our Civil Engineers')}
     </h2>
 
     <div className="grid lg:grid-cols-3 gap-10">
@@ -377,7 +372,7 @@ export default function AboutPage() {
           {/* Team Member Image */}
           <img
             src={member.img}
-            alt={member.name}
+            alt={t(`aboutus.team.${index}.name`, member.name)}
             className="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500"
           />
 
@@ -396,12 +391,12 @@ export default function AboutPage() {
 
           {/* Name and Role */}
           <div className={`absolute bottom-0 left-0 right-0 ${theme === 'dark' ? 'bg-black/80' : 'bg-white/90'} text-center py-4`}>
-            <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-yellow-400' : 'text-gray-900'}`}>
-              {member.name}
-            </h3>
-            <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-              {member.role}
-            </p>
+              <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-yellow-400' : 'text-gray-900'}`}>
+                {t(`aboutus.team.${index}.name`, member.name)}
+              </h3>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                {t(`aboutus.team.${index}.role`, member.role)}
+              </p>
           </div>
         </div>
       ))}
@@ -415,22 +410,22 @@ export default function AboutPage() {
       className={`w-full py-12 relative w-full ${theme === "dark" ? "bg-[#000]" : "bg-[#f9f9f9]"} overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <h2
-  className={`text-3xl font-bold text-center ${
-    theme === "dark" ? "text-yellow-400" : "text-gray-800"
-  }`}
-  data-aos="fade-up" data-aos-delay="500"
->
-  Our Trusted Partners
-</h2>
-<p
-  className={`text-lg text-center mt-2 mb-8 ${
-    theme === "dark" ? "text-gray-400" : "text-gray-600"
-  }`}
-  data-aos="fade-up" data-aos-delay="520"
->
-  Collaborating with industry leaders to build a better tomorrow.
-</p>
+  <h2
+    className={`text-3xl font-bold text-center ${
+      theme === "dark" ? "text-yellow-400" : "text-gray-800"
+    }`}
+    data-aos="fade-up" data-aos-delay="500"
+  >
+    {t('aboutus.partners.title', 'Our Trusted Partners')}
+  </h2>
+  <p
+    className={`text-lg text-center mt-2 mb-8 ${
+      theme === "dark" ? "text-gray-400" : "text-gray-600"
+    }`}
+    data-aos="fade-up" data-aos-delay="520"
+  >
+    {t('aboutus.partners.desc', 'Collaborating with industry leaders to build a better tomorrow.')}
+  </p>
 
 
         {/* SCROLLING CONTAINER */}

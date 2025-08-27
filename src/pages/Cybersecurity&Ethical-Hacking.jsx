@@ -1,8 +1,7 @@
-
-
 import React, { useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useTranslation } from 'react-i18next';
 
 import aihero from "../assets/ren.mp4";
 import a1 from "../assets/ren1.png"; // your AI/ML service image
@@ -45,6 +44,7 @@ const steps = [
 
 
 export default function AIServicePage() {
+  const { t } = useTranslation();
   // Theme state synced with Header
   const [theme, setTheme] = useState('light');
   React.useEffect(() => {
