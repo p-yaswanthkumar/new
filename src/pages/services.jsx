@@ -16,6 +16,8 @@ import ex4 from "../assets/ex4.avif";
 import ex5 from "../assets/exm5.webp";
 import cta from "../assets/cta.jpg";
 
+import { useTranslation } from 'react-i18next';
+
 const images = [
     { src: ex1, title: "Luxury Villa", desc: "Modern design with premium finish" },
     { src: ex2, title: "Corporate Office", desc: "Functional and elegant spaces" },
